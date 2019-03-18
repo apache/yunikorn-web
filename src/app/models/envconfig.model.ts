@@ -1,6 +1,6 @@
 export interface EnvConfig {
     protocol?: string;
-    proxyWebAddress?: string;
+    corsproxyWebAddress?: string;
     ushedulerWebAddress: string;
     prometheusWebAddress: string;
 }

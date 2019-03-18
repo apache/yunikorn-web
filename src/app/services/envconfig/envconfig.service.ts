@@ -32,7 +32,7 @@ export class EnvconfigService {
 
     getUschedulerWebAddress() {
         const protocol = this.envConfig.protocol || DEFAULT_PROTOCOL;
-        const proxyWebAddress = this.envConfig.proxyWebAddress;
+        const proxyWebAddress = this.envConfig.corsproxyWebAddress;
         let uschedulerWebAddress = this.envConfig.ushedulerWebAddress;
         const uschedulerHostname = uschedulerWebAddress.split(':')[0];
         const uschedulerPort = uschedulerWebAddress.split(':')[1];
@@ -47,7 +47,7 @@ export class EnvconfigService {
 
     getPrometheusWebAddress() {
         const protocol = this.envConfig.protocol || DEFAULT_PROTOCOL;
-        const proxyWebAddress = this.envConfig.proxyWebAddress;
+        const proxyWebAddress = this.envConfig.corsproxyWebAddress;
         let prometheusWebAddress = this.envConfig.prometheusWebAddress;
         const prometheusHostname = prometheusWebAddress.split(':')[0];
         const prometheusPort = prometheusWebAddress.split(':')[1];

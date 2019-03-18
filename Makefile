@@ -6,8 +6,6 @@ start-dev:
 	yarn start:dev
 start-jsonserver:
 	json-server --watch db.json --routes routes.json --port 9080
-start-corsproxy:
-	CORSPROXY_PORT=1337 corsproxy
 build-webapp:
 	docker build -t yunikorn/scheduler-web:0.1.0 .
 start-webapp:

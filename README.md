@@ -1,4 +1,4 @@
-# Uscheduler UI
+# Yunikorn UI
 
 This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 6.1.3.
 
@@ -26,14 +26,19 @@ Run `ng e2e` to execute the end-to-end tests via [Protractor](http://www.protrac
 
 To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI README](https://github.com/angular/angular-cli/blob/master/README.md).
 
-## Local Development
+## Local development
 
 The app depends on [json-server](https://www.npmjs.com/package/json-server) for data. Install json-server locally. Run `make start-jsonserver` to start json-server for local development.
 
 ## Docker for production
 
-Run `make build-webapp` to build the docker image scheduler-web. Run `make start-webapp` to deploy the container from the scheduler-web image.
+Run `make build-webapp` to build the docker image scheduler-web. Run `make start-webapp` to deploy the container from the docker image scheduler-web.
 
 ## Docker compose for production
 
 Run `make deploy-prod` to build and deploy the scheduler webapp using docker-compose.
+
+## Environment configurations
+
+The configurations for the endpoints of scheduler and prometheus should be provided in the `/assets/config/envconfig.json` file.
+The webaddress can be configured as `"hostname:port"` or `":port"`. If there is no hostname provided, the hostname from the URL at which UI is running will be inferred.
