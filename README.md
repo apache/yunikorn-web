@@ -38,7 +38,7 @@ Run `make build-webapp` to build the docker image scheduler-web. Run `make start
 
 Run `make deploy-prod` to build and deploy the scheduler webapp using docker-compose.
 
-## Environment configurations
+## Endpoint configurations
 
 The configurations for the endpoints of scheduler and prometheus should be provided in the `/assets/config/envconfig.json` file.
-The webaddress can be configured as `"hostname:port"` or `":port"`. If there is no hostname provided, the hostname from the URL at which UI is running will be inferred.
+The webaddress can be configured as `"hostname:port"` or `":port"`. If there is no hostname provided, the hostname will be inferred from the URL at which the UI is running.
