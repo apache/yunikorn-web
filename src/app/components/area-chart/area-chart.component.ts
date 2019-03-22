@@ -1,7 +1,7 @@
 import { Component, OnInit, AfterViewInit, Input, OnChanges, SimpleChanges } from '@angular/core';
 import Chart from 'chart.js';
 
-import { CommonUtils } from '@app/util/common.util';
+import { CommonUtil } from '@app/util/common.util';
 
 import { AreaDataItem } from '@app/models/area-data.model';
 
@@ -20,7 +20,7 @@ export class AreaChartComponent implements OnInit, AfterViewInit, OnChanges {
     constructor() {}
 
     ngOnInit() {
-        this.chartContainerId = CommonUtils.createUniqId('area_chart_');
+        this.chartContainerId = CommonUtil.createUniqId('area_chart_');
     }
 
     ngAfterViewInit() {

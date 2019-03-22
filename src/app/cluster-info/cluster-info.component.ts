@@ -68,7 +68,7 @@ export class ClusterInfoComponent implements OnInit {
         for (let index = 0; index < 24; index++) {
             nowSecs = nowSecs - 3600;
             sampleData.push(
-                new AreaDataItem(Math.round(Math.random() * 100), new Date(nowSecs * 1000))
+                new AreaDataItem(Math.round(Math.random() * 50), new Date(nowSecs * 1000))
             );
         }
         return sampleData;

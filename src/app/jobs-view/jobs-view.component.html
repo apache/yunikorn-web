@@ -1,0 +1,40 @@
+<div class="jobs-view">
+    <mat-table [dataSource]="jobsDataSource" class="mat-elevation-z8">
+        <ng-container [matColumnDef]="columnDef.colId" *ngFor="let columnDef of jobsColumnDef">
+            <mat-header-cell *matHeaderCellDef>{{ columnDef.colName }}</mat-header-cell>
+            <mat-cell *matCellDef="let element"> {{ element[columnDef.colId] }} </mat-cell>
+        </ng-container>
+
+        <ng-container matColumnDef="indicatorIcon">
+            <mat-header-cell *matHeaderCellDef class="indicator-icon"></mat-header-cell>
+            <mat-cell *matCellDef="let element" class="indicator-icon">
+                <span *ngIf="element.hasAllocations">
+                    <i class="fas fa-plus-circle" *ngIf="!element.isSelected"></i>
+                    <i class="fas fa-minus-circle" *ngIf="element.isSelected"></i>
+                </span>
+            </mat-cell>
+        </ng-container>
+
+        <mat-header-row *matHeaderRowDef="jobsColumnIds"></mat-header-row>
+        <mat-row
+            *matRowDef="let row; columns: jobsColumnIds"
+            [class.selected-row]="selectedRow === row"
+            (click)="toggleRowSelection(row)"
+        ></mat-row>
+    </mat-table>
+
+    <div class="job-details" *ngIf="selectedRow">
+        <h3>Job Details</h3>
+        <mat-divider></mat-divider>
+
+        <mat-table [dataSource]="allocDataSource" class="mat-elevation-z8">
+            <ng-container [matColumnDef]="columnDef.colId" *ngFor="let columnDef of allocColumnDef">
+                <mat-header-cell *matHeaderCellDef>{{ columnDef.colName }}</mat-header-cell>
+                <mat-cell *matCellDef="let element"> {{ element[columnDef.colId] }} </mat-cell>
+            </ng-container>
+
+            <mat-header-row *matHeaderRowDef="allocColumnIds"></mat-header-row>
+            <mat-row *matRowDef="let row; columns: allocColumnIds"></mat-row>
+        </mat-table>
+    </div>
+</div>

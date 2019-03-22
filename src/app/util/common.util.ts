@@ -1,4 +1,4 @@
-export class CommonUtils {
+export class CommonUtil {
     static createUniqId(prefix?: string) {
         const uniqid = Math.random()
             .toString(36)

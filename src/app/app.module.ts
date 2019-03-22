@@ -12,7 +12,8 @@ import {
     MatDividerModule,
     MatListModule,
     MatProgressBarModule,
-    MatSidenavModule
+    MatSidenavModule,
+    MatTableModule
 } from '@angular/material';
 
 import { AppComponent } from './app.component';
@@ -28,6 +29,7 @@ import { ContainerStatusComponent } from './components/container-status/containe
 import { ContainerHistoryComponent } from './components/container-history/container-history.component';
 import { QueueRackComponent } from './components/queue-rack/queue-rack.component';
 import { envConfigFactory, EnvconfigService } from './services/envconfig/envconfig.service';
+import { JobsViewComponent } from './jobs-view/jobs-view.component';
 
 const appRoutes: Routes = [
     {
@@ -44,6 +46,11 @@ const appRoutes: Routes = [
                 path: 'info',
                 component: ClusterInfoComponent,
                 data: { breadcrumb: 'Info' }
+            },
+            {
+                path: 'jobs',
+                component: JobsViewComponent,
+                data: { breadcrumb: 'Jobs' }
             },
             {
                 path: 'queues',
@@ -77,7 +84,8 @@ const appRoutes: Routes = [
         JobHistoryComponent,
         ContainerStatusComponent,
         ContainerHistoryComponent,
-        QueueRackComponent
+        QueueRackComponent,
+        JobsViewComponent
     ],
     imports: [
         BrowserModule,
@@ -91,6 +99,7 @@ const appRoutes: Routes = [
         MatListModule,
         MatProgressBarModule,
         MatSidenavModule,
+        MatTableModule,
         RouterModule.forRoot(appRoutes)
     ],
     providers: [

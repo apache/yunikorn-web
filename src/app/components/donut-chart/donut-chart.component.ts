@@ -1,7 +1,7 @@
 import { Component, OnInit, AfterViewInit, Input, OnChanges, SimpleChanges } from '@angular/core';
 import Chart from 'chart.js';
 
-import { CommonUtils } from '@app/util/common.util';
+import { CommonUtil } from '@app/util/common.util';
 import { DonutDataItem } from '@app/models/donut-data.model';
 
 @Component({
@@ -19,7 +19,7 @@ export class DonutChartComponent implements OnInit, AfterViewInit, OnChanges {
     constructor() {}
 
     ngOnInit() {
-        this.chartContainerId = CommonUtils.createUniqId('donut_chart_');
+        this.chartContainerId = CommonUtil.createUniqId('donut_chart_');
     }
 
     ngAfterViewInit() {

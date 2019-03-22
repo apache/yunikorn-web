@@ -7,18 +7,16 @@ import { SchedulerInfo, QueueInfo } from '@app/models/queue-info.model';
 import { EnvconfigService } from '../envconfig/envconfig.service';
 import { ClusterInfo } from '@app/models/cluster-info.model';
 import { DEFAULT_PARTITION_VALUE } from '@app/util/constants';
-import { CommonUtils } from '@app/util/common.util';
+import { CommonUtil } from '@app/util/common.util';
+import { ResourceInfo } from '@app/models/resource-info.model';
+import { JobInfo, JobAllocation } from '@app/models/job-info.model';
 
 const SCHEDULER_JSON_URL = './assets/data/scheduler.json';
 const QUEUES_JSON_URL = './assets/data/queues.json';
 const CLUSTERS_JSON_URL = './assets/data/clusters.json';
+const JOBS_JSON_URL = './assets/data/jobs.json';
 
-interface ResourceInfo {
-    memory: string;
-    vcore: string;
-}
-
-// default: false
+// defaultValue: false
 const isDevMode = false;
 
 @Injectable({
@@ -65,6 +63,51 @@ export class SchedulerService {
         );
     }
 
+    public fetchJobList(): Observable<JobInfo[]> {
+        const jobsUrl = isDevMode
+            ? JOBS_JSON_URL
+            : `${this.envConfig.getUschedulerWebAddress()}/ws/v1/jobs`;
+        return this.httpClient.get(jobsUrl).pipe(
+            map((data: any) => {
+                const result = [];
+                if (data && data.length > 0) {
+                    data.forEach(job => {
+                        const jobInfo = new JobInfo(
+                            job['jobID'],
+                            job['UsedResource'],
+                            job['Partition'],
+                            job['QueueName'],
+                            job['SubmissionTime'],
+                            null
+                        );
+                        const allocations = job['Allocations'];
+                        if (allocations && allocations.length > 0) {
+                            const jobAllocations = [];
+                            allocations.forEach(alloc => {
+                                jobAllocations.push(
+                                    new JobAllocation(
+                                        alloc['allocationKey'],
+                                        alloc['allocationTags'],
+                                        alloc['uuid'],
+                                        alloc['resource'],
+                                        alloc['Priority'],
+                                        alloc['QueueName'],
+                                        alloc['NodeId'],
+                                        alloc['JobId'],
+                                        alloc['Partition']
+                                    )
+                                );
+                            });
+                            jobInfo.setAllocations(jobAllocations);
+                        }
+                        result.push(jobInfo);
+                    });
+                }
+                return result;
+            })
+        );
+    }
+
     private generateQueuesTree(data: any, currentQueue: QueueInfo) {
         if (data && data.queues && data.queues.length > 0) {
             const chilrenQs = [];
@@ -106,7 +149,10 @@ export class SchedulerService {
     }
 
     private splitCapacity(capacity: string): ResourceInfo {
-        const splitted = capacity.replace(/[\[\]]/g, '').split(' ');
+        const splitted = capacity
+            .replace('map', '')
+            .replace(/[\[\]]/g, '')
+            .split(' ');
         const resources: ResourceInfo = {
             memory: '0',
             vcore: '0'
@@ -126,7 +172,7 @@ export class SchedulerService {
 
     private formatCapacity(resourceInfo: ResourceInfo) {
         const formatted = [];
-        formatted.push(`memory: ${CommonUtils.formatMemory(+resourceInfo.memory)}`);
+        formatted.push(`memory: ${CommonUtil.formatMemory(+resourceInfo.memory)}`);
         formatted.push(`vcore: ${resourceInfo.vcore}`);
         return formatted.join(', ');
     }

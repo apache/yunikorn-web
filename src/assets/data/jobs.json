@@ -1,0 +1,75 @@
+[
+    {
+        "jobID": "job_2019_01_22_00001",
+        "UsedResource": "[vcore:300 memory:1500]",
+        "Partition": "[my-kube-cluster]default",
+        "QueueName": "sandbox",
+        "SubmissionTime": 1553098290638636898,
+        "Allocations": [
+            {
+                "allocationKey": "d23a73cf-4b2a-11e9-ba7f-025000000001",
+                "allocationTags": null,
+                "uuid": "a8f4d6db-8a82-4ad6-9c25-65c67de47076",
+                "resource": "[memory:500 vcore:100]",
+                "Priority": "<nil>",
+                "QueueName": "sandbox",
+                "NodeId": "docker-for-desktop",
+                "JobId": "job_2019_01_22_00001",
+                "Partition": "default"
+            },
+            {
+                "allocationKey": "d23b36d9-4b2a-11e9-ba7f-025000000001",
+                "allocationTags": null,
+                "uuid": "ef8cb6fb-ca84-4eac-b141-0667691bbd63",
+                "resource": "[memory:500 vcore:100]",
+                "Priority": "<nil>",
+                "QueueName": "sandbox",
+                "NodeId": "docker-for-desktop",
+                "JobId": "job_2019_01_22_00001",
+                "Partition": "default"
+            },
+            {
+                "allocationKey": "d2394e06-4b2a-11e9-ba7f-025000000001",
+                "allocationTags": null,
+                "uuid": "2817b7fc-04a4-455b-adec-7c3b52d08d6d",
+                "resource": "[memory:500 vcore:100]",
+                "Priority": "<nil>",
+                "QueueName": "sandbox",
+                "NodeId": "docker-for-desktop",
+                "JobId": "job_2019_01_22_00001",
+                "Partition": "default"
+            }
+        ]
+    },
+    {
+        "jobID": "spark-00004",
+        "UsedResource": "[vcore:2000 memory:2954]",
+        "Partition": "[my-kube-cluster]default",
+        "QueueName": "sandbox",
+        "SubmissionTime": 1553098416026316645,
+        "Allocations": [
+            {
+                "allocationKey": "1d2325d9-4b2b-11e9-ba7f-025000000001",
+                "allocationTags": null,
+                "uuid": "becfc7c3-632d-4894-a589-c40c8054a38e",
+                "resource": "[memory:1477 vcore:1000]",
+                "Priority": "<nil>",
+                "QueueName": "sandbox",
+                "NodeId": "docker-for-desktop",
+                "JobId": "spark-00004",
+                "Partition": "default"
+            },
+            {
+                "allocationKey": "226b81f5-4b2b-11e9-ba7f-025000000001",
+                "allocationTags": null,
+                "uuid": "4f66216e-6d66-4c23-bb50-38bae226f38c",
+                "resource": "[memory:1477 vcore:1000]",
+                "Priority": "<nil>",
+                "QueueName": "sandbox",
+                "NodeId": "docker-for-desktop",
+                "JobId": "spark-00004",
+                "Partition": "default"
+            }
+        ]
+    }
+]
