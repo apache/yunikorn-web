@@ -86,5 +86,11 @@ export class JobsViewComponent implements OnInit {
         }
     }
 
-    isJobsDataSourceEmpty = (i: number, row: JobInfo) => !this.jobsDataSource.length;
+    isJobsDataSourceEmpty() {
+        return this.jobsDataSource && this.jobsDataSource.length > 0;
+    }
+
+    isAllocDataSourceEmpty() {
+        return this.allocDataSource && this.allocDataSource.length > 0;
+    }
 }

@@ -8,19 +8,31 @@
         <ng-container matColumnDef="indicatorIcon">
             <mat-header-cell *matHeaderCellDef class="indicator-icon"></mat-header-cell>
             <mat-cell *matCellDef="let element" class="indicator-icon">
-                <span *ngIf="element.hasAllocations">
+                <span>
                     <i class="fas fa-plus-circle" *ngIf="!element.isSelected"></i>
                     <i class="fas fa-minus-circle" *ngIf="element.isSelected"></i>
                 </span>
             </mat-cell>
         </ng-container>
 
+        <ng-container matColumnDef="noRecord">
+            <mat-footer-cell *matFooterCellDef>
+                <div class="no-record">No records found</div>
+            </mat-footer-cell>
+        </ng-container>
+
         <mat-header-row *matHeaderRowDef="jobsColumnIds"></mat-header-row>
+
         <mat-row
             *matRowDef="let row; columns: jobsColumnIds"
             [class.selected-row]="selectedRow === row"
             (click)="toggleRowSelection(row)"
         ></mat-row>
+
+        <mat-footer-row
+            *matFooterRowDef="['noRecord']"
+            [ngStyle]="{ display: isJobsDataSourceEmpty() ? 'none' : '' }"
+        ></mat-footer-row>
     </mat-table>
 
     <div class="job-details" *ngIf="selectedRow">
@@ -33,8 +45,20 @@
                 <mat-cell *matCellDef="let element"> {{ element[columnDef.colId] }} </mat-cell>
             </ng-container>
 
+            <ng-container matColumnDef="noRecord">
+                <mat-footer-cell *matFooterCellDef>
+                    <div class="no-record">No records found</div>
+                </mat-footer-cell>
+            </ng-container>
+
             <mat-header-row *matHeaderRowDef="allocColumnIds"></mat-header-row>
+
             <mat-row *matRowDef="let row; columns: allocColumnIds"></mat-row>
+
+            <mat-footer-row
+                *matFooterRowDef="['noRecord']"
+                [ngStyle]="{ display: isAllocDataSourceEmpty() ? 'none' : '' }"
+            ></mat-footer-row>
         </mat-table>
     </div>
 </div>

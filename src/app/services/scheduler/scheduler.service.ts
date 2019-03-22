@@ -66,7 +66,7 @@ export class SchedulerService {
     public fetchJobList(): Observable<JobInfo[]> {
         const jobsUrl = isDevMode
             ? JOBS_JSON_URL
-            : `${this.envConfig.getUschedulerWebAddress()}/ws/v1/jobs`;
+            : `${this.envConfig.getUschedulerWebAddress()}/ws/v1/apps`;
         return this.httpClient.get(jobsUrl).pipe(
             map((data: any) => {
                 const result = [];

@@ -71,7 +71,7 @@
             }
         ]
     },
-    "jobs": [
+    "apps": [
         {
             "jobID": "job_2019_01_22_00001",
             "UsedResource": "[vcore:300 memory:1500]",
@@ -144,6 +144,14 @@
                     "Partition": "default"
                 }
             ]
+        },
+        {
+            "jobID": "spark-00005",
+            "UsedResource": "[vcore:2000 memory:2954]",
+            "Partition": "[my-kube-cluster]default",
+            "QueueName": "sandbox",
+            "SubmissionTime": 1553098517026316645,
+            "Allocations": []
         }
     ]
 }
