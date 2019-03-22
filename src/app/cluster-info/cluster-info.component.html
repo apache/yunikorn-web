@@ -4,7 +4,7 @@
             <app-job-status [chartData]="jobStatusData"></app-job-status>
         </div>
         <div class="right-col flex-primary">
-            <app-job-history></app-job-history>
+            <app-job-history [chartData]="jobHistoryData"></app-job-history>
         </div>
     </div>
     <div class="flex-grid grid-row">
@@ -12,7 +12,7 @@
             <app-container-status [chartData]="containerStatusData"></app-container-status>
         </div>
         <div class="right-col flex-primary">
-            <app-container-history></app-container-history>
+            <app-container-history [chartData]="containerHistoryData"></app-container-history>
         </div>
     </div>
 </div>

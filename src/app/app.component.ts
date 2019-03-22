@@ -37,7 +37,6 @@ export class AppComponent implements OnInit {
                             this.breadcrumbs.push({
                                 label: route.snapshot.data.breadcrumb.includes(':')
                                     ? this.getResourceName(
-                                          url,
                                           route.snapshot.data.breadcrumb,
                                           routeSnapshot.params,
                                           route.snapshot.data.breadcrumb.split(':')[1]
@@ -59,7 +58,7 @@ export class AppComponent implements OnInit {
         } while (currentRoute);
     }
 
-    getResourceName(url: string, label: string, params: Object, routeParam: string) {
+    getResourceName(label: string, params: Object, routeParam: string) {
         return label.replace(`:${routeParam}`, params[routeParam]);
     }
 

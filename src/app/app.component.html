@@ -14,13 +14,6 @@
                 <span>Dashboard</span>
             </a>
         </li>
-        <!-- <li class="">
-            <a [routerLink]="['/']">
-                <i class="fa fa-caret-right"></i>
-                <i class="fa fa-cogs"></i>
-                <span>Settings</span>
-            </a>
-        </li> -->
     </ul>
     <div class="expander" (click)="toggleNavigation()">
         <i class="fa fa-angle-double-left"></i>
@@ -34,9 +27,7 @@
                 <div class="flex-primary">
                     <ul class="breadcrumb">
                         <li *ngFor="let crumb of breadcrumbs">
-                            <a href="#" [routerLink]="[crumb.url]">
-                                {{ crumb.label }}
-                            </a>
+                            <a href="#" [routerLink]="[crumb.url]">{{ crumb.label }}</a>
                         </li>
                     </ul>
                 </div>

@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input } from '@angular/core';
 
 import { AreaDataItem } from '@app/models/area-data.model';
 
@@ -8,19 +8,10 @@ import { AreaDataItem } from '@app/models/area-data.model';
     styleUrls: ['./container-history.component.scss']
 })
 export class ContainerHistoryComponent implements OnInit {
-    chartData: AreaDataItem[] = [];
+    @Input()
+    chartData: AreaDataItem[];
 
     constructor() {}
 
-    ngOnInit() {
-        const sampleData: AreaDataItem[] = [];
-        let nowSecs = Math.round(Date.now() / 1000);
-        for (let index = 0; index < 24; index++) {
-            nowSecs = nowSecs - 3600;
-            sampleData.push(
-                new AreaDataItem(Math.round(Math.random() * 100), new Date(nowSecs * 1000))
-            );
-        }
-        this.chartData = sampleData;
-    }
+    ngOnInit() {}
 }

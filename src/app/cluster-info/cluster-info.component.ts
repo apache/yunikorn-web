@@ -6,6 +6,7 @@ import { finalize } from 'rxjs/operators';
 import { SchedulerService } from '@app/services/scheduler/scheduler.service';
 import { ClusterInfo } from '@app/models/cluster-info.model';
 import { DonutDataItem } from '@app/models/donut-data.model';
+import { AreaDataItem } from '@app/models/area-data.model';
 
 @Component({
     selector: 'app-cluster-info',
@@ -16,6 +17,8 @@ export class ClusterInfoComponent implements OnInit {
     clusterInfo: ClusterInfo = null;
     jobStatusData: DonutDataItem[] = [];
     containerStatusData: DonutDataItem[] = [];
+    jobHistoryData: AreaDataItem[] = [];
+    containerHistoryData: AreaDataItem[] = [];
 
     constructor(
         private scheduler: SchedulerService,
@@ -37,6 +40,9 @@ export class ClusterInfoComponent implements OnInit {
                 this.updateJobStatusData(data);
                 this.updateContainerStatusData(data);
             });
+
+        this.jobHistoryData = this.generateHistoryData();
+        this.containerHistoryData = this.generateHistoryData();
     }
 
     updateJobStatusData(info: ClusterInfo) {
@@ -54,5 +60,17 @@ export class ClusterInfoComponent implements OnInit {
             new DonutDataItem('Pending', +info.pendingContainers, '#facc54'),
             new DonutDataItem('Running', +info.runningContainers, '#26bbf0')
         ];
+    }
+
+    generateHistoryData() {
+        const sampleData: AreaDataItem[] = [];
+        let nowSecs = Math.round(Date.now() / 1000);
+        for (let index = 0; index < 24; index++) {
+            nowSecs = nowSecs - 3600;
+            sampleData.push(
+                new AreaDataItem(Math.round(Math.random() * 100), new Date(nowSecs * 1000))
+            );
+        }
+        return sampleData;
     }
 }

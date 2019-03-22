@@ -103,10 +103,6 @@
     margin-top: 5px;
 }
 
-// .logo a div:first-of-type {
-//   font-size: 18px;
-// }
-
 .text-md {
     font-size: 16px;
 }
@@ -380,7 +376,7 @@ ul.breadcrumb {
 }
 
 ul.breadcrumb > li {
-    margin-right: 10px;
+    margin-right: 5px;
     margin-top: 18px;
     margin-bottom: 20px;
     color: #373b44;
@@ -393,7 +389,7 @@ ul.breadcrumb a {
 
 ul.breadcrumb a:after {
     content: "/";
-    margin-left: 10px;
+    margin-left: 5px;
     display: inline-block;
     text-decoration: none;
     // color: #d1d2d4;
