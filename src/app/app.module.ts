@@ -35,12 +35,12 @@ const appRoutes: Routes = [
     {
         path: 'dashboard',
         component: DashboardComponent,
-        data: { breadcrumb: 'Dashboard / Clusters' }
+        data: { breadcrumb: 'Dashboard' }
     },
     {
         path: 'clusters/:clusterName',
         component: ClusterContainerComponent,
-        data: { breadcrumb: 'Clusters / :clusterName', prependRoot: true },
+        data: { breadcrumb: ':clusterName', prependRoot: true },
         children: [
             {
                 path: 'info',

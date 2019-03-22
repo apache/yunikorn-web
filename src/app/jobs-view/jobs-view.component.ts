@@ -41,12 +41,13 @@ export class JobsViewComponent implements OnInit {
         this.jobsColumnIds = this.jobsColumnDef.map(col => col.colId).concat('indicatorIcon');
 
         this.allocColumnDef = [
+            { colId: 'allocationKey', colName: 'Allocation Key' },
             { colId: 'resource', colName: 'Resource' },
             { colId: 'queueName', colName: 'QueueName' },
             { colId: 'priority', colName: 'Priority' },
             { colId: 'partition', colName: 'Partition' },
-            { colId: 'nodeId', colName: 'NodeId' },
-            { colId: 'jobId', colName: 'Job Id' }
+            { colId: 'nodeId', colName: 'Node ID' },
+            { colId: 'jobId', colName: 'Job ID' }
         ];
 
         this.allocColumnIds = this.allocColumnDef.map(col => col.colId);
@@ -84,4 +85,6 @@ export class JobsViewComponent implements OnInit {
             this.allocDataSource = row.allocations;
         }
     }
+
+    isJobsDataSourceEmpty = (i: number, row: JobInfo) => !this.jobsDataSource.length;
 }
