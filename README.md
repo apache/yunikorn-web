@@ -29,14 +29,13 @@ To get more help on the Angular CLI use `ng help` or go check out the [Angular C
 ## Local development
 
 The app depends on [json-server](https://www.npmjs.com/package/json-server) for data. Install json-server locally. Run `make start-jsonserver` to start json-server for local development.
+Run `ng serve` to start angular dev server and navigate to `http://localhost:4200/`.
 
 ## Docker for production
 
 Run `make build-webapp` to build the docker image scheduler-web. Run `make start-webapp` to deploy the container from the docker image scheduler-web.
-
-## Docker compose for production
-
 Run `make deploy-prod` to build and deploy the scheduler webapp using docker-compose.
+The project uses [multi-stage build](https://docs.docker.com/develop/develop-images/multistage-build/) feature of the docker and requires `Docker 17.05 or higher`.
 
 ## Endpoint configurations
 
