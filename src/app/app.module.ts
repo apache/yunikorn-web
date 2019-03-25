@@ -4,7 +4,6 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { RouterModule, Routes } from '@angular/router';
 import { HttpClientModule } from '@angular/common/http';
 import { NgxSpinnerModule } from 'ngx-spinner';
-
 import {
     MatCardModule,
     MatTabsModule,
@@ -16,11 +15,12 @@ import {
     MatTableModule
 } from '@angular/material';
 
+import { envConfigFactory, EnvconfigService } from './services/envconfig/envconfig.service';
 import { AppComponent } from './app.component';
-import { DashboardComponent } from './dashboard/dashboard.component';
-import { ClusterInfoComponent } from './cluster-info/cluster-info.component';
-import { QueuesViewComponent } from './queues-view/queues-view.component';
-import { ClusterContainerComponent } from './cluster-container/cluster-container.component';
+import { DashboardComponent } from './components/dashboard/dashboard.component';
+import { ClusterInfoComponent } from './components/cluster-info/cluster-info.component';
+import { QueuesViewComponent } from './components/queues-view/queues-view.component';
+import { ClusterContainerComponent } from './components/cluster-container/cluster-container.component';
 import { DonutChartComponent } from './components/donut-chart/donut-chart.component';
 import { AreaChartComponent } from './components/area-chart/area-chart.component';
 import { JobStatusComponent } from './components/job-status/job-status.component';
@@ -28,8 +28,7 @@ import { JobHistoryComponent } from './components/job-history/job-history.compon
 import { ContainerStatusComponent } from './components/container-status/container-status.component';
 import { ContainerHistoryComponent } from './components/container-history/container-history.component';
 import { QueueRackComponent } from './components/queue-rack/queue-rack.component';
-import { envConfigFactory, EnvconfigService } from './services/envconfig/envconfig.service';
-import { JobsViewComponent } from './jobs-view/jobs-view.component';
+import { JobsViewComponent } from './components/jobs-view/jobs-view.component';
 
 const appRoutes: Routes = [
     {
