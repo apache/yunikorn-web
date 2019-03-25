@@ -74,13 +74,13 @@ export class SchedulerService {
                     data.forEach(job => {
                         const jobInfo = new JobInfo(
                             job['jobID'],
-                            this.formatCapacity(this.splitCapacity(job['UsedResource'])),
-                            job['Partition'],
-                            job['QueueName'],
-                            job['SubmissionTime'],
+                            this.formatCapacity(this.splitCapacity(job['usedResource'])),
+                            job['partition'],
+                            job['queueName'],
+                            job['submissionTime'],
                             null
                         );
-                        const allocations = job['Allocations'];
+                        const allocations = job['allocations'];
                         if (allocations && allocations.length > 0) {
                             const jobAllocations = [];
                             allocations.forEach(alloc => {
@@ -90,11 +90,11 @@ export class SchedulerService {
                                         alloc['allocationTags'],
                                         alloc['uuid'],
                                         this.formatCapacity(this.splitCapacity(alloc['resource'])),
-                                        alloc['Priority'],
-                                        alloc['QueueName'],
-                                        alloc['NodeId'],
-                                        alloc['JobId'],
-                                        alloc['Partition']
+                                        alloc['priority'],
+                                        alloc['queueName'],
+                                        alloc['nodeId'],
+                                        alloc['jobId'],
+                                        alloc['partition']
                                     )
                                 );
                             });
