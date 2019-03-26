@@ -40,7 +40,7 @@ export class QueuesViewComponent implements OnInit {
         this.queueLevels.forEach(level => {
             this.queueList[level] = null;
         });
-        this.partitionList = [new PartitionInfo('Default', '')];
+        this.partitionList = [];
         this.spinner.show();
         this.scheduler
             .fetchSchedulerQueues()
@@ -53,6 +53,14 @@ export class QueuesViewComponent implements OnInit {
                 if (data && data.rootQueue) {
                     this.rootQueue = data.rootQueue;
                     this.queueList['level_00'] = [this.rootQueue];
+                }
+                if (data && data.partitionName) {
+                    this.partitionList.push(
+                        new PartitionInfo(data.partitionName, data.partitionName)
+                    );
+                    this.partitionSelected = data.partitionName;
+                } else {
+                    this.partitionList.push(new PartitionInfo('default', ''));
                 }
             });
     }
