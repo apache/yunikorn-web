@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 
 import { EnvConfig } from '@app/models/envconfig.model';
-import { DEFAULT_PROTOCOL } from '@app/util/constants';
+import { DEFAULT_PROTOCOL } from '@app/utils/constants';
 
 const ENV_CONFIG_JSON_URL = './assets/config/envconfig.json';
 

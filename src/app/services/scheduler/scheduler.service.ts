@@ -6,8 +6,8 @@ import { map } from 'rxjs/operators';
 import { SchedulerInfo, QueueInfo } from '@app/models/queue-info.model';
 import { EnvconfigService } from '../envconfig/envconfig.service';
 import { ClusterInfo } from '@app/models/cluster-info.model';
-import { DEFAULT_PARTITION_VALUE } from '@app/util/constants';
-import { CommonUtil } from '@app/util/common.util';
+import { DEFAULT_PARTITION_VALUE } from '@app/utils/constants';
+import { CommonUtil } from '@app/utils/common.util';
 import { ResourceInfo } from '@app/models/resource-info.model';
 import { JobInfo, JobAllocation } from '@app/models/job-info.model';
 

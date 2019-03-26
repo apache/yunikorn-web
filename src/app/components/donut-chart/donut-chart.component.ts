@@ -1,7 +1,7 @@
 import { Component, OnInit, AfterViewInit, Input, OnChanges, SimpleChanges } from '@angular/core';
 import Chart from 'chart.js';
 
-import { CommonUtil } from '@app/util/common.util';
+import { CommonUtil } from '@app/utils/common.util';
 import { DonutDataItem } from '@app/models/donut-data.model';
 
 @Component({
