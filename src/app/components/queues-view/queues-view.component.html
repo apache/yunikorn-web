@@ -11,46 +11,11 @@
 <mat-divider></mat-divider>
 <div class="queues-view">
     <div class="flex-grid">
-        <div class="flex-primary queue-level" *ngIf="queueList['level_00']">
+        <div class="flex-primary queue-level" *ngFor="let obj of queueLevels">
             <app-queue-rack
-                [queueList]="queueList['level_00']"
-                nextLevel="level_01"
-                (toggleChildren)="toggleQueueChildrenView($event)"
-                (queueSelected)="onQueueItemSelected($event)"
-            ></app-queue-rack>
-        </div>
-
-        <div class="flex-primary queue-level" *ngIf="queueList['level_01']">
-            <app-queue-rack
-                [queueList]="queueList['level_01']"
-                nextLevel="level_02"
-                (toggleChildren)="toggleQueueChildrenView($event)"
-                (queueSelected)="onQueueItemSelected($event)"
-            ></app-queue-rack>
-        </div>
-
-        <div class="flex-primary queue-level" *ngIf="queueList['level_02']">
-            <app-queue-rack
-                [queueList]="queueList['level_02']"
-                nextLevel="level_03"
-                (toggleChildren)="toggleQueueChildrenView($event)"
-                (queueSelected)="onQueueItemSelected($event)"
-            ></app-queue-rack>
-        </div>
-
-        <div class="flex-primary queue-level" *ngIf="queueList['level_03']">
-            <app-queue-rack
-                [queueList]="queueList['level_03']"
-                nextLevel="level_04"
-                (toggleChildren)="toggleQueueChildrenView($event)"
-                (queueSelected)="onQueueItemSelected($event)"
-            ></app-queue-rack>
-        </div>
-
-        <div class="flex-primary queue-level" *ngIf="queueList['level_04']">
-            <app-queue-rack
-                [queueList]="queueList['level_04']"
-                nextLevel="level_05"
+                *ngIf="queueList[obj.level]"
+                [queueList]="queueList[obj.level]"
+                [nextLevel]="obj.next"
                 (toggleChildren)="toggleQueueChildrenView($event)"
                 (queueSelected)="onQueueItemSelected($event)"
             ></app-queue-rack>

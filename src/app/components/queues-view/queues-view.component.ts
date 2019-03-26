@@ -25,20 +25,19 @@ export class QueuesViewComponent implements OnInit {
     rootQueue: QueueInfo = null;
     selectedQueue: QueueInfo = null;
     queueList: QueueList = {};
-    queueLevels: string[] = [
-        'level_00',
-        'level_01',
-        'level_02',
-        'level_03',
-        'level_04',
-        'level_05'
+    queueLevels: Object[] = [
+        { level: 'level_00', next: 'level_01' },
+        { level: 'level_01', next: 'level_02' },
+        { level: 'level_02', next: 'level_03' },
+        { level: 'level_03', next: 'level_04' },
+        { level: 'level_04', next: 'level_05' }
     ];
 
     constructor(private scheduler: SchedulerService, private spinner: NgxSpinnerService) {}
 
     ngOnInit() {
-        this.queueLevels.forEach(level => {
-            this.queueList[level] = null;
+        this.queueLevels.forEach(obj => {
+            this.queueList[obj['level']] = null;
         });
         this.partitionList = [];
         this.spinner.show();
