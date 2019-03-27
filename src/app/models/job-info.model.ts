@@ -3,7 +3,7 @@ import * as moment from 'moment';
 export class JobInfo {
     isSelected = false;
     constructor(
-        public jobId: string,
+        public applicationId: string,
         public usedResource: string,
         public partition: string,
         public queueName: string,
@@ -34,7 +34,7 @@ export class JobAllocation {
         public priority: string,
         public queueName: string,
         public nodeId: string,
-        public jobId: string,
+        public applicationId: string,
         public partition: string
     ) {}
 }

@@ -24,7 +24,7 @@ export class SchedulerService {
     public fetchClusterByName(clusterName: string): Observable<ClusterInfo> {
         return this.fetchClusterList().pipe(
             map(data => {
-                return data.find(obj => obj.clustername === clusterName);
+                return data.find(obj => obj.clusterName === clusterName);
             })
         );
     }
@@ -60,7 +60,7 @@ export class SchedulerService {
                 if (data && data.length > 0) {
                     data.forEach(job => {
                         const jobInfo = new JobInfo(
-                            job['jobID'],
+                            job['applicationID'],
                             this.formatCapacity(this.splitCapacity(job['usedResource'])),
                             job['partition'],
                             job['queueName'],
@@ -80,7 +80,7 @@ export class SchedulerService {
                                         alloc['priority'],
                                         alloc['queueName'],
                                         alloc['nodeId'],
-                                        alloc['jobId'],
+                                        alloc['applicationId'],
                                         alloc['partition']
                                     )
                                 );

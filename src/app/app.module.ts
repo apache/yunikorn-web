@@ -47,9 +47,9 @@ const appRoutes: Routes = [
                 data: { breadcrumb: 'Info' }
             },
             {
-                path: 'jobs',
+                path: 'apps',
                 component: JobsViewComponent,
-                data: { breadcrumb: 'Jobs' }
+                data: { breadcrumb: 'Applications' }
             },
             {
                 path: 'queues',

@@ -1,19 +1,19 @@
 {
     "clusters": [
         {
-            "activeNodes": "2",
-            "clustername": "k8s",
-            "completedJobs": "10",
-            "failedContainers": "10",
-            "failedJobs": "10",
-            "failedNodes": "0",
-            "pendingContainers": "10",
-            "pendingJobs": "10",
-            "runningContainers": "10",
-            "runningJobs": "10",
-            "totalContainers": "10",
-            "totalJobs": "10",
-            "totalNodes": "2"
+            "clusterName": "kubernetes",
+            "totalApplications": "1",
+            "failedApplications": "",
+            "pendingApplications": "",
+            "runningApplications": "1",
+            "completedApplications": "",
+            "totalContainers": "2",
+            "failedContainers": "",
+            "pendingContainers": "",
+            "runningContainers": "2",
+            "activeNodes": "1",
+            "totalNodes": "1",
+            "failedNodes": ""
         }
     ],
     "queues": {
@@ -73,7 +73,7 @@
     },
     "apps": [
         {
-            "jobID": "spark-00001",
+            "applicationID": "spark-00001",
             "usedResource": "[vcore:2000 memory:2954]",
             "partition": "[my-kube-cluster]default",
             "queueName": "root.advertisement",
@@ -87,7 +87,7 @@
                     "priority": "\u003cnil\u003e",
                     "queueName": "root.advertisement",
                     "nodeId": "docker-for-desktop",
-                    "jobId": "spark-00001",
+                    "applicationId": "spark-00001",
                     "partition": "default"
                 },
                 {
@@ -98,13 +98,13 @@
                     "priority": "\u003cnil\u003e",
                     "queueName": "root.advertisement",
                     "nodeId": "docker-for-desktop",
-                    "jobId": "spark-00001",
+                    "applicationId": "spark-00001",
                     "partition": "default"
                 }
             ]
         },
         {
-            "jobID": "spark-00002",
+            "applicationID": "spark-00002",
             "usedResource": "[vcore:1000 memory:2600]",
             "partition": "[my-kube-cluster]default",
             "queueName": "root.marketing",
@@ -118,7 +118,7 @@
                     "priority": "\u003cnil\u003e",
                     "queueName": "root.marketing",
                     "nodeId": "docker-for-desktop",
-                    "jobId": "spark-00002",
+                    "applicationId": "spark-00002",
                     "partition": "default"
                 },
                 {
@@ -129,7 +129,7 @@
                     "priority": "\u003cnil\u003e",
                     "queueName": "root.marketing",
                     "nodeId": "docker-for-desktop",
-                    "jobId": "spark-00002",
+                    "applicationId": "spark-00002",
                     "partition": "default"
                 }
             ]

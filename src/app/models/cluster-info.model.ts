@@ -1,13 +1,13 @@
 export interface ClusterInfo {
-    clustername: string;
+    clusterName: string;
     activeNodes: string;
     failedNodes: string;
     totalNodes: string;
-    completedJobs: string;
-    failedJobs: string;
-    pendingJobs: string;
-    runningJobs: string;
-    totalJobs: string;
+    completedApplications: string;
+    failedApplications: string;
+    pendingApplications: string;
+    runningApplications: string;
+    totalApplications: string;
     failedContainers: string;
     pendingContainers: string;
     runningContainers: string;

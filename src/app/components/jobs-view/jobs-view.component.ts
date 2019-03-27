@@ -31,7 +31,7 @@ export class JobsViewComponent implements OnInit {
 
     ngOnInit() {
         this.jobsColumnDef = [
-            { colId: 'jobId', colName: 'Job ID' },
+            { colId: 'applicationId', colName: 'Application ID' },
             { colId: 'usedResource', colName: 'Used Resource' },
             { colId: 'queueName', colName: 'Queue Name' },
             { colId: 'partition', colName: 'Partition' },
@@ -43,11 +43,11 @@ export class JobsViewComponent implements OnInit {
         this.allocColumnDef = [
             { colId: 'allocationKey', colName: 'Allocation Key' },
             { colId: 'resource', colName: 'Resource' },
-            { colId: 'queueName', colName: 'QueueName' },
+            { colId: 'queueName', colName: 'Queue Name' },
             { colId: 'priority', colName: 'Priority' },
             { colId: 'partition', colName: 'Partition' },
             { colId: 'nodeId', colName: 'Node ID' },
-            { colId: 'jobId', colName: 'Job ID' }
+            { colId: 'applicationId', colName: 'Application ID' }
         ];
 
         this.allocColumnIds = this.allocColumnDef.map(col => col.colId);

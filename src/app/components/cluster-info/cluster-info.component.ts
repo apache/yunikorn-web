@@ -47,10 +47,10 @@ export class ClusterInfoComponent implements OnInit {
 
     updateJobStatusData(info: ClusterInfo) {
         this.jobStatusData = [
-            new DonutDataItem('Failed', +info.failedJobs, '#cc6164'),
-            new DonutDataItem('Pending', +info.pendingJobs, '#facc54'),
-            new DonutDataItem('Running', +info.runningJobs, '#26bbf0'),
-            new DonutDataItem('Completed', +info.runningJobs, '#60cea5')
+            new DonutDataItem('Failed', +info.failedApplications, '#cc6164'),
+            new DonutDataItem('Pending', +info.pendingApplications, '#facc54'),
+            new DonutDataItem('Running', +info.runningApplications, '#26bbf0'),
+            new DonutDataItem('Completed', +info.completedApplications, '#60cea5')
         ];
     }
 
