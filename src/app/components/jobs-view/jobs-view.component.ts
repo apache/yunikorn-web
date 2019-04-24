@@ -1,5 +1,4 @@
 import { Component, OnInit } from '@angular/core';
-import { animate, state, style, transition, trigger } from '@angular/animations';
 import { NgxSpinnerService } from 'ngx-spinner';
 import { finalize } from 'rxjs/operators';
 
@@ -32,6 +31,7 @@ export class JobsViewComponent implements OnInit {
     ngOnInit() {
         this.jobsColumnDef = [
             { colId: 'applicationId', colName: 'Application ID' },
+            { colId: 'applicationState', colName: 'Application State' },
             { colId: 'usedResource', colName: 'Used Resource' },
             { colId: 'queueName', colName: 'Queue Name' },
             { colId: 'partition', colName: 'Partition' },

@@ -65,7 +65,8 @@ export class SchedulerService {
                             job['partition'],
                             job['queueName'],
                             job['submissionTime'],
-                            null
+                            null,
+                            job['applicationState']
                         );
                         const allocations = job['allocations'];
                         if (allocations && allocations.length > 0) {

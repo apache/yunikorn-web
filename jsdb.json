@@ -101,7 +101,8 @@
                     "applicationId": "spark-00001",
                     "partition": "default"
                 }
-            ]
+            ],
+            "applicationState": "Running"
         },
         {
             "applicationID": "spark-00002",
@@ -132,7 +133,8 @@
                     "applicationId": "spark-00002",
                     "partition": "default"
                 }
-            ]
+            ],
+            "applicationState": "Running"
         }
     ]
 }

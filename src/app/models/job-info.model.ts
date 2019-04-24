@@ -8,7 +8,8 @@ export class JobInfo {
         public partition: string,
         public queueName: string,
         public submissionTimeNano: number,
-        public allocations: JobAllocation[] | null
+        public allocations: JobAllocation[] | null,
+        public applicationState: string
     ) {}
 
     get submissionTime() {
