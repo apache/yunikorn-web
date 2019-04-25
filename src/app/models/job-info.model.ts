@@ -17,10 +17,6 @@ export class JobInfo {
         return moment(millisecs).format('YYYY/MM/DD HH:mm:ss');
     }
 
-    get hasAllocations() {
-        return this.allocations && this.allocations.length > 0;
-    }
-
     setAllocations(allocs: JobAllocation[]) {
         this.allocations = allocs;
     }

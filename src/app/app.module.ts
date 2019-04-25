@@ -13,7 +13,8 @@ import {
     MatProgressBarModule,
     MatSidenavModule,
     MatTableModule,
-    MatPaginatorModule
+    MatPaginatorModule,
+    MatSortModule
 } from '@angular/material';
 
 import { envConfigFactory, EnvconfigService } from './services/envconfig/envconfig.service';
@@ -101,6 +102,7 @@ const appRoutes: Routes = [
         MatSidenavModule,
         MatTableModule,
         MatPaginatorModule,
+        MatSortModule,
         RouterModule.forRoot(appRoutes)
     ],
     providers: [

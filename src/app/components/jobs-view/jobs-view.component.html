@@ -1,8 +1,8 @@
 <div class="jobs-view">
     <div class="mat-elevation-z8">
-        <mat-table [dataSource]="jobsDataSource">
+        <mat-table [dataSource]="jobsDataSource" matSort>
             <ng-container [matColumnDef]="columnDef.colId" *ngFor="let columnDef of jobsColumnDef">
-                <mat-header-cell *matHeaderCellDef>{{ columnDef.colName }}</mat-header-cell>
+                <mat-header-cell *matHeaderCellDef mat-sort-header>{{ columnDef.colName }}</mat-header-cell>
                 <mat-cell *matCellDef="let element"> {{ element[columnDef.colId] }} </mat-cell>
             </ng-container>
 

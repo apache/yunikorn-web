@@ -109,7 +109,7 @@
             "usedResource": "[vcore:1000 memory:2600]",
             "partition": "[my-kube-cluster]default",
             "queueName": "root.marketing",
-            "submissionTime": 1553503546471791764,
+            "submissionTime": 1553703546471791764,
             "allocations": [
                 {
                     "allocationKey": "61b62a65-4eda-11e9-a9ce-025000000002",

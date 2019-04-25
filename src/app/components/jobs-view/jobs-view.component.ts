@@ -1,7 +1,7 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { NgxSpinnerService } from 'ngx-spinner';
 import { finalize } from 'rxjs/operators';
-import { MatPaginator, MatTableDataSource, PageEvent } from '@angular/material';
+import { MatPaginator, MatTableDataSource, PageEvent, MatSort } from '@angular/material';
 
 import { SchedulerService } from '@app/services/scheduler/scheduler.service';
 import { JobInfo, JobAllocation } from '@app/models/job-info.model';
@@ -19,6 +19,7 @@ interface ColumnDef {
 export class JobsViewComponent implements OnInit {
     @ViewChild('jobsViewMatPaginator') jobsPaginator: MatPaginator;
     @ViewChild('allocationMatPaginator') allocPaginator: MatPaginator;
+    @ViewChild(MatSort) jobsSort: MatSort;
 
     jobsDataSource = new MatTableDataSource<JobInfo>([]);
     jobsColumnDef: ColumnDef[] = [];
@@ -35,6 +36,8 @@ export class JobsViewComponent implements OnInit {
     ngOnInit() {
         this.jobsDataSource.paginator = this.jobsPaginator;
         this.allocDataSource.paginator = this.allocPaginator;
+        this.jobsDataSource.sort = this.jobsSort;
+        this.jobsSort.sort({ id: 'submissionTime', start: 'desc', disableClear: false });
 
         this.jobsColumnDef = [
             { colId: 'applicationId', colName: 'Application ID' },
