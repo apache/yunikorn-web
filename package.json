@@ -9,7 +9,7 @@
         "lint": "ng lint",
         "e2e": "ng e2e",
         "build:prod": "ng build --prod",
-        "start:dev": "ng build --watch --progress"
+        "start:srv": "json-server -w jsdb.json"
     },
     "private": true,
     "dependencies": {

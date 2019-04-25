@@ -28,8 +28,8 @@ To get more help on the Angular CLI use `ng help` or go check out the [Angular C
 
 ## Local development
 
-The app depends on [json-server](https://www.npmjs.com/package/json-server) for data. Install json-server locally. Run `make start-jsonserver` to start json-server for local development.
-Run `ng serve` to start angular dev server and navigate to `http://localhost:4200/`.
+The app depends on [json-server](https://www.npmjs.com/package/json-server) for data. Install json-server locally. Run `yarn start:srv` to start json-server for local development.
+Run `yarn start` to start the angular development server and navigate to `http://localhost:4200/`.
 
 ## Docker for production
 

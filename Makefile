@@ -5,8 +5,8 @@ build-prod:
 	yarn install && yarn build:prod
 
 start-dev:
-	json-server -w jsdb.json & yarn start
-	
+	yarn start:srv & yarn start
+
 build-webapp:
 	docker build -t yunikorn/scheduler-web:0.1.0 .
 

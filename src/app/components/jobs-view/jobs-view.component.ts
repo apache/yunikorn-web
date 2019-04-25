@@ -1,6 +1,7 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { NgxSpinnerService } from 'ngx-spinner';
 import { finalize } from 'rxjs/operators';
+import { MatPaginator, MatTableDataSource, PageEvent } from '@angular/material';
 
 import { SchedulerService } from '@app/services/scheduler/scheduler.service';
 import { JobInfo, JobAllocation } from '@app/models/job-info.model';
@@ -16,11 +17,14 @@ interface ColumnDef {
     styleUrls: ['./jobs-view.component.scss']
 })
 export class JobsViewComponent implements OnInit {
-    jobsDataSource: JobInfo[] = [];
+    @ViewChild('jobsViewMatPaginator') jobsPaginator: MatPaginator;
+    @ViewChild('allocationMatPaginator') allocPaginator: MatPaginator;
+
+    jobsDataSource = new MatTableDataSource<JobInfo>([]);
     jobsColumnDef: ColumnDef[] = [];
     jobsColumnIds: string[] = [];
 
-    allocDataSource: JobAllocation[] = [];
+    allocDataSource = new MatTableDataSource<JobAllocation>([]);
     allocColumnDef: ColumnDef[] = [];
     allocColumnIds: string[] = [];
 
@@ -29,6 +33,9 @@ export class JobsViewComponent implements OnInit {
     constructor(private scheduler: SchedulerService, private spinner: NgxSpinnerService) {}
 
     ngOnInit() {
+        this.jobsDataSource.paginator = this.jobsPaginator;
+        this.allocDataSource.paginator = this.allocPaginator;
+
         this.jobsColumnDef = [
             { colId: 'applicationId', colName: 'Application ID' },
             { colId: 'applicationState', colName: 'Application State' },
@@ -61,12 +68,12 @@ export class JobsViewComponent implements OnInit {
                 })
             )
             .subscribe(data => {
-                this.jobsDataSource = data;
+                this.jobsDataSource.data = data;
             });
     }
 
-    unselectAllRows(row) {
-        this.jobsDataSource.map(job => {
+    unselectAllRowsButOne(row: JobInfo) {
+        this.jobsDataSource.data.map(job => {
             if (job !== row) {
                 job.isSelected = false;
             }
@@ -74,23 +81,31 @@ export class JobsViewComponent implements OnInit {
     }
 
     toggleRowSelection(row: JobInfo) {
-        this.unselectAllRows(row);
+        this.unselectAllRowsButOne(row);
         if (row.isSelected) {
             this.selectedRow = null;
             row.isSelected = false;
-            this.allocDataSource = [];
+            this.allocDataSource.data = [];
         } else {
             this.selectedRow = row;
             row.isSelected = true;
-            this.allocDataSource = row.allocations;
+            this.allocDataSource.data = row.allocations;
+        }
+    }
+
+    onPaginatorChanged(page: PageEvent) {
+        if (this.selectedRow) {
+            this.selectedRow.isSelected = false;
+            this.selectedRow = null;
+            this.allocDataSource.data = [];
         }
     }
 
     isJobsDataSourceEmpty() {
-        return this.jobsDataSource && this.jobsDataSource.length > 0;
+        return this.jobsDataSource.data && this.jobsDataSource.data.length === 0;
     }
 
     isAllocDataSourceEmpty() {
-        return this.allocDataSource && this.allocDataSource.length > 0;
+        return this.allocDataSource.data && this.allocDataSource.data.length === 0;
     }
 }
