@@ -1,86 +1,88 @@
 <div class="jobs-view">
+  <div class="mat-elevation-z8">
+    <mat-table [dataSource]="jobsDataSource" matSort>
+      <ng-container [matColumnDef]="columnDef.colId" *ngFor="let columnDef of jobsColumnDef">
+        <mat-header-cell *matHeaderCellDef mat-sort-header>{{ columnDef.colName }}</mat-header-cell>
+        <ng-container *ngIf="columnDef.colId === 'submissionTime'; else otherCell">
+          <mat-cell *matCellDef="let element"> {{ element['formattedSubmissionTime'] }}</mat-cell>
+        </ng-container>
+        <ng-template #otherCell>
+          <mat-cell *matCellDef="let element"> {{ element[columnDef.colId] }} </mat-cell>
+        </ng-template>
+      </ng-container>
+
+      <ng-container matColumnDef="indicatorIcon">
+        <mat-header-cell *matHeaderCellDef class="indicator-icon"></mat-header-cell>
+        <mat-cell *matCellDef="let element" class="indicator-icon">
+          <span>
+            <i class="fas fa-plus-circle" *ngIf="!element.isSelected"></i>
+            <i class="fas fa-minus-circle" *ngIf="element.isSelected"></i>
+          </span>
+        </mat-cell>
+      </ng-container>
+
+      <ng-container matColumnDef="noRecord">
+        <mat-footer-cell *matFooterCellDef>
+          <div class="no-record">No records found</div>
+        </mat-footer-cell>
+      </ng-container>
+
+      <mat-header-row *matHeaderRowDef="jobsColumnIds"></mat-header-row>
+
+      <mat-row
+        *matRowDef="let row; columns: jobsColumnIds"
+        [class.selected-row]="selectedRow === row"
+        (click)="toggleRowSelection(row)"
+      ></mat-row>
+
+      <mat-footer-row
+        *matFooterRowDef="['noRecord']"
+        [ngStyle]="{ display: isJobsDataSourceEmpty() ? '' : 'none' }"
+      ></mat-footer-row>
+    </mat-table>
+
+    <mat-paginator
+      #jobsViewMatPaginator
+      [pageSizeOptions]="[5, 10, 20]"
+      [ngStyle]="{ display: isJobsDataSourceEmpty() ? 'none' : '' }"
+      (page)="onPaginatorChanged($event)"
+      showFirstLastButtons
+    ></mat-paginator>
+  </div>
+
+  <div class="job-details" [ngStyle]="{ display: selectedRow ? '' : 'none' }">
+    <h3>App Allocations</h3>
+    <mat-divider></mat-divider>
+
     <div class="mat-elevation-z8">
-        <mat-table [dataSource]="jobsDataSource" matSort>
-            <ng-container [matColumnDef]="columnDef.colId" *ngFor="let columnDef of jobsColumnDef">
-                <mat-header-cell *matHeaderCellDef mat-sort-header>{{ columnDef.colName }}</mat-header-cell>
-                <mat-cell *matCellDef="let element"> {{ element[columnDef.colId] }} </mat-cell>
-            </ng-container>
+      <mat-table [dataSource]="allocDataSource">
+        <ng-container [matColumnDef]="columnDef.colId" *ngFor="let columnDef of allocColumnDef">
+          <mat-header-cell *matHeaderCellDef>{{ columnDef.colName }}</mat-header-cell>
+          <mat-cell *matCellDef="let element"> {{ element[columnDef.colId] }} </mat-cell>
+        </ng-container>
 
-            <ng-container matColumnDef="indicatorIcon">
-                <mat-header-cell *matHeaderCellDef class="indicator-icon"></mat-header-cell>
-                <mat-cell *matCellDef="let element" class="indicator-icon">
-                    <span>
-                        <i class="fas fa-plus-circle" *ngIf="!element.isSelected"></i>
-                        <i class="fas fa-minus-circle" *ngIf="element.isSelected"></i>
-                    </span>
-                </mat-cell>
-            </ng-container>
+        <ng-container matColumnDef="noRecord">
+          <mat-footer-cell *matFooterCellDef>
+            <div class="no-record">No records found</div>
+          </mat-footer-cell>
+        </ng-container>
 
-            <ng-container matColumnDef="noRecord">
-                <mat-footer-cell *matFooterCellDef>
-                    <div class="no-record">No records found</div>
-                </mat-footer-cell>
-            </ng-container>
+        <mat-header-row *matHeaderRowDef="allocColumnIds"></mat-header-row>
 
-            <mat-header-row *matHeaderRowDef="jobsColumnIds"></mat-header-row>
+        <mat-row *matRowDef="let row; columns: allocColumnIds"></mat-row>
 
-            <mat-row
-                *matRowDef="let row; columns: jobsColumnIds"
-                [class.selected-row]="selectedRow === row"
-                (click)="toggleRowSelection(row)"
-            ></mat-row>
+        <mat-footer-row
+          *matFooterRowDef="['noRecord']"
+          [ngStyle]="{ display: isAllocDataSourceEmpty() ? '' : 'none' }"
+        ></mat-footer-row>
+      </mat-table>
 
-            <mat-footer-row
-                *matFooterRowDef="['noRecord']"
-                [ngStyle]="{ display: isJobsDataSourceEmpty() ? '' : 'none' }"
-            ></mat-footer-row>
-        </mat-table>
-
-        <mat-paginator
-            #jobsViewMatPaginator
-            [pageSizeOptions]="[5, 10, 20]"
-            [ngStyle]="{ display: isJobsDataSourceEmpty() ? 'none' : '' }"
-            (page)="onPaginatorChanged($event)"
-            showFirstLastButtons
-        ></mat-paginator>
+      <mat-paginator
+        #allocationMatPaginator
+        [pageSizeOptions]="[5, 10, 20]"
+        [ngStyle]="{ display: isAllocDataSourceEmpty() ? 'none' : '' }"
+        showFirstLastButtons
+      ></mat-paginator>
     </div>
-
-    <div class="job-details" [ngStyle]="{ display: selectedRow ? '' : 'none' }">
-        <h3>App Allocations</h3>
-        <mat-divider></mat-divider>
-
-        <div class="mat-elevation-z8">
-            <mat-table [dataSource]="allocDataSource">
-                <ng-container
-                    [matColumnDef]="columnDef.colId"
-                    *ngFor="let columnDef of allocColumnDef"
-                >
-                    <mat-header-cell *matHeaderCellDef>{{ columnDef.colName }}</mat-header-cell>
-                    <mat-cell *matCellDef="let element"> {{ element[columnDef.colId] }} </mat-cell>
-                </ng-container>
-
-                <ng-container matColumnDef="noRecord">
-                    <mat-footer-cell *matFooterCellDef>
-                        <div class="no-record">No records found</div>
-                    </mat-footer-cell>
-                </ng-container>
-
-                <mat-header-row *matHeaderRowDef="allocColumnIds"></mat-header-row>
-
-                <mat-row *matRowDef="let row; columns: allocColumnIds"></mat-row>
-
-                <mat-footer-row
-                    *matFooterRowDef="['noRecord']"
-                    [ngStyle]="{ display: isAllocDataSourceEmpty() ? '' : 'none' }"
-                ></mat-footer-row>
-            </mat-table>
-
-            <mat-paginator
-                #allocationMatPaginator
-                [pageSizeOptions]="[5, 10, 20]"
-                [ngStyle]="{ display: isAllocDataSourceEmpty() ? 'none' : '' }"
-                showFirstLastButtons
-            ></mat-paginator>
-        </div>
-    </div>
+  </div>
 </div>

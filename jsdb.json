@@ -109,7 +109,7 @@
             "usedResource": "[vcore:1000 memory:2600]",
             "partition": "[my-kube-cluster]default",
             "queueName": "root.marketing",
-            "submissionTime": 1553703546471791764,
+            "submissionTime": 1553700102031791764,
             "allocations": [
                 {
                     "allocationKey": "61b62a65-4eda-11e9-a9ce-025000000002",
@@ -135,6 +135,27 @@
                 }
             ],
             "applicationState": "Running"
-        }
+        },
+        {
+          "applicationID": "spark-00003",
+          "usedResource": "[vcore:1000 memory:2600]",
+          "partition": "[my-kube-cluster]default",
+          "queueName": "root.marketing",
+          "submissionTime": 1553703611071791764,
+          "allocations": [
+              {
+                  "allocationKey": "61b62a65-4eda-11e9-a9ce-025000000002",
+                  "allocationTags": null,
+                  "uuid": "71cc082d-486d-4d5f-80e3-e6632a5d9764",
+                  "resource": "[vcore:500 memory:1300]",
+                  "priority": "\u003cnil\u003e",
+                  "queueName": "root.marketing",
+                  "nodeId": "docker-for-desktop",
+                  "applicationId": "spark-00003",
+                  "partition": "default"
+              }
+          ],
+          "applicationState": "Running"
+      }
     ]
 }
