@@ -2,8 +2,17 @@
     <div class="mat-elevation-z8">
         <mat-table [dataSource]="jobsDataSource" matSort>
             <ng-container [matColumnDef]="columnDef.colId" *ngFor="let columnDef of jobsColumnDef">
-                <mat-header-cell *matHeaderCellDef mat-sort-header>{{ columnDef.colName }}</mat-header-cell>
-                <mat-cell *matCellDef="let element"> {{ element[columnDef.colId] }} </mat-cell>
+                <mat-header-cell *matHeaderCellDef mat-sort-header>{{
+                    columnDef.colName
+                }}</mat-header-cell>
+                <ng-container *ngIf="columnDef.colId === 'submissionTime'; else otherCell">
+                    <mat-cell *matCellDef="let element">
+                        {{ element['formattedSubmissionTime'] }}</mat-cell
+                    >
+                </ng-container>
+                <ng-template #otherCell>
+                    <mat-cell *matCellDef="let element"> {{ element[columnDef.colId] }} </mat-cell>
+                </ng-template>
             </ng-container>
 
             <ng-container matColumnDef="indicatorIcon">

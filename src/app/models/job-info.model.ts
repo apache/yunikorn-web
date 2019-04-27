@@ -7,13 +7,13 @@ export class JobInfo {
         public usedResource: string,
         public partition: string,
         public queueName: string,
-        public submissionTimeNano: number,
+        public submissionTime: number,
         public allocations: JobAllocation[] | null,
         public applicationState: string
     ) {}
 
-    get submissionTime() {
-        const millisecs = Math.round(this.submissionTimeNano / (1000 * 1000));
+    get formattedSubmissionTime() {
+        const millisecs = Math.round(this.submissionTime / (1000 * 1000));
         return moment(millisecs).format('YYYY/MM/DD HH:mm:ss');
     }
 
