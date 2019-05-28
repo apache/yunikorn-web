@@ -8,7 +8,7 @@ start-dev:
 	yarn start:srv & yarn start
 
 build-webapp:
-	docker build -t yunikorn/scheduler-web:0.1.0 .
+	docker build -t yunikorn/scheduler-web:0.3.5 .
 
 start-webapp:
 	docker run -d -p 8089:80 yunikorn/scheduler-web:0.1.0
