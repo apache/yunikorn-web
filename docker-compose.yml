@@ -2,6 +2,6 @@ version: '3'
 services:
   uschedulerwebapp:
     build: .
-    image: yunikorn/scheduler_webapp
+    image: yunikorn/yunikorn-web
     ports:
-      - 8089:80
+      - 9889:80
