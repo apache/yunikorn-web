@@ -35,7 +35,10 @@ start-dev:
 	yarn start:srv & yarn start
 
 image: build-prod
-	docker build -t ${IMAGE_TAG}:${IMAGE_VERSION} .
+	@SHA=$$(git rev-parse --short=12 HEAD) ; \
+	docker build -t ${IMAGE_TAG}:${IMAGE_VERSION} . \
+	--label "GitRevision=$${SHA}" \
+	--label "Version=${IMAGE_VERSION}"
 
 run: image
 	docker run -d -p ${PORT}:80 ${IMAGE_TAG}:${IMAGE_VERSION}
