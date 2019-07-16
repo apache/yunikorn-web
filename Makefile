@@ -15,7 +15,7 @@
 #
 
 # Version parameter
-IMAGE_VERSION=0.3.5
+IMAGE_VERSION=0.1.0-SNAPSHOT
 
 # Image build parameters
 # change this to tag the image with a different name
