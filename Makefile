@@ -17,7 +17,7 @@
 # Version parameters
 DATE=$(shell date +%FT%T%z)
 ifeq ($(VERSION),)
-VERSION := 0.1.0-SNAPSHOT
+VERSION := latest
 endif
 
 # Image build parameters
