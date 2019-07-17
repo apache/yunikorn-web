@@ -31,6 +31,12 @@ Image builds are geared towards a production build and will always build with th
 Run `make image` to build the docker image `yunikorn-web`. 
 Run `make run` to build the image and deploy the container from the docker image `yunikorn-web`.
 
+You can set `TAG` and `VERSION` in the commandline to build docker image with a specified version and tag. For example,
+```
+make image TAG=yunikorn/yunikorn-web VERSION=latest
+```
+this command will build binary with version `latest` and the docker image tag is `yunikorn/yunikorn-web:latest`.
+
 Run `make deploy-prod` to build and deploy the scheduler webapp using docker-compose.
 The project uses [multi-stage build](https://docs.docker.com/develop/develop-images/multistage-build/) feature of the docker and requires Docker 17.05 or higher.
 
