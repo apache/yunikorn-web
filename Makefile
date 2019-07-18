@@ -53,7 +53,7 @@ image: image
 run: image
 	docker run -d -p ${PORT}:80 ${IMAGE_TAG}:${VERSION}
 
-.PHONY build
+.PHONY: build
 build:
 	ng build
 
