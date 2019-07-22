@@ -51,7 +51,7 @@ image: image
 
 .PHONY: run
 run: image
-	docker run -d -p ${PORT}:80 ${IMAGE_TAG}:${VERSION}
+	docker run -d -p ${PORT}:9889 ${TAG}:${VERSION}
 
 .PHONY: build
 build:
@@ -65,5 +65,6 @@ test-all: build
 .PHONY: clean
 clean:
 	rm -rf ./dist
+	rm -rf ./node_modules
 	rm -rf ./out
 	rm -rf ./out-tsc
