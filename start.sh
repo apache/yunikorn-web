@@ -24,4 +24,4 @@ yarn build:prod
 
 docker build -t yunikorn/yunikorn-web:0.1.0 -f ./nginx/Dockerfile .
 
-docker run -d -p 9889:80 yunikorn/yunikorn-web:0.1.0
+docker run -d -p 9889:9889 yunikorn/yunikorn-web:0.1.0
