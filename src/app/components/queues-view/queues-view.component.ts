@@ -68,13 +68,27 @@ export class QueuesViewComponent implements OnInit {
         const isExpanded = data.queueItem.isExpanded;
         const children = data.queueItem.children;
         if (isExpanded && data.nextLevel && children) {
-            this.queueList[data.nextLevel] = children;
+            this.queueList[data.nextLevel] = this.sortQueueListByName(children);
         } else {
             this.queueList[data.nextLevel] = null;
             this.closeQueueRacks(data.nextLevel);
             this.collapseChildrenQueues(data.queueItem);
             this.closeQueueDrawer();
         }
+    }
+
+    sortQueueListByName(queueList: QueueInfo[]) {
+        return queueList.sort((queue1, queue2) => {
+            const queueName1 = queue1.queueName.toLowerCase();
+            const queueName2 = queue2.queueName.toLowerCase();
+            if (queueName1 > queueName2) {
+                return 1;
+            }
+            if (queueName1 < queueName2) {
+                return -1;
+            }
+            return 0;
+        });
     }
 
     closeQueueRacks(currentLevel: string) {
