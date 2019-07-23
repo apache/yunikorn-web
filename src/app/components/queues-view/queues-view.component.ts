@@ -68,7 +68,8 @@ export class QueuesViewComponent implements OnInit {
         const isExpanded = data.queueItem.isExpanded;
         const children = data.queueItem.children;
         if (isExpanded && data.nextLevel && children) {
-            this.queueList[data.nextLevel] = this.sortQueueListByName(children);
+            const sortedQueueList = this.sortQueueListByName(children);
+            this.queueList[data.nextLevel] = sortedQueueList;
         } else {
             this.queueList[data.nextLevel] = null;
             this.closeQueueRacks(data.nextLevel);
