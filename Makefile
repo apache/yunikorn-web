@@ -14,6 +14,12 @@
 # limitations under the License.
 #
 
+# Make sure we are in the same directory as the Makefile
+BASE_DIR := $(dir $(abspath $(lastword $(MAKEFILE_LIST))))
+
+all:
+	$(MAKE) -C $(dir $(BASE_DIR)) build
+
 # Version parameters
 DATE=$(shell date +%FT%T%z)
 ifeq ($(VERSION),)
@@ -29,39 +35,45 @@ endif
 # Set the default web port, this must be the same as in the nginx/nginx.conf file.
 PORT=9889
 
+# Local build and deploy with compose
 .PHONY: deploy-prod
 deploy-prod:
 	docker-compose up -d
 
-.PHONY: build-prod
-build-prod:
-	yarn install && yarn build:prod
-
+# Start web interface in a local dev setup
 .PHONY: start-dev
 start-dev:
 	yarn start:srv & yarn start
 
+# Run the web interface from the production image
+.PHONY: run
+run: image
+	docker run -d -p ${PORT}:9889 ${TAG}:${VERSION}
+
+# Build the web interface in a production ready version
 .PHONY: build-prod
-image: image
+build-prod:
+	yarn install && yarn build:prod
+
+# Build an image based on the production ready version
+image: build-prod
 	@SHA=$$(git rev-parse --short=12 HEAD) ; \
 	docker build -t ${TAG}:${VERSION} . \
 	--label "GitRevision=$${SHA}" \
 	--label "Version=${VERSION}" \
 	--label "BuildTimeStamp=${DATE}"
 
-.PHONY: run
-run: image
-	docker run -d -p ${PORT}:9889 ${TAG}:${VERSION}
-
+# Build the web interface for dev and test
 .PHONY: build
 build:
-	ng build
+	yarn install && ng build
 
-.PHONY: test-all
-test-all: build
+# Run the tests after building
+test: build
 	ng test
 	ng e2e
 
+# Simple clean of generated files only (no local cleanup).
 .PHONY: clean
 clean:
 	rm -rf ./dist
