@@ -80,3 +80,4 @@ clean:
 	rm -rf ./node_modules
 	rm -rf ./out
 	rm -rf ./out-tsc
+  echo "Done"
