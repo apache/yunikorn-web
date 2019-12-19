@@ -5,16 +5,16 @@ import { RouterModule, Routes } from '@angular/router';
 import { HttpClientModule } from '@angular/common/http';
 import { NgxSpinnerModule } from 'ngx-spinner';
 import {
-    MatCardModule,
-    MatTabsModule,
-    MatSelectModule,
-    MatDividerModule,
-    MatListModule,
-    MatProgressBarModule,
-    MatSidenavModule,
-    MatTableModule,
-    MatPaginatorModule,
-    MatSortModule
+  MatCardModule,
+  MatTabsModule,
+  MatSelectModule,
+  MatDividerModule,
+  MatListModule,
+  MatProgressBarModule,
+  MatSidenavModule,
+  MatTableModule,
+  MatPaginatorModule,
+  MatSortModule
 } from '@angular/material';
 
 import { envConfigFactory, EnvconfigService } from './services/envconfig/envconfig.service';
@@ -33,86 +33,86 @@ import { QueueRackComponent } from './components/queue-rack/queue-rack.component
 import { JobsViewComponent } from './components/jobs-view/jobs-view.component';
 
 const appRoutes: Routes = [
-    {
-        path: 'dashboard',
-        component: DashboardComponent,
-        data: { breadcrumb: 'Dashboard' }
-    },
-    {
-        path: 'clusters/:clusterName',
-        component: ClusterContainerComponent,
-        data: { breadcrumb: ':clusterName', prependRoot: true },
-        children: [
-            {
-                path: 'info',
-                component: ClusterInfoComponent,
-                data: { breadcrumb: 'Info' }
-            },
-            {
-                path: 'apps',
-                component: JobsViewComponent,
-                data: { breadcrumb: 'Applications' }
-            },
-            {
-                path: 'queues',
-                component: QueuesViewComponent,
-                data: { breadcrumb: 'Queues' }
-            },
-            {
-                path: '',
-                pathMatch: 'full',
-                redirectTo: 'info'
-            }
-        ]
-    },
-    {
+  {
+    path: 'dashboard',
+    component: DashboardComponent,
+    data: { breadcrumb: 'Dashboard' }
+  },
+  {
+    path: 'clusters/:clusterName',
+    component: ClusterContainerComponent,
+    data: { breadcrumb: ':clusterName', prependRoot: true },
+    children: [
+      {
+        path: 'info',
+        component: ClusterInfoComponent,
+        data: { breadcrumb: 'Info' }
+      },
+      {
+        path: 'apps',
+        component: JobsViewComponent,
+        data: { breadcrumb: 'Applications' }
+      },
+      {
+        path: 'queues',
+        component: QueuesViewComponent,
+        data: { breadcrumb: 'Queues' }
+      },
+      {
         path: '',
         pathMatch: 'full',
-        redirectTo: 'dashboard'
-    }
+        redirectTo: 'info'
+      }
+    ]
+  },
+  {
+    path: '',
+    pathMatch: 'full',
+    redirectTo: 'dashboard'
+  }
 ];
 
 @NgModule({
-    declarations: [
-        AppComponent,
-        DashboardComponent,
-        ClusterInfoComponent,
-        QueuesViewComponent,
-        ClusterContainerComponent,
-        DonutChartComponent,
-        AreaChartComponent,
-        JobStatusComponent,
-        JobHistoryComponent,
-        ContainerStatusComponent,
-        ContainerHistoryComponent,
-        QueueRackComponent,
-        JobsViewComponent
-    ],
-    imports: [
-        BrowserModule,
-        BrowserAnimationsModule,
-        HttpClientModule,
-        NgxSpinnerModule,
-        MatCardModule,
-        MatTabsModule,
-        MatSelectModule,
-        MatDividerModule,
-        MatListModule,
-        MatProgressBarModule,
-        MatSidenavModule,
-        MatTableModule,
-        MatPaginatorModule,
-        MatSortModule,
-        RouterModule.forRoot(appRoutes)
-    ],
-    providers: [
-        {
-            provide: APP_INITIALIZER,
-            useFactory: envConfigFactory,
-            deps: [EnvconfigService],
-            multi: true
-        }
-    ],
-    bootstrap: [AppComponent]
+  declarations: [
+    AppComponent,
+    DashboardComponent,
+    ClusterInfoComponent,
+    QueuesViewComponent,
+    ClusterContainerComponent,
+    DonutChartComponent,
+    AreaChartComponent,
+    JobStatusComponent,
+    JobHistoryComponent,
+    ContainerStatusComponent,
+    ContainerHistoryComponent,
+    QueueRackComponent,
+    JobsViewComponent
+  ],
+  imports: [
+    BrowserModule,
+    BrowserAnimationsModule,
+    HttpClientModule,
+    NgxSpinnerModule,
+    MatCardModule,
+    MatTabsModule,
+    MatSelectModule,
+    MatDividerModule,
+    MatListModule,
+    MatProgressBarModule,
+    MatSidenavModule,
+    MatTableModule,
+    MatPaginatorModule,
+    MatSortModule,
+    RouterModule.forRoot(appRoutes)
+  ],
+  providers: [
+    {
+      provide: APP_INITIALIZER,
+      useFactory: envConfigFactory,
+      deps: [EnvconfigService],
+      multi: true
+    }
+  ],
+  bootstrap: [AppComponent]
 })
 export class AppModule {}

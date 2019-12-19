@@ -16,12 +16,17 @@
 # limitations under the License.
 #
 
+echo "[1/5] Removing dist and node_modules..."
+rm -rf dist/ node_modules/
+
+echo "[2/5] Installing dependencies..."
 yarn install
 
-rm -rf ./dist
-
+echo "[3/5] Building modules..."
 yarn build:prod
 
-docker build -t yunikorn/yunikorn-web:0.1.0 -f ./nginx/Dockerfile .
+echo "[4/5] Building docker image yunikorn/yunikorn-web:latest..."
+docker build -t yunikorn/yunikorn-web:latest -f ./nginx/Dockerfile .
 
-docker run -d -p 9889:9889 yunikorn/yunikorn-web:0.1.0
+echo "[5/5] Starting docker container using image yunikorn/yunikorn-web:latest..."
+docker run -d -p 9889:9889 yunikorn/yunikorn-web:latest

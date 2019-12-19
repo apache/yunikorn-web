@@ -1,161 +1,161 @@
 {
-    "clusters": [
-        {
-            "clusterName": "kubernetes",
-            "totalApplications": "1",
-            "failedApplications": "",
-            "pendingApplications": "",
-            "runningApplications": "1",
-            "completedApplications": "",
-            "totalContainers": "2",
-            "failedContainers": "",
-            "pendingContainers": "",
-            "runningContainers": "2",
-            "activeNodes": "1",
-            "totalNodes": "1",
-            "failedNodes": ""
-        }
-    ],
-    "queues": {
-        "partitionname": "[my-kube-cluster]default",
-        "capacity": {
-            "capacity": "map[vcore:96000 memory:810085]",
-            "usedcapacity": "0"
-        },
-        "nodes": null,
-        "queues": [
-            {
-                "queuename": "root",
-                "status": "RUNNING",
-                "capacities": {
-                    "capacity": "[memory:1000000 vcore:100000]",
-                    "maxcapacity": "[memory:1000000 vcore:100000]",
-                    "usedcapacity": "[memory:5908 vcore:4000]",
-                    "absusedcapacity": "20"
-                },
-                "queues": [
-                    {
-                        "queuename": "advertisement",
-                        "status": "RUNNING",
-                        "capacities": {
-                            "capacity": "[memory:500000 vcore:50000]",
-                            "maxcapacity": "[memory:500000 vcore:50000]",
-                            "usedcapacity": "[memory:5908 vcore:4000]",
-                            "absusedcapacity": "20"
-                        },
-                        "queues": []
-                    },
-                    {
-                        "queuename": "search",
-                        "status": "RUNNING",
-                        "capacities": {
-                            "capacity": "[memory:400000 vcore:40000]",
-                            "maxcapacity": "[memory:400000 vcore:40000]",
-                            "usedcapacity": "[]",
-                            "absusedcapacity": "20"
-                        },
-                        "queues": []
-                    },
-                    {
-                        "queuename": "sandbox",
-                        "status": "RUNNING",
-                        "capacities": {
-                            "capacity": "[memory:100000 vcore:10000]",
-                            "maxcapacity": "[vcore:10000 memory:100000]",
-                            "usedcapacity": "[]",
-                            "absusedcapacity": "20"
-                        },
-                        "queues": []
-                    }
-                ]
-            }
-        ]
+  "clusters": [
+    {
+      "clusterName": "kubernetes",
+      "totalApplications": "1",
+      "failedApplications": "",
+      "pendingApplications": "",
+      "runningApplications": "1",
+      "completedApplications": "",
+      "totalContainers": "2",
+      "failedContainers": "",
+      "pendingContainers": "",
+      "runningContainers": "2",
+      "activeNodes": "1",
+      "totalNodes": "1",
+      "failedNodes": ""
+    }
+  ],
+  "queues": {
+    "partitionname": "[my-kube-cluster]default",
+    "capacity": {
+      "capacity": "map[vcore:96000 memory:810085]",
+      "usedcapacity": "0"
     },
-    "apps": [
-        {
-            "applicationID": "spark-00001",
-            "usedResource": "[vcore:2000 memory:2954]",
-            "partition": "[my-kube-cluster]default",
-            "queueName": "root.advertisement",
-            "submissionTime": 1553503546471791764,
-            "allocations": [
-                {
-                    "allocationKey": "61b62a65-4eda-11e9-a9ce-025000000001",
-                    "allocationTags": null,
-                    "uuid": "71cc082d-486d-4d5f-80e3-e6632a5d9409",
-                    "resource": "[vcore:1000 memory:1477]",
-                    "priority": "\u003cnil\u003e",
-                    "queueName": "root.advertisement",
-                    "nodeId": "docker-for-desktop",
-                    "applicationId": "spark-00001",
-                    "partition": "default"
-                },
-                {
-                    "allocationKey": "66a086ec-4eda-11e9-a9ce-025000000001",
-                    "allocationTags": null,
-                    "uuid": "d456a8ba-d9d7-43ff-9e8f-2ee213a14a09",
-                    "resource": "[vcore:1000 memory:1477]",
-                    "priority": "\u003cnil\u003e",
-                    "queueName": "root.advertisement",
-                    "nodeId": "docker-for-desktop",
-                    "applicationId": "spark-00001",
-                    "partition": "default"
-                }
-            ],
-            "applicationState": "Running"
+    "nodes": null,
+    "queues": [
+      {
+        "queuename": "root",
+        "status": "RUNNING",
+        "capacities": {
+          "capacity": "[memory:1000000 vcore:100000]",
+          "maxcapacity": "[memory:1000000 vcore:100000]",
+          "usedcapacity": "[memory:5908 vcore:4000]",
+          "absusedcapacity": "20"
         },
-        {
-            "applicationID": "spark-00002",
-            "usedResource": "[vcore:1000 memory:2600]",
-            "partition": "[my-kube-cluster]default",
-            "queueName": "root.marketing",
-            "submissionTime": 1553700102031791764,
-            "allocations": [
-                {
-                    "allocationKey": "61b62a65-4eda-11e9-a9ce-025000000002",
-                    "allocationTags": null,
-                    "uuid": "71cc082d-486d-4d5f-80e3-e6632a5d9764",
-                    "resource": "[vcore:500 memory:1300]",
-                    "priority": "\u003cnil\u003e",
-                    "queueName": "root.marketing",
-                    "nodeId": "docker-for-desktop",
-                    "applicationId": "spark-00002",
-                    "partition": "default"
-                },
-                {
-                    "allocationKey": "66a086ec-4eda-11e9-a9ce-025000000002",
-                    "allocationTags": null,
-                    "uuid": "d456a8ba-d9d7-43ff-9e8f-2ee213a157s8",
-                    "resource": "[vcore:500 memory:1300]",
-                    "priority": "\u003cnil\u003e",
-                    "queueName": "root.marketing",
-                    "nodeId": "docker-for-desktop",
-                    "applicationId": "spark-00002",
-                    "partition": "default"
-                }
-            ],
-            "applicationState": "Running"
-        },
-        {
-          "applicationID": "spark-00003",
-          "usedResource": "[vcore:1000 memory:2600]",
-          "partition": "[my-kube-cluster]default",
-          "queueName": "root.marketing",
-          "submissionTime": 1553703611071791764,
-          "allocations": [
-              {
-                  "allocationKey": "61b62a65-4eda-11e9-a9ce-025000000002",
-                  "allocationTags": null,
-                  "uuid": "71cc082d-486d-4d5f-80e3-e6632a5d9764",
-                  "resource": "[vcore:500 memory:1300]",
-                  "priority": "\u003cnil\u003e",
-                  "queueName": "root.marketing",
-                  "nodeId": "docker-for-desktop",
-                  "applicationId": "spark-00003",
-                  "partition": "default"
-              }
-          ],
-          "applicationState": "Running"
+        "queues": [
+          {
+            "queuename": "advertisement",
+            "status": "RUNNING",
+            "capacities": {
+              "capacity": "[memory:500000 vcore:50000]",
+              "maxcapacity": "[memory:500000 vcore:50000]",
+              "usedcapacity": "[memory:5908 vcore:4000]",
+              "absusedcapacity": "20"
+            },
+            "queues": []
+          },
+          {
+            "queuename": "search",
+            "status": "RUNNING",
+            "capacities": {
+              "capacity": "[memory:400000 vcore:40000]",
+              "maxcapacity": "[memory:400000 vcore:40000]",
+              "usedcapacity": "[]",
+              "absusedcapacity": "20"
+            },
+            "queues": []
+          },
+          {
+            "queuename": "sandbox",
+            "status": "RUNNING",
+            "capacities": {
+              "capacity": "[memory:100000 vcore:10000]",
+              "maxcapacity": "[vcore:10000 memory:100000]",
+              "usedcapacity": "[]",
+              "absusedcapacity": "20"
+            },
+            "queues": []
+          }
+        ]
       }
     ]
+  },
+  "apps": [
+    {
+      "applicationID": "spark-00001",
+      "usedResource": "[vcore:2000 memory:2954]",
+      "partition": "[my-kube-cluster]default",
+      "queueName": "root.advertisement",
+      "submissionTime": 1553503546471791764,
+      "allocations": [
+        {
+          "allocationKey": "61b62a65-4eda-11e9-a9ce-025000000001",
+          "allocationTags": null,
+          "uuid": "71cc082d-486d-4d5f-80e3-e6632a5d9409",
+          "resource": "[vcore:1000 memory:1477]",
+          "priority": "\u003cnil\u003e",
+          "queueName": "root.advertisement",
+          "nodeId": "docker-for-desktop",
+          "applicationId": "spark-00001",
+          "partition": "default"
+        },
+        {
+          "allocationKey": "66a086ec-4eda-11e9-a9ce-025000000001",
+          "allocationTags": null,
+          "uuid": "d456a8ba-d9d7-43ff-9e8f-2ee213a14a09",
+          "resource": "[vcore:1000 memory:1477]",
+          "priority": "\u003cnil\u003e",
+          "queueName": "root.advertisement",
+          "nodeId": "docker-for-desktop",
+          "applicationId": "spark-00001",
+          "partition": "default"
+        }
+      ],
+      "applicationState": "Running"
+    },
+    {
+      "applicationID": "spark-00002",
+      "usedResource": "[vcore:1000 memory:2600]",
+      "partition": "[my-kube-cluster]default",
+      "queueName": "root.marketing",
+      "submissionTime": 1553700102031791764,
+      "allocations": [
+        {
+          "allocationKey": "61b62a65-4eda-11e9-a9ce-025000000002",
+          "allocationTags": null,
+          "uuid": "71cc082d-486d-4d5f-80e3-e6632a5d9764",
+          "resource": "[vcore:500 memory:1300]",
+          "priority": "\u003cnil\u003e",
+          "queueName": "root.marketing",
+          "nodeId": "docker-for-desktop",
+          "applicationId": "spark-00002",
+          "partition": "default"
+        },
+        {
+          "allocationKey": "66a086ec-4eda-11e9-a9ce-025000000002",
+          "allocationTags": null,
+          "uuid": "d456a8ba-d9d7-43ff-9e8f-2ee213a157s8",
+          "resource": "[vcore:500 memory:1300]",
+          "priority": "\u003cnil\u003e",
+          "queueName": "root.marketing",
+          "nodeId": "docker-for-desktop",
+          "applicationId": "spark-00002",
+          "partition": "default"
+        }
+      ],
+      "applicationState": "Running"
+    },
+    {
+      "applicationID": "spark-00003",
+      "usedResource": "[vcore:1000 memory:2600]",
+      "partition": "[my-kube-cluster]default",
+      "queueName": "root.marketing",
+      "submissionTime": 1553703611071791764,
+      "allocations": [
+        {
+          "allocationKey": "61b62a65-4eda-11e9-a9ce-025000000002",
+          "allocationTags": null,
+          "uuid": "71cc082d-486d-4d5f-80e3-e6632a5d9764",
+          "resource": "[vcore:500 memory:1300]",
+          "priority": "\u003cnil\u003e",
+          "queueName": "root.marketing",
+          "nodeId": "docker-for-desktop",
+          "applicationId": "spark-00003",
+          "partition": "default"
+        }
+      ],
+      "applicationState": "Running"
+    }
+  ]
 }

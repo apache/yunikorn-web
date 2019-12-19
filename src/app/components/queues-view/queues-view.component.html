@@ -1,69 +1,66 @@
 <div class="top-part">
-    <label class="part-label">Partition: </label>
-    <mat-form-field>
-        <mat-select [(value)]="partitionSelected">
-            <mat-option *ngFor="let part of partitionList" [value]="part.value">
-                {{ part.name }}
-            </mat-option>
-        </mat-select>
-    </mat-form-field>
+  <label class="part-label">Partition: </label>
+  <mat-form-field>
+    <mat-select [(value)]="partitionSelected">
+      <mat-option *ngFor="let part of partitionList" [value]="part.value">
+        {{ part.name }}
+      </mat-option>
+    </mat-select>
+  </mat-form-field>
 </div>
 <mat-divider></mat-divider>
 <div class="queues-view">
-    <div class="flex-grid">
-        <div class="flex-primary queue-level" *ngFor="let obj of queueLevels">
-            <app-queue-rack
-                *ngIf="queueList[obj.level]"
-                [queueList]="queueList[obj.level]"
-                [nextLevel]="obj.next"
-                (toggleChildren)="toggleQueueChildrenView($event)"
-                (queueSelected)="onQueueItemSelected($event)"
-            ></app-queue-rack>
-        </div>
-
-        <mat-drawer-container
-            class="flex-primary"
-            [ngStyle]="{ display: isDrawerContainerOpen ? 'block' : 'none' }"
-            [hasBackdrop]="false"
-        >
-            <mat-drawer #matDrawer mode="over" position="end">
-                <mat-drawer-content>
-                    <div class="header">
-                        <strong>Queue Info</strong>
-                        <span
-                            class="far fa-times-circle close-btn"
-                            (click)="closeQueueDrawer()"
-                        ></span>
-                    </div>
-                    <div class="content" *ngIf="selectedQueue">
-                        <div class="flex-grid item-wrapper">
-                            <div class="left-item">Queue Name:</div>
-                            <div class="right-item">{{ selectedQueue.queueName }}</div>
-                        </div>
-                        <div class="flex-grid item-wrapper">
-                            <div class="left-item">Queue State:</div>
-                            <div class="right-item">{{ selectedQueue.state }}</div>
-                        </div>
-                        <div class="flex-grid item-wrapper">
-                            <div class="left-item">Configured Capacity:</div>
-                            <div class="right-item">{{ selectedQueue.capacity }}</div>
-                        </div>
-                        <div class="flex-grid item-wrapper">
-                            <div class="left-item">Configured Max Capacity:</div>
-                            <div class="right-item">{{ selectedQueue.maxCapacity }}</div>
-                        </div>
-                        <div class="flex-grid item-wrapper">
-                            <div class="left-item">Used Capacity:</div>
-                            <div class="right-item">{{ selectedQueue.usedCapacity }}</div>
-                        </div>
-                        <div class="flex-grid item-wrapper">
-                            <div class="left-item">Absolute Used Capacity:</div>
-                            <div class="right-item">{{ selectedQueue.absoluteUsedCapacity }}%</div>
-                        </div>
-                    </div>
-                </mat-drawer-content>
-            </mat-drawer>
-        </mat-drawer-container>
+  <div class="flex-grid">
+    <div class="flex-primary queue-level" *ngFor="let obj of queueLevels">
+      <app-queue-rack
+        *ngIf="queueList[obj.level]"
+        [queueList]="queueList[obj.level]"
+        [nextLevel]="obj.next"
+        (toggleChildren)="toggleQueueChildrenView($event)"
+        (queueSelected)="onQueueItemSelected($event)"
+      ></app-queue-rack>
     </div>
+
+    <mat-drawer-container
+      class="flex-primary"
+      [ngStyle]="{ display: isDrawerContainerOpen ? 'block' : 'none' }"
+      [hasBackdrop]="false"
+    >
+      <mat-drawer #matDrawer mode="over" position="end">
+        <mat-drawer-content>
+          <div class="header">
+            <strong>Queue Info</strong>
+            <span class="far fa-times-circle close-btn" (click)="closeQueueDrawer()"></span>
+          </div>
+          <div class="content" *ngIf="selectedQueue">
+            <div class="flex-grid item-wrapper">
+              <div class="left-item">Queue Name:</div>
+              <div class="right-item">{{ selectedQueue.queueName }}</div>
+            </div>
+            <div class="flex-grid item-wrapper">
+              <div class="left-item">Queue State:</div>
+              <div class="right-item">{{ selectedQueue.state }}</div>
+            </div>
+            <div class="flex-grid item-wrapper">
+              <div class="left-item">Configured Capacity:</div>
+              <div class="right-item">{{ selectedQueue.capacity }}</div>
+            </div>
+            <div class="flex-grid item-wrapper">
+              <div class="left-item">Configured Max Capacity:</div>
+              <div class="right-item">{{ selectedQueue.maxCapacity }}</div>
+            </div>
+            <div class="flex-grid item-wrapper">
+              <div class="left-item">Used Capacity:</div>
+              <div class="right-item">{{ selectedQueue.usedCapacity }}</div>
+            </div>
+            <div class="flex-grid item-wrapper">
+              <div class="left-item">Absolute Used Capacity:</div>
+              <div class="right-item">{{ selectedQueue.absoluteUsedCapacity }}%</div>
+            </div>
+          </div>
+        </mat-drawer-content>
+      </mat-drawer>
+    </mat-drawer-container>
+  </div>
 </div>
 <mat-divider></mat-divider>

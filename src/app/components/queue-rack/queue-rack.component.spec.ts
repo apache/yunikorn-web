@@ -8,9 +8,8 @@ describe('QueueRackComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ QueueRackComponent ]
-    })
-    .compileComponents();
+      declarations: [QueueRackComponent]
+    }).compileComponents();
   }));
 
   beforeEach(() => {

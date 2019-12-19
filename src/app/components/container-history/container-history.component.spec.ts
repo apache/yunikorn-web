@@ -8,9 +8,8 @@ describe('ContainerHistoryComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ ContainerHistoryComponent ]
-    })
-    .compileComponents();
+      declarations: [ContainerHistoryComponent]
+    }).compileComponents();
   }));
 
   beforeEach(() => {
