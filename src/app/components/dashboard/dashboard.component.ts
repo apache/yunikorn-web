@@ -6,26 +6,26 @@ import { SchedulerService } from '@app/services/scheduler/scheduler.service';
 import { ClusterInfo } from '@app/models/cluster-info.model';
 
 @Component({
-    selector: 'app-dashboard',
-    templateUrl: './dashboard.component.html',
-    styleUrls: ['./dashboard.component.scss']
+  selector: 'app-dashboard',
+  templateUrl: './dashboard.component.html',
+  styleUrls: ['./dashboard.component.scss']
 })
 export class DashboardComponent implements OnInit {
-    clusterList: ClusterInfo[] = [];
+  clusterList: ClusterInfo[] = [];
 
-    constructor(private scheduler: SchedulerService, private spinner: NgxSpinnerService) {}
+  constructor(private scheduler: SchedulerService, private spinner: NgxSpinnerService) {}
 
-    ngOnInit() {
-        this.spinner.show();
-        this.scheduler
-            .fetchClusterList()
-            .pipe(
-                finalize(() => {
-                    this.spinner.hide();
-                })
-            )
-            .subscribe(list => {
-                this.clusterList = list;
-            });
-    }
+  ngOnInit() {
+    this.spinner.show();
+    this.scheduler
+      .fetchClusterList()
+      .pipe(
+        finalize(() => {
+          this.spinner.hide();
+        })
+      )
+      .subscribe(list => {
+        this.clusterList = list;
+      });
+  }
 }

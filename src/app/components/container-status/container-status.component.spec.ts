@@ -8,9 +8,8 @@ describe('ContainerStatusComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ ContainerStatusComponent ]
-    })
-    .compileComponents();
+      declarations: [ContainerStatusComponent]
+    }).compileComponents();
   }));
 
   beforeEach(() => {

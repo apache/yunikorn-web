@@ -8,9 +8,8 @@ describe('ClusterContainerComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ ClusterContainerComponent ]
-    })
-    .compileComponents();
+      declarations: [ClusterContainerComponent]
+    }).compileComponents();
   }));
 
   beforeEach(() => {

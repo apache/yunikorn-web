@@ -8,9 +8,8 @@ describe('DonutChartComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ DonutChartComponent ]
-    })
-    .compileComponents();
+      declarations: [DonutChartComponent]
+    }).compileComponents();
   }));
 
   beforeEach(() => {

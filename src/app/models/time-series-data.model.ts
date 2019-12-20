@@ -1,4 +1,4 @@
 export interface TimeSeriesDataItem {
-    value: number;
-    timestamp: number;
+  value: number;
+  timestamp: number;
 }

@@ -8,9 +8,8 @@ describe('QueuesViewComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ QueuesViewComponent ]
-    })
-    .compileComponents();
+      declarations: [QueuesViewComponent]
+    }).compileComponents();
   }));
 
   beforeEach(() => {

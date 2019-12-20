@@ -1,4 +1,4 @@
 export interface ResourceInfo {
-    memory: string;
-    vcore: string;
+  memory: string;
+  vcore: string;
 }

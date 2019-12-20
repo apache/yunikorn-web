@@ -1,26 +1,26 @@
 .status-wrapper {
-    align-items: center;
-    height: 200px;
+  align-items: center;
+  height: 200px;
 }
 .chart-wrapper {
-    max-width: 320px;
-    z-index: 1;
+  max-width: 320px;
+  z-index: 1;
 }
 .chart-legend {
-    max-width: 200px;
-    margin: 0 auto;
-    font-size: 0.8em;
-    font-weight: bold;
-    color: #666;
-    z-index: 10;
-    > div {
-        margin: 12px 0;
-    }
-    .legend-label {
-        padding-left: 10px;
-    }
-    .legend-value {
-        float: right;
-        padding-right: 20px;
-    }
+  max-width: 200px;
+  margin: 0 auto;
+  font-size: 0.8em;
+  font-weight: bold;
+  color: #666;
+  z-index: 10;
+  > div {
+    margin: 12px 0;
+  }
+  .legend-label {
+    padding-left: 10px;
+  }
+  .legend-value {
+    float: right;
+    padding-right: 20px;
+  }
 }

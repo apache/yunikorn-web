@@ -4,7 +4,7 @@ It depends on `yunikorn-core` which encapsulates all the actual scheduling logic
 
 For detailed information on the components and how to build the overall scheduler please see the [yunikorn-core](https://github.com/cloudera/yunikorn-core).
 
-This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 6.1.3.
+This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 8.3.19.
 
 ## Development Environment setup
 ### Dependencies
@@ -54,7 +54,7 @@ The application depends on [json-server](https://www.npmjs.com/package/json-serv
 Run `yarn start` to start the angular development server and navigate to `http://localhost:4200/`.
 
 ## Further help
-To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI README](https://github.com/angular/angular-cli).
+To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI README](https://github.com/angular/angular-cli/blob/master/README.md).
 
 ## Code scaffolding
 Run `ng generate component component-name` to generate a new component.
@@ -69,7 +69,7 @@ The default port used for the web server is port 9889 and is set in the `nginx/n
 
 The port is also referenced in other scripts and configurations to this port also, if you change the port make sure that the other locations are updated:
 - docker-compose.yml
-- start.sh
+- docker_start.sh
 - Makefile
 
 ## How do I contribute code?
