@@ -9,7 +9,8 @@
     "lint": "ng lint",
     "e2e": "ng e2e",
     "build:prod": "ng build --prod",
-    "start:srv": "json-server -w jsdb.json"
+    "start:srv": "json-server -w jsdb.json",
+    "test:ci": "ng test --code-coverage --karma-config=./karma.conf.ci.js"
   },
   "private": true,
   "husky": {
@@ -47,6 +48,7 @@
     "@angular/cli": "~8.3.19",
     "@angular/compiler-cli": "~8.2.14",
     "@angular/language-service": "~8.2.14",
+    "@testing-library/dom": "^6.11.0",
     "@types/jasmine": "~3.3.8",
     "@types/jasminewd2": "~2.0.3",
     "@types/node": "~8.9.4",
@@ -59,14 +61,20 @@
     "karma-coverage-istanbul-reporter": "~2.0.1",
     "karma-jasmine": "~2.0.1",
     "karma-jasmine-html-reporter": "^1.4.0",
+    "karma-spec-reporter": "^0.0.32",
+    "karma-super-dots-reporter": "^0.2.0",
     "lint-staged": "^9.5.0",
+    "ng-bullet": "^1.0.3",
+    "ng-mocks": "^8.1.0",
     "prettier": "^1.19.1",
     "protractor": "~5.4.0",
+    "puppeteer": "^2.0.0",
     "ts-node": "~7.0.0",
     "tslint": "~5.15.0",
     "typescript": "~3.5.3"
   },
   "resolutions": {
-    "**/**/serialize-javascript": "^2.1.1"
+    "**/**/serialize-javascript": "^2.1.1",
+    "**/**/tree-kill": "^1.2.2"
   }
 }

@@ -1,16 +1,21 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import { MatCardModule } from '@angular/material';
+import { configureTestSuite } from 'ng-bullet';
+import { MockComponent } from 'ng-mocks';
 
 import { JobHistoryComponent } from './job-history.component';
+import { AreaChartComponent } from '@app/components/area-chart/area-chart.component';
 
 describe('JobHistoryComponent', () => {
   let component: JobHistoryComponent;
   let fixture: ComponentFixture<JobHistoryComponent>;
 
-  beforeEach(async(() => {
+  configureTestSuite(() => {
     TestBed.configureTestingModule({
-      declarations: [JobHistoryComponent]
-    }).compileComponents();
-  }));
+      declarations: [JobHistoryComponent, MockComponent(AreaChartComponent)],
+      imports: [MatCardModule]
+    });
+  });
 
   beforeEach(() => {
     fixture = TestBed.createComponent(JobHistoryComponent);
@@ -18,7 +23,7 @@ describe('JobHistoryComponent', () => {
     fixture.detectChanges();
   });
 
-  it('should create', () => {
+  it('should create the component', () => {
     expect(component).toBeTruthy();
   });
 });

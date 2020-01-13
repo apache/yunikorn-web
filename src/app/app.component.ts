@@ -9,7 +9,7 @@ import { filter } from 'rxjs/operators';
 })
 export class AppComponent implements OnInit {
   isNavOpen = false;
-  breadcrumbs: Array<Object> = [];
+  breadcrumbs: Array<object> = [];
 
   constructor(private route: ActivatedRoute, private router: Router) {}
 
@@ -40,7 +40,7 @@ export class AppComponent implements OnInit {
                       route.snapshot.data.breadcrumb.split(':')[1]
                     )
                   : route.snapshot.data.breadcrumb,
-                url: url
+                url
               });
               if (route.snapshot.data.prependRoot) {
                 this.breadcrumbs.unshift({
@@ -56,7 +56,7 @@ export class AppComponent implements OnInit {
     } while (currentRoute);
   }
 
-  getResourceName(label: string, params: Object, routeParam: string) {
+  getResourceName(label: string, params: object, routeParam: string) {
     return label.replace(`:${routeParam}`, params[routeParam]);
   }
 

@@ -1,4 +1,6 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import { MatCardModule, MatProgressBarModule } from '@angular/material';
+import { configureTestSuite } from 'ng-bullet';
 
 import { QueueRackComponent } from './queue-rack.component';
 
@@ -6,11 +8,12 @@ describe('QueueRackComponent', () => {
   let component: QueueRackComponent;
   let fixture: ComponentFixture<QueueRackComponent>;
 
-  beforeEach(async(() => {
+  configureTestSuite(() => {
     TestBed.configureTestingModule({
-      declarations: [QueueRackComponent]
-    }).compileComponents();
-  }));
+      declarations: [QueueRackComponent],
+      imports: [MatCardModule, MatProgressBarModule]
+    });
+  });
 
   beforeEach(() => {
     fixture = TestBed.createComponent(QueueRackComponent);
@@ -18,7 +21,7 @@ describe('QueueRackComponent', () => {
     fixture.detectChanges();
   });
 
-  it('should create', () => {
+  it('should create the component', () => {
     expect(component).toBeTruthy();
   });
 });

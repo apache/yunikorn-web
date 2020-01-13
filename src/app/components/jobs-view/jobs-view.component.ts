@@ -6,7 +6,7 @@ import { MatPaginator, MatTableDataSource, PageEvent, MatSort } from '@angular/m
 import { SchedulerService } from '@app/services/scheduler/scheduler.service';
 import { JobInfo, JobAllocation } from '@app/models/job-info.model';
 
-interface ColumnDef {
+export interface ColumnDef {
   colId: string;
   colName: string;
 }

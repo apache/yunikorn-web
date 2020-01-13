@@ -43,9 +43,9 @@ The project uses [multi-stage build](https://docs.docker.com/develop/develop-ima
 ### Running tests
 
 All tests can be executed via `make test`. It will first build the project and then execute the unit tests followed by the end to end tests.  
-If you want to run the unit tests separately, run `ng test` to execute them via [Karma](https://karma-runner.github.io).
+If you want to run the unit tests separately, run `yarn test` to execute them via [Karma](https://karma-runner.github.io). If you want to run the unit tests with code coverage, run `yarn test:ci`.
 
-The end to end tests run via [Protractor](http://www.protractortest.org/) and can be directly run by executing `ng e2e`.
+The end to end tests run via [Protractor](http://www.protractortest.org/) and can be directly run by executing `yarn e2e`.
 
 ## Local development
 Beside the simple all in way to start the development server via make you can also start a development environment manually. 
