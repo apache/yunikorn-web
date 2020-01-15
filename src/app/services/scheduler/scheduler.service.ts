@@ -17,7 +17,7 @@ export class SchedulerService {
   constructor(private httpClient: HttpClient, private envConfig: EnvconfigService) {}
 
   public fetchClusterList(): Observable<ClusterInfo[]> {
-    const clusterUrl = `${this.envConfig.getUschedulerWebAddress()}/ws/v1/clusters`;
+    const clusterUrl = `${this.envConfig.getSchedulerWebAddress()}/ws/v1/clusters`;
     return this.httpClient.get(clusterUrl).pipe(map(data => data as ClusterInfo[]));
   }
 
@@ -30,7 +30,7 @@ export class SchedulerService {
   }
 
   public fetchSchedulerQueues(): Observable<any> {
-    const queuesUrl = `${this.envConfig.getUschedulerWebAddress()}/ws/v1/queues`;
+    const queuesUrl = `${this.envConfig.getSchedulerWebAddress()}/ws/v1/queues`;
     return this.httpClient.get(queuesUrl).pipe(
       map((data: any) => {
         let rootQueue = new QueueInfo();
@@ -53,7 +53,7 @@ export class SchedulerService {
   }
 
   public fetchJobList(): Observable<JobInfo[]> {
-    const jobsUrl = `${this.envConfig.getUschedulerWebAddress()}/ws/v1/apps`;
+    const jobsUrl = `${this.envConfig.getSchedulerWebAddress()}/ws/v1/apps`;
     return this.httpClient.get(jobsUrl).pipe(
       map((data: any) => {
         const result = [];

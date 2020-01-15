@@ -13,36 +13,30 @@ module.exports = function(config) {
       require('karma-jasmine-html-reporter'),
       require('karma-coverage-istanbul-reporter'),
       require('@angular-devkit/build-angular/plugins/karma'),
-      require('karma-spec-reporter')
+      require('karma-super-dots-reporter')
     ],
     client: {
       clearContext: false // leave Jasmine Spec Runner output visible in browser
     },
     coverageIstanbulReporter: {
       dir: require('path').join(__dirname, './coverage/yunikorn-web'),
-      reports: ['html', 'lcovonly', 'text-summary'],
+      reports: ['text-summary'],
       fixWebpackSourcePaths: true
     },
-    reporters: ['spec'],
-    specReporter: {
-      maxLogLines: 5, // limit number of lines logged per test
-      suppressErrorSummary: true, // do not print error summary
-      suppressFailed: false, // do not print information about failed tests
-      suppressPassed: false, // do not print information about passed tests
-      suppressSkipped: true, // do not print information about skipped tests
-      showSpecTiming: false, // print the time elapsed for each spec
-      failFast: false // test would finish with error when a first fail occurs.
+    reporters: ['super-dots'],
+    superDotsReporter: {
+      nbDotsPerLine: 180
     },
     port: 9876,
     colors: true,
     logLevel: config.LOG_INFO,
-    autoWatch: true,
+    autoWatch: false,
     browsers: ['ChromeHeadless'],
     captureTimeout: 180000,
     browserDisconnectTolerance: 3,
     browserDisconnectTimeout: 180000,
     browserNoActivityTimeout: 180000,
-    singleRun: false,
+    singleRun: true,
     restartOnFileChange: true
   });
 };

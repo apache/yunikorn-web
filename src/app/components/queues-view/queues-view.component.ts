@@ -7,9 +7,16 @@ import { QueueInfo, ToggleQueueChildrenEvent } from '@app/models/queue-info.mode
 import { PartitionInfo } from '@app/models/partition-info.model';
 import { SchedulerService } from '@app/services/scheduler/scheduler.service';
 
-interface QueueList {
+export interface QueueList {
   [level: string]: QueueInfo[] | null;
 }
+
+export interface QueueLevel {
+  level: string;
+  next: string;
+}
+
+export const MAX_QUEUE_LEVELS = 5;
 
 @Component({
   selector: 'app-queues-view',
@@ -25,19 +32,20 @@ export class QueuesViewComponent implements OnInit {
   rootQueue: QueueInfo = null;
   selectedQueue: QueueInfo = null;
   queueList: QueueList = {};
-  queueLevels: Object[] = [
+  queueLevels: QueueLevel[] = [
     { level: 'level_00', next: 'level_01' },
     { level: 'level_01', next: 'level_02' },
     { level: 'level_02', next: 'level_03' },
     { level: 'level_03', next: 'level_04' },
-    { level: 'level_04', next: 'level_05' }
+    { level: 'level_04', next: 'level_05' },
+    { level: 'level_05', next: 'level_06' }
   ];
 
   constructor(private scheduler: SchedulerService, private spinner: NgxSpinnerService) {}
 
   ngOnInit() {
     this.queueLevels.forEach(obj => {
-      this.queueList[obj['level']] = null;
+      this.queueList[obj.level] = null;
     });
     this.partitionList = [];
     this.spinner.show();
@@ -90,9 +98,8 @@ export class QueuesViewComponent implements OnInit {
   }
 
   closeQueueRacks(currentLevel: string) {
-    const MAX_LEVELS = 4;
     const level = +currentLevel.split('_')[1];
-    for (let index = MAX_LEVELS; index >= level; index--) {
+    for (let index = MAX_QUEUE_LEVELS; index >= level; index--) {
       this.queueList[`level_0${index}`] = null;
     }
   }

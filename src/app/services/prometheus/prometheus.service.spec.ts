@@ -1,15 +1,24 @@
-import { TestBed, inject } from '@angular/core/testing';
+import { TestBed } from '@angular/core/testing';
+import { HttpClientTestingModule } from '@angular/common/http/testing';
+import { configureTestSuite } from 'ng-bullet';
 
 import { PrometheusService } from './prometheus.service';
 
 describe('PrometheusService', () => {
-  beforeEach(() => {
+  let service: PrometheusService;
+
+  configureTestSuite(() => {
     TestBed.configureTestingModule({
+      imports: [HttpClientTestingModule],
       providers: [PrometheusService]
     });
   });
 
-  it('should be created', inject([PrometheusService], (service: PrometheusService) => {
+  beforeEach(() => {
+    service = TestBed.get(PrometheusService);
+  });
+
+  it('should create the service', () => {
     expect(service).toBeTruthy();
-  }));
+  });
 });

@@ -30,19 +30,19 @@ export class EnvconfigService {
     });
   }
 
-  getUschedulerWebAddress() {
+  getSchedulerWebAddress() {
     const protocol = this.envConfig.protocol || DEFAULT_PROTOCOL;
     const proxyWebAddress = this.envConfig.corsproxyWebAddress;
-    let uschedulerWebAddress = this.envConfig.ushedulerWebAddress;
-    const uschedulerHostname = uschedulerWebAddress.split(':')[0];
-    const uschedulerPort = uschedulerWebAddress.split(':')[1];
-    if (uschedulerHostname === '') {
-      uschedulerWebAddress = `${this.uiHostname}:${uschedulerPort}`;
+    let schedulerWebAddress = this.envConfig.shedulerWebAddress;
+    const schedulerHostname = schedulerWebAddress.split(':')[0];
+    const schedulerPort = schedulerWebAddress.split(':')[1];
+    if (schedulerHostname === '') {
+      schedulerWebAddress = `${this.uiHostname}:${schedulerPort}`;
     }
     if (proxyWebAddress) {
-      return `${protocol}//${proxyWebAddress}/${uschedulerWebAddress}`;
+      return `${protocol}//${proxyWebAddress}/${schedulerWebAddress}`;
     }
-    return `${protocol}//${uschedulerWebAddress}`;
+    return `${protocol}//${schedulerWebAddress}`;
   }
 
   getPrometheusWebAddress() {

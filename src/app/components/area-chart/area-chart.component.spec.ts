@@ -1,4 +1,5 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import { configureTestSuite } from 'ng-bullet';
 
 import { AreaChartComponent } from './area-chart.component';
 
@@ -6,11 +7,11 @@ describe('AreaChartComponent', () => {
   let component: AreaChartComponent;
   let fixture: ComponentFixture<AreaChartComponent>;
 
-  beforeEach(async(() => {
+  configureTestSuite(() => {
     TestBed.configureTestingModule({
       declarations: [AreaChartComponent]
-    }).compileComponents();
-  }));
+    });
+  });
 
   beforeEach(() => {
     fixture = TestBed.createComponent(AreaChartComponent);
@@ -18,7 +19,7 @@ describe('AreaChartComponent', () => {
     fixture.detectChanges();
   });
 
-  it('should create', () => {
+  it('should create the component', () => {
     expect(component).toBeTruthy();
   });
 });
