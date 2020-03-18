@@ -117,44 +117,44 @@ export class SchedulerService {
   }
 
   private fillQueueCapacities(data: any, queue: QueueInfo) {
-    const configCap = data['capacities']['capacity'];
-    const usedCap = data['capacities']['usedcapacity'];
-    const maxCap = data['capacities']['maxcapacity'];
+    const configCap = data['capacities']['capacity'] as string;
+    const usedCap = data['capacities']['usedcapacity'] as string;
+    const maxCap = data['capacities']['maxcapacity'] as string;
+    const absUsedCapacity = data['capacities']['absusedcapacity'] as string;
 
     const configCapResources = this.splitCapacity(configCap);
     const usedCapResources = this.splitCapacity(usedCap);
     const maxCapResources = this.splitCapacity(maxCap);
 
-    const absoluteUsedCapPercent = Math.max(
-      Math.round((+usedCapResources.memory / +configCapResources.memory) * 100),
-      Math.round((+usedCapResources.vcore / +configCapResources.vcore) * 100)
-    );
-
-    queue.capacity = this.formatCapacity(configCapResources) as any;
-    queue.maxCapacity = this.formatCapacity(maxCapResources) as any;
-    queue.usedCapacity = this.formatCapacity(usedCapResources) as any;
-    queue.absoluteUsedCapacity = Math.min(absoluteUsedCapPercent, 100);
+    queue.capacity = this.formatCapacity(configCapResources);
+    queue.maxCapacity = this.formatCapacity(maxCapResources);
+    queue.usedCapacity = this.formatCapacity(usedCapResources);
+    queue.absoluteUsedCapacity = absUsedCapacity ? absUsedCapacity : '0';
   }
 
-  private splitCapacity(capacity: string): ResourceInfo {
+  private splitCapacity(capacity: string = ''): ResourceInfo {
     const splitted = capacity
       .replace('map', '')
       .replace(/[\[\]]/g, '')
       .split(' ');
+
     const resources: ResourceInfo = {
       memory: '0',
       vcore: '0'
     };
+
     for (const resource of splitted) {
       if (resource) {
         const values = resource.split(':');
         if (values[0] === 'memory') {
           resources.memory = values[1];
-        } else {
+        }
+        if (values[0] === 'vcore') {
           resources.vcore = values[1];
         }
       }
     }
+
     return resources;
   }
 
