@@ -103,7 +103,7 @@
 }
 
 .open .logo img {
-  width: 36px;
+  width: 42px;
 }
 
 .logo div {
@@ -118,7 +118,7 @@
 }
 
 .logo div + div {
-  margin-top: 5px;
+  margin-top: 0px;
 }
 
 .text-md {
@@ -149,8 +149,6 @@
 }
 
 ul.navigation-primary {
-  margin-top: 10px;
-
   overflow-y: auto;
   height: calc(100vh - 110px);
 }
@@ -161,9 +159,14 @@ ul.navigation-primary {
   padding: 0;
   overflow-x: hidden;
 }
+
 .navigation > ul {
   margin-top: 10px;
+  &:first-of-type {
+    margin-top: 0;
+  }
 }
+
 .navigation li:hover > a {
   color: #fff;
   background: #404351;

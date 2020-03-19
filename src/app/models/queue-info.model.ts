@@ -19,16 +19,12 @@
 export class QueueInfo {
   queueName: string;
   state: 'RUNNING' | 'STOPPED';
-  capacity: number;
-  maxCapacity: number;
-  usedCapacity: number;
-  absoluteCapacity: number;
-  absoluteMaxCapacity: number;
-  absoluteUsedCapacity: number;
-  effectiveMinMemory: number;
-  effectiveMinVCores: number;
-  effectiveMaxMemory: number;
-  effectiveMaxVCores: number;
+  capacity: string;
+  maxCapacity: string;
+  usedCapacity: string;
+  absoluteCapacity: string;
+  absoluteMaxCapacity: string;
+  absoluteUsedCapacity: string;
   queuePath: string;
   parentQueue: null | QueueInfo;
   children: null | QueueInfo[];

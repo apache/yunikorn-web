@@ -27,14 +27,17 @@
   }
 }
 .mat-drawer-container {
-  width: 400px;
-  height: 580px;
+  width: 430px;
+  height: calc(100vh - 230px);
   background: #eee;
   position: absolute;
   right: 0;
   display: none;
   .mat-drawer {
-    width: 400px;
+    width: 430px;
+    .content {
+      padding: 0 10px;
+    }
   }
   .close-btn {
     float: right;

@@ -43,7 +43,7 @@
               "usedcapacity": "[memory:5908 vcore:4000]",
               "absusedcapacity": "20"
             },
-            "queues": []
+            "queues": null
           },
           {
             "queuename": "search",
@@ -54,7 +54,7 @@
               "usedcapacity": "[]",
               "absusedcapacity": "20"
             },
-            "queues": []
+            "queues": null
           },
           {
             "queuename": "sandbox",
@@ -65,7 +65,7 @@
               "usedcapacity": "[]",
               "absusedcapacity": "20"
             },
-            "queues": []
+            "queues": null
           }
         ]
       }
