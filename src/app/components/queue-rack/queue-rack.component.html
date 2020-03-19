@@ -33,6 +33,6 @@
       </a>
       <span class="fa fa-caret-right" *ngIf="item.isExpanded"></span>
     </div>
-    <mat-progress-bar value="{{ item.absoluteUsedCapacity }}"></mat-progress-bar>
+    <mat-progress-bar [value]="getProgressBarValue(item)"></mat-progress-bar>
   </mat-card>
 </div>

@@ -61,14 +61,19 @@ export class QueueRackComponent implements OnInit {
   }
 
   getQueueCapacityColor(queue: QueueInfo) {
-    const capacity = +queue.absoluteUsedCapacity;
-    if (capacity > 0 && capacity <= 70) {
+    const absUsedCapacity = +queue.absoluteUsedCapacity;
+    if (absUsedCapacity > 60 && absUsedCapacity <= 75) {
       return '#60cea5';
-    } else if (capacity > 70 && capacity < 95) {
+    } else if (absUsedCapacity > 75 && absUsedCapacity < 90) {
       return '#ffbc0b';
-    } else if (capacity >= 95) {
+    } else if (absUsedCapacity >= 90) {
       return '#ef6162';
     }
-    return '';
+    return '#fff';
+  }
+
+  getProgressBarValue(queue: QueueInfo) {
+    const absUsedCapacity = +queue.absoluteUsedCapacity;
+    return Math.min(absUsedCapacity, 100);
   }
 }
