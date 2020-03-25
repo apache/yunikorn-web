@@ -65,7 +65,7 @@
 }
 
 .logo {
-  padding: 15px 10px;
+  padding: 15px 10px 15px 4px;
   white-space: nowrap;
   color: #fff;
   background: #313d54;
@@ -87,13 +87,13 @@
 }
 
 .open .logo {
-  padding-left: 20px;
+  padding-left: 14px;
   padding-top: 12px;
 }
 
 .logo img {
   float: left;
-  width: 30px;
+  width: 38px;
 
   -webkit-transition: width 0.8s ease;
   -moz-transition: width 0.8s ease;
@@ -103,22 +103,19 @@
 }
 
 .open .logo img {
-  width: 42px;
+  width: 50px;
 }
 
 .logo div {
-  margin-left: 50px;
+  margin-left: 58px;
+  margin-top: 10px;
   white-space: nowrap;
   color: #fff;
-  text-transform: uppercase;
+  font-size: 18px;
 }
 
 .open .logo div {
   display: block;
-}
-
-.logo div + div {
-  margin-top: 0px;
 }
 
 .text-md {
