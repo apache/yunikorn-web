@@ -16,12 +16,12 @@
  * limitations under the License.
  */
 
-export class AreaDataItem {
-  y: number;
-  t: Date;
+export class HistoryInfo {
+  timestamp: number;
+  value: number;
 
-  constructor(value: number, date: Date) {
-    this.y = value;
-    this.t = date;
+  constructor(timestamp: number, value: number) {
+    this.timestamp = timestamp;
+    this.value = value;
   }
 }
