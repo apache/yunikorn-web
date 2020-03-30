@@ -157,5 +157,57 @@
       ],
       "applicationState": "Running"
     }
+  ],
+  "appHistory": [
+    {
+      "timestamp": 1585238263802408000,
+      "totalApplications": "0"
+    },
+    {
+      "timestamp": 1585238323803183000,
+      "totalApplications": "0"
+    },
+    {
+      "timestamp": 1585238383803268000,
+      "totalApplications": "1"
+    },
+    {
+      "timestamp": 1585238443804046000,
+      "totalApplications": "1"
+    },
+    {
+      "timestamp": 1585238503806253000,
+      "totalApplications": "2"
+    },
+    {
+      "timestamp": 1585238563807452000,
+      "totalApplications": "2"
+    }
+  ],
+  "containerHistory": [
+    {
+      "timestamp": 1585238263802408000,
+      "totalContainers": "0"
+    },
+    {
+      "timestamp": 1585238323803183000,
+      "totalContainers": "0"
+    },
+    {
+      "timestamp": 1585238383803268000,
+      "totalContainers": "1"
+    },
+    {
+      "timestamp": 1585238443804046000,
+      "totalContainers": "1"
+    },
+    {
+      "timestamp": 1585238503806253000,
+      "totalContainers": "2"
+    },
+    {
+      "timestamp": 1585238563807452000,
+      "totalContainers": "2"
+    }
   ]
 }

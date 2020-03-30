@@ -27,6 +27,7 @@ import { ClusterInfo } from '@app/models/cluster-info.model';
 import { CommonUtil } from '@app/utils/common.util';
 import { ResourceInfo } from '@app/models/resource-info.model';
 import { JobInfo, JobAllocation } from '@app/models/job-info.model';
+import { HistoryInfo } from '@app/models/history-info.model';
 
 @Injectable({
   providedIn: 'root'
@@ -109,6 +110,44 @@ export class SchedulerService {
             result.push(jobInfo);
           });
         }
+        return result;
+      })
+    );
+  }
+
+  public fetchAppHistory(): Observable<HistoryInfo[]> {
+    const appHistoryUrl = `${this.envConfig.getSchedulerWebAddress()}/ws/v1/history/apps`;
+    return this.httpClient.get(appHistoryUrl).pipe(
+      map((data: any[]) => {
+        const result = [];
+
+        if (data && data.length) {
+          data.forEach(history => {
+            result.push(
+              new HistoryInfo(Math.floor(history.timestamp / 1e6), +history.totalApplications)
+            );
+          });
+        }
+
+        return result;
+      })
+    );
+  }
+
+  public fetchContainerHistory(): Observable<HistoryInfo[]> {
+    const containerHistoryUrl = `${this.envConfig.getSchedulerWebAddress()}/ws/v1/history/containers`;
+    return this.httpClient.get(containerHistoryUrl).pipe(
+      map((data: any[]) => {
+        const result = [];
+
+        if (data && data.length) {
+          data.forEach(history => {
+            result.push(
+              new HistoryInfo(Math.floor(history.timestamp / 1e6), +history.totalContainers)
+            );
+          });
+        }
+
         return result;
       })
     );

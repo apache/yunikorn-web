@@ -104,7 +104,7 @@ export class AreaChartComponent implements OnInit, AfterViewInit, OnChanges {
             {
               type: 'time',
               time: {
-                unit: 'hour'
+                unit: 'minute'
               }
             }
           ]
