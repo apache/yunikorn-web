@@ -18,8 +18,8 @@
 
 <div class="jobs-view">
   <div class="mat-elevation-z8">
-    <mat-table [dataSource]="jobsDataSource" matSort>
-      <ng-container [matColumnDef]="columnDef.colId" *ngFor="let columnDef of jobsColumnDef">
+    <mat-table [dataSource]="appDataSource" matSort>
+      <ng-container [matColumnDef]="columnDef.colId" *ngFor="let columnDef of appColumnDef">
         <mat-header-cell *matHeaderCellDef mat-sort-header>{{ columnDef.colName }}</mat-header-cell>
         <ng-container *ngIf="columnDef.colId === 'submissionTime'; else otherCell">
           <mat-cell *matCellDef="let element"> {{ element['formattedSubmissionTime'] }}</mat-cell>
@@ -45,24 +45,24 @@
         </mat-footer-cell>
       </ng-container>
 
-      <mat-header-row *matHeaderRowDef="jobsColumnIds"></mat-header-row>
+      <mat-header-row *matHeaderRowDef="appColumnIds"></mat-header-row>
 
       <mat-row
-        *matRowDef="let row; columns: jobsColumnIds"
+        *matRowDef="let row; columns: appColumnIds"
         [class.selected-row]="selectedRow === row"
         (click)="toggleRowSelection(row)"
       ></mat-row>
 
       <mat-footer-row
         *matFooterRowDef="['noRecord']"
-        [ngStyle]="{ display: isJobsDataSourceEmpty() ? '' : 'none' }"
+        [ngStyle]="{ display: isAppDataSourceEmpty() ? '' : 'none' }"
       ></mat-footer-row>
     </mat-table>
 
     <mat-paginator
       #jobsViewMatPaginator
       [pageSizeOptions]="[5, 10, 20]"
-      [ngStyle]="{ display: isJobsDataSourceEmpty() ? 'none' : '' }"
+      [ngStyle]="{ display: isAppDataSourceEmpty() ? 'none' : '' }"
       (page)="onPaginatorChanged($event)"
       showFirstLastButtons
     ></mat-paginator>

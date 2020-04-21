@@ -16,20 +16,29 @@
  * limitations under the License.
  */
 
-import { Component, OnInit, Input } from '@angular/core';
-
-import { DonutDataItem } from '@app/models/donut-data.model';
-
-@Component({
-  selector: 'app-job-status',
-  templateUrl: './job-status.component.html',
-  styleUrls: ['./job-status.component.scss']
-})
-export class JobStatusComponent implements OnInit {
-  @Input()
-  chartData: DonutDataItem[];
-
-  constructor() {}
-
-  ngOnInit() {}
+.status-wrapper {
+  align-items: center;
+  height: 220px;
+}
+.chart-wrapper {
+  max-width: 320px;
+  z-index: 1;
+}
+.chart-legend {
+  max-width: 200px;
+  margin: 0 auto;
+  font-size: 0.8em;
+  font-weight: bold;
+  color: #666;
+  z-index: 10;
+  > div {
+    margin: 12px 0;
+  }
+  .legend-label {
+    padding-left: 10px;
+  }
+  .legend-value {
+    float: right;
+    padding-right: 20px;
+  }
 }

@@ -43,12 +43,12 @@ import { QueuesViewComponent } from './components/queues-view/queues-view.compon
 import { ClusterContainerComponent } from './components/cluster-container/cluster-container.component';
 import { DonutChartComponent } from './components/donut-chart/donut-chart.component';
 import { AreaChartComponent } from './components/area-chart/area-chart.component';
-import { JobStatusComponent } from './components/job-status/job-status.component';
-import { JobHistoryComponent } from './components/job-history/job-history.component';
+import { AppStatusComponent } from './components/app-status/app-status.component';
+import { AppHistoryComponent } from './components/app-history/app-history.component';
 import { ContainerStatusComponent } from './components/container-status/container-status.component';
 import { ContainerHistoryComponent } from './components/container-history/container-history.component';
 import { QueueRackComponent } from './components/queue-rack/queue-rack.component';
-import { JobsViewComponent } from './components/jobs-view/jobs-view.component';
+import { AppsViewComponent } from './components/apps-view/apps-view.component';
 
 const appRoutes: Routes = [
   {
@@ -68,7 +68,7 @@ const appRoutes: Routes = [
       },
       {
         path: 'apps',
-        component: JobsViewComponent,
+        component: AppsViewComponent,
         data: { breadcrumb: 'Applications' }
       },
       {
@@ -99,12 +99,12 @@ const appRoutes: Routes = [
     ClusterContainerComponent,
     DonutChartComponent,
     AreaChartComponent,
-    JobStatusComponent,
-    JobHistoryComponent,
+    AppStatusComponent,
+    AppHistoryComponent,
     ContainerStatusComponent,
     ContainerHistoryComponent,
     QueueRackComponent,
-    JobsViewComponent
+    AppsViewComponent
   ],
   imports: [
     BrowserModule,
