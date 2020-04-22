@@ -71,7 +71,9 @@ export class AreaChartComponent implements OnInit, AfterViewInit, OnChanges {
             backgroundColor: 'rgba(114, 189, 215, 0.5)',
             borderColor: 'rgb(114, 189, 215)',
             label: this.tooltipLabel,
-            fill: 'start'
+            fill: 'start',
+            pointBackgroundColor: 'rgb(114, 189, 215)',
+            pointHoverRadius: 5
           }
         ]
       },
@@ -84,7 +86,7 @@ export class AreaChartComponent implements OnInit, AfterViewInit, OnChanges {
           animateRotate: true
         },
         legend: {
-          display: false
+          display: true
         },
         title: {
           display: false

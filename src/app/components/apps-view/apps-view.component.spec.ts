@@ -17,26 +17,45 @@
  */
 
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
-import { MatCardModule } from '@angular/material';
+import { NoopAnimationsModule } from '@angular/platform-browser/animations';
+import { HAMMER_LOADER } from '@angular/platform-browser';
+import { NgxSpinnerService } from 'ngx-spinner';
 import { configureTestSuite } from 'ng-bullet';
-import { MockComponent } from 'ng-mocks';
+import {
+  MatTableModule,
+  MatPaginatorModule,
+  MatDividerModule,
+  MatSortModule
+} from '@angular/material';
 
-import { JobHistoryComponent } from './job-history.component';
-import { AreaChartComponent } from '@app/components/area-chart/area-chart.component';
+import { AppsViewComponent } from './apps-view.component';
+import { SchedulerService } from '@app/services/scheduler/scheduler.service';
+import { MockSchedulerService, MockNgxSpinnerService } from '@app/testing/mocks';
 
-describe('JobHistoryComponent', () => {
-  let component: JobHistoryComponent;
-  let fixture: ComponentFixture<JobHistoryComponent>;
+describe('AppsViewComponent', () => {
+  let component: AppsViewComponent;
+  let fixture: ComponentFixture<AppsViewComponent>;
 
   configureTestSuite(() => {
     TestBed.configureTestingModule({
-      declarations: [JobHistoryComponent, MockComponent(AreaChartComponent)],
-      imports: [MatCardModule]
+      declarations: [AppsViewComponent],
+      imports: [
+        NoopAnimationsModule,
+        MatTableModule,
+        MatPaginatorModule,
+        MatDividerModule,
+        MatSortModule
+      ],
+      providers: [
+        { provide: SchedulerService, useValue: MockSchedulerService },
+        { provide: NgxSpinnerService, useValue: MockNgxSpinnerService },
+        { provide: HAMMER_LOADER, useValue: () => new Promise(() => {}) }
+      ]
     });
   });
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(JobHistoryComponent);
+    fixture = TestBed.createComponent(AppsViewComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

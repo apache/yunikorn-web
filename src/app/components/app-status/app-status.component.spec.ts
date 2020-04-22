@@ -21,22 +21,22 @@ import { MatCardModule } from '@angular/material';
 import { configureTestSuite } from 'ng-bullet';
 import { MockComponent } from 'ng-mocks';
 
-import { JobStatusComponent } from './job-status.component';
+import { AppStatusComponent } from './app-status.component';
 import { DonutChartComponent } from '@app/components/donut-chart/donut-chart.component';
 
-describe('JobStatusComponent', () => {
-  let component: JobStatusComponent;
-  let fixture: ComponentFixture<JobStatusComponent>;
+describe('AppStatusComponent', () => {
+  let component: AppStatusComponent;
+  let fixture: ComponentFixture<AppStatusComponent>;
 
   configureTestSuite(() => {
     TestBed.configureTestingModule({
-      declarations: [JobStatusComponent, MockComponent(DonutChartComponent)],
+      declarations: [AppStatusComponent, MockComponent(DonutChartComponent)],
       imports: [MatCardModule]
     });
   });
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(JobStatusComponent);
+    fixture = TestBed.createComponent(AppStatusComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

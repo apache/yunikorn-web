@@ -24,8 +24,8 @@ import { MockComponent } from 'ng-mocks';
 import { NgxSpinnerService } from 'ngx-spinner';
 
 import { ClusterInfoComponent } from './cluster-info.component';
-import { JobStatusComponent } from '@app/components/job-status/job-status.component';
-import { JobHistoryComponent } from '@app/components/job-history/job-history.component';
+import { AppStatusComponent } from '@app/components/app-status/app-status.component';
+import { AppHistoryComponent } from '@app/components/app-history/app-history.component';
 import { ContainerStatusComponent } from '@app/components/container-status/container-status.component';
 import { ContainerHistoryComponent } from '@app/components/container-history/container-history.component';
 import { SchedulerService } from '@app/services/scheduler/scheduler.service';
@@ -43,8 +43,8 @@ describe('ClusterInfoComponent', () => {
     TestBed.configureTestingModule({
       declarations: [
         ClusterInfoComponent,
-        MockComponent(JobStatusComponent),
-        MockComponent(JobHistoryComponent),
+        MockComponent(AppStatusComponent),
+        MockComponent(AppHistoryComponent),
         MockComponent(ContainerStatusComponent),
         MockComponent(ContainerHistoryComponent)
       ],

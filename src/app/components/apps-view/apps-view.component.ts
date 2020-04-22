@@ -22,7 +22,7 @@ import { finalize } from 'rxjs/operators';
 import { MatPaginator, MatTableDataSource, PageEvent, MatSort } from '@angular/material';
 
 import { SchedulerService } from '@app/services/scheduler/scheduler.service';
-import { JobInfo, JobAllocation } from '@app/models/job-info.model';
+import { AppInfo, AppAllocation } from '@app/models/app-info.model';
 
 export interface ColumnDef {
   colId: string;
@@ -30,34 +30,34 @@ export interface ColumnDef {
 }
 
 @Component({
-  selector: 'app-jobs-view',
-  templateUrl: './jobs-view.component.html',
-  styleUrls: ['./jobs-view.component.scss']
+  selector: 'app-applications-view',
+  templateUrl: './apps-view.component.html',
+  styleUrls: ['./apps-view.component.scss']
 })
-export class JobsViewComponent implements OnInit {
-  @ViewChild('jobsViewMatPaginator', { static: true }) jobsPaginator: MatPaginator;
+export class AppsViewComponent implements OnInit {
+  @ViewChild('jobsViewMatPaginator', { static: true }) appPaginator: MatPaginator;
   @ViewChild('allocationMatPaginator', { static: true }) allocPaginator: MatPaginator;
-  @ViewChild(MatSort, { static: true }) jobsSort: MatSort;
+  @ViewChild(MatSort, { static: true }) appSort: MatSort;
 
-  jobsDataSource = new MatTableDataSource<JobInfo>([]);
-  jobsColumnDef: ColumnDef[] = [];
-  jobsColumnIds: string[] = [];
+  appDataSource = new MatTableDataSource<AppInfo>([]);
+  appColumnDef: ColumnDef[] = [];
+  appColumnIds: string[] = [];
 
-  allocDataSource = new MatTableDataSource<JobAllocation>([]);
+  allocDataSource = new MatTableDataSource<AppAllocation>([]);
   allocColumnDef: ColumnDef[] = [];
   allocColumnIds: string[] = [];
 
-  selectedRow: JobInfo | null = null;
+  selectedRow: AppInfo | null = null;
 
   constructor(private scheduler: SchedulerService, private spinner: NgxSpinnerService) {}
 
   ngOnInit() {
-    this.jobsDataSource.paginator = this.jobsPaginator;
+    this.appDataSource.paginator = this.appPaginator;
     this.allocDataSource.paginator = this.allocPaginator;
-    this.jobsDataSource.sort = this.jobsSort;
-    this.jobsSort.sort({ id: 'submissionTime', start: 'desc', disableClear: false });
+    this.appDataSource.sort = this.appSort;
+    this.appSort.sort({ id: 'submissionTime', start: 'desc', disableClear: false });
 
-    this.jobsColumnDef = [
+    this.appColumnDef = [
       { colId: 'applicationId', colName: 'Application ID' },
       { colId: 'applicationState', colName: 'Application State' },
       { colId: 'usedResource', colName: 'Used Resource' },
@@ -66,7 +66,7 @@ export class JobsViewComponent implements OnInit {
       { colId: 'submissionTime', colName: 'Submission Time' }
     ];
 
-    this.jobsColumnIds = this.jobsColumnDef.map(col => col.colId).concat('indicatorIcon');
+    this.appColumnIds = this.appColumnDef.map(col => col.colId).concat('indicatorIcon');
 
     this.allocColumnDef = [
       { colId: 'allocationKey', colName: 'Allocation Key' },
@@ -82,26 +82,26 @@ export class JobsViewComponent implements OnInit {
 
     this.spinner.show();
     this.scheduler
-      .fetchJobList()
+      .fetchAppList()
       .pipe(
         finalize(() => {
           this.spinner.hide();
         })
       )
       .subscribe(data => {
-        this.jobsDataSource.data = data;
+        this.appDataSource.data = data;
       });
   }
 
-  unselectAllRowsButOne(row: JobInfo) {
-    this.jobsDataSource.data.map(job => {
+  unselectAllRowsButOne(row: AppInfo) {
+    this.appDataSource.data.map(job => {
       if (job !== row) {
         job.isSelected = false;
       }
     });
   }
 
-  toggleRowSelection(row: JobInfo) {
+  toggleRowSelection(row: AppInfo) {
     this.unselectAllRowsButOne(row);
     if (row.isSelected) {
       this.selectedRow = null;
@@ -122,8 +122,8 @@ export class JobsViewComponent implements OnInit {
     }
   }
 
-  isJobsDataSourceEmpty() {
-    return this.jobsDataSource.data && this.jobsDataSource.data.length === 0;
+  isAppDataSourceEmpty() {
+    return this.appDataSource.data && this.appDataSource.data.length === 0;
   }
 
   isAllocDataSourceEmpty() {

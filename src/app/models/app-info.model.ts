@@ -18,7 +18,7 @@
 
 import * as moment from 'moment';
 
-export class JobInfo {
+export class AppInfo {
   isSelected = false;
   constructor(
     public applicationId: string,
@@ -26,7 +26,7 @@ export class JobInfo {
     public partition: string,
     public queueName: string,
     public submissionTime: number,
-    public allocations: JobAllocation[] | null,
+    public allocations: AppAllocation[] | null,
     public applicationState: string
   ) {}
 
@@ -35,12 +35,12 @@ export class JobInfo {
     return moment(millisecs).format('YYYY/MM/DD HH:mm:ss');
   }
 
-  setAllocations(allocs: JobAllocation[]) {
+  setAllocations(allocs: AppAllocation[]) {
     this.allocations = allocs;
   }
 }
 
-export class JobAllocation {
+export class AppAllocation {
   constructor(
     public allocationKey: string,
     public allocationTags: string,

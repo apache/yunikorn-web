@@ -26,7 +26,7 @@ import { EnvconfigService } from '../envconfig/envconfig.service';
 import { ClusterInfo } from '@app/models/cluster-info.model';
 import { CommonUtil } from '@app/utils/common.util';
 import { ResourceInfo } from '@app/models/resource-info.model';
-import { JobInfo, JobAllocation } from '@app/models/job-info.model';
+import { AppInfo, AppAllocation } from '@app/models/app-info.model';
 import { HistoryInfo } from '@app/models/history-info.model';
 
 @Injectable({
@@ -71,28 +71,28 @@ export class SchedulerService {
     );
   }
 
-  public fetchJobList(): Observable<JobInfo[]> {
-    const jobsUrl = `${this.envConfig.getSchedulerWebAddress()}/ws/v1/apps`;
-    return this.httpClient.get(jobsUrl).pipe(
+  public fetchAppList(): Observable<AppInfo[]> {
+    const appsUrl = `${this.envConfig.getSchedulerWebAddress()}/ws/v1/apps`;
+    return this.httpClient.get(appsUrl).pipe(
       map((data: any) => {
         const result = [];
         if (data && data.length > 0) {
-          data.forEach(job => {
-            const jobInfo = new JobInfo(
-              job['applicationID'],
-              this.formatCapacity(this.splitCapacity(job['usedResource'])),
-              job['partition'],
-              job['queueName'],
-              job['submissionTime'],
+          data.forEach(app => {
+            const jobInfo = new AppInfo(
+              app['applicationID'],
+              this.formatCapacity(this.splitCapacity(app['usedResource'])),
+              app['partition'],
+              app['queueName'],
+              app['submissionTime'],
               null,
-              job['applicationState']
+              app['applicationState']
             );
-            const allocations = job['allocations'];
+            const allocations = app['allocations'];
             if (allocations && allocations.length > 0) {
-              const jobAllocations = [];
+              const appAllocations = [];
               allocations.forEach(alloc => {
-                jobAllocations.push(
-                  new JobAllocation(
+                appAllocations.push(
+                  new AppAllocation(
                     alloc['allocationKey'],
                     alloc['allocationTags'],
                     alloc['uuid'],
@@ -105,7 +105,7 @@ export class SchedulerService {
                   )
                 );
               });
-              jobInfo.setAllocations(jobAllocations);
+              jobInfo.setAllocations(appAllocations);
             }
             result.push(jobInfo);
           });

@@ -34,9 +34,9 @@ import { HistoryInfo } from '@app/models/history-info.model';
 })
 export class ClusterInfoComponent implements OnInit {
   clusterInfo: ClusterInfo = null;
-  jobStatusData: DonutDataItem[] = [];
+  appStatusData: DonutDataItem[] = [];
   containerStatusData: DonutDataItem[] = [];
-  jobHistoryData: AreaDataItem[] = [];
+  appHistoryData: AreaDataItem[] = [];
   containerHistoryData: AreaDataItem[] = [];
 
   constructor(
@@ -62,7 +62,7 @@ export class ClusterInfoComponent implements OnInit {
       });
 
     this.scheduler.fetchAppHistory().subscribe(data => {
-      this.jobHistoryData = this.getAreaChartData(data);
+      this.appHistoryData = this.getAreaChartData(data);
     });
 
     this.scheduler.fetchContainerHistory().subscribe(data => {
@@ -71,7 +71,7 @@ export class ClusterInfoComponent implements OnInit {
   }
 
   updateJobStatusData(info: ClusterInfo) {
-    this.jobStatusData = [
+    this.appStatusData = [
       new DonutDataItem('Failed', +info.failedApplications, '#cc6164'),
       new DonutDataItem('Pending', +info.pendingApplications, '#facc54'),
       new DonutDataItem('Running', +info.runningApplications, '#26bbf0'),

@@ -1,4 +1,4 @@
-<!--
+/**
  * Licensed to the Apache Software Foundation (ASF) under one
  * or more contributor license agreements.  See the NOTICE file
  * distributed with this work for additional information
@@ -14,15 +14,22 @@
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
  * See the License for the specific language governing permissions and
  * limitations under the License.
- -->
+ */
 
-<mat-card class="box-card">
-  <mat-card-header>
-    <mat-card-title>Application History</mat-card-title>
-  </mat-card-header>
-  <mat-card-content>
-    <div class="history-wrapper">
-      <app-area-chart [data]="chartData" tooltipLabel="Jobs"></app-area-chart>
-    </div>
-  </mat-card-content>
-</mat-card>
+import { Component, OnInit, Input } from '@angular/core';
+
+import { AreaDataItem } from '@app/models/area-data.model';
+
+@Component({
+  selector: 'app-application-history',
+  templateUrl: './app-history.component.html',
+  styleUrls: ['./app-history.component.scss']
+})
+export class AppHistoryComponent implements OnInit {
+  @Input()
+  chartData: AreaDataItem[];
+
+  constructor() {}
+
+  ngOnInit() {}
+}

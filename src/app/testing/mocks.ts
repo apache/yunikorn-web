@@ -24,7 +24,9 @@ export const MockSchedulerService = {
   fetchClusterByName: () => of({}),
   fetchClusterList: () => of([]),
   fetchSchedulerQueues: () => of({}),
-  fetchJobList: () => of([])
+  fetchAppList: () => of([]),
+  fetchAppHistory: () => of([]),
+  fetchContainerHistory: () => of([])
 };
 
 export const MockNgxSpinnerService = {
