@@ -53,8 +53,8 @@ export class SchedulerService {
     return this.httpClient.get(queuesUrl).pipe(
       map((data: any) => {
         let rootQueue = new QueueInfo();
-        if (data && data.queues && data.queues[0]) {
-          const rootQueueData = data.queues[0];
+        if (data && data.queues) {
+          const rootQueueData = data.queues;
           rootQueue.queueName = rootQueueData.queuename;
           rootQueue.state = rootQueueData.status || 'RUNNING';
           rootQueue.children = null;
@@ -182,11 +182,12 @@ export class SchedulerService {
     const configCapResources = this.splitCapacity(configCap);
     const usedCapResources = this.splitCapacity(usedCap);
     const maxCapResources = this.splitCapacity(maxCap);
+    const absUsedCapacityResources = this.splitCapacity(absUsedCapacity);
 
     queue.capacity = this.formatCapacity(configCapResources);
     queue.maxCapacity = this.formatCapacity(maxCapResources);
     queue.usedCapacity = this.formatCapacity(usedCapResources);
-    queue.absoluteUsedCapacity = absUsedCapacity ? absUsedCapacity : '0';
+    queue.absoluteUsedCapacity = this.formatAbsCapacity(absUsedCapacityResources);
   }
 
   private splitCapacity(capacity: string = ''): ResourceInfo {
@@ -219,6 +220,13 @@ export class SchedulerService {
     const formatted = [];
     formatted.push(`[memory: ${CommonUtil.formatMemory(+resourceInfo.memory)}`);
     formatted.push(`vcore: ${resourceInfo.vcore}]`);
+    return formatted.join(', ');
+  }
+
+  private formatAbsCapacity(resourceInfo: ResourceInfo) {
+    const formatted = [];
+    formatted.push(`[memory: ${resourceInfo.memory}%`);
+    formatted.push(`vcore: ${resourceInfo.vcore}%]`);
     return formatted.join(', ');
   }
 }
