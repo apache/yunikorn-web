@@ -96,7 +96,7 @@ export class SchedulerService {
                     alloc['allocationKey'],
                     alloc['allocationTags'],
                     alloc['uuid'],
-                    this.formatCapacity(this.splitCapacity(alloc['resource'], 'N/A')),
+                    this.formatCapacity(this.splitCapacity(alloc['resource'], 'n/a')),
                     alloc['priority'],
                     alloc['queueName'],
                     alloc['nodeId'],
@@ -179,9 +179,9 @@ export class SchedulerService {
     const maxCap = data['capacities']['maxcapacity'] as string;
     const absUsedCapacity = data['capacities']['absusedcapacity'] as string;
 
-    const configCapResources = this.splitCapacity(configCap, 'N/A');
+    const configCapResources = this.splitCapacity(configCap, 'n/a');
     const usedCapResources = this.splitCapacity(usedCap, '0');
-    const maxCapResources = this.splitCapacity(maxCap, 'N/A');
+    const maxCapResources = this.splitCapacity(maxCap, 'n/a');
 
     queue.capacity = this.formatCapacity(configCapResources);
     queue.maxCapacity = this.formatCapacity(maxCapResources);
@@ -217,7 +217,7 @@ export class SchedulerService {
 
   private formatCapacity(resourceInfo: ResourceInfo) {
     const formatted = [];
-    if (resourceInfo.memory !== 'N/A') {
+    if (resourceInfo.memory !== 'n/a') {
       formatted.push(`[memory: ${CommonUtil.formatMemory(+resourceInfo.memory)}`);
     } else {
       formatted.push(`[memory: ${resourceInfo.memory}`);
