@@ -1,4 +1,4 @@
-<!--
+/**
  * Licensed to the Apache Software Foundation (ASF) under one
  * or more contributor license agreements.  See the NOTICE file
  * distributed with this work for additional information
@@ -14,21 +14,24 @@
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
  * See the License for the specific language governing permissions and
  * limitations under the License.
- -->
+ */
 
-<nav mat-tab-nav-bar>
-  <a mat-tab-link [routerLink]="['info']" routerLinkActive="active">
-    Cluster Info
-  </a>
-  <a mat-tab-link [routerLink]="['apps']" routerLinkActive="active">
-    Applications
-  </a>
-  <a mat-tab-link [routerLink]="['queues']" routerLinkActive="active">
-    Queues
-  </a>
-  <a mat-tab-link [routerLink]="['nodes']" routerLinkActive="active">
-    Nodes
-  </a>
-</nav>
+import { AllocationInfo } from './alloc-info.model';
 
-<router-outlet></router-outlet>
+export class NodeInfo {
+  isSelected = false;
+  constructor(
+    public nodeId: string,
+    public hostName: string,
+    public rackName: string,
+    public capacity: string,
+    public allocated: string,
+    public occupied: string,
+    public available: string,
+    public allocations: AllocationInfo[] | null
+  ) {}
+
+  setAllocations(allocs: AllocationInfo[]) {
+    this.allocations = allocs;
+  }
+}

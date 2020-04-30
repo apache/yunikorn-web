@@ -34,7 +34,6 @@
       cursor: pointer;
     }
     &.selected-row {
-      // background: #bbbbbb;
       background: #303d54;
       .mat-cell {
         color: #fff;
@@ -45,8 +44,9 @@
   .mat-cell.indicator-icon {
     max-width: 40px;
     font-size: 18px;
+    margin-left: 10px;
   }
-  .job-details {
+  .job-allocations {
     margin-top: 40px;
     .mat-table {
       margin-top: 20px;

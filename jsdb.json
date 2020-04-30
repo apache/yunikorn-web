@@ -209,5 +209,345 @@
       "timestamp": 1585238563807452000,
       "totalContainers": "2"
     }
+  ],
+  "nodes": [
+    {
+      "partitionName": "[mycluster]default",
+      "nodesInfo": [
+        {
+          "nodeID": "ip-10-97-251-125.us-west-2.compute.internal",
+          "hostName": "ip-10-97-251-125.us-west-2.compute.internal",
+          "rackName": "/rack-default",
+          "capacity": "[attachable-volumes-aws-ebs:25 ephemeral-storage:94477937300 hugepages-1Gi:0 hugepages-2Mi:0 memory:7463 pods:29 vcore:1900]",
+          "allocated": "[memory:3958 vcore:1710]",
+          "occupied": "[]",
+          "available": "[attachable-volumes-aws-ebs:25 ephemeral-storage:94477937300 hugepages-1Gi:0 hugepages-2Mi:0 memory:3505 pods:29 vcore:190]",
+          "allocations": [
+            {
+              "allocationKey": "036954e8-78d7-11ea-a9f2-0aafc96ae9e0",
+              "allocationTags": null,
+              "uuid": "d662b17b-7fdd-44b5-ae37-0f697277dc0f",
+              "resource": "[vcore:100]",
+              "priority": "<nil>",
+              "queueName": "root.kube-system",
+              "nodeId": "ip-10-97-251-125.us-west-2.compute.internal",
+              "applicationId": "kube-proxy-_1586267545875054833",
+              "partition": "default"
+            },
+            {
+              "allocationKey": "03693499-78d7-11ea-a9f2-0aafc96ae9e0",
+              "allocationTags": null,
+              "uuid": "4fbe06b7-6e37-4a61-bb33-2c629391cfd0",
+              "resource": "[vcore:10]",
+              "priority": "<nil>",
+              "queueName": "root.kube-system",
+              "nodeId": "ip-10-97-251-125.us-west-2.compute.internal",
+              "applicationId": "aws-node-_1586267545873980492",
+              "partition": "default"
+            },
+            {
+              "allocationKey": "cbae18dd-78d6-11ea-a9f2-0aafc96ae9e0",
+              "allocationTags": null,
+              "uuid": "b8f28638-17f9-428b-94a1-55b640dda5fa",
+              "resource": "[memory:1074 vcore:500]",
+              "priority": "<nil>",
+              "queueName": "root.dex-app-4dxkn4mx",
+              "nodeId": "ip-10-97-251-125.us-west-2.compute.internal",
+              "applicationId": "mean-heron-web-67fc57dbd8-_1586267452372775067",
+              "partition": "default"
+            },
+            {
+              "allocationKey": "cbaf5077-78d6-11ea-a9f2-0aafc96ae9e0",
+              "allocationTags": null,
+              "uuid": "efdbbe9a-7929-48c9-afd1-c55f99d2deac",
+              "resource": "[memory:1074 vcore:500]",
+              "priority": "<nil>",
+              "queueName": "root.dex-app-4dxkn4mx",
+              "nodeId": "ip-10-97-251-125.us-west-2.compute.internal",
+              "applicationId": "mean-heron-livy-856db4f4d8-_1586267452380963122",
+              "partition": "default"
+            },
+            {
+              "allocationKey": "cbae6510-78d6-11ea-a9f2-0aafc96ae9e0",
+              "allocationTags": null,
+              "uuid": "5b911654-0123-480f-86c3-c5ed56871776",
+              "resource": "[memory:1074 vcore:500]",
+              "priority": "<nil>",
+              "queueName": "root.dex-app-4dxkn4mx",
+              "nodeId": "ip-10-97-251-125.us-west-2.compute.internal",
+              "applicationId": "mean-heron-shs-6f455dd86f-_1586267452374806532",
+              "partition": "default"
+            },
+            {
+              "allocationKey": "0f5b3f2d-78d7-11ea-a9f2-0aafc96ae9e0",
+              "allocationTags": null,
+              "uuid": "fb4f65a8-e434-4ff8-9c7f-e5a1633e0c9e",
+              "resource": "[memory:525]",
+              "priority": "<nil>",
+              "queueName": "root.logging",
+              "nodeId": "ip-10-97-251-125.us-west-2.compute.internal",
+              "applicationId": "cdp-fluentd-_1586267565914703700",
+              "partition": "default"
+            },
+            {
+              "allocationKey": "0f5b0ae5-78d7-11ea-a9f2-0aafc96ae9e0",
+              "allocationTags": null,
+              "uuid": "4c33c27e-5b52-41f1-95c1-a81d480f02b9",
+              "resource": "[memory:1]",
+              "priority": "<nil>",
+              "queueName": "root.monitoring",
+              "nodeId": "ip-10-97-251-125.us-west-2.compute.internal",
+              "applicationId": "monitoring-prometheus-node-exporter-_1586267565913942067",
+              "partition": "default"
+            },
+            {
+              "allocationKey": "0f5f56f1-78d7-11ea-a9f2-0aafc96ae9e0",
+              "allocationTags": null,
+              "uuid": "65cf4028-5b36-46c2-ac2e-5dbfb00975e9",
+              "resource": "[memory:210 vcore:100]",
+              "priority": "<nil>",
+              "queueName": "root.dex",
+              "nodeId": "ip-10-97-251-125.us-west-2.compute.internal",
+              "applicationId": "fluentd-_1586267565942134087",
+              "partition": "default"
+            }
+          ],
+          "schedulable": true
+        },
+        {
+          "nodeID": "ip-10-97-247-177.us-west-2.compute.internal",
+          "hostName": "ip-10-97-247-177.us-west-2.compute.internal",
+          "rackName": "/rack-default",
+          "capacity": "[attachable-volumes-aws-ebs:25 ephemeral-storage:94477937300 hugepages-1Gi:0 hugepages-2Mi:0 memory:6280 pods:29 vcore:1250]",
+          "allocated": "[]",
+          "occupied": "[memory:218 vcore:210]",
+          "available": "[attachable-volumes-aws-ebs:25 ephemeral-storage:94477937300 hugepages-1Gi:0 hugepages-2Mi:0 memory:6062 pods:29 vcore:1040]",
+          "allocations": null,
+          "schedulable": true
+        },
+        {
+          "nodeID": "ip-10-97-241-166.us-west-2.compute.internal",
+          "hostName": "ip-10-97-241-166.us-west-2.compute.internal",
+          "rackName": "/rack-default",
+          "capacity": "[attachable-volumes-aws-ebs:25 ephemeral-storage:38601419508 hugepages-1Gi:0 hugepages-2Mi:0 memory:7843 pods:29 vcore:1998]",
+          "allocated": "[]",
+          "occupied": "[memory:919 vcore:310]",
+          "available": "[attachable-volumes-aws-ebs:25 ephemeral-storage:38601419508 hugepages-1Gi:0 hugepages-2Mi:0 memory:6924 pods:29 vcore:1688]",
+          "allocations": null,
+          "schedulable": true
+        },
+        {
+          "nodeID": "ip-10-97-249-226.us-west-2.compute.internal",
+          "hostName": "ip-10-97-249-226.us-west-2.compute.internal",
+          "rackName": "/rack-default",
+          "capacity": "[attachable-volumes-aws-ebs:25 ephemeral-storage:94477937300 hugepages-1Gi:0 hugepages-2Mi:0 memory:7463 pods:29 vcore:1900]",
+          "allocated": "[memory:3958 vcore:1710]",
+          "occupied": "[]",
+          "available": "[attachable-volumes-aws-ebs:25 ephemeral-storage:94477937300 hugepages-1Gi:0 hugepages-2Mi:0 memory:3505 pods:29 vcore:190]",
+          "allocations": [
+            {
+              "allocationKey": "cbb629c9-78d6-11ea-a9f2-0aafc96ae9e0",
+              "allocationTags": null,
+              "uuid": "5434e58b-ccb4-4484-9536-312594908b94",
+              "resource": "[memory:1074 vcore:500]",
+              "priority": "<nil>",
+              "queueName": "root.dex-app-4dxkn4mx",
+              "nodeId": "ip-10-97-249-226.us-west-2.compute.internal",
+              "applicationId": "mean-heron-safari-5b5d7854b7-_1586267452426030808",
+              "partition": "default"
+            },
+            {
+              "allocationKey": "cbad7dbe-78d6-11ea-a9f2-0aafc96ae9e0",
+              "allocationTags": null,
+              "uuid": "274c8bba-2144-4d51-bb54-024a29d477f1",
+              "resource": "[memory:1074 vcore:500]",
+              "priority": "<nil>",
+              "queueName": "root.dex-app-4dxkn4mx",
+              "nodeId": "ip-10-97-249-226.us-west-2.compute.internal",
+              "applicationId": "mean-heron-airflowapi-bf86bdffd-_1586267452369027873",
+              "partition": "default"
+            },
+            {
+              "allocationKey": "156690e4-78d7-11ea-a9f2-0aafc96ae9e0",
+              "allocationTags": null,
+              "uuid": "1b1f8f09-0a32-4eaa-b3e4-8121ffd3fba6",
+              "resource": "[memory:525]",
+              "priority": "<nil>",
+              "queueName": "root.logging",
+              "nodeId": "ip-10-97-249-226.us-west-2.compute.internal",
+              "applicationId": "cdp-fluentd-_1586267576055729704",
+              "partition": "default"
+            },
+            {
+              "allocationKey": "156689d4-78d7-11ea-a9f2-0aafc96ae9e0",
+              "allocationTags": null,
+              "uuid": "5804da82-8131-402f-b2e0-8422c445127f",
+              "resource": "[memory:1]",
+              "priority": "<nil>",
+              "queueName": "root.monitoring",
+              "nodeId": "ip-10-97-249-226.us-west-2.compute.internal",
+              "applicationId": "monitoring-prometheus-node-exporter-_1586267576054574724",
+              "partition": "default"
+            },
+            {
+              "allocationKey": "15694abd-78d7-11ea-a9f2-0aafc96ae9e0",
+              "allocationTags": null,
+              "uuid": "4c128885-2ed6-4127-89e4-70a490c0265f",
+              "resource": "[memory:210 vcore:100]",
+              "priority": "<nil>",
+              "queueName": "root.dex",
+              "nodeId": "ip-10-97-249-226.us-west-2.compute.internal",
+              "applicationId": "fluentd-_1586267576073633162",
+              "partition": "default"
+            },
+            {
+              "allocationKey": "0974c389-78d7-11ea-a9f2-0aafc96ae9e0",
+              "allocationTags": null,
+              "uuid": "bf9f9c0b-78cf-4e82-976a-3af94f011e23",
+              "resource": "[vcore:100]",
+              "priority": "<nil>",
+              "queueName": "root.kube-system",
+              "nodeId": "ip-10-97-249-226.us-west-2.compute.internal",
+              "applicationId": "kube-proxy-_1586267556016295572",
+              "partition": "default"
+            },
+            {
+              "allocationKey": "09749d93-78d7-11ea-a9f2-0aafc96ae9e0",
+              "allocationTags": null,
+              "uuid": "564f2a71-4df8-48ec-9611-300ff260bb9a",
+              "resource": "[vcore:10]",
+              "priority": "<nil>",
+              "queueName": "root.kube-system",
+              "nodeId": "ip-10-97-249-226.us-west-2.compute.internal",
+              "applicationId": "aws-node-_1586267556015166954",
+              "partition": "default"
+            },
+            {
+              "allocationKey": "cbb66256-78d6-11ea-a9f2-0aafc96ae9e0",
+              "allocationTags": null,
+              "uuid": "a6901552-0762-4b2d-9aca-a88d0168369e",
+              "resource": "[memory:1074 vcore:500]",
+              "priority": "<nil>",
+              "queueName": "root.dex-app-4dxkn4mx",
+              "nodeId": "ip-10-97-249-226.us-west-2.compute.internal",
+              "applicationId": "mean-heron-redis-master-0_1586267452427210685",
+              "partition": "default"
+            }
+          ],
+          "schedulable": true
+        },
+        {
+          "nodeID": "ip-10-97-240-9.us-west-2.compute.internal",
+          "hostName": "ip-10-97-240-9.us-west-2.compute.internal",
+          "rackName": "/rack-default",
+          "capacity": "[attachable-volumes-aws-ebs:25 ephemeral-storage:38601419508 hugepages-1Gi:0 hugepages-2Mi:0 memory:7843 pods:29 vcore:1998]",
+          "allocated": "[]",
+          "occupied": "[memory:1628 vcore:710]",
+          "available": "[attachable-volumes-aws-ebs:25 ephemeral-storage:38601419508 hugepages-1Gi:0 hugepages-2Mi:0 memory:6215 pods:29 vcore:1288]",
+          "allocations": null,
+          "schedulable": true
+        },
+        {
+          "nodeID": "ip-10-97-250-244.us-west-2.compute.internal",
+          "hostName": "ip-10-97-250-244.us-west-2.compute.internal",
+          "rackName": "/rack-default",
+          "capacity": "[attachable-volumes-aws-ebs:25 hugepages-1Gi:0 hugepages-2Mi:0 memory:7463 pods:29 vcore:1900]",
+          "allocated": "[memory:3958 vcore:1710]",
+          "occupied": "[]",
+          "available": "[attachable-volumes-aws-ebs:25 hugepages-1Gi:0 hugepages-2Mi:0 memory:3505 pods:29 vcore:190]",
+          "allocations": [
+            {
+              "allocationKey": "11946368-78d7-11ea-a9f2-0aafc96ae9e0",
+              "allocationTags": null,
+              "uuid": "24cab7f8-49ef-499a-be5c-0ab91f0e9af7",
+              "resource": "[memory:525]",
+              "priority": "<nil>",
+              "queueName": "root.logging",
+              "nodeId": "ip-10-97-250-244.us-west-2.compute.internal",
+              "applicationId": "cdp-fluentd-_1586267569644646509",
+              "partition": "default"
+            },
+            {
+              "allocationKey": "11946e82-78d7-11ea-a9f2-0aafc96ae9e0",
+              "allocationTags": null,
+              "uuid": "ef9e99de-61b8-4b18-8272-6de7087e8c76",
+              "resource": "[memory:1]",
+              "priority": "<nil>",
+              "queueName": "root.monitoring",
+              "nodeId": "ip-10-97-250-244.us-west-2.compute.internal",
+              "applicationId": "monitoring-prometheus-node-exporter-_1586267569644085414",
+              "partition": "default"
+            },
+            {
+              "allocationKey": "05ac28a1-78d7-11ea-a9f2-0aafc96ae9e0",
+              "allocationTags": null,
+              "uuid": "2ac3e691-9a1f-4f5c-a9cc-d6afbc3a10b1",
+              "resource": "[vcore:10]",
+              "priority": "<nil>",
+              "queueName": "root.kube-system",
+              "nodeId": "ip-10-97-250-244.us-west-2.compute.internal",
+              "applicationId": "aws-node-_1586267549665450723",
+              "partition": "default"
+            },
+            {
+              "allocationKey": "05ac2f5a-78d7-11ea-a9f2-0aafc96ae9e0",
+              "allocationTags": null,
+              "uuid": "23bd81e1-1a8f-4321-b733-d7d47cb614df",
+              "resource": "[vcore:100]",
+              "priority": "<nil>",
+              "queueName": "root.kube-system",
+              "nodeId": "ip-10-97-250-244.us-west-2.compute.internal",
+              "applicationId": "kube-proxy-_1586267549665884159",
+              "partition": "default"
+            },
+            {
+              "allocationKey": "cbadbb6b-78d6-11ea-a9f2-0aafc96ae9e0",
+              "allocationTags": null,
+              "uuid": "1899ccb7-c4e2-4564-bb27-5bdbf7289ee9",
+              "resource": "[memory:1074 vcore:500]",
+              "priority": "<nil>",
+              "queueName": "root.dex-app-4dxkn4mx",
+              "nodeId": "ip-10-97-250-244.us-west-2.compute.internal",
+              "applicationId": "mean-heron-scheduler-76884b477b-_1586267452369749149",
+              "partition": "default"
+            },
+            {
+              "allocationKey": "cbbb7fcf-78d6-11ea-a9f2-0aafc96ae9e0",
+              "allocationTags": null,
+              "uuid": "d9aed216-6732-4502-b04e-60ac489cdb83",
+              "resource": "[memory:1074 vcore:500]",
+              "priority": "<nil>",
+              "queueName": "root.dex-app-4dxkn4mx",
+              "nodeId": "ip-10-97-250-244.us-west-2.compute.internal",
+              "applicationId": "mean-heron-worker-0_1586267452460954234",
+              "partition": "default"
+            },
+            {
+              "allocationKey": "cbb4cf93-78d6-11ea-a9f2-0aafc96ae9e0",
+              "allocationTags": null,
+              "uuid": "f0eabf29-96c0-429f-b20e-da5e69252cb1",
+              "resource": "[memory:1074 vcore:500]",
+              "priority": "<nil>",
+              "queueName": "root.dex-app-4dxkn4mx",
+              "nodeId": "ip-10-97-250-244.us-west-2.compute.internal",
+              "applicationId": "mean-heron-dex-app-api-7f9585765-_1586267452415423807",
+              "partition": "default"
+            },
+            {
+              "allocationKey": "1197b3e0-78d7-11ea-a9f2-0aafc96ae9e0",
+              "allocationTags": null,
+              "uuid": "8157574d-ed6a-49fe-be92-2b42b11d8679",
+              "resource": "[memory:210 vcore:100]",
+              "priority": "<nil>",
+              "queueName": "root.dex",
+              "nodeId": "ip-10-97-250-244.us-west-2.compute.internal",
+              "applicationId": "fluentd-_1586267569666943847",
+              "partition": "default"
+            }
+          ],
+          "schedulable": true
+        }
+      ]
+    }
   ]
 }

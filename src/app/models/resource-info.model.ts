@@ -19,4 +19,5 @@
 export interface ResourceInfo {
   memory: string;
   vcore: string;
+  pods?: string;
 }

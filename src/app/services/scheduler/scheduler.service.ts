@@ -26,8 +26,10 @@ import { EnvconfigService } from '../envconfig/envconfig.service';
 import { ClusterInfo } from '@app/models/cluster-info.model';
 import { CommonUtil } from '@app/utils/common.util';
 import { ResourceInfo } from '@app/models/resource-info.model';
-import { AppInfo, AppAllocation } from '@app/models/app-info.model';
+import { AppInfo } from '@app/models/app-info.model';
+import { AllocationInfo } from '@app/models/alloc-info.model';
 import { HistoryInfo } from '@app/models/history-info.model';
+import { NodeInfo } from '@app/models/node-info.model';
 
 @Injectable({
   providedIn: 'root'
@@ -84,15 +86,15 @@ export class SchedulerService {
               app['partition'],
               app['queueName'],
               app['submissionTime'],
-              null,
-              app['applicationState']
+              app['applicationState'],
+              []
             );
             const allocations = app['allocations'];
             if (allocations && allocations.length > 0) {
               const appAllocations = [];
               allocations.forEach(alloc => {
                 appAllocations.push(
-                  new AppAllocation(
+                  new AllocationInfo(
                     alloc['allocationKey'],
                     alloc['allocationTags'],
                     alloc['uuid'],
@@ -145,6 +147,60 @@ export class SchedulerService {
             result.push(
               new HistoryInfo(Math.floor(history.timestamp / 1e6), +history.totalContainers)
             );
+          });
+        }
+
+        return result;
+      })
+    );
+  }
+
+  public fetchNodeList(): Observable<NodeInfo[]> {
+    const appsUrl = `${this.envConfig.getSchedulerWebAddress()}/ws/v1/nodes`;
+
+    return this.httpClient.get(appsUrl).pipe(
+      map((data: any) => {
+        const result = [];
+
+        if (data && data.length > 0) {
+          const nodesInfoData = data[0].nodesInfo || [];
+
+          nodesInfoData.forEach(node => {
+            const nodeInfo = new NodeInfo(
+              node['nodeID'],
+              node['hostName'],
+              node['rackName'],
+              this.formatCapacity(this.splitCapacity(node['capacity'])),
+              this.formatCapacity(this.splitCapacity(node['allocated'])),
+              this.formatCapacity(this.splitCapacity(node['occupied'])),
+              this.formatCapacity(this.splitCapacity(node['available'])),
+              []
+            );
+
+            const allocations = node['allocations'];
+            if (allocations && allocations.length > 0) {
+              const appAllocations = [];
+
+              allocations.forEach(alloc => {
+                appAllocations.push(
+                  new AllocationInfo(
+                    alloc['allocationKey'],
+                    alloc['allocationTags'],
+                    alloc['uuid'],
+                    this.formatCapacity(this.splitCapacity(alloc['resource'])),
+                    alloc['priority'],
+                    alloc['queueName'],
+                    alloc['nodeId'],
+                    alloc['applicationId'],
+                    alloc['partition']
+                  )
+                );
+              });
+
+              nodeInfo.setAllocations(appAllocations);
+            }
+
+            result.push(nodeInfo);
           });
         }
 
@@ -209,6 +265,9 @@ export class SchedulerService {
         if (values[0] === 'vcore') {
           resources.vcore = values[1];
         }
+        if (values[0] === 'pods') {
+          resources.pods = values[1];
+        }
       }
     }
 
@@ -218,6 +277,9 @@ export class SchedulerService {
   private formatCapacity(resourceInfo: ResourceInfo) {
     const formatted = [];
     formatted.push(`[memory: ${CommonUtil.formatMemory(+resourceInfo.memory)}`);
+    if (resourceInfo.pods) {
+      formatted.push(`pods: ${resourceInfo.pods}`);
+    }
     formatted.push(`vcore: ${resourceInfo.vcore}]`);
     return formatted.join(', ');
   }

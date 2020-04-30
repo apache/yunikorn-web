@@ -17,6 +17,7 @@
  */
 
 import * as moment from 'moment';
+import { AllocationInfo } from './alloc-info.model';
 
 export class AppInfo {
   isSelected = false;
@@ -26,8 +27,8 @@ export class AppInfo {
     public partition: string,
     public queueName: string,
     public submissionTime: number,
-    public allocations: AppAllocation[] | null,
-    public applicationState: string
+    public applicationState: string,
+    public allocations: AllocationInfo[] | null,
   ) {}
 
   get formattedSubmissionTime() {
@@ -35,21 +36,7 @@ export class AppInfo {
     return moment(millisecs).format('YYYY/MM/DD HH:mm:ss');
   }
 
-  setAllocations(allocs: AppAllocation[]) {
+  setAllocations(allocs: AllocationInfo[]) {
     this.allocations = allocs;
   }
-}
-
-export class AppAllocation {
-  constructor(
-    public allocationKey: string,
-    public allocationTags: string,
-    public uuid: string,
-    public resource: string,
-    public priority: string,
-    public queueName: string,
-    public nodeId: string,
-    public applicationId: string,
-    public partition: string
-  ) {}
 }
