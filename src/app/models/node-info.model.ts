@@ -24,6 +24,7 @@ export class NodeInfo {
     public nodeId: string,
     public hostName: string,
     public rackName: string,
+    public partitionName: string,
     public capacity: string,
     public allocated: string,
     public occupied: string,

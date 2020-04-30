@@ -156,52 +156,55 @@ export class SchedulerService {
   }
 
   public fetchNodeList(): Observable<NodeInfo[]> {
-    const appsUrl = `${this.envConfig.getSchedulerWebAddress()}/ws/v1/nodes`;
+    const nodesUrl = `${this.envConfig.getSchedulerWebAddress()}/ws/v1/nodes`;
 
-    return this.httpClient.get(appsUrl).pipe(
+    return this.httpClient.get(nodesUrl).pipe(
       map((data: any) => {
         const result = [];
 
         if (data && data.length > 0) {
-          const nodesInfoData = data[0].nodesInfo || [];
+          for (const info of data) {
+            const nodesInfoData = info.nodesInfo || [];
 
-          nodesInfoData.forEach(node => {
-            const nodeInfo = new NodeInfo(
-              node['nodeID'],
-              node['hostName'],
-              node['rackName'],
-              this.formatCapacity(this.splitCapacity(node['capacity'])),
-              this.formatCapacity(this.splitCapacity(node['allocated'])),
-              this.formatCapacity(this.splitCapacity(node['occupied'])),
-              this.formatCapacity(this.splitCapacity(node['available'])),
-              []
-            );
+            nodesInfoData.forEach(node => {
+              const nodeInfo = new NodeInfo(
+                node['nodeID'],
+                node['hostName'],
+                node['rackName'],
+                info['partitionName'],
+                this.formatCapacity(this.splitCapacity(node['capacity'])),
+                this.formatCapacity(this.splitCapacity(node['allocated'])),
+                this.formatCapacity(this.splitCapacity(node['occupied'])),
+                this.formatCapacity(this.splitCapacity(node['available'])),
+                []
+              );
 
-            const allocations = node['allocations'];
-            if (allocations && allocations.length > 0) {
-              const appAllocations = [];
+              const allocations = node['allocations'];
+              if (allocations && allocations.length > 0) {
+                const appAllocations = [];
 
-              allocations.forEach(alloc => {
-                appAllocations.push(
-                  new AllocationInfo(
-                    alloc['allocationKey'],
-                    alloc['allocationTags'],
-                    alloc['uuid'],
-                    this.formatCapacity(this.splitCapacity(alloc['resource'])),
-                    alloc['priority'],
-                    alloc['queueName'],
-                    alloc['nodeId'],
-                    alloc['applicationId'],
-                    alloc['partition']
-                  )
-                );
-              });
+                allocations.forEach(alloc => {
+                  appAllocations.push(
+                    new AllocationInfo(
+                      alloc['allocationKey'],
+                      alloc['allocationTags'],
+                      alloc['uuid'],
+                      this.formatCapacity(this.splitCapacity(alloc['resource'])),
+                      alloc['priority'],
+                      alloc['queueName'],
+                      alloc['nodeId'],
+                      alloc['applicationId'],
+                      alloc['partition']
+                    )
+                  );
+                });
 
-              nodeInfo.setAllocations(appAllocations);
-            }
+                nodeInfo.setAllocations(appAllocations);
+              }
 
-            result.push(nodeInfo);
-          });
+              result.push(nodeInfo);
+            });
+          }
         }
 
         return result;

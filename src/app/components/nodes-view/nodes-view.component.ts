@@ -57,6 +57,7 @@ export class NodesViewComponent implements OnInit {
       { colId: 'nodeId', colName: 'Node ID' },
       { colId: 'hostName', colName: 'Host Name' },
       { colId: 'rackName', colName: 'Rack Name' },
+      { colId: 'partitionName', colName: 'Partition Name' },
       { colId: 'capacity', colName: 'Capacity' },
       { colId: 'allocated', colName: 'Allocated' },
       { colId: 'available', colName: 'Available' }
