@@ -80,7 +80,7 @@ export class SchedulerService {
           data.forEach(app => {
             const jobInfo = new AppInfo(
               app['applicationID'],
-              this.formatCapacity(this.splitCapacity(app['usedResource'])),
+              this.formatCapacity(this.splitCapacity(app['usedResource'], '0')),
               app['partition'],
               app['queueName'],
               app['submissionTime'],
@@ -96,7 +96,7 @@ export class SchedulerService {
                     alloc['allocationKey'],
                     alloc['allocationTags'],
                     alloc['uuid'],
-                    this.formatCapacity(this.splitCapacity(alloc['resource'])),
+                    this.formatCapacity(this.splitCapacity(alloc['resource'], QueueInfo.notAvailable)),
                     alloc['priority'],
                     alloc['queueName'],
                     alloc['nodeId'],
@@ -179,10 +179,10 @@ export class SchedulerService {
     const maxCap = data['capacities']['maxcapacity'] as string;
     const absUsedCapacity = data['capacities']['absusedcapacity'] as string;
 
-    const configCapResources = this.splitCapacity(configCap);
-    const usedCapResources = this.splitCapacity(usedCap);
-    const maxCapResources = this.splitCapacity(maxCap);
-    const absUsedCapacityResources = this.splitCapacity(absUsedCapacity);
+    const configCapResources = this.splitCapacity(configCap, QueueInfo.notAvailable);
+    const usedCapResources = this.splitCapacity(usedCap, '0');
+    const maxCapResources = this.splitCapacity(maxCap, QueueInfo.notAvailable);
+    const absUsedCapacityResources = this.splitCapacity(absUsedCapacity, QueueInfo.notAvailable);
 
     queue.capacity = this.formatCapacity(configCapResources);
     queue.maxCapacity = this.formatCapacity(maxCapResources);
@@ -190,24 +190,24 @@ export class SchedulerService {
     queue.absoluteUsedCapacity = this.formatAbsCapacity(absUsedCapacityResources);
   }
 
-  private splitCapacity(capacity: string = ''): ResourceInfo {
+  private splitCapacity(capacity: string = '', defaultValue: string): ResourceInfo {
     const splitted = capacity
       .replace('map', '')
       .replace(/[\[\]]/g, '')
       .split(' ');
 
     const resources: ResourceInfo = {
-      memory: '0',
-      vcore: '0'
+      memory: defaultValue,
+      vcore: defaultValue
     };
 
     for (const resource of splitted) {
       if (resource) {
         const values = resource.split(':');
-        if (values[0] === 'memory') {
+        if (values[0] === 'memory' && values[1] !== '') {
           resources.memory = values[1];
         }
-        if (values[0] === 'vcore') {
+        if (values[0] === 'vcore' && values[1] !== '') {
           resources.vcore = values[1];
         }
       }
@@ -218,7 +218,11 @@ export class SchedulerService {
 
   private formatCapacity(resourceInfo: ResourceInfo) {
     const formatted = [];
-    formatted.push(`[memory: ${CommonUtil.formatMemory(+resourceInfo.memory)}`);
+    if (resourceInfo.memory !== QueueInfo.notAvailable) {
+      formatted.push(`[memory: ${CommonUtil.formatMemory(+resourceInfo.memory)}`);
+    } else {
+      formatted.push(`[memory: ${resourceInfo.memory}`);
+    }
     formatted.push(`vcore: ${resourceInfo.vcore}]`);
     return formatted.join(', ');
   }
