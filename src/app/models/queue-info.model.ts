@@ -17,7 +17,6 @@
  */
 
 export class QueueInfo {
-  static readonly notAvailable = 'n/a';
   queueName: string;
   state: 'RUNNING' | 'STOPPED';
   capacity: string;

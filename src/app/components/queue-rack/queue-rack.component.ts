@@ -19,6 +19,7 @@
 import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 
 import { QueueInfo, ToggleQueueChildrenEvent } from '@app/models/queue-info.model';
+import { NOT_AVAILABLE } from '@app/utils/constants';
 
 @Component({
   selector: 'app-queue-rack',
@@ -81,7 +82,7 @@ export class QueueRackComponent implements OnInit {
     let max = 0
     if (absCapacities !== null) {
       const splitted = absCapacities
-        .replace(QueueInfo.notAvailable, '0')
+        .replace(NOT_AVAILABLE, '0')
         .replace(/[^:0-9]/g, '')
         .split(':');
       if (splitted.length !== 0) {
