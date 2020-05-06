@@ -19,6 +19,7 @@
 import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 
 import { QueueInfo, ToggleQueueChildrenEvent } from '@app/models/queue-info.model';
+import { NOT_AVAILABLE } from '@app/utils/constants';
 
 @Component({
   selector: 'app-queue-rack',
@@ -61,7 +62,7 @@ export class QueueRackComponent implements OnInit {
   }
 
   getQueueCapacityColor(queue: QueueInfo) {
-    const absUsedCapacity = +queue.absoluteUsedCapacity;
+    const absUsedCapacity = this.getMaxAbsValue(queue.absoluteUsedCapacity);
     if (absUsedCapacity > 60 && absUsedCapacity <= 75) {
       return '#60cea5';
     } else if (absUsedCapacity > 75 && absUsedCapacity < 90) {
@@ -73,7 +74,22 @@ export class QueueRackComponent implements OnInit {
   }
 
   getProgressBarValue(queue: QueueInfo) {
-    const absUsedCapacity = +queue.absoluteUsedCapacity;
+    const absUsedCapacity = this.getMaxAbsValue(queue.absoluteUsedCapacity);
     return Math.min(absUsedCapacity, 100);
+  }
+
+  getMaxAbsValue(absCapacities: string): number {
+    let max = 0
+    if (absCapacities !== null) {
+      const splitted = absCapacities
+        .replace(NOT_AVAILABLE, '0')
+        .replace(/[^:0-9]/g, '')
+        .split(':');
+      if (splitted.length !== 0) {
+        const capacities: number[] = splitted.map(x => +x);
+        max = Math.max(...capacities);
+      }
+    }
+    return max;
   }
 }

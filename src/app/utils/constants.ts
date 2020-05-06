@@ -18,3 +18,4 @@
 
 export const DEFAULT_PARTITION_VALUE = '';
 export const DEFAULT_PROTOCOL = 'http:';
+export const NOT_AVAILABLE = 'n/a';

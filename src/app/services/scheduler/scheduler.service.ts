@@ -28,6 +28,7 @@ import { CommonUtil } from '@app/utils/common.util';
 import { ResourceInfo } from '@app/models/resource-info.model';
 import { AppInfo, AppAllocation } from '@app/models/app-info.model';
 import { HistoryInfo } from '@app/models/history-info.model';
+import { NOT_AVAILABLE } from '@app/utils/constants';
 
 @Injectable({
   providedIn: 'root'
@@ -53,8 +54,8 @@ export class SchedulerService {
     return this.httpClient.get(queuesUrl).pipe(
       map((data: any) => {
         let rootQueue = new QueueInfo();
-        if (data && data.queues && data.queues[0]) {
-          const rootQueueData = data.queues[0];
+        if (data && data.queues) {
+          const rootQueueData = data.queues;
           rootQueue.queueName = rootQueueData.queuename;
           rootQueue.state = rootQueueData.status || 'RUNNING';
           rootQueue.children = null;
@@ -96,7 +97,7 @@ export class SchedulerService {
                     alloc['allocationKey'],
                     alloc['allocationTags'],
                     alloc['uuid'],
-                    this.formatCapacity(this.splitCapacity(alloc['resource'], 'n/a')),
+                    this.formatCapacity(this.splitCapacity(alloc['resource'], NOT_AVAILABLE)),
                     alloc['priority'],
                     alloc['queueName'],
                     alloc['nodeId'],
@@ -179,14 +180,15 @@ export class SchedulerService {
     const maxCap = data['capacities']['maxcapacity'] as string;
     const absUsedCapacity = data['capacities']['absusedcapacity'] as string;
 
-    const configCapResources = this.splitCapacity(configCap, 'n/a');
+    const configCapResources = this.splitCapacity(configCap, NOT_AVAILABLE);
     const usedCapResources = this.splitCapacity(usedCap, '0');
-    const maxCapResources = this.splitCapacity(maxCap, 'n/a');
+    const maxCapResources = this.splitCapacity(maxCap, NOT_AVAILABLE);
+    const absUsedCapacityResources = this.splitCapacity(absUsedCapacity, NOT_AVAILABLE);
 
     queue.capacity = this.formatCapacity(configCapResources);
     queue.maxCapacity = this.formatCapacity(maxCapResources);
     queue.usedCapacity = this.formatCapacity(usedCapResources);
-    queue.absoluteUsedCapacity = absUsedCapacity ? absUsedCapacity : '0';
+    queue.absoluteUsedCapacity = this.formatAbsCapacity(absUsedCapacityResources);
   }
 
   private splitCapacity(capacity: string = '', defaultValue: string): ResourceInfo {
@@ -217,12 +219,19 @@ export class SchedulerService {
 
   private formatCapacity(resourceInfo: ResourceInfo) {
     const formatted = [];
-    if (resourceInfo.memory !== 'n/a') {
+    if (resourceInfo.memory !== NOT_AVAILABLE) {
       formatted.push(`[memory: ${CommonUtil.formatMemory(+resourceInfo.memory)}`);
     } else {
       formatted.push(`[memory: ${resourceInfo.memory}`);
     }
     formatted.push(`vcore: ${resourceInfo.vcore}]`);
+    return formatted.join(', ');
+  }
+
+  private formatAbsCapacity(resourceInfo: ResourceInfo) {
+    const formatted = [];
+    formatted.push(`[memory: ${resourceInfo.memory}%`);
+    formatted.push(`vcore: ${resourceInfo.vcore}%]`);
     return formatted.join(', ');
   }
 }
