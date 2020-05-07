@@ -81,7 +81,7 @@ export class SchedulerService {
         const result = [];
         if (data && data.length > 0) {
           data.forEach(app => {
-            const jobInfo = new AppInfo(
+            const appInfo = new AppInfo(
               app['applicationID'],
               this.formatCapacity(this.splitCapacity(app['usedResource'], NOT_AVAILABLE)),
               app['partition'],
@@ -108,9 +108,9 @@ export class SchedulerService {
                   )
                 );
               });
-              jobInfo.setAllocations(appAllocations);
+              appInfo.setAllocations(appAllocations);
             }
-            result.push(jobInfo);
+            result.push(appInfo);
           });
         }
         return result;

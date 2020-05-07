@@ -57,7 +57,7 @@ export class ClusterInfoComponent implements OnInit {
         })
       )
       .subscribe(data => {
-        this.updateJobStatusData(data);
+        this.updateAppStatusData(data);
         this.updateContainerStatusData(data);
       });
 
@@ -70,7 +70,7 @@ export class ClusterInfoComponent implements OnInit {
     });
   }
 
-  updateJobStatusData(info: ClusterInfo) {
+  updateAppStatusData(info: ClusterInfo) {
     this.appStatusData = [
       new DonutDataItem('Failed', +info.failedApplications, '#cc6164'),
       new DonutDataItem('Pending', +info.pendingApplications, '#facc54'),

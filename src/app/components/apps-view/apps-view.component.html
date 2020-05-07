@@ -16,7 +16,7 @@
  * limitations under the License.
  -->
 
-<div class="jobs-view">
+<div class="apps-view">
   <div class="mat-elevation-z8">
     <mat-table [dataSource]="appDataSource" matSort>
       <ng-container [matColumnDef]="columnDef.colId" *ngFor="let columnDef of appColumnDef">
@@ -60,7 +60,7 @@
     </mat-table>
 
     <mat-paginator
-      #jobsViewMatPaginator
+      #appsViewMatPaginator
       [pageSizeOptions]="[5, 10, 20, 50]"
       [ngStyle]="{ display: isAppDataSourceEmpty() ? 'none' : '' }"
       (page)="onPaginatorChanged($event)"
@@ -68,7 +68,7 @@
     ></mat-paginator>
   </div>
 
-  <div class="job-allocations" [ngStyle]="{ display: selectedRow ? '' : 'none' }">
+  <div class="app-allocations" [ngStyle]="{ display: selectedRow ? '' : 'none' }">
     <h3>Allocations</h3>
     <mat-divider></mat-divider>
 

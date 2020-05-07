@@ -32,7 +32,7 @@ import { ColumnDef } from '@app/models/column-def.model';
   styleUrls: ['./apps-view.component.scss']
 })
 export class AppsViewComponent implements OnInit {
-  @ViewChild('jobsViewMatPaginator', { static: true }) appPaginator: MatPaginator;
+  @ViewChild('appsViewMatPaginator', { static: true }) appPaginator: MatPaginator;
   @ViewChild('allocationMatPaginator', { static: true }) allocPaginator: MatPaginator;
   @ViewChild(MatSort, { static: true }) appSort: MatSort;
 
@@ -91,9 +91,9 @@ export class AppsViewComponent implements OnInit {
   }
 
   unselectAllRowsButOne(row: AppInfo) {
-    this.appDataSource.data.map(job => {
-      if (job !== row) {
-        job.isSelected = false;
+    this.appDataSource.data.map(app => {
+      if (app !== row) {
+        app.isSelected = false;
       }
     });
   }
