@@ -30,6 +30,7 @@ import { AppInfo } from '@app/models/app-info.model';
 import { AllocationInfo } from '@app/models/alloc-info.model';
 import { HistoryInfo } from '@app/models/history-info.model';
 import { NodeInfo } from '@app/models/node-info.model';
+import { NOT_AVAILABLE } from '@app/utils/constants';
 
 @Injectable({
   providedIn: 'root'
@@ -55,8 +56,8 @@ export class SchedulerService {
     return this.httpClient.get(queuesUrl).pipe(
       map((data: any) => {
         let rootQueue = new QueueInfo();
-        if (data && data.queues && data.queues[0]) {
-          const rootQueueData = data.queues[0];
+        if (data && data.queues) {
+          const rootQueueData = data.queues;
           rootQueue.queueName = rootQueueData.queuename;
           rootQueue.state = rootQueueData.status || 'RUNNING';
           rootQueue.children = null;
@@ -82,7 +83,7 @@ export class SchedulerService {
           data.forEach(app => {
             const jobInfo = new AppInfo(
               app['applicationID'],
-              this.formatCapacity(this.splitCapacity(app['usedResource'])),
+              this.formatCapacity(this.splitCapacity(app['usedResource'], NOT_AVAILABLE)),
               app['partition'],
               app['queueName'],
               app['submissionTime'],
@@ -98,7 +99,7 @@ export class SchedulerService {
                     alloc['allocationKey'],
                     alloc['allocationTags'],
                     alloc['uuid'],
-                    this.formatCapacity(this.splitCapacity(alloc['resource'])),
+                    this.formatCapacity(this.splitCapacity(alloc['resource'], NOT_AVAILABLE)),
                     alloc['priority'],
                     alloc['queueName'],
                     alloc['nodeId'],
@@ -172,10 +173,10 @@ export class SchedulerService {
                 node['hostName'],
                 node['rackName'],
                 info['partitionName'],
-                this.formatCapacity(this.splitCapacity(node['capacity'])),
-                this.formatCapacity(this.splitCapacity(node['allocated'])),
-                this.formatCapacity(this.splitCapacity(node['occupied'])),
-                this.formatCapacity(this.splitCapacity(node['available'])),
+                this.formatCapacity(this.splitCapacity(node['capacity'], NOT_AVAILABLE)),
+                this.formatCapacity(this.splitCapacity(node['allocated'], NOT_AVAILABLE)),
+                this.formatCapacity(this.splitCapacity(node['occupied'], NOT_AVAILABLE)),
+                this.formatCapacity(this.splitCapacity(node['available'], NOT_AVAILABLE)),
                 []
               );
 
@@ -189,7 +190,7 @@ export class SchedulerService {
                       alloc['allocationKey'],
                       alloc['allocationTags'],
                       alloc['uuid'],
-                      this.formatCapacity(this.splitCapacity(alloc['resource'])),
+                      this.formatCapacity(this.splitCapacity(alloc['resource'], NOT_AVAILABLE)),
                       alloc['priority'],
                       alloc['queueName'],
                       alloc['nodeId'],
@@ -238,38 +239,36 @@ export class SchedulerService {
     const maxCap = data['capacities']['maxcapacity'] as string;
     const absUsedCapacity = data['capacities']['absusedcapacity'] as string;
 
-    const configCapResources = this.splitCapacity(configCap);
-    const usedCapResources = this.splitCapacity(usedCap);
-    const maxCapResources = this.splitCapacity(maxCap);
+    const configCapResources = this.splitCapacity(configCap, NOT_AVAILABLE);
+    const usedCapResources = this.splitCapacity(usedCap, NOT_AVAILABLE);
+    const maxCapResources = this.splitCapacity(maxCap, NOT_AVAILABLE);
+    const absUsedCapacityResources = this.splitCapacity(absUsedCapacity, NOT_AVAILABLE);
 
     queue.capacity = this.formatCapacity(configCapResources);
     queue.maxCapacity = this.formatCapacity(maxCapResources);
     queue.usedCapacity = this.formatCapacity(usedCapResources);
-    queue.absoluteUsedCapacity = absUsedCapacity ? absUsedCapacity : '0';
+    queue.absoluteUsedCapacity = this.formatAbsCapacity(absUsedCapacityResources);
   }
 
-  private splitCapacity(capacity: string = ''): ResourceInfo {
+  private splitCapacity(capacity: string = '', defaultValue: string): ResourceInfo {
     const splitted = capacity
       .replace('map', '')
       .replace(/[\[\]]/g, '')
       .split(' ');
 
     const resources: ResourceInfo = {
-      memory: '0',
-      vcore: '0'
+      memory: defaultValue,
+      vcore: defaultValue
     };
 
     for (const resource of splitted) {
       if (resource) {
         const values = resource.split(':');
-        if (values[0] === 'memory') {
+        if (values[0] === 'memory' && values[1] !== '') {
           resources.memory = values[1];
         }
-        if (values[0] === 'vcore') {
+        if (values[0] === 'vcore' && values[1] !== '') {
           resources.vcore = values[1];
-        }
-        if (values[0] === 'pods') {
-          resources.pods = values[1];
         }
       }
     }
@@ -279,11 +278,19 @@ export class SchedulerService {
 
   private formatCapacity(resourceInfo: ResourceInfo) {
     const formatted = [];
-    formatted.push(`[memory: ${CommonUtil.formatMemory(+resourceInfo.memory)}`);
-    if (resourceInfo.pods) {
-      formatted.push(`pods: ${resourceInfo.pods}`);
+    if (resourceInfo.memory !== NOT_AVAILABLE) {
+      formatted.push(`[memory: ${CommonUtil.formatMemory(+resourceInfo.memory)}`);
+    } else {
+      formatted.push(`[memory: ${resourceInfo.memory}`);
     }
     formatted.push(`vcore: ${resourceInfo.vcore}]`);
+    return formatted.join(', ');
+  }
+
+  private formatAbsCapacity(resourceInfo: ResourceInfo) {
+    const formatted = [];
+    formatted.push(`[memory: ${resourceInfo.memory}%`);
+    formatted.push(`vcore: ${resourceInfo.vcore}%]`);
     return formatted.join(', ');
   }
 }

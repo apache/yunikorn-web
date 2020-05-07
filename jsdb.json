@@ -23,53 +23,51 @@
       "usedcapacity": "0"
     },
     "nodes": null,
-    "queues": [
-      {
-        "queuename": "root",
-        "status": "RUNNING",
-        "capacities": {
-          "capacity": "[memory:1000000 vcore:100000]",
-          "maxcapacity": "[memory:1000000 vcore:100000]",
-          "usedcapacity": "[memory:5908 vcore:4000]",
-          "absusedcapacity": "20"
+    "queues": {
+      "queuename": "root",
+      "status": "RUNNING",
+      "capacities": {
+        "capacity": "[memory:1000000 vcore:100000]",
+        "maxcapacity": "[memory:1000000 vcore:100000]",
+        "usedcapacity": "[memory:5908 vcore:4000]",
+        "absusedcapacity": "20"
+      },
+      "queues": [
+        {
+          "queuename": "advertisement",
+          "status": "RUNNING",
+          "capacities": {
+            "capacity": "[memory:500000 vcore:50000]",
+            "maxcapacity": "[memory:500000 vcore:50000]",
+            "usedcapacity": "[memory:5908 vcore:4000]",
+            "absusedcapacity": "20"
+          },
+          "queues": null
         },
-        "queues": [
-          {
-            "queuename": "advertisement",
-            "status": "RUNNING",
-            "capacities": {
-              "capacity": "[memory:500000 vcore:50000]",
-              "maxcapacity": "[memory:500000 vcore:50000]",
-              "usedcapacity": "[memory:5908 vcore:4000]",
-              "absusedcapacity": "20"
-            },
-            "queues": null
+        {
+          "queuename": "search",
+          "status": "RUNNING",
+          "capacities": {
+            "capacity": "[memory:400000 vcore:40000]",
+            "maxcapacity": "[memory:400000 vcore:40000]",
+            "usedcapacity": "[]",
+            "absusedcapacity": "20"
           },
-          {
-            "queuename": "search",
-            "status": "RUNNING",
-            "capacities": {
-              "capacity": "[memory:400000 vcore:40000]",
-              "maxcapacity": "[memory:400000 vcore:40000]",
-              "usedcapacity": "[]",
-              "absusedcapacity": "20"
-            },
-            "queues": null
+          "queues": null
+        },
+        {
+          "queuename": "sandbox",
+          "status": "RUNNING",
+          "capacities": {
+            "capacity": "[memory:100000 vcore:10000]",
+            "maxcapacity": "[vcore:10000 memory:100000]",
+            "usedcapacity": "[]",
+            "absusedcapacity": "20"
           },
-          {
-            "queuename": "sandbox",
-            "status": "RUNNING",
-            "capacities": {
-              "capacity": "[memory:100000 vcore:10000]",
-              "maxcapacity": "[vcore:10000 memory:100000]",
-              "usedcapacity": "[]",
-              "absusedcapacity": "20"
-            },
-            "queues": null
-          }
-        ]
-      }
-    ]
+          "queues": null
+        }
+      ]
+    }
   },
   "apps": [
     {

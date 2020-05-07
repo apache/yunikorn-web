@@ -61,7 +61,7 @@
 
     <mat-paginator
       #jobsViewMatPaginator
-      [pageSizeOptions]="[5, 10, 20]"
+      [pageSizeOptions]="[5, 10, 20, 50]"
       [ngStyle]="{ display: isAppDataSourceEmpty() ? 'none' : '' }"
       (page)="onPaginatorChanged($event)"
       showFirstLastButtons
@@ -97,7 +97,7 @@
 
       <mat-paginator
         #allocationMatPaginator
-        [pageSizeOptions]="[5, 10, 20]"
+        [pageSizeOptions]="[5, 10, 20, 50]"
         [ngStyle]="{ display: isAllocDataSourceEmpty() ? 'none' : '' }"
         showFirstLastButtons
       ></mat-paginator>
