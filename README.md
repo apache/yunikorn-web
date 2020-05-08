@@ -1,3 +1,21 @@
+<!--
+ * Licensed to the Apache Software Foundation (ASF) under one
+ * or more contributor license agreements.  See the NOTICE file
+ * distributed with this work for additional information
+ * regarding copyright ownership.  The ASF licenses this file
+ * to you under the Apache License, Version 2.0 (the
+ * "License"); you may not use this file except in compliance
+ * with the License.  You may obtain a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ -->
+
 # Yunikorn web UI
 YuniKorn web provides a web interface on top of the scheduler. It provides insight in the current and historic scheduler status.
 It depends on `yunikorn-core` which encapsulates all the actual scheduling logic.
@@ -31,11 +49,11 @@ Image builds are geared towards a production build and will always build with th
 Run `make image` to build the docker image `yunikorn-web`. 
 Run `make run` to build the image and deploy the container from the docker image `yunikorn-web`.
 
-You can set `TAG` and `VERSION` in the commandline to build docker image with a specified version and tag. For example,
+You can set `REGISTRY` and `VERSION` in the commandline to build docker image with a specified version and registry. For example,
 ```
-make image TAG=yunikorn/yunikorn-web VERSION=latest
+make image REGISTRY=yunikorn VERSION=latest
 ```
-this command will build binary with version `latest` and the docker image tag is `yunikorn/yunikorn-web:latest`.
+this command will build binary with version `latest` and the docker full image tag is `yunikorn/yunikorn-web:latest`.
 
 Run `make deploy-prod` to build and deploy the scheduler webapp using docker-compose.
 The project uses [multi-stage build](https://docs.docker.com/develop/develop-images/multistage-build/) feature of the docker and requires Docker 17.05 or higher.
