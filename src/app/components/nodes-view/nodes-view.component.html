@@ -16,17 +16,12 @@
  * limitations under the License.
  -->
 
-<div class="apps-view">
+<div class="nodes-view">
   <div class="mat-elevation-z8">
-    <mat-table [dataSource]="appDataSource" matSort>
-      <ng-container [matColumnDef]="columnDef.colId" *ngFor="let columnDef of appColumnDef">
+    <mat-table [dataSource]="nodeDataSource" matSort>
+      <ng-container [matColumnDef]="columnDef.colId" *ngFor="let columnDef of nodeColumnDef">
         <mat-header-cell *matHeaderCellDef mat-sort-header>{{ columnDef.colName }}</mat-header-cell>
-        <ng-container *ngIf="columnDef.colId === 'submissionTime'; else otherCell">
-          <mat-cell *matCellDef="let element"> {{ element['formattedSubmissionTime'] }}</mat-cell>
-        </ng-container>
-        <ng-template #otherCell>
-          <mat-cell *matCellDef="let element"> {{ element[columnDef.colId] || 'n/a' }} </mat-cell>
-        </ng-template>
+        <mat-cell *matCellDef="let element"> {{ element[columnDef.colId] || 'n/a' }} </mat-cell>
       </ng-container>
 
       <ng-container matColumnDef="indicatorIcon">
@@ -45,30 +40,30 @@
         </mat-footer-cell>
       </ng-container>
 
-      <mat-header-row *matHeaderRowDef="appColumnIds"></mat-header-row>
+      <mat-header-row *matHeaderRowDef="nodeColumnIds"></mat-header-row>
 
       <mat-row
-        *matRowDef="let row; columns: appColumnIds"
+        *matRowDef="let row; columns: nodeColumnIds"
         [class.selected-row]="selectedRow === row"
         (click)="toggleRowSelection(row)"
       ></mat-row>
 
       <mat-footer-row
         *matFooterRowDef="['noRecord']"
-        [ngStyle]="{ display: isAppDataSourceEmpty() ? '' : 'none' }"
+        [ngStyle]="{ display: isNodeDataSourceEmpty() ? '' : 'none' }"
       ></mat-footer-row>
     </mat-table>
 
     <mat-paginator
-      #appsViewMatPaginator
+      #nodesViewMatPaginator
       [pageSizeOptions]="[5, 10, 20, 50]"
-      [ngStyle]="{ display: isAppDataSourceEmpty() ? 'none' : '' }"
+      [ngStyle]="{ display: isNodeDataSourceEmpty() ? 'none' : '' }"
       (page)="onPaginatorChanged($event)"
       showFirstLastButtons
     ></mat-paginator>
   </div>
 
-  <div class="app-allocations" [ngStyle]="{ display: selectedRow ? '' : 'none' }">
+  <div class="node-allocations" [ngStyle]="{ display: selectedRow ? '' : 'none' }">
     <h3>Allocations</h3>
     <mat-divider></mat-divider>
 

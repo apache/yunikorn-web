@@ -16,47 +16,16 @@
  * limitations under the License.
  */
 
-.apps-view {
-  width: 100%;
-  height: 100%;
-  padding: 25px;
-  .mat-header-cell {
-    font-size: 15px;
-    font-weight: bold;
-    color: #666;
-  }
-  .mat-cell {
-    color: #333;
-  }
-  .mat-row {
-    &:hover {
-      background: #cccccc;
-      cursor: pointer;
-    }
-    &.selected-row {
-      background: #303d54;
-      .mat-cell {
-        color: #fff;
-      }
-    }
-  }
-  .mat-header-cell.indicator-icon,
-  .mat-cell.indicator-icon {
-    max-width: 40px;
-    font-size: 18px;
-    margin-left: 10px;
-  }
-  .app-allocations {
-    margin-top: 40px;
-    .mat-table {
-      margin-top: 20px;
-    }
-  }
-  .no-record {
-    font-size: 14px;
-    font-weight: bold;
-    color: #666;
-    width: 100%;
-    text-align: center;
-  }
+export class AllocationInfo {
+  constructor(
+    public allocationKey: string,
+    public allocationTags: string,
+    public uuid: string,
+    public resource: string,
+    public priority: string,
+    public queueName: string,
+    public nodeId: string,
+    public applicationId: string,
+    public partition: string
+  ) {}
 }

@@ -79,7 +79,7 @@ export class QueueRackComponent implements OnInit {
   }
 
   getMaxAbsValue(absCapacities: string): number {
-    let max = 0
+    let max = 0;
     if (absCapacities !== null) {
       const splitted = absCapacities
         .replace(NOT_AVAILABLE, '0')

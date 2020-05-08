@@ -17,53 +17,53 @@
  */
 
 import { Component, OnInit, ViewChild } from '@angular/core';
+import { MatPaginator, MatSort, MatTableDataSource, PageEvent } from '@angular/material';
 import { NgxSpinnerService } from 'ngx-spinner';
-import { finalize } from 'rxjs/operators';
-import { MatPaginator, MatTableDataSource, PageEvent, MatSort } from '@angular/material';
 
 import { SchedulerService } from '@app/services/scheduler/scheduler.service';
-import { AppInfo } from '@app/models/app-info.model';
+import { NodeInfo } from '@app/models/node-info.model';
 import { AllocationInfo } from '@app/models/alloc-info.model';
 import { ColumnDef } from '@app/models/column-def.model';
+import { finalize } from 'rxjs/operators';
 
 @Component({
-  selector: 'app-applications-view',
-  templateUrl: './apps-view.component.html',
-  styleUrls: ['./apps-view.component.scss']
+  selector: 'app-nodes-view',
+  templateUrl: './nodes-view.component.html',
+  styleUrls: ['./nodes-view.component.scss']
 })
-export class AppsViewComponent implements OnInit {
-  @ViewChild('appsViewMatPaginator', { static: true }) appPaginator: MatPaginator;
+export class NodesViewComponent implements OnInit {
+  @ViewChild('nodesViewMatPaginator', { static: true }) nodePaginator: MatPaginator;
   @ViewChild('allocationMatPaginator', { static: true }) allocPaginator: MatPaginator;
-  @ViewChild(MatSort, { static: true }) appSort: MatSort;
+  @ViewChild(MatSort, { static: true }) nodeSort: MatSort;
 
-  appDataSource = new MatTableDataSource<AppInfo>([]);
-  appColumnDef: ColumnDef[] = [];
-  appColumnIds: string[] = [];
+  nodeDataSource = new MatTableDataSource<NodeInfo>([]);
+  nodeColumnDef: ColumnDef[] = [];
+  nodeColumnIds: string[] = [];
 
   allocDataSource = new MatTableDataSource<AllocationInfo>([]);
   allocColumnDef: ColumnDef[] = [];
   allocColumnIds: string[] = [];
 
-  selectedRow: AppInfo | null = null;
+  selectedRow: NodeInfo | null = null;
 
   constructor(private scheduler: SchedulerService, private spinner: NgxSpinnerService) {}
 
   ngOnInit() {
-    this.appDataSource.paginator = this.appPaginator;
+    this.nodeDataSource.paginator = this.nodePaginator;
     this.allocDataSource.paginator = this.allocPaginator;
-    this.appDataSource.sort = this.appSort;
-    this.appSort.sort({ id: 'submissionTime', start: 'desc', disableClear: false });
+    this.nodeDataSource.sort = this.nodeSort;
 
-    this.appColumnDef = [
-      { colId: 'applicationId', colName: 'Application ID' },
-      { colId: 'applicationState', colName: 'Application State' },
-      { colId: 'usedResource', colName: 'Used Resource' },
-      { colId: 'queueName', colName: 'Queue Name' },
-      { colId: 'partition', colName: 'Partition' },
-      { colId: 'submissionTime', colName: 'Submission Time' }
+    this.nodeColumnDef = [
+      { colId: 'nodeId', colName: 'Node ID' },
+      { colId: 'hostName', colName: 'Host Name' },
+      { colId: 'rackName', colName: 'Rack Name' },
+      { colId: 'partitionName', colName: 'Partition Name' },
+      { colId: 'capacity', colName: 'Capacity' },
+      { colId: 'allocated', colName: 'Allocated' },
+      { colId: 'available', colName: 'Available' }
     ];
 
-    this.appColumnIds = this.appColumnDef.map(col => col.colId).concat('indicatorIcon');
+    this.nodeColumnIds = this.nodeColumnDef.map(col => col.colId).concat('indicatorIcon');
 
     this.allocColumnDef = [
       { colId: 'allocationKey', colName: 'Allocation Key' },
@@ -79,26 +79,26 @@ export class AppsViewComponent implements OnInit {
 
     this.spinner.show();
     this.scheduler
-      .fetchAppList()
+      .fetchNodeList()
       .pipe(
         finalize(() => {
           this.spinner.hide();
         })
       )
       .subscribe(data => {
-        this.appDataSource.data = data;
+        this.nodeDataSource.data = data;
       });
   }
 
-  unselectAllRowsButOne(row: AppInfo) {
-    this.appDataSource.data.map(app => {
-      if (app !== row) {
-        app.isSelected = false;
+  unselectAllRowsButOne(row: NodeInfo) {
+    this.nodeDataSource.data.map(node => {
+      if (node !== row) {
+        node.isSelected = false;
       }
     });
   }
 
-  toggleRowSelection(row: AppInfo) {
+  toggleRowSelection(row: NodeInfo) {
     this.unselectAllRowsButOne(row);
     if (row.isSelected) {
       this.selectedRow = null;
@@ -119,8 +119,8 @@ export class AppsViewComponent implements OnInit {
     }
   }
 
-  isAppDataSourceEmpty() {
-    return this.appDataSource.data && this.appDataSource.data.length === 0;
+  isNodeDataSourceEmpty() {
+    return this.nodeDataSource.data && this.nodeDataSource.data.length === 0;
   }
 
   isAllocDataSourceEmpty() {

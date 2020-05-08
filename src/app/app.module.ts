@@ -49,6 +49,7 @@ import { ContainerStatusComponent } from './components/container-status/containe
 import { ContainerHistoryComponent } from './components/container-history/container-history.component';
 import { QueueRackComponent } from './components/queue-rack/queue-rack.component';
 import { AppsViewComponent } from './components/apps-view/apps-view.component';
+import { NodesViewComponent } from './components/nodes-view/nodes-view.component';
 
 const appRoutes: Routes = [
   {
@@ -75,6 +76,11 @@ const appRoutes: Routes = [
         path: 'queues',
         component: QueuesViewComponent,
         data: { breadcrumb: 'Queues' }
+      },
+      {
+        path: 'nodes',
+        component: NodesViewComponent,
+        data: { breadcrumb: 'Nodes' }
       },
       {
         path: '',
@@ -104,7 +110,8 @@ const appRoutes: Routes = [
     ContainerStatusComponent,
     ContainerHistoryComponent,
     QueueRackComponent,
-    AppsViewComponent
+    AppsViewComponent,
+    NodesViewComponent
   ],
   imports: [
     BrowserModule,
