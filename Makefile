@@ -30,8 +30,8 @@ endif
 
 # Image build parameters
 # This tag of the image must be changed when pushed to a public repository.
-ifeq ($(TAG),)
-TAG := yunikorn/yunikorn-web
+ifeq ($(REGISTRY),)
+REGISTRY := yunikorn
 endif
 
 # Set the default web port, this must be the same as in the nginx/nginx.conf file.
@@ -50,7 +50,7 @@ start-dev:
 # Run the web interface from the production image
 .PHONY: run
 run: image
-	docker run -d -p ${PORT}:9889 ${TAG}:${VERSION}
+	docker run -d -p ${PORT}:9889 ${REGISTRY}/yunikorn-web:${VERSION}
 
 # Build the web interface in a production ready version
 .PHONY: build-prod
@@ -59,8 +59,9 @@ build-prod:
 
 # Build an image based on the production ready version
 image: build-prod
+	@echo "building web UI docker image"
 	@SHA=$$(git rev-parse --short=12 HEAD) ; \
-	docker build -t ${TAG}:${VERSION} . \
+	docker build -t ${REGISTRY}/yunikorn-web:${VERSION} . \
 	--label "GitRevision=$${SHA}" \
 	--label "Version=${VERSION}" \
 	--label "BuildTimeStamp=${DATE}"
