@@ -37,6 +37,15 @@ endif
 # Set the default web port, this must be the same as in the nginx/nginx.conf file.
 PORT=9889
 
+.PHONY: check-license
+check-license:
+	@echo "checking license header"
+	@licRes=$$(grep -Lr --exclude-dir={node_modules,dist} --include=*.{sh,md,yaml,yml,js,ts,html,js,scss} "Licensed to the Apache Software Foundation" .) ; \
+	if [ -n "$${licRes}" ]; then \
+		echo "following files have incorrect license header:\n$${licRes}" ; \
+		exit 1; \
+	fi
+
 # Local build and deploy with compose
 .PHONY: deploy-prod
 deploy-prod:
