@@ -27,8 +27,8 @@ yarn install
 echo "[3/5] Building modules..."
 yarn build:prod
 
-echo "[4/5] Building docker image yunikorn/yunikorn-web:latest..."
-docker build -t yunikorn/yunikorn-web:latest -f ./nginx/Dockerfile .
+echo "[4/5] Building docker image apache/yunikorn:web-latest..."
+docker build -t apache/yunikorn:web-latest -f ./nginx/Dockerfile .
 
-echo "[5/5] Starting docker container using image yunikorn/yunikorn-web:latest..."
-docker run -d -p 9889:9889 yunikorn/yunikorn-web:latest
+echo "[5/5] Starting docker container using image apache/yunikorn:web-latest..."
+docker run -d -p 9889:9889 apache/yunikorn:web-latest

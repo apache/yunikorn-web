@@ -53,7 +53,7 @@ You can set `REGISTRY` and `VERSION` in the commandline to build docker image wi
 ```
 make image REGISTRY=yunikorn VERSION=latest
 ```
-this command will build binary with version `latest` and the docker full image tag is `yunikorn/yunikorn-web:latest`.
+this command will build binary with version `latest` and the docker full image tag is `yunikorn/yunikorn:web-latest`.
 
 Run `make deploy-prod` to build and deploy the scheduler webapp using docker-compose.
 The project uses [multi-stage build](https://docs.docker.com/develop/develop-images/multistage-build/) feature of the docker and requires Docker 17.05 or higher.

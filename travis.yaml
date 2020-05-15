@@ -15,13 +15,9 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-language: go
-
-os:
-  - linux
-
-go:
-  - "1.12"
+language: node_js
+node_js:
+  - "12"
 
 git:
   depth: 1
@@ -29,28 +25,23 @@ git:
 services:
   - 'docker'
 
-install: true
-
-addons:
-  apt:
-    sources:
-      - google-chrome
-    packages:
-      - google-chrome-stable
-
+before_script:
+  - npm install -g @angular/cli
+  - npm install karma
+  - npm install -g protractor
+  - npm install json-server
+  - npm install yarn
 
 jobs:
   include:
     - stage: pre-commit checks
       script:
-        - make license-check
+        - make check-license
         - make build
-        - make test
-      after_success: bash <(curl -s https://codecov.io/bash)
+        - yarn test:coverage
     - stage: publish docker image
       deploy:
         provider: script
         script: make push
         on:
           branch: master
-          #condition: $TRAVIS_EVENT_TYPE = cron

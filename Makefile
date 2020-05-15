@@ -59,7 +59,7 @@ start-dev:
 # Run the web interface from the production image
 .PHONY: run
 run: image
-	docker run -d -p ${PORT}:9889 ${REGISTRY}/yunikorn-web:${VERSION}
+	docker run -d -p ${PORT}:9889 ${REGISTRY}/yunikorn:web-${VERSION}
 
 # Build the web interface in a production ready version
 .PHONY: build-prod
@@ -70,7 +70,7 @@ build-prod:
 image: build-prod
 	@echo "building web UI docker image"
 	@SHA=$$(git rev-parse --short=12 HEAD) ; \
-	docker build -t ${REGISTRY}/yunikorn-web:${VERSION} . \
+	docker build -t ${REGISTRY}/yunikorn:web-${VERSION} . \
 	--label "GitRevision=$${SHA}" \
 	--label "Version=${VERSION}" \
 	--label "BuildTimeStamp=${DATE}"
@@ -92,3 +92,10 @@ clean:
 	rm -rf ./node_modules
 	rm -rf ./out
 	rm -rf ./out-tsc
+
+.PHONY: push
+push: image
+	@echo "push docker images"
+	echo "${DOCKER_PASSWORD}" | docker login -u "${DOCKER_USERNAME}" --password-stdin
+	docker push ${REGISTRY}/yunikorn:web-${VERSION}
+	docker push ${REGISTRY}/yunikorn:web-${VERSION}
