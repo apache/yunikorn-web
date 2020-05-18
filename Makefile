@@ -98,4 +98,3 @@ push: image
 	@echo "push docker images"
 	echo "${DOCKER_PASSWORD}" | docker login -u "${DOCKER_USERNAME}" --password-stdin
 	docker push ${REGISTRY}/yunikorn:web-${VERSION}
-	docker push ${REGISTRY}/yunikorn:web-${VERSION}
