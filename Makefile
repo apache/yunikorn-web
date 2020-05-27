@@ -67,7 +67,8 @@ build-prod:
 	yarn install && yarn build:prod
 
 # Build an image based on the production ready version
-image: build-prod
+.PHONY: image
+image:
 	@echo "building web UI docker image"
 	@SHA=$$(git rev-parse --short=12 HEAD) ; \
 	docker build -t ${REGISTRY}/yunikorn:web-${VERSION} . \
