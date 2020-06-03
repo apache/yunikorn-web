@@ -22,6 +22,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { RouterModule, Routes } from '@angular/router';
 import { HttpClientModule } from '@angular/common/http';
 import { NgxSpinnerModule } from 'ngx-spinner';
+import { FormsModule } from '@angular/forms';
 import {
   MatCardModule,
   MatTabsModule,
@@ -32,7 +33,9 @@ import {
   MatSidenavModule,
   MatTableModule,
   MatPaginatorModule,
-  MatSortModule
+  MatSortModule,
+  MatInputModule,
+  MatTooltipModule
 } from '@angular/material';
 
 import { envConfigFactory, EnvconfigService } from './services/envconfig/envconfig.service';
@@ -118,6 +121,7 @@ const appRoutes: Routes = [
     BrowserAnimationsModule,
     HttpClientModule,
     NgxSpinnerModule,
+    FormsModule,
     MatCardModule,
     MatTabsModule,
     MatSelectModule,
@@ -128,6 +132,8 @@ const appRoutes: Routes = [
     MatTableModule,
     MatPaginatorModule,
     MatSortModule,
+    MatInputModule,
+    MatTooltipModule,
     RouterModule.forRoot(appRoutes)
   ],
   providers: [
