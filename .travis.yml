@@ -36,11 +36,8 @@ jobs:
     - stage: pre-commit checks
       script:
         - make check-license
-        - make build
+        - make build-prod
         - yarn test:coverage
-    - stage: publish docker image
-      deploy:
-        provider: script
-        script: make push
-        on:
-          branch: master
+        - yarn lint
+      after_success: push image
+      on branch: master
