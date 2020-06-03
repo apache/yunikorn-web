@@ -29,7 +29,6 @@ before_script:
   - npm install -g @angular/cli
   - npm install karma
   - npm install -g protractor
-  - npm install yarn
 
 jobs:
   include:
