@@ -17,6 +17,25 @@
  -->
 
 <div class="apps-view">
+  <mat-form-field class="search-wrapper white-mat-form-field">
+    <input
+      matInput
+      type="text"
+      [(ngModel)]="searchText"
+      placeholder="Search By Application ID or Queue Name"
+      #searchInput
+    />
+    <button
+      class="clear-btn"
+      *ngIf="searchText"
+      (click)="onClearSearch()"
+      matTooltip="Clear Search"
+      matTooltipShowDelay="500"
+    >
+      <i class="far fa-times-circle"></i>
+    </button>
+    <i *ngIf="!searchText" class="fas fa-search search-icon"></i>
+  </mat-form-field>
   <div class="mat-elevation-z8">
     <mat-table [dataSource]="appDataSource" matSort>
       <ng-container [matColumnDef]="columnDef.colId" *ngFor="let columnDef of appColumnDef">
@@ -63,7 +82,7 @@
       #appsViewMatPaginator
       [pageSizeOptions]="[5, 10, 20, 50]"
       [ngStyle]="{ display: isAppDataSourceEmpty() ? 'none' : '' }"
-      (page)="onPaginatorChanged($event)"
+      (page)="onPaginatorChanged()"
       showFirstLastButtons
     ></mat-paginator>
   </div>

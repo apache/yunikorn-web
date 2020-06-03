@@ -21,11 +21,14 @@ import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { HAMMER_LOADER } from '@angular/platform-browser';
 import { NgxSpinnerService } from 'ngx-spinner';
 import { configureTestSuite } from 'ng-bullet';
+import { FormsModule } from '@angular/forms';
 import {
   MatTableModule,
   MatPaginatorModule,
   MatDividerModule,
-  MatSortModule
+  MatSortModule,
+  MatInputModule,
+  MatTooltipModule
 } from '@angular/material';
 
 import { AppsViewComponent } from './apps-view.component';
@@ -41,10 +44,13 @@ describe('AppsViewComponent', () => {
       declarations: [AppsViewComponent],
       imports: [
         NoopAnimationsModule,
+        FormsModule,
         MatTableModule,
         MatPaginatorModule,
         MatDividerModule,
-        MatSortModule
+        MatSortModule,
+        MatInputModule,
+        MatTooltipModule
       ],
       providers: [
         { provide: SchedulerService, useValue: MockSchedulerService },
