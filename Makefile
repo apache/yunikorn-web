@@ -95,7 +95,7 @@ clean:
 	rm -rf ./out-tsc
 
 .PHONY: push_image
-push: image
+push_image: image
 	@echo "push docker images"
 	echo "${DOCKER_PASSWORD}" | docker login -u "${DOCKER_USERNAME}" --password-stdin
 	docker push ${REGISTRY}/yunikorn:web-${VERSION}
