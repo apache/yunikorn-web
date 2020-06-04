@@ -94,7 +94,7 @@ clean:
 	rm -rf ./out
 	rm -rf ./out-tsc
 
-.PHONY: push
+.PHONY: push_image
 push: image
 	@echo "push docker images"
 	echo "${DOCKER_PASSWORD}" | docker login -u "${DOCKER_USERNAME}" --password-stdin
