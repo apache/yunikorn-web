@@ -28,12 +28,11 @@ services:
 jobs:
   include:
     - stage: pre-commit checks
-      before_script:
+      script:
         - npm install -g @angular/cli
         - npm install karma
         - npm install -g protractor
         - npm install yarn
-      script:
         - make check-license
         - make build-prod
         - yarn test:coverage
