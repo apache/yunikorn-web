@@ -29,6 +29,7 @@ jobs:
   include:
     - stage: pre-commit checks
       install:
+        - rm -rf package-lock.json node_modules
         - npm install -g @angular/cli
         - npm install karma
         - npm install -g protractor
