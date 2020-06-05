@@ -39,5 +39,9 @@ jobs:
         - make build-prod
         - yarn test:coverage
         - yarn lint
-      after_success: make push_image
-      on branch: master
+    - stage: publish docker image
+      deploy:
+        provider: script
+        script: make push_image
+        on:
+          branch: master
