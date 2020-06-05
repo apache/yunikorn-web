@@ -25,15 +25,14 @@ git:
 services:
   - 'docker'
 
-before_script:
-  - npm install -g @angular/cli
-  - npm install karma
-  - npm install -g protractor
-  - npm install yarn
-
 jobs:
   include:
     - stage: pre-commit checks
+      before_script:
+        - npm install -g @angular/cli
+        - npm install karma
+        - npm install -g protractor
+        - npm install yarn
       script:
         - make check-license
         - make build-prod
