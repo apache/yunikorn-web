@@ -40,4 +40,5 @@ jobs:
         - yarn lint
     - stage: publish docker image
       install: skip
-      script: make push_image
+      script:
+        - make push_image
