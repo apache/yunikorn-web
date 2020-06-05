@@ -28,18 +28,18 @@ services:
 jobs:
   include:
     - stage: pre-commit checks
-      script:
+      install:
         - npm install -g @angular/cli
         - npm install karma
         - npm install -g protractor
         - npm install yarn
+      script:
         - make check-license
         - make build-prod
         - yarn test:coverage
         - yarn lint
     - stage: publish docker image
-      deploy:
-        provider: script
-        script: make push_image
+      install: skip
+      script: make push_image
         on:
           branch: master
