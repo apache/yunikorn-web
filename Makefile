@@ -31,7 +31,7 @@ endif
 # Image build parameters
 # This tag of the image must be changed when pushed to a public repository.
 ifeq ($(REGISTRY),)
-REGISTRY := yunikorn
+REGISTRY := apache
 endif
 
 # Set the default web port, this must be the same as in the nginx/nginx.conf file.
