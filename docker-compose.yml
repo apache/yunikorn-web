@@ -21,6 +21,6 @@ version: '3'
 services:
   yunikornwebapp:
     build: .
-    image: yunikorn/yunikorn-web
+    image: yunikorn/yunikorn:web-latest
     ports:
       - 9889:9889

@@ -18,4 +18,4 @@
 #
 
 docker_images:
-  yunikorn-web: __registry__/yunikorn-web
+  yunikorn-web: __registry__/yunikorn:web-
