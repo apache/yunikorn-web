@@ -41,5 +41,9 @@ jobs:
         - yarn lint
     - stage: publish docker image
       install: skip
-      script:
-        - make push_image
+      deploy:
+        provider: script
+        script: make push
+        on:
+          branch: master
+          condition: $TRAVIS_EVENT_TYPE = cron
