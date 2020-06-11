@@ -41,7 +41,7 @@ jobs:
         - yarn lint
     - stage: publish docker image
       install: skip
-      script: skip
+      script: echo "Skipping the default test step."
       deploy:
         provider: script
         script: make push_image
