@@ -111,7 +111,7 @@ export class NodesViewComponent implements OnInit {
     }
   }
 
-  onPaginatorChanged(page: PageEvent) {
+  onPaginatorChanged() {
     if (this.selectedRow) {
       this.selectedRow.isSelected = false;
       this.selectedRow = null;
