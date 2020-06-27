@@ -17,39 +17,52 @@
  */
 
 export class CommonUtil {
-  static createUniqId(prefix?: string) {
+  static createUniqId(prefix?: string): string {
     const uniqid = Math.random()
       .toString(36)
       .substr(2);
+
     if (prefix) {
       return prefix + uniqid;
     }
+
     return uniqid;
   }
 
-  static formatMemory(value: number) {
-    let toUnit = 'MB';
-    let toValue = value;
-    // if (toValue / 1024 >= 0.9) {
-    //     toValue = toValue / 1024;
-    //     toUnit = 'KB';
-    // }
-    // if (toValue / 1024 >= 0.9) {
-    //     toValue = toValue / 1024;
-    //     toUnit = 'MB';
-    // }
+  static formatMemory(value: number | string): string {
+    let unit = 'MB';
+    let toValue = +value;
+
     if (toValue / 1024 >= 0.9) {
       toValue = toValue / 1024;
-      toUnit = 'GB';
+      unit = 'GB';
     }
+
     if (toValue / 1024 >= 0.9) {
       toValue = toValue / 1024;
-      toUnit = 'TB';
+      unit = 'TB';
     }
+
     if (toValue / 1024 >= 0.9) {
       toValue = toValue / 1024;
-      toUnit = 'PB';
+      unit = 'PB';
     }
-    return toValue.toFixed(1) + ' ' + toUnit;
+
+    return `${toValue.toFixed(1)} ${unit}`;
+  }
+
+  static isEmpty(arg: object | any[]): boolean {
+    return Object.keys(arg).length === 0;
+  }
+
+  static formatCount(value: number | string): string {
+    const unit = 'K';
+    const toValue = +value;
+
+    if (toValue >= 1000) {
+      return `${(toValue / 1000).toFixed(1)} ${unit}`;
+    }
+
+    return toValue.toString();
   }
 }

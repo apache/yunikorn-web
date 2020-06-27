@@ -21,7 +21,7 @@ import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 
-import { QueueInfo } from '@app/models/queue-info.model';
+import { QueueInfo, QueuePropertyItem } from '@app/models/queue-info.model';
 import { EnvconfigService } from '../envconfig/envconfig.service';
 import { ClusterInfo } from '@app/models/cluster-info.model';
 import { CommonUtil } from '@app/utils/common.util';
@@ -45,9 +45,7 @@ export class SchedulerService {
 
   public fetchClusterByName(clusterName: string): Observable<ClusterInfo> {
     return this.fetchClusterList().pipe(
-      map(data => {
-        return data.find(obj => obj.clusterName === clusterName);
-      })
+      map(data => data.find(obj => obj.clusterName === clusterName))
     );
   }
 
@@ -63,6 +61,7 @@ export class SchedulerService {
           rootQueue.children = null;
           rootQueue.isLeafQueue = false;
           this.fillQueueCapacities(rootQueueData, rootQueue);
+          this.fillQueueProperties(rootQueueData, rootQueue);
           rootQueue = this.generateQueuesTree(rootQueueData, rootQueue);
         }
         const partitionName = data['partitionname'] || '';
@@ -216,14 +215,15 @@ export class SchedulerService {
   private generateQueuesTree(data: any, currentQueue: QueueInfo) {
     if (data && data.queues && data.queues.length > 0) {
       const chilrenQs = [];
-      data.queues.forEach(queue => {
+      data.queues.forEach(queueData => {
         const childQueue = new QueueInfo();
-        childQueue.queueName = '' + queue.queuename;
-        childQueue.state = queue.status || 'RUNNING';
+        childQueue.queueName = '' + queueData.queuename;
+        childQueue.state = queueData.status || 'RUNNING';
         childQueue.parentQueue = currentQueue ? currentQueue : null;
-        this.fillQueueCapacities(queue, childQueue);
+        this.fillQueueCapacities(queueData, childQueue);
+        this.fillQueueProperties(queueData, childQueue);
         chilrenQs.push(childQueue);
-        return this.generateQueuesTree(queue, childQueue);
+        return this.generateQueuesTree(queueData, childQueue);
       });
       currentQueue.children = chilrenQs;
       currentQueue.isLeafQueue = false;
@@ -239,15 +239,27 @@ export class SchedulerService {
     const maxCap = data['capacities']['maxcapacity'] as string;
     const absUsedCapacity = data['capacities']['absusedcapacity'] as string;
 
-    const configCapResources = this.splitCapacity(configCap, NOT_AVAILABLE);
-    const usedCapResources = this.splitCapacity(usedCap, NOT_AVAILABLE);
-    const maxCapResources = this.splitCapacity(maxCap, NOT_AVAILABLE);
-    const absUsedCapacityResources = this.splitCapacity(absUsedCapacity, NOT_AVAILABLE);
+    queue.capacity = this.formatCapacity(this.splitCapacity(configCap, NOT_AVAILABLE));
+    queue.maxCapacity = this.formatCapacity(this.splitCapacity(maxCap, NOT_AVAILABLE));
+    queue.usedCapacity = this.formatCapacity(this.splitCapacity(usedCap, NOT_AVAILABLE));
+    queue.absoluteUsedCapacity = this.formatAbsCapacity(
+      this.splitCapacity(absUsedCapacity, NOT_AVAILABLE)
+    );
+  }
 
-    queue.capacity = this.formatCapacity(configCapResources);
-    queue.maxCapacity = this.formatCapacity(maxCapResources);
-    queue.usedCapacity = this.formatCapacity(usedCapResources);
-    queue.absoluteUsedCapacity = this.formatAbsCapacity(absUsedCapacityResources);
+  private fillQueueProperties(data: any, queue: QueueInfo) {
+    if (data.properties && !CommonUtil.isEmpty(data.properties)) {
+      const dataProps = Object.entries<string>(data.properties);
+
+      queue.queueProperties = dataProps.map(prop => {
+        return {
+          name: prop[0],
+          value: prop[1]
+        } as QueuePropertyItem;
+      });
+    } else {
+      queue.queueProperties = [];
+    }
   }
 
   private splitCapacity(capacity: string = '', defaultValue: string): ResourceInfo {
@@ -279,11 +291,15 @@ export class SchedulerService {
   private formatCapacity(resourceInfo: ResourceInfo) {
     const formatted = [];
     if (resourceInfo.memory !== NOT_AVAILABLE) {
-      formatted.push(`[memory: ${CommonUtil.formatMemory(+resourceInfo.memory)}`);
+      formatted.push(`[memory: ${CommonUtil.formatMemory(resourceInfo.memory)}`);
     } else {
       formatted.push(`[memory: ${resourceInfo.memory}`);
     }
-    formatted.push(`vcore: ${resourceInfo.vcore}]`);
+    if (resourceInfo.vcore !== NOT_AVAILABLE) {
+      formatted.push(`vcore: ${CommonUtil.formatCount(resourceInfo.vcore)}]`);
+    } else {
+      formatted.push(`vcore: ${resourceInfo.vcore}]`);
+    }
     return formatted.join(', ');
   }
 

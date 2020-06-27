@@ -39,7 +39,7 @@ PORT=9889
 
 .PHONY: check-license
 check-license:
-	@echo "checking license header"
+	@echo "Checking license header"
 	@licRes=$$(grep -Lr --exclude-dir={node_modules,dist} --include=*.{sh,md,yaml,yml,js,ts,html,js,scss} "Licensed to the Apache Software Foundation" .) ; \
 	if [ -n "$${licRes}" ]; then \
 		echo "following files have incorrect license header:\n$${licRes}" ; \
@@ -69,7 +69,7 @@ build-prod:
 # Build an image based on the production ready version
 .PHONY: image
 image:
-	@echo "building web UI docker image"
+	@echo "Building web UI docker image"
 	@SHA=$$(git rev-parse --short=12 HEAD) ; \
 	docker build -t ${REGISTRY}/yunikorn:web-${VERSION} . \
 	--label "GitRevision=$${SHA}" \
@@ -96,6 +96,6 @@ clean:
 
 .PHONY: push_image
 push_image: image
-	@echo "push docker images"
+	@echo "Pushing web UI docker image"
 	echo "${DOCKER_PASSWORD}" | docker login -u "${DOCKER_USERNAME}" --password-stdin
 	docker push ${REGISTRY}/yunikorn:web-${VERSION}

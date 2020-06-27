@@ -58,7 +58,7 @@
       #nodesViewMatPaginator
       [pageSizeOptions]="[5, 10, 20, 50]"
       [ngStyle]="{ display: isNodeDataSourceEmpty() ? 'none' : '' }"
-      (page)="onPaginatorChanged($event)"
+      (page)="onPaginatorChanged()"
       showFirstLastButtons
     ></mat-paginator>
   </div>
