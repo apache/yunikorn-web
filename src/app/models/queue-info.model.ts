@@ -31,6 +31,12 @@ export class QueueInfo {
   isLeafQueue: boolean;
   isExpanded = false;
   isSelected = false;
+  queueProperties: QueuePropertyItem[];
+}
+
+export interface QueuePropertyItem {
+  name: string;
+  value: string;
 }
 
 export interface SchedulerInfo {

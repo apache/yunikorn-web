@@ -1,7 +1,22 @@
 {
   "clusters": [
     {
-      "clusterName": "kubernetes",
+      "clusterName": "cluster-1",
+      "totalApplications": "1",
+      "failedApplications": "",
+      "pendingApplications": "",
+      "runningApplications": "1",
+      "completedApplications": "",
+      "totalContainers": "2",
+      "failedContainers": "",
+      "pendingContainers": "",
+      "runningContainers": "2",
+      "activeNodes": "1",
+      "totalNodes": "1",
+      "failedNodes": ""
+    },
+    {
+      "clusterName": "cluster-2",
       "totalApplications": "1",
       "failedApplications": "",
       "pendingApplications": "",
@@ -17,56 +32,65 @@
     }
   ],
   "queues": {
-    "partitionname": "[my-kube-cluster]default",
+    "partitionName": "[mycluster]default",
     "capacity": {
-      "capacity": "map[vcore:96000 memory:810085]",
+      "capacity": "map[ephemeral-storage:56453061334 hugepages-1Gi:0 hugepages-2Mi:0 memory:5869 pods:110 vcore:4000]",
       "usedcapacity": "0"
     },
     "nodes": null,
     "queues": {
       "queuename": "root",
-      "status": "RUNNING",
+      "status": "Active",
       "capacities": {
         "capacity": "[memory:1000000 vcore:100000]",
-        "maxcapacity": "[memory:1000000 vcore:100000]",
-        "usedcapacity": "[memory:5908 vcore:4000]",
-        "absusedcapacity": "20"
+        "maxcapacity": "[ephemeral-storage:56453061334 hugepages-1Gi:0 hugepages-2Mi:0 memory:5869 pods:110 vcore:4000]",
+        "usedcapacity": "[memory:1024 vcore:500]",
+        "absusedcapacity": "[memory:17 vcore:12]"
       },
       "queues": [
         {
           "queuename": "advertisement",
-          "status": "RUNNING",
+          "status": "Active",
           "capacities": {
             "capacity": "[memory:500000 vcore:50000]",
-            "maxcapacity": "[memory:500000 vcore:50000]",
-            "usedcapacity": "[memory:5908 vcore:4000]",
-            "absusedcapacity": "20"
+            "maxcapacity": "[memory:800000 vcore:80000]",
+            "usedcapacity": "[]",
+            "absusedcapacity": "[]"
           },
-          "queues": null
+          "queues": null,
+          "properties": {
+            "property2": "value2",
+            "someProperty": "someValue"
+          }
         },
         {
           "queuename": "search",
-          "status": "RUNNING",
+          "status": "Active",
           "capacities": {
             "capacity": "[memory:400000 vcore:40000]",
-            "maxcapacity": "[memory:400000 vcore:40000]",
+            "maxcapacity": "[memory:600000 vcore:60000]",
             "usedcapacity": "[]",
-            "absusedcapacity": "20"
+            "absusedcapacity": "[]"
           },
-          "queues": null
+          "queues": null,
+          "properties": {}
         },
         {
           "queuename": "sandbox",
-          "status": "RUNNING",
+          "status": "Active",
           "capacities": {
             "capacity": "[memory:100000 vcore:10000]",
-            "maxcapacity": "[vcore:10000 memory:100000]",
-            "usedcapacity": "[]",
-            "absusedcapacity": "20"
+            "maxcapacity": "[memory:100000 vcore:10000]",
+            "usedcapacity": "[memory:1024 vcore:500]",
+            "absusedcapacity": "[memory:1 vcore:5]"
           },
-          "queues": null
+          "queues": null,
+          "properties": {}
         }
-      ]
+      ],
+      "properties": {
+        "property1": "value1"
+      }
     }
   },
   "apps": [
@@ -171,15 +195,15 @@
     },
     {
       "timestamp": 1585238443804046000,
-      "totalApplications": "1"
+      "totalApplications": "2"
     },
     {
       "timestamp": 1585238503806253000,
-      "totalApplications": "2"
+      "totalApplications": "1"
     },
     {
       "timestamp": 1585238563807452000,
-      "totalApplications": "2"
+      "totalApplications": "3"
     }
   ],
   "containerHistory": [
@@ -197,15 +221,15 @@
     },
     {
       "timestamp": 1585238443804046000,
-      "totalContainers": "1"
+      "totalContainers": "2"
     },
     {
       "timestamp": 1585238503806253000,
-      "totalContainers": "2"
+      "totalContainers": "1"
     },
     {
       "timestamp": 1585238563807452000,
-      "totalContainers": "2"
+      "totalContainers": "3"
     }
   ],
   "nodes": [

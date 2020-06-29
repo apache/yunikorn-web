@@ -75,6 +75,10 @@
               <div class="left-item">Absolute Used Capacity:</div>
               <div class="right-item">{{ selectedQueue.absoluteUsedCapacity }}</div>
             </div>
+            <div class="flex-grid item-wrapper" *ngFor="let prop of selectedQueue.queueProperties">
+              <div class="left-item">{{ prop.name }}:</div>
+              <div class="right-item">{{ prop.value }}</div>
+            </div>
           </div>
         </mat-drawer-content>
       </mat-drawer>
