@@ -31,7 +31,7 @@ RUN yarn install
 RUN yarn build:prod
 
 # Stage 2
-FROM nginx:1.15.8-alpine
+FROM nginx:1.18.0-alpine
 
 COPY --from=buildstage /usr/uiapp/dist/yunikorn-web /usr/share/nginx/html
 
