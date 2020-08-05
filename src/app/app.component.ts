@@ -26,7 +26,7 @@ import { filter } from 'rxjs/operators';
   styleUrls: ['./app.component.scss']
 })
 export class AppComponent implements OnInit {
-  isNavOpen = false;
+  isNavOpen = true;
   breadcrumbs: Array<object> = [];
 
   constructor(private route: ActivatedRoute, private router: Router) {}

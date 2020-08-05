@@ -24,11 +24,32 @@
     </a>
   </div>
   <ul class="navigation-primary">
-    <li class="active">
+    <li routerLinkActive="active">
       <a [routerLink]="['/dashboard']">
-        <i class="fa fa-caret-right"></i>
+        <i class="fa fa-caret-right fa-2x"></i>
         <i class="fa fa-th-large"></i>
         <span>Dashboard</span>
+      </a>
+    </li>
+    <li routerLinkActive="active">
+      <a [routerLink]="['/applications']">
+        <i class="fa fa-caret-right"></i>
+        <i class="fa fa-indent"></i>
+        <span>Applications</span>
+      </a>
+    </li>
+    <li>
+      <a [routerLink]="['/queues']">
+        <i class="fa fa-caret-right"></i>
+        <i class="fa fa-sitemap" style="width: 16px;"></i>
+        <span>Queues</span>
+      </a>
+    </li>
+    <li>
+      <a [routerLink]="['/nodes']">
+        <i class="fa fa-caret-right"></i>
+        <i class="fa fa-server"></i>
+        <span>Nodes</span>
       </a>
     </li>
   </ul>

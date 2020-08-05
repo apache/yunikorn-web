@@ -23,6 +23,7 @@ import { RouterModule, Routes } from '@angular/router';
 import { HttpClientModule } from '@angular/common/http';
 import { NgxSpinnerModule } from 'ngx-spinner';
 import { FormsModule } from '@angular/forms';
+import { AppRoutingModule } from './app-routing.module';
 import {
   MatCardModule,
   MatTabsModule,
@@ -53,51 +54,6 @@ import { ContainerHistoryComponent } from './components/container-history/contai
 import { QueueRackComponent } from './components/queue-rack/queue-rack.component';
 import { AppsViewComponent } from './components/apps-view/apps-view.component';
 import { NodesViewComponent } from './components/nodes-view/nodes-view.component';
-
-const appRoutes: Routes = [
-  {
-    path: 'dashboard',
-    component: DashboardComponent,
-    data: { breadcrumb: 'Dashboard' }
-  },
-  {
-    path: 'clusters/:clusterName',
-    component: ClusterContainerComponent,
-    data: { breadcrumb: ':clusterName', prependRoot: true },
-    children: [
-      {
-        path: 'info',
-        component: ClusterInfoComponent,
-        data: { breadcrumb: 'Info' }
-      },
-      {
-        path: 'apps',
-        component: AppsViewComponent,
-        data: { breadcrumb: 'Applications' }
-      },
-      {
-        path: 'queues',
-        component: QueuesViewComponent,
-        data: { breadcrumb: 'Queues' }
-      },
-      {
-        path: 'nodes',
-        component: NodesViewComponent,
-        data: { breadcrumb: 'Nodes' }
-      },
-      {
-        path: '',
-        pathMatch: 'full',
-        redirectTo: 'info'
-      }
-    ]
-  },
-  {
-    path: '',
-    pathMatch: 'full',
-    redirectTo: 'dashboard'
-  }
-];
 
 @NgModule({
   declarations: [
@@ -134,7 +90,7 @@ const appRoutes: Routes = [
     MatSortModule,
     MatInputModule,
     MatTooltipModule,
-    RouterModule.forRoot(appRoutes)
+    AppRoutingModule
   ],
   providers: [
     {
