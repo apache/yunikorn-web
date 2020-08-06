@@ -45,7 +45,6 @@ const appRoutes: Routes = [
     component: NodesViewComponent,
     data: { breadcrumb: 'Nodes' }
   },
-
   {
     path: '',
     pathMatch: 'full',
