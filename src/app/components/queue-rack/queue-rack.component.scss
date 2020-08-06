@@ -50,13 +50,13 @@
     position: absolute;
     right: -13px;
     font-size: 24px;
-    color: #40ae29;
+    color: #303d54;
   }
 }
 .queue-rack {
   padding: 20px 0px 20px 10px;
   border-right: 1px solid #ddd;
-  height: calc(100vh - 230px);
+  height: calc(100vh - 190px);
   max-width: 236px;
   .queue-item:last-child {
     margin-bottom: 0;

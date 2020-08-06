@@ -43,12 +43,6 @@ export class SchedulerService {
     return this.httpClient.get(clusterUrl).pipe(map(data => data as ClusterInfo[]));
   }
 
-  public fetchClusterByName(clusterName: string): Observable<ClusterInfo> {
-    return this.fetchClusterList().pipe(
-      map(data => data.find(obj => obj.clusterName === clusterName))
-    );
-  }
-
   public fetchSchedulerQueues(): Observable<any> {
     const queuesUrl = `${this.envConfig.getSchedulerWebAddress()}/ws/v1/queues`;
     return this.httpClient.get(queuesUrl).pipe(

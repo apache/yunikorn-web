@@ -21,7 +21,6 @@
   width: 50px;
   top: 0;
   bottom: 0;
-  // background: #323544;
   background: #292e34;
   color: #b8bec4;
   font-size: 16px;
@@ -77,10 +76,6 @@
   transition: padding-left 0.8s ease, padding-top 0.8s ease;
   -webkit-font-smoothing: antialiased;
 }
-
-// .logo:hover {
-//   background: #304e73;
-// }
 
 .logo a {
   text-decoration: none;
@@ -140,10 +135,6 @@
   flex: 1;
 }
 
-// .navigation .sub-menu ul .fa + span {
-//   margin-left: 0;
-// }
-
 ul.navigation-primary {
   overflow-y: auto;
   height: calc(100vh - 110px);
@@ -165,13 +156,8 @@ ul.navigation-primary {
 
 .navigation li:hover > a {
   color: #fff;
-  // background: #404351;
   background: #4d5258;
 }
-
-// .navigation li:hover ul {
-//   display: block;
-// }
 
 .navigation li a {
   display: flex;
@@ -191,32 +177,9 @@ ul.navigation-primary {
   padding-left: 25px;
 }
 
-// .navigation li ul {
-//   display: none;
-//   position: absolute;
-//   left: 50px;
-//   margin-top: -55px;
-//   background: #323544;
-//   color: #b8bec4;
-//   width: 200px;
-//   border-left: 1px solid #666;
-//   font-size: 16px;
-//   overflow-y: auto;
-// }
-
-// .navigation.open li ul a {
-//   padding-left: 62px;
-// }
-
-// .navigation li ul a {
-//   padding: 10px 25px 10px 30px;
-// }
-
 .navigation li.active > a,
 .navigation li.active:hover > a {
-  // color: #3fae2a;
   color: #fff;
-  // background: #2d2f3c;
   background: #4d5258;
 }
 
@@ -225,97 +188,19 @@ ul.navigation-primary {
   font-size: 20px;
 }
 
-// .sub-menu ul {
-//   display: none;
-// }
-
-// .open .sub-menu.open ul {
-//   display: block;
-// }
-
-// .sub-menu li a {
-//   margin: 2px;
-//   font-size: 13px;
-// }
-
-// .navigation.open li ul {
-//   display: none;
-//   position: static;
-//   width: auto;
-// }
-
-// .navigation.open li.open ul {
-//   display: block;
-//   overflow: visible;
-//   margin-top: 0;
-// }
-
-// .navigation .fa-angle-up,
-// .navigation .fa-angle-down {
-//   opacity: 0;
-//   -webkit-font-smoothing: antialiased;
-// }
-
-// .navigation.open .fa-angle-up,
-// .navigation.open .fa-angle-down {
-//   float: right;
-//   -webkit-animation: sub-nav-o 0.8s; /* Safari 4.0 - 8.0 */
-//   animation: sub-nav-o 0.8s;
-//   opacity: 1;
-// }
-
-// .navigation.open .sub-menu .fa-angle-up,
-// .navigation.open .sub-menu.open .fa-angle-down {
-//   display: none;
-// }
-
-// .navigation.open .sub-menu.open .fa-angle-up,
-// .navigation.open .sub-menu .fa-angle-down {
-//   display: inline-block;
-//   opacity: 1;
-// }
-
-/* Safari 4.0 - 8.0 */
-// @-webkit-keyframes sub-nav-o {
-//   0% {
-//     opacity: 0;
-//   }
-//   80% {
-//     opacity: 0;
-//   }
-//   100% {
-//     opacity: 1;
-//   }
-// }
-
-/* Standard syntax */
-// @keyframes sub-nav-o {
-//   0% {
-//     opacity: 0;
-//   }
-//   80% {
-//     opacity: 0;
-//   }
-//   100% {
-//     opacity: 1;
-//   }
-// }
-
 .expander {
   position: absolute;
   left: 0;
   bottom: 0;
   width: 100%;
-  height: 42px;
-  line-height: 42px;
-  text-align: right;
-  vertical-align: middle;
-  // background: #303d54;
+  height: 50px;
   background: #292e34;
-  // color: #3fae2a;
   color: #fff;
   font-size: 24px;
   cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
 }
 
 .expander .fa-angle-double-left,
@@ -330,41 +215,6 @@ ul.navigation-primary {
   padding-right: 14px;
 }
 
-/* Secondary Navigation */
-// .wrapper.two-column-layout {
-//   padding: 0;
-//   display: flex;
-// }
-
-// .wrapper.two-column-layout > * {
-//   flex-grow: 1;
-// }
-
-// .nav-title {
-//   background-color: #ebebeb;
-//   font-size: 20px;
-//   font-weight: 500;
-//   padding: 20px;
-//   height: 60px;
-//   color: #333;
-// }
-
-// .navigation .logo .fa-angle-down {
-//   position: absolute;
-//   right: 5px;
-//   top: 5px;
-//   font-size: 12px;
-//   font-weight: 900;
-//   color: #43ad49;
-//   opacity: 1;
-//   width: auto;
-// }
-
-// .navigation.open .logo .fa-angle-down {
-//   font-size: 16px;
-//   top: 20px;
-// }
-
 .container-fluid {
   padding-top: 61px;
 }
@@ -372,7 +222,7 @@ ul.navigation-primary {
 .header {
   height: 61px;
   background: #fff;
-  padding: 0 0 0 25px;
+  padding: 0 20px;
   border-bottom: 1px solid #e3e3e3;
   position: fixed;
   left: 50px;
@@ -389,6 +239,23 @@ ul.navigation-primary {
   left: 250px;
 }
 
+.breadcrumb-wrapper {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.help-menu > .menu-trigger {
+  width: 30px;
+  height: 30px;
+  background: transparent;
+  color: #666;
+  border: 1px solid #666;
+  border-radius: 50%;
+  outline: none;
+  cursor: pointer;
+}
+
 ul.breadcrumb {
   font-size: 20px;
   display: flex;
@@ -401,12 +268,10 @@ ul.breadcrumb > li {
   margin-right: 5px;
   margin-top: 18px;
   margin-bottom: 20px;
-  // color: #373b44;
 }
 
 ul.breadcrumb a {
   text-decoration: none;
-  // color: #646977;
   color: #666;
 }
 
@@ -415,7 +280,6 @@ ul.breadcrumb a:after {
   margin-left: 5px;
   display: inline-block;
   text-decoration: none;
-  // color: #646977;
   color: #666;
 }
 

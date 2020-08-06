@@ -36,15 +36,14 @@ import {
   MatPaginatorModule,
   MatSortModule,
   MatInputModule,
-  MatTooltipModule
+  MatTooltipModule,
+  MatMenuModule
 } from '@angular/material';
 
 import { envConfigFactory, EnvconfigService } from './services/envconfig/envconfig.service';
 import { AppComponent } from './app.component';
 import { DashboardComponent } from './components/dashboard/dashboard.component';
-import { ClusterInfoComponent } from './components/cluster-info/cluster-info.component';
 import { QueuesViewComponent } from './components/queues-view/queues-view.component';
-import { ClusterContainerComponent } from './components/cluster-container/cluster-container.component';
 import { DonutChartComponent } from './components/donut-chart/donut-chart.component';
 import { AreaChartComponent } from './components/area-chart/area-chart.component';
 import { AppStatusComponent } from './components/app-status/app-status.component';
@@ -59,9 +58,7 @@ import { NodesViewComponent } from './components/nodes-view/nodes-view.component
   declarations: [
     AppComponent,
     DashboardComponent,
-    ClusterInfoComponent,
     QueuesViewComponent,
-    ClusterContainerComponent,
     DonutChartComponent,
     AreaChartComponent,
     AppStatusComponent,
@@ -90,6 +87,7 @@ import { NodesViewComponent } from './components/nodes-view/nodes-view.component
     MatSortModule,
     MatInputModule,
     MatTooltipModule,
+    MatMenuModule,
     AppRoutingModule
   ],
   providers: [

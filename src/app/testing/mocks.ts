@@ -35,11 +35,12 @@ export const MockNgxSpinnerService = {
   hide: noopFn
 };
 
-export const MockActivatedRoute = {
-  parent: { snapshot: { params: { clusterName: 'clusterName' } } }
-};
-
 export const MockEnvconfigService = {
   getSchedulerWebAddress: noopFn,
   getPrometheusWebAddress: noopFn
+};
+
+export const MockEventbusService = {
+  getEvent: () => of<any>(),
+  publish: noopFn
 };

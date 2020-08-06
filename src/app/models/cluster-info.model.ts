@@ -18,6 +18,7 @@
 
 export interface ClusterInfo {
   clusterName: string;
+  clusterStatus?: string;
   activeNodes: string;
   failedNodes: string;
   totalNodes: string;

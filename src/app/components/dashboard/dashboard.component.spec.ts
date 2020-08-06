@@ -21,10 +21,20 @@ import { RouterTestingModule } from '@angular/router/testing';
 import { configureTestSuite } from 'ng-bullet';
 import { MatCardModule } from '@angular/material';
 import { NgxSpinnerService } from 'ngx-spinner';
+import { MockComponent } from 'ng-mocks';
 
 import { DashboardComponent } from './dashboard.component';
+import { AppStatusComponent } from '@app/components/app-status/app-status.component';
+import { AppHistoryComponent } from '@app/components/app-history/app-history.component';
+import { ContainerStatusComponent } from '@app/components/container-status/container-status.component';
+import { ContainerHistoryComponent } from '@app/components/container-history/container-history.component';
 import { SchedulerService } from '@app/services/scheduler/scheduler.service';
-import { MockSchedulerService, MockNgxSpinnerService } from '@app/testing/mocks';
+import { EventbusService } from '@app/services/eventbus/eventbus.service';
+import {
+  MockSchedulerService,
+  MockNgxSpinnerService,
+  MockEventbusService
+} from '@app/testing/mocks';
 
 describe('DashboardComponent', () => {
   let component: DashboardComponent;
@@ -32,11 +42,18 @@ describe('DashboardComponent', () => {
 
   configureTestSuite(() => {
     TestBed.configureTestingModule({
-      declarations: [DashboardComponent],
+      declarations: [
+        DashboardComponent,
+        MockComponent(AppStatusComponent),
+        MockComponent(AppHistoryComponent),
+        MockComponent(ContainerStatusComponent),
+        MockComponent(ContainerHistoryComponent)
+      ],
       imports: [MatCardModule, RouterTestingModule],
       providers: [
         { provide: SchedulerService, useValue: MockSchedulerService },
-        { provide: NgxSpinnerService, useValue: MockNgxSpinnerService }
+        { provide: NgxSpinnerService, useValue: MockNgxSpinnerService },
+        { provide: EventbusService, useValue: MockEventbusService }
       ]
     });
   });

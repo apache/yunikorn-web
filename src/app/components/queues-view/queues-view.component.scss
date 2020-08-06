@@ -28,13 +28,13 @@
 }
 .mat-drawer-container {
   width: 430px;
-  height: calc(100vh - 230px);
+  height: calc(100vh - 190px);
   background: #eee;
   position: absolute;
   right: 0;
   display: none;
   .mat-drawer {
-    width: 430px;
+    width: 100%;
     .content {
       padding: 0 10px;
     }

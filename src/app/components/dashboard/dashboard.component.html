@@ -16,27 +16,46 @@
  * limitations under the License.
  -->
 
-<mat-card *ngFor="let cluster of clusterList" [routerLink]="['/clusters', cluster.clusterName]">
+<mat-card *ngIf="'false'">
   <div class="flex-grid">
     <div class="flex-primary">
       <div class="text-uppercase hwx-light">Name</div>
-      <div class="info-value hwx-strong">{{ cluster.clusterName }}</div>
+      <div class="info-value hwx-strong">{{ clusterInfo.clusterName }}</div>
     </div>
     <div class="flex-primary">
       <div class="text-uppercase hwx-light">Status</div>
-      <div class="info-value hwx-strong">Connected</div>
+      <div class="info-value hwx-strong">{{ clusterInfo.clusterStatus }}</div>
     </div>
     <div class="flex-primary">
       <div class="text-uppercase hwx-light">Nodes</div>
-      <div class="info-value hwx-strong">{{ cluster.activeNodes }}</div>
+      <div class="info-value hwx-strong">{{ clusterInfo.activeNodes }}</div>
     </div>
     <div class="flex-primary">
       <div class="text-uppercase hwx-light">Applications</div>
-      <div class="info-value hwx-strong">{{ cluster.runningApplications }}</div>
+      <div class="info-value hwx-strong">{{ clusterInfo.runningApplications }}</div>
     </div>
     <div class="flex-primary">
       <div class="text-uppercase hwx-light">Containers</div>
-      <div class="info-value hwx-strong">{{ cluster.runningContainers }}</div>
+      <div class="info-value hwx-strong">{{ clusterInfo.runningContainers }}</div>
     </div>
   </div>
 </mat-card>
+
+<div class="cluster-info">
+  <div class="flex-grid">
+    <div class="left-col flex-primary">
+      <app-application-status [chartData]="appStatusData"></app-application-status>
+    </div>
+    <div class="right-col flex-primary">
+      <app-application-history [chartData]="appHistoryData"></app-application-history>
+    </div>
+  </div>
+  <div class="flex-grid grid-row">
+    <div class="left-col flex-primary">
+      <app-container-status [chartData]="containerStatusData"></app-container-status>
+    </div>
+    <div class="right-col flex-primary">
+      <app-container-history [chartData]="containerHistoryData"></app-container-history>
+    </div>
+  </div>
+</div>

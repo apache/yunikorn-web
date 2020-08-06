@@ -22,6 +22,8 @@ import { NgxSpinnerModule } from 'ngx-spinner';
 import { configureTestSuite } from 'ng-bullet';
 
 import { AppComponent } from './app.component';
+import { EventbusService } from './services/eventbus/eventbus.service';
+import { MockEventbusService } from './testing/mocks';
 
 describe('AppComponent', () => {
   let component: AppComponent;
@@ -30,7 +32,8 @@ describe('AppComponent', () => {
   configureTestSuite(() => {
     TestBed.configureTestingModule({
       declarations: [AppComponent],
-      imports: [RouterTestingModule, NgxSpinnerModule]
+      imports: [RouterTestingModule, NgxSpinnerModule],
+      providers: [{ provide: EventbusService, useValue: MockEventbusService }]
     });
   });
 
