@@ -254,6 +254,11 @@ ul.navigation-primary {
   border-radius: 50%;
   outline: none;
   cursor: pointer;
+
+  &:hover {
+    background: #666;
+    color: #fff;
+  }
 }
 
 ul.breadcrumb {
