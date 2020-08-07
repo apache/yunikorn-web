@@ -110,18 +110,18 @@ export class DashboardComponent implements OnInit {
     return {
       clusterName: 'n/a',
       clusterStatus: 'n/a',
-      totalApplications: '0',
-      failedApplications: '0',
-      pendingApplications: '0',
-      runningApplications: '0',
-      completedApplications: '0',
-      totalContainers: '0',
-      failedContainers: '0',
-      pendingContainers: '0',
-      runningContainers: '0',
-      activeNodes: '0',
-      totalNodes: '0',
-      failedNodes: '0'
+      totalApplications: 'n/a',
+      failedApplications: 'n/a',
+      pendingApplications: 'n/a',
+      runningApplications: 'n/a',
+      completedApplications: 'n/a',
+      totalContainers: 'n/a',
+      failedContainers: 'n/a',
+      pendingContainers: 'n/a',
+      runningContainers: 'n/a',
+      activeNodes: 'n/a',
+      totalNodes: 'n/a',
+      failedNodes: 'n/a'
     };
   }
 }
