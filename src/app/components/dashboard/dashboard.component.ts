@@ -25,7 +25,7 @@ import { ClusterInfo } from '@app/models/cluster-info.model';
 import { DonutDataItem } from '@app/models/donut-data.model';
 import { AreaDataItem } from '@app/models/area-data.model';
 import { HistoryInfo } from '@app/models/history-info.model';
-import { EventbusService, EventMap } from '@app/services/eventbus/eventbus.service';
+import { EventBusService, EventMap } from '@app/services/event-bus/event-bus.service';
 
 @Component({
   selector: 'app-dashboard',
@@ -45,7 +45,7 @@ export class DashboardComponent implements OnInit {
   constructor(
     private scheduler: SchedulerService,
     private spinner: NgxSpinnerService,
-    private eventbus: EventbusService
+    private eventBus: EventBusService
   ) {}
 
   ngOnInit() {
@@ -79,7 +79,7 @@ export class DashboardComponent implements OnInit {
       this.containerHistoryData = this.getAreaChartData(data);
     });
 
-    this.eventbus.getEvent(EventMap.LayoutChangedEvent).subscribe(() => {
+    this.eventBus.getEvent(EventMap.LayoutChangedEvent).subscribe(() => {
       this.appHistoryData = this.getAreaChartData(this.initialAppHistory);
       this.containerHistoryData = this.getAreaChartData(this.initialContainerHistory);
     });

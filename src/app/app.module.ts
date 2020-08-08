@@ -19,11 +19,9 @@
 import { NgModule, APP_INITIALIZER } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { RouterModule, Routes } from '@angular/router';
 import { HttpClientModule } from '@angular/common/http';
 import { NgxSpinnerModule } from 'ngx-spinner';
 import { FormsModule } from '@angular/forms';
-import { AppRoutingModule } from './app-routing.module';
 import {
   MatCardModule,
   MatTabsModule,
@@ -40,6 +38,7 @@ import {
   MatMenuModule
 } from '@angular/material';
 
+import { AppRoutingModule } from './app-routing.module';
 import { envConfigFactory, EnvconfigService } from './services/envconfig/envconfig.service';
 import { AppComponent } from './app.component';
 import { DashboardComponent } from './components/dashboard/dashboard.component';

@@ -20,7 +20,7 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router, NavigationEnd } from '@angular/router';
 import { filter } from 'rxjs/operators';
 
-import { EventbusService, EventMap } from './services/eventbus/eventbus.service';
+import { EventBusService, EventMap } from '@app/services/event-bus/event-bus.service';
 
 @Component({
   selector: 'app-root',
@@ -34,7 +34,7 @@ export class AppComponent implements OnInit {
   constructor(
     private route: ActivatedRoute,
     private router: Router,
-    private eventbus: EventbusService
+    private eventBus: EventBusService
   ) {}
 
   ngOnInit() {
@@ -87,7 +87,7 @@ export class AppComponent implements OnInit {
   toggleNavigation() {
     this.isNavOpen = !this.isNavOpen;
     setTimeout(() => {
-      this.eventbus.publish(EventMap.LayoutChangedEvent);
+      this.eventBus.publish(EventMap.LayoutChangedEvent);
     }, 1000);
   }
 

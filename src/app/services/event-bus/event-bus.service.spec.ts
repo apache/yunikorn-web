@@ -16,31 +16,25 @@
  * limitations under the License.
  */
 
-import { of } from 'rxjs';
+import { TestBed } from '@angular/core/testing';
+import { configureTestSuite } from 'ng-bullet';
 
-export const noopFn = () => {};
+import { EventBusService } from './event-bus.service';
 
-export const MockSchedulerService = {
-  fetchClusterByName: () => of({}),
-  fetchClusterList: () => of([]),
-  fetchSchedulerQueues: () => of({}),
-  fetchAppList: () => of([]),
-  fetchAppHistory: () => of([]),
-  fetchContainerHistory: () => of([]),
-  fetchNodeList: () => of([])
-};
+describe('EventBusService', () => {
+  let service: EventBusService;
 
-export const MockNgxSpinnerService = {
-  show: noopFn,
-  hide: noopFn
-};
+  configureTestSuite(() => {
+    TestBed.configureTestingModule({
+      providers: [EventBusService]
+    });
+  });
 
-export const MockEnvconfigService = {
-  getSchedulerWebAddress: noopFn,
-  getPrometheusWebAddress: noopFn
-};
+  beforeEach(() => {
+    service = TestBed.get(EventBusService);
+  });
 
-export const MockEventBusService = {
-  getEvent: () => of<any>(),
-  publish: noopFn
-};
+  it('should create the service', () => {
+    expect(service).toBeTruthy();
+  });
+});

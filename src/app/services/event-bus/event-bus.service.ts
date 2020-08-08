@@ -16,31 +16,39 @@
  * limitations under the License.
  */
 
-import { of } from 'rxjs';
+import { Injectable } from '@angular/core';
+import { Observable, Subject } from 'rxjs';
 
-export const noopFn = () => {};
-
-export const MockSchedulerService = {
-  fetchClusterByName: () => of({}),
-  fetchClusterList: () => of([]),
-  fetchSchedulerQueues: () => of({}),
-  fetchAppList: () => of([]),
-  fetchAppHistory: () => of([]),
-  fetchContainerHistory: () => of([]),
-  fetchNodeList: () => of([])
+export const EventMap = {
+  LayoutChangedEvent: 'LAYOUT_CHANGED_EVENT'
 };
 
-export const MockNgxSpinnerService = {
-  show: noopFn,
-  hide: noopFn
-};
+interface EventRegistry {
+  [eventName: string]: Subject<any>;
+}
 
-export const MockEnvconfigService = {
-  getSchedulerWebAddress: noopFn,
-  getPrometheusWebAddress: noopFn
-};
+@Injectable({
+  providedIn: 'root'
+})
+export class EventBusService {
+  private eventRegistry: EventRegistry = {};
 
-export const MockEventBusService = {
-  getEvent: () => of<any>(),
-  publish: noopFn
-};
+  constructor() {}
+
+  getEvent(eventName: string): Observable<any> {
+    if (!this.eventRegistry[eventName]) {
+      this.eventRegistry[eventName] = new Subject<any>();
+    }
+
+    const subject = this.eventRegistry[eventName];
+    return subject.asObservable();
+  }
+
+  publish(eventName: string, data?: any) {
+    const subject = this.eventRegistry[eventName];
+
+    if (subject) {
+      subject.next(data);
+    }
+  }
+}

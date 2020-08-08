@@ -24,8 +24,8 @@ import { MatMenuModule, MatTooltipModule } from '@angular/material';
 import { HAMMER_LOADER } from '@angular/platform-browser';
 
 import { AppComponent } from './app.component';
-import { EventbusService } from './services/eventbus/eventbus.service';
-import { MockEventbusService } from './testing/mocks';
+import { EventBusService } from './services/event-bus/event-bus.service';
+import { MockEventBusService } from './testing/mocks';
 
 describe('AppComponent', () => {
   let component: AppComponent;
@@ -36,7 +36,7 @@ describe('AppComponent', () => {
       declarations: [AppComponent],
       imports: [RouterTestingModule, NgxSpinnerModule, MatMenuModule, MatTooltipModule],
       providers: [
-        { provide: EventbusService, useValue: MockEventbusService },
+        { provide: EventBusService, useValue: MockEventBusService },
         { provide: HAMMER_LOADER, useValue: () => new Promise(() => {}) }
       ]
     });

@@ -29,11 +29,11 @@ import { AppHistoryComponent } from '@app/components/app-history/app-history.com
 import { ContainerStatusComponent } from '@app/components/container-status/container-status.component';
 import { ContainerHistoryComponent } from '@app/components/container-history/container-history.component';
 import { SchedulerService } from '@app/services/scheduler/scheduler.service';
-import { EventbusService } from '@app/services/eventbus/eventbus.service';
+import { EventBusService } from '@app/services/event-bus/event-bus.service';
 import {
   MockSchedulerService,
   MockNgxSpinnerService,
-  MockEventbusService
+  MockEventBusService
 } from '@app/testing/mocks';
 
 describe('DashboardComponent', () => {
@@ -53,7 +53,7 @@ describe('DashboardComponent', () => {
       providers: [
         { provide: SchedulerService, useValue: MockSchedulerService },
         { provide: NgxSpinnerService, useValue: MockNgxSpinnerService },
-        { provide: EventbusService, useValue: MockEventbusService }
+        { provide: EventBusService, useValue: MockEventBusService }
       ]
     });
   });
