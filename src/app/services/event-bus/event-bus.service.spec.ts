@@ -16,12 +16,25 @@
  * limitations under the License.
  */
 
-import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
+import { TestBed } from '@angular/core/testing';
+import { configureTestSuite } from 'ng-bullet';
 
-@Injectable({
-  providedIn: 'root'
-})
-export class PrometheusService {
-  constructor(private httpClient: HttpClient) {}
-}
+import { EventBusService } from './event-bus.service';
+
+describe('EventBusService', () => {
+  let service: EventBusService;
+
+  configureTestSuite(() => {
+    TestBed.configureTestingModule({
+      providers: [EventBusService]
+    });
+  });
+
+  beforeEach(() => {
+    service = TestBed.get(EventBusService);
+  });
+
+  it('should create the service', () => {
+    expect(service).toBeTruthy();
+  });
+});

@@ -14,21 +14,6 @@
       "activeNodes": "1",
       "totalNodes": "1",
       "failedNodes": ""
-    },
-    {
-      "clusterName": "cluster-2",
-      "totalApplications": "1",
-      "failedApplications": "",
-      "pendingApplications": "",
-      "runningApplications": "1",
-      "completedApplications": "",
-      "totalContainers": "2",
-      "failedContainers": "",
-      "pendingContainers": "",
-      "runningContainers": "2",
-      "activeNodes": "1",
-      "totalNodes": "1",
-      "failedNodes": ""
     }
   ],
   "queues": {

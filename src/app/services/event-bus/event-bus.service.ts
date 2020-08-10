@@ -16,20 +16,39 @@
  * limitations under the License.
  */
 
-.cluster-info {
-  width: 100%;
-  height: 100%;
-  padding: 25px;
-  .left-col {
-    width: 35%;
-    max-width: 35%;
-    margin-right: 30px;
+import { Injectable } from '@angular/core';
+import { Observable, Subject } from 'rxjs';
+
+export const EventMap = {
+  LayoutChangedEvent: 'LAYOUT_CHANGED_EVENT'
+};
+
+interface EventRegistry {
+  [eventName: string]: Subject<any>;
+}
+
+@Injectable({
+  providedIn: 'root'
+})
+export class EventBusService {
+  private eventRegistry: EventRegistry = {};
+
+  constructor() {}
+
+  getEvent(eventName: string): Observable<any> {
+    if (!this.eventRegistry[eventName]) {
+      this.eventRegistry[eventName] = new Subject<any>();
+    }
+
+    const subject = this.eventRegistry[eventName];
+    return subject.asObservable();
   }
-  .right-col {
-    width: 65%;
-    max-width: 65%;
-  }
-  .grid-row {
-    margin-top: 30px;
+
+  publish(eventName: string, data?: any) {
+    const subject = this.eventRegistry[eventName];
+
+    if (subject) {
+      subject.next(data);
+    }
   }
 }

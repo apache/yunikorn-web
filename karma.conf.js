@@ -49,7 +49,7 @@ module.exports = function(config) {
       suppressPassed: false, // do not print information about passed tests
       suppressSkipped: true, // do not print information about skipped tests
       showSpecTiming: false, // print the time elapsed for each spec
-      failFast: false // test would finish with error when a first fail occurs.
+      failFast: true // test would finish with error when a first fail occurs.
     },
     port: 9876,
     colors: true,

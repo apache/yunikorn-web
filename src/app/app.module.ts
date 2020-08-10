@@ -19,7 +19,6 @@
 import { NgModule, APP_INITIALIZER } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { RouterModule, Routes } from '@angular/router';
 import { HttpClientModule } from '@angular/common/http';
 import { NgxSpinnerModule } from 'ngx-spinner';
 import { FormsModule } from '@angular/forms';
@@ -35,15 +34,15 @@ import {
   MatPaginatorModule,
   MatSortModule,
   MatInputModule,
-  MatTooltipModule
+  MatTooltipModule,
+  MatMenuModule
 } from '@angular/material';
 
+import { AppRoutingModule } from './app-routing.module';
 import { envConfigFactory, EnvconfigService } from './services/envconfig/envconfig.service';
 import { AppComponent } from './app.component';
 import { DashboardComponent } from './components/dashboard/dashboard.component';
-import { ClusterInfoComponent } from './components/cluster-info/cluster-info.component';
 import { QueuesViewComponent } from './components/queues-view/queues-view.component';
-import { ClusterContainerComponent } from './components/cluster-container/cluster-container.component';
 import { DonutChartComponent } from './components/donut-chart/donut-chart.component';
 import { AreaChartComponent } from './components/area-chart/area-chart.component';
 import { AppStatusComponent } from './components/app-status/app-status.component';
@@ -54,58 +53,11 @@ import { QueueRackComponent } from './components/queue-rack/queue-rack.component
 import { AppsViewComponent } from './components/apps-view/apps-view.component';
 import { NodesViewComponent } from './components/nodes-view/nodes-view.component';
 
-const appRoutes: Routes = [
-  {
-    path: 'dashboard',
-    component: DashboardComponent,
-    data: { breadcrumb: 'Dashboard' }
-  },
-  {
-    path: 'clusters/:clusterName',
-    component: ClusterContainerComponent,
-    data: { breadcrumb: ':clusterName', prependRoot: true },
-    children: [
-      {
-        path: 'info',
-        component: ClusterInfoComponent,
-        data: { breadcrumb: 'Info' }
-      },
-      {
-        path: 'apps',
-        component: AppsViewComponent,
-        data: { breadcrumb: 'Applications' }
-      },
-      {
-        path: 'queues',
-        component: QueuesViewComponent,
-        data: { breadcrumb: 'Queues' }
-      },
-      {
-        path: 'nodes',
-        component: NodesViewComponent,
-        data: { breadcrumb: 'Nodes' }
-      },
-      {
-        path: '',
-        pathMatch: 'full',
-        redirectTo: 'info'
-      }
-    ]
-  },
-  {
-    path: '',
-    pathMatch: 'full',
-    redirectTo: 'dashboard'
-  }
-];
-
 @NgModule({
   declarations: [
     AppComponent,
     DashboardComponent,
-    ClusterInfoComponent,
     QueuesViewComponent,
-    ClusterContainerComponent,
     DonutChartComponent,
     AreaChartComponent,
     AppStatusComponent,
@@ -134,7 +86,8 @@ const appRoutes: Routes = [
     MatSortModule,
     MatInputModule,
     MatTooltipModule,
-    RouterModule.forRoot(appRoutes)
+    MatMenuModule,
+    AppRoutingModule
   ],
   providers: [
     {

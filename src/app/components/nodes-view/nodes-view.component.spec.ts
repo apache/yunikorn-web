@@ -22,15 +22,15 @@ import { NgxSpinnerService } from 'ngx-spinner';
 import { configureTestSuite } from 'ng-bullet';
 
 import { NodesViewComponent } from './nodes-view.component';
+import { SchedulerService } from '@app/services/scheduler/scheduler.service';
+import { HAMMER_LOADER } from '@angular/platform-browser';
+import { MockSchedulerService, MockNgxSpinnerService } from '@app/testing/mocks';
 import {
   MatTableModule,
   MatPaginatorModule,
   MatDividerModule,
   MatSortModule
 } from '@angular/material';
-import { SchedulerService } from '@app/services/scheduler/scheduler.service';
-import { HAMMER_LOADER } from '@angular/platform-browser';
-import { MockSchedulerService, MockNgxSpinnerService } from '@app/testing/mocks';
 
 describe('NodesViewComponent', () => {
   let component: NodesViewComponent;

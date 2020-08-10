@@ -24,11 +24,32 @@
     </a>
   </div>
   <ul class="navigation-primary">
-    <li class="active">
+    <li routerLinkActive="active">
       <a [routerLink]="['/dashboard']">
-        <i class="fa fa-caret-right"></i>
+        <i class="fa fa-caret-right fa-2x"></i>
         <i class="fa fa-th-large"></i>
         <span>Dashboard</span>
+      </a>
+    </li>
+    <li routerLinkActive="active">
+      <a [routerLink]="['/applications']">
+        <i class="fa fa-caret-right"></i>
+        <i class="fa fa-indent"></i>
+        <span>Applications</span>
+      </a>
+    </li>
+    <li routerLinkActive="active">
+      <a [routerLink]="['/queues']">
+        <i class="fa fa-caret-right"></i>
+        <i class="fa fa-sitemap" style="width: 16px;"></i>
+        <span>Queues</span>
+      </a>
+    </li>
+    <li routerLinkActive="active">
+      <a [routerLink]="['/nodes']">
+        <i class="fa fa-caret-right"></i>
+        <i class="fa fa-server"></i>
+        <span>Nodes</span>
       </a>
     </li>
   </ul>
@@ -40,13 +61,32 @@
 <div class="wrapper">
   <div class="container-fluid">
     <div class="header">
-      <div class="flex-grid">
-        <div class="flex-primary">
-          <ul class="breadcrumb">
-            <li *ngFor="let crumb of breadcrumbs">
-              <a href="#" [routerLink]="[crumb.url]">{{ crumb.label }}</a>
-            </li>
-          </ul>
+      <div class="breadcrumb-wrapper">
+        <ul class="breadcrumb">
+          <li *ngFor="let crumb of breadcrumbs">
+            <a href="#" [routerLink]="[crumb.url]">{{ crumb.label }}</a>
+          </li>
+        </ul>
+        <div class="help-menu">
+          <button
+            class="menu-trigger"
+            mat-button
+            matTooltip="Help"
+            matTooltipShowDelay="500"
+            [matMenuTriggerFor]="helpMenu"
+          >
+            <i class="fa fa-question"></i>
+          </button>
+          <mat-menu #helpMenu="matMenu" xPosition="before">
+            <button mat-menu-item (click)="openYuniKornHelp('/')">Apache YuniKorn</button>
+            <button mat-menu-item (click)="openYuniKornHelp('/docs')">Documentation</button>
+            <button mat-menu-item (click)="openYuniKornHelp('/community/sessions')">
+              Sessions and Demos
+            </button>
+            <button mat-menu-item (click)="openYuniKornHelp('/community/get_involved')">
+              Get Involved
+            </button>
+          </mat-menu>
         </div>
       </div>
     </div>
@@ -56,6 +96,9 @@
   </div>
 </div>
 
-<ngx-spinner bdColor="rgba(51,51,51,0.7)" size="default" color="#2192bf" type="ball-clip-rotate">
-  <!-- <p style="font-size: 16px; color: #fff;">Loading...</p> -->
-</ngx-spinner>
+<ngx-spinner
+  bdColor="rgba(51,51,51,0.7)"
+  size="default"
+  color="#2192bf"
+  type="ball-clip-rotate"
+></ngx-spinner>

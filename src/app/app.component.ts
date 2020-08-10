@@ -20,19 +20,25 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router, NavigationEnd } from '@angular/router';
 import { filter } from 'rxjs/operators';
 
+import { EventBusService, EventMap } from '@app/services/event-bus/event-bus.service';
+
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.scss']
 })
 export class AppComponent implements OnInit {
-  isNavOpen = false;
+  isNavOpen = true;
   breadcrumbs: Array<object> = [];
 
-  constructor(private route: ActivatedRoute, private router: Router) {}
+  constructor(
+    private route: ActivatedRoute,
+    private router: Router,
+    private eventBus: EventBusService
+  ) {}
 
   ngOnInit() {
-    this.router.events.pipe(filter(event => event instanceof NavigationEnd)).subscribe(event => {
+    this.router.events.pipe(filter(event => event instanceof NavigationEnd)).subscribe(() => {
       this.generateBreadcrumb();
     });
   }
@@ -80,5 +86,13 @@ export class AppComponent implements OnInit {
 
   toggleNavigation() {
     this.isNavOpen = !this.isNavOpen;
+    setTimeout(() => {
+      this.eventBus.publish(EventMap.LayoutChangedEvent);
+    }, 1000);
+  }
+
+  openYuniKornHelp(url: string) {
+    const fullUrl = `http://yunikorn.apache.org${url}`;
+    window.open(fullUrl, '_blank');
   }
 }
