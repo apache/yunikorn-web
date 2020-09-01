@@ -19,7 +19,7 @@
 import { NgModule, APP_INITIALIZER } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { HttpClientModule } from '@angular/common/http';
+import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { NgxSpinnerModule } from 'ngx-spinner';
 import { FormsModule } from '@angular/forms';
 import {
@@ -40,6 +40,7 @@ import {
 
 import { AppRoutingModule } from './app-routing.module';
 import { envConfigFactory, EnvconfigService } from './services/envconfig/envconfig.service';
+import { ApiErrorInterceptor } from './interceptors/api-error/api-error.interceptor';
 import { AppComponent } from './app.component';
 import { DashboardComponent } from './components/dashboard/dashboard.component';
 import { QueuesViewComponent } from './components/queues-view/queues-view.component';
@@ -52,6 +53,7 @@ import { ContainerHistoryComponent } from './components/container-history/contai
 import { QueueRackComponent } from './components/queue-rack/queue-rack.component';
 import { AppsViewComponent } from './components/apps-view/apps-view.component';
 import { NodesViewComponent } from './components/nodes-view/nodes-view.component';
+import { ErrorViewComponent } from './components/error-view/error-view.component';
 
 @NgModule({
   declarations: [
@@ -66,7 +68,8 @@ import { NodesViewComponent } from './components/nodes-view/nodes-view.component
     ContainerHistoryComponent,
     QueueRackComponent,
     AppsViewComponent,
-    NodesViewComponent
+    NodesViewComponent,
+    ErrorViewComponent
   ],
   imports: [
     BrowserModule,
@@ -94,6 +97,11 @@ import { NodesViewComponent } from './components/nodes-view/nodes-view.component
       provide: APP_INITIALIZER,
       useFactory: envConfigFactory,
       deps: [EnvconfigService],
+      multi: true
+    },
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: ApiErrorInterceptor,
       multi: true
     }
   ],
