@@ -29,7 +29,7 @@ import { EventBusService, EventMap } from '@app/services/event-bus/event-bus.ser
 })
 export class AppComponent implements OnInit {
   isNavOpen = true;
-  breadcrumbs: Array<object> = [];
+  breadcrumbs: Array<{ label: string; url: string }> = [];
 
   constructor(
     private route: ActivatedRoute,
