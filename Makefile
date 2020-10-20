@@ -46,35 +46,10 @@ check-license:
 		exit 1; \
 	fi
 
-# Local build and deploy with compose
-.PHONY: deploy-prod
-deploy-prod:
-	docker-compose up -d
-
 # Start web interface in a local dev setup
 .PHONY: start-dev
 start-dev:
 	yarn start:srv & yarn start
-
-# Run the web interface from the production image
-.PHONY: run
-run: image
-	docker run -d -p ${PORT}:9889 ${REGISTRY}/yunikorn:web-${VERSION}
-
-# Build the web interface in a production ready version
-.PHONY: build-prod
-build-prod:
-	yarn install && yarn build:prod
-
-# Build an image based on the production ready version
-.PHONY: image
-image:
-	@echo "Building web UI docker image"
-	@SHA=$$(git rev-parse --short=12 HEAD) ; \
-	docker build -t ${REGISTRY}/yunikorn:web-${VERSION} . \
-	--label "GitRevision=$${SHA}" \
-	--label "Version=${VERSION}" \
-	--label "BuildTimeStamp=${DATE}"
 
 # Build the web interface for dev and test
 .PHONY: build
@@ -86,6 +61,11 @@ test: build
 	ng test
 	ng e2e
 
+# Build the web interface in a production ready version
+.PHONY: build-prod
+build-prod:
+	yarn install && yarn build:prod
+
 # Simple clean of generated files only (no local cleanup).
 .PHONY: clean
 clean:
@@ -94,6 +74,32 @@ clean:
 	rm -rf ./out
 	rm -rf ./out-tsc
 
+# Build an image based on the dev build version
+.PHONY: dev-image
+dev-image:
+	docker build -t ${REGISTRY}/yunikorn-web:dev-${VERSION} -f ./Dockerfile.dev .
+
+# Run the web interface from the dev build image
+.PHONY: dev-run-image
+dev-run-image: dev-image
+	docker run -d -p ${PORT}:9889 ${REGISTRY}/yunikorn-web:dev-${VERSION}
+
+# Build an image based on the production ready version
+.PHONY: image
+image:
+	@echo "Building web UI docker image"
+	@SHA=$$(git rev-parse --short=12 HEAD) ; \
+	docker build -t ${REGISTRY}/yunikorn:web-${VERSION} . \
+	--label "GitRevision=$${SHA}" \
+	--label "Version=${VERSION}" \
+	--label "BuildTimeStamp=${DATE}"
+
+# Run the web interface from the production image
+.PHONY: run
+run: image
+	docker run -d -p ${PORT}:9889 ${REGISTRY}/yunikorn:web-${VERSION}
+
+# Pushing the production image to the public repository
 .PHONY: push_image
 push_image: image
 	@echo "Pushing web UI docker image"

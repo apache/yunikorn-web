@@ -46,14 +46,14 @@ Production builds will add the `--prod` flag to the angular build.
 ### Docker image build
 Image builds are geared towards a production build and will always build with the `--prod` flag set.
 
-Run `make image` to build the docker image `yunikorn-web`. 
-Run `make run` to build the image and deploy the container from the docker image `yunikorn-web`.
+Run `make image` to build the docker image `apache/yunikorn:web-latest`. 
+Run `make run` to build the image and deploy the container from the docker image `apache/yunikorn:web-latest`.
 
 You can set `REGISTRY` and `VERSION` in the commandline to build docker image with a specified version and registry. For example,
 ```
-make image REGISTRY=yunikorn VERSION=latest
+make image REGISTRY=apache VERSION=latest
 ```
-This command will build binary with version `web-latest` and the docker full image tag is `yunikorn/yunikorn:web-latest`.
+This command will build binary with version `web-latest` and the docker full image tag is `apache/yunikorn:web-latest`.
 
 Run `make deploy-prod` to build and deploy the scheduler webapp using docker-compose.
 The project uses [multi-stage build](https://docs.docker.com/develop/develop-images/multistage-build/) feature of the docker and requires Docker 17.05 or higher.
@@ -79,15 +79,10 @@ Run `ng generate component component-name` to generate a new component.
 
 You can also use `ng generate directive|pipe|service|class|guard|interface|enum|module`.
 
-## Endpoint configurations
-The configurations for the endpoints of scheduler and prometheus should be provided in the `src/assets/config/envconfig.json` file.
-
-The web address can be configured as `"hostname:port"` or `":port"`. If there is no hostname provided, the hostname will be inferred from the URL at which the UI is running.
+## Port configurations
 The default port used for the web server is port 9889 and is set in the `nginx/nginx.conf`. 
 
 The port is also referenced in other scripts and configurations to this port also, if you change the port make sure that the other locations are updated:
-- docker-compose.yml
-- docker_start.sh
 - Makefile
 
 ## How do I contribute code?

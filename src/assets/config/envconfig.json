@@ -1,6 +1,4 @@
 {
   "protocol": "http:",
-  "corsproxyWebAddress": "",
-  "shedulerWebAddress": ":9080",
-  "prometheusWebAddress": "127.0.0.1:9090"
+  "localSchedulerWebAddress": "localhost:9080"
 }
