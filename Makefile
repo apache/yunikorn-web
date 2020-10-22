@@ -74,16 +74,6 @@ clean:
 	rm -rf ./out
 	rm -rf ./out-tsc
 
-# Build an image based on the dev build version
-.PHONY: dev-image
-dev-image:
-	docker build -t ${REGISTRY}/yunikorn-web:dev-${VERSION} -f ./Dockerfile.dev .
-
-# Run the web interface from the dev build image
-.PHONY: dev-run-image
-dev-run-image: dev-image
-	docker run -d -p ${PORT}:9889 ${REGISTRY}/yunikorn-web:dev-${VERSION}
-
 # Build an image based on the production ready version
 .PHONY: image
 image:
