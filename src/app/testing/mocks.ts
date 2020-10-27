@@ -36,8 +36,7 @@ export const MockNgxSpinnerService = {
 };
 
 export const MockEnvconfigService = {
-  getSchedulerWebAddress: noopFn,
-  getPrometheusWebAddress: noopFn
+  getSchedulerWebAddress: noopFn
 };
 
 export const MockEventBusService = {

@@ -18,6 +18,7 @@
 
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
+import { environment } from '../../../environments/environment';
 
 import { EnvConfig } from '@app/models/envconfig.model';
 import { DEFAULT_PROTOCOL } from '@app/utils/constants';
@@ -34,9 +35,11 @@ export function envConfigFactory(envConfig: EnvconfigService) {
 export class EnvconfigService {
   private envConfig: EnvConfig;
   private uiHostname: string;
+  private uiPort: string;
 
   constructor(private httpClient: HttpClient) {
     this.uiHostname = window.location.hostname;
+    this.uiPort = window.location.port;
   }
 
   loadEnvConfig(): Promise<void> {
@@ -50,31 +53,12 @@ export class EnvconfigService {
 
   getSchedulerWebAddress() {
     const protocol = this.envConfig.protocol || DEFAULT_PROTOCOL;
-    const proxyWebAddress = this.envConfig.corsproxyWebAddress;
-    let schedulerWebAddress = this.envConfig.shedulerWebAddress;
-    const schedulerHostname = schedulerWebAddress.split(':')[0];
-    const schedulerPort = schedulerWebAddress.split(':')[1];
-    if (schedulerHostname === '') {
-      schedulerWebAddress = `${this.uiHostname}:${schedulerPort}`;
-    }
-    if (proxyWebAddress) {
-      return `${protocol}//${proxyWebAddress}/${schedulerWebAddress}`;
-    }
-    return `${protocol}//${schedulerWebAddress}`;
-  }
+    const localSchedulerWebAddress = this.envConfig.localSchedulerWebAddress;
 
-  getPrometheusWebAddress() {
-    const protocol = this.envConfig.protocol || DEFAULT_PROTOCOL;
-    const proxyWebAddress = this.envConfig.corsproxyWebAddress;
-    let prometheusWebAddress = this.envConfig.prometheusWebAddress;
-    const prometheusHostname = prometheusWebAddress.split(':')[0];
-    const prometheusPort = prometheusWebAddress.split(':')[1];
-    if (prometheusHostname === '') {
-      prometheusWebAddress = `${this.uiHostname}:${prometheusPort}`;
+    if (!environment.production) {
+      return `${protocol}//${localSchedulerWebAddress}`;
     }
-    if (proxyWebAddress) {
-      return `${protocol}//${proxyWebAddress}/${prometheusWebAddress}`;
-    }
-    return `${protocol}//${prometheusWebAddress}`;
+
+    return `${protocol}//${this.uiHostname}:${this.uiPort}`;
   }
 }

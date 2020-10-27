@@ -20,8 +20,6 @@ FROM node:12.13.1-alpine as buildstage
 
 WORKDIR /usr/uiapp
 
-COPY package.json yarn.lock ./
-
 COPY . .
 
 RUN rm -rf ./dist

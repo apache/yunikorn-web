@@ -103,7 +103,7 @@ export class DashboardComponent implements OnInit {
   }
 
   getAreaChartData(data: HistoryInfo[]): AreaDataItem[] {
-    return data.map(d => new AreaDataItem(d.value, new Date(d.timestamp)));
+    return data ? data.map(d => new AreaDataItem(d.value, new Date(d.timestamp))) : [];
   }
 
   getEmptyClusterInfo(): ClusterInfo {
