@@ -285,22 +285,30 @@ export class SchedulerService {
   private formatCapacity(resourceInfo: ResourceInfo) {
     const formatted = [];
     if (resourceInfo.memory !== NOT_AVAILABLE) {
-      formatted.push(`[memory: ${CommonUtil.formatMemory(resourceInfo.memory)}`);
+      formatted.push(`Memory: ${CommonUtil.formatMemory(resourceInfo.memory)}`);
     } else {
-      formatted.push(`[memory: ${resourceInfo.memory}`);
+      formatted.push(`Memory: ${resourceInfo.memory}`);
     }
     if (resourceInfo.vcore !== NOT_AVAILABLE) {
-      formatted.push(`vcore: ${CommonUtil.formatCount(resourceInfo.vcore)}]`);
+      formatted.push(`vCores: ${CommonUtil.formatCount(resourceInfo.vcore)}`);
     } else {
-      formatted.push(`vcore: ${resourceInfo.vcore}]`);
+      formatted.push(`vCores: ${resourceInfo.vcore}`);
     }
     return formatted.join(', ');
   }
 
   private formatAbsCapacity(resourceInfo: ResourceInfo) {
     const formatted = [];
-    formatted.push(`[memory: ${resourceInfo.memory}%`);
-    formatted.push(`vcore: ${resourceInfo.vcore}%]`);
+    if (resourceInfo.memory !== NOT_AVAILABLE) {
+      formatted.push(`Memory: ${resourceInfo.memory}%`);
+    } else {
+      formatted.push(`Memory: ${resourceInfo.memory}`);
+    }
+    if (resourceInfo.vcore !== NOT_AVAILABLE) {
+      formatted.push(`vCores: ${resourceInfo.vcore}%`);
+    } else {
+      formatted.push(`vCores: ${resourceInfo.vcore}`);
+    }
     return formatted.join(', ');
   }
 }

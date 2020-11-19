@@ -24,6 +24,7 @@ import { finalize } from 'rxjs/operators';
 import { QueueInfo, ToggleQueueChildrenEvent } from '@app/models/queue-info.model';
 import { PartitionInfo } from '@app/models/partition-info.model';
 import { SchedulerService } from '@app/services/scheduler/scheduler.service';
+import { CommonUtil } from '@app/utils/common.util';
 
 export interface QueueList {
   [level: string]: QueueInfo[] | null;
@@ -56,8 +57,12 @@ export class QueuesViewComponent implements OnInit {
     { level: 'level_02', next: 'level_03' },
     { level: 'level_03', next: 'level_04' },
     { level: 'level_04', next: 'level_05' },
-    { level: 'level_05', next: 'level_06' }
+    { level: 'level_05', next: 'level_06' },
+    { level: 'level_06', next: 'level_07' },
+    { level: 'level_07', next: 'level_08' },
+    { level: 'level_08', next: 'level_09' }
   ];
+  resourceValueFormatter = CommonUtil.resourceValueFormatter;
 
   constructor(private scheduler: SchedulerService, private spinner: NgxSpinnerService) {}
 

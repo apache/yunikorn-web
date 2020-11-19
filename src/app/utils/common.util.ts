@@ -33,18 +33,18 @@ export class CommonUtil {
     let unit = 'MB';
     let toValue = +value;
 
-    if (toValue / 1024 >= 0.9) {
-      toValue = toValue / 1024;
+    if (toValue / 1000 >= 1) {
+      toValue = toValue / 1000;
       unit = 'GB';
     }
 
-    if (toValue / 1024 >= 0.9) {
-      toValue = toValue / 1024;
+    if (toValue / 1000 >= 1) {
+      toValue = toValue / 1000;
       unit = 'TB';
     }
 
-    if (toValue / 1024 >= 0.9) {
-      toValue = toValue / 1024;
+    if (toValue / 1000 >= 1) {
+      toValue = toValue / 1000;
       unit = 'PB';
     }
 
@@ -59,10 +59,14 @@ export class CommonUtil {
     const unit = 'K';
     const toValue = +value;
 
-    if (toValue >= 1000) {
+    if (toValue >= 10000) {
       return `${(toValue / 1000).toFixed(1)} ${unit}`;
     }
 
     return toValue.toString();
+  }
+
+  static resourceValueFormatter(value: string): string {
+    return value.split(', ').join('<br/>');
   }
 }
