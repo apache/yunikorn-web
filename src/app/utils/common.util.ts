@@ -66,7 +66,7 @@ export class CommonUtil {
     return toValue.toString();
   }
 
-  static resourceValueFormatter(value: string): string {
+  static resourceColumnFormatter(value: string): string {
     return value.split(', ').join('<br/>');
   }
 }

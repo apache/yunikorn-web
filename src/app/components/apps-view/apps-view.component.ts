@@ -66,7 +66,7 @@ export class AppsViewComponent implements OnInit {
       {
         colId: 'usedResource',
         colName: 'Used Resource',
-        colFormatter: CommonUtil.resourceValueFormatter
+        colFormatter: CommonUtil.resourceColumnFormatter
       },
       { colId: 'partition', colName: 'Partition' },
       { colId: 'submissionTime', colName: 'Submission Time' }
@@ -76,7 +76,7 @@ export class AppsViewComponent implements OnInit {
 
     this.allocColumnDef = [
       { colId: 'allocationKey', colName: 'Allocation Key' },
-      { colId: 'resource', colName: 'Resource', colFormatter: CommonUtil.resourceValueFormatter },
+      { colId: 'resource', colName: 'Resource', colFormatter: CommonUtil.resourceColumnFormatter },
       { colId: 'queueName', colName: 'Queue Name' },
       { colId: 'priority', colName: 'Priority' },
       { colId: 'partition', colName: 'Partition' },
