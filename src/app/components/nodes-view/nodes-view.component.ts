@@ -17,14 +17,15 @@
  */
 
 import { Component, OnInit, ViewChild } from '@angular/core';
-import { MatPaginator, MatSort, MatTableDataSource, PageEvent } from '@angular/material';
+import { MatPaginator, MatSort, MatTableDataSource } from '@angular/material';
 import { NgxSpinnerService } from 'ngx-spinner';
+import { finalize } from 'rxjs/operators';
 
 import { SchedulerService } from '@app/services/scheduler/scheduler.service';
 import { NodeInfo } from '@app/models/node-info.model';
 import { AllocationInfo } from '@app/models/alloc-info.model';
 import { ColumnDef } from '@app/models/column-def.model';
-import { finalize } from 'rxjs/operators';
+import { CommonUtil } from '@app/utils/common.util';
 
 @Component({
   selector: 'app-nodes-view',
@@ -55,19 +56,20 @@ export class NodesViewComponent implements OnInit {
 
     this.nodeColumnDef = [
       { colId: 'nodeId', colName: 'Node ID' },
-      { colId: 'hostName', colName: 'Host Name' },
       { colId: 'rackName', colName: 'Rack Name' },
+      { colId: 'hostName', colName: 'Host Name' },
       { colId: 'partitionName', colName: 'Partition Name' },
-      { colId: 'capacity', colName: 'Capacity' },
-      { colId: 'allocated', colName: 'Allocated' },
-      { colId: 'available', colName: 'Available' }
+      { colId: 'capacity', colName: 'Capacity', colFormatter: CommonUtil.resourceColumnFormatter },
+      { colId: 'occupied', colName: 'Used', colFormatter: CommonUtil.resourceColumnFormatter },
+      { colId: 'allocated', colName: 'Allocated', colFormatter: CommonUtil.resourceColumnFormatter },
+      { colId: 'available', colName: 'Available', colFormatter: CommonUtil.resourceColumnFormatter }
     ];
 
     this.nodeColumnIds = this.nodeColumnDef.map(col => col.colId).concat('indicatorIcon');
 
     this.allocColumnDef = [
       { colId: 'allocationKey', colName: 'Allocation Key' },
-      { colId: 'resource', colName: 'Resource' },
+      { colId: 'resource', colName: 'Resource', colFormatter: CommonUtil.resourceColumnFormatter },
       { colId: 'queueName', colName: 'Queue Name' },
       { colId: 'priority', colName: 'Priority' },
       { colId: 'partition', colName: 'Partition' },

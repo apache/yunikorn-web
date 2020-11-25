@@ -26,6 +26,7 @@ import { SchedulerService } from '@app/services/scheduler/scheduler.service';
 import { AppInfo } from '@app/models/app-info.model';
 import { AllocationInfo } from '@app/models/alloc-info.model';
 import { ColumnDef } from '@app/models/column-def.model';
+import { CommonUtil } from '@app/utils/common.util';
 
 @Component({
   selector: 'app-applications-view',
@@ -62,7 +63,11 @@ export class AppsViewComponent implements OnInit {
       { colId: 'applicationId', colName: 'Application ID' },
       { colId: 'queueName', colName: 'Queue Name' },
       { colId: 'applicationState', colName: 'Application State' },
-      { colId: 'usedResource', colName: 'Used Resource' },
+      {
+        colId: 'usedResource',
+        colName: 'Used Resource',
+        colFormatter: CommonUtil.resourceColumnFormatter
+      },
       { colId: 'partition', colName: 'Partition' },
       { colId: 'submissionTime', colName: 'Submission Time' }
     ];
@@ -71,7 +76,7 @@ export class AppsViewComponent implements OnInit {
 
     this.allocColumnDef = [
       { colId: 'allocationKey', colName: 'Allocation Key' },
-      { colId: 'resource', colName: 'Resource' },
+      { colId: 'resource', colName: 'Resource', colFormatter: CommonUtil.resourceColumnFormatter },
       { colId: 'queueName', colName: 'Queue Name' },
       { colId: 'priority', colName: 'Priority' },
       { colId: 'partition', colName: 'Partition' },

@@ -22,6 +22,8 @@
   margin-right: 10px;
 }
 .queues-view {
+  overflow: hidden;
+  overflow-x: auto;
   .queue-level {
     max-width: 240px;
   }

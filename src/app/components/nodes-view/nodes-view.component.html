@@ -21,7 +21,21 @@
     <mat-table [dataSource]="nodeDataSource" matSort>
       <ng-container [matColumnDef]="columnDef.colId" *ngFor="let columnDef of nodeColumnDef">
         <mat-header-cell *matHeaderCellDef mat-sort-header>{{ columnDef.colName }}</mat-header-cell>
-        <mat-cell *matCellDef="let element"> {{ element[columnDef.colId] || 'n/a' }} </mat-cell>
+
+        <ng-container
+          *ngIf="
+            ['capacity', 'occupied', 'allocated', 'available'].includes(columnDef.colId);
+            else renderNext_1
+          "
+        >
+          <mat-cell *matCellDef="let element">
+            <span [innerHTML]="columnDef.colFormatter(element[columnDef.colId])"></span>
+          </mat-cell>
+        </ng-container>
+
+        <ng-template #renderNext_1>
+          <mat-cell *matCellDef="let element">{{ element[columnDef.colId] || 'n/a' }}</mat-cell>
+        </ng-template>
       </ng-container>
 
       <ng-container matColumnDef="indicatorIcon">
@@ -71,7 +85,16 @@
       <mat-table [dataSource]="allocDataSource">
         <ng-container [matColumnDef]="columnDef.colId" *ngFor="let columnDef of allocColumnDef">
           <mat-header-cell *matHeaderCellDef>{{ columnDef.colName }}</mat-header-cell>
-          <mat-cell *matCellDef="let element"> {{ element[columnDef.colId] || 'n/a' }} </mat-cell>
+
+          <ng-container *ngIf="columnDef.colId === 'resource'; else renderNext_2">
+            <mat-cell *matCellDef="let element">
+              <span [innerHTML]="columnDef.colFormatter(element[columnDef.colId])"></span>
+            </mat-cell>
+          </ng-container>
+
+          <ng-template #renderNext_2>
+            <mat-cell *matCellDef="let element">{{ element[columnDef.colId] || 'n/a' }}</mat-cell>
+          </ng-template>
         </ng-container>
 
         <ng-container matColumnDef="noRecord">
