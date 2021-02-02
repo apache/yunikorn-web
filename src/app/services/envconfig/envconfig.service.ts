@@ -34,10 +34,12 @@ export function envConfigFactory(envConfig: EnvconfigService) {
 })
 export class EnvconfigService {
   private envConfig: EnvConfig;
+  private uiProtocol: string;
   private uiHostname: string;
   private uiPort: string;
 
   constructor(private httpClient: HttpClient) {
+    this.uiProtocol = window.location.protocol;
     this.uiHostname = window.location.hostname;
     this.uiPort = window.location.port;
   }
@@ -52,13 +54,13 @@ export class EnvconfigService {
   }
 
   getSchedulerWebAddress() {
-    const protocol = this.envConfig.protocol || DEFAULT_PROTOCOL;
-    const localSchedulerWebAddress = this.envConfig.localSchedulerWebAddress;
-
     if (!environment.production) {
+      const protocol = this.envConfig.protocol || DEFAULT_PROTOCOL;
+      const localSchedulerWebAddress = this.envConfig.localSchedulerWebAddress;
+
       return `${protocol}//${localSchedulerWebAddress}`;
     }
 
-    return `${protocol}//${this.uiHostname}:${this.uiPort}`;
+    return `${this.uiProtocol}//${this.uiHostname}:${this.uiPort}`;
   }
 }

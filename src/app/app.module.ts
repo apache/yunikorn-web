@@ -35,7 +35,8 @@ import {
   MatSortModule,
   MatInputModule,
   MatTooltipModule,
-  MatMenuModule
+  MatMenuModule,
+  MatButtonModule
 } from '@angular/material';
 
 import { AppRoutingModule } from './app-routing.module';
@@ -90,6 +91,7 @@ import { ErrorViewComponent } from './components/error-view/error-view.component
     MatInputModule,
     MatTooltipModule,
     MatMenuModule,
+    MatButtonModule,
     AppRoutingModule
   ],
   providers: [
