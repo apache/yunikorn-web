@@ -70,7 +70,7 @@
         <div class="help-menu">
           <button
             class="menu-trigger"
-            mat-button
+            mat-icon-button
             matTooltip="Help"
             matTooltipShowDelay="500"
             [matMenuTriggerFor]="helpMenu"
@@ -78,7 +78,9 @@
             <i class="fa fa-question"></i>
           </button>
           <mat-menu #helpMenu="matMenu" xPosition="before">
-            <button mat-menu-item (click)="openYuniKornHelp('/')">Apache YuniKorn (Incubating)</button>
+            <button mat-menu-item (click)="openYuniKornHelp('/')">
+              Apache YuniKorn (Incubating)
+            </button>
             <button mat-menu-item (click)="openYuniKornHelp('/docs')">Documentation</button>
             <button mat-menu-item (click)="openYuniKornHelp('/community/sessions')">
               Sessions and Demos
