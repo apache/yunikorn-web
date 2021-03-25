@@ -79,9 +79,7 @@ export class AppsViewComponent implements OnInit {
       { colId: 'resource', colName: 'Resource', colFormatter: CommonUtil.resourceColumnFormatter },
       { colId: 'queueName', colName: 'Queue Name' },
       { colId: 'priority', colName: 'Priority' },
-      { colId: 'partition', colName: 'Partition' },
       { colId: 'nodeId', colName: 'Node ID' },
-      { colId: 'applicationId', colName: 'Application ID' }
     ];
 
     this.allocColumnIds = this.allocColumnDef.map(col => col.colId);
