@@ -4,7 +4,12 @@ First time? Check out the contributing guide - https://github.com/apache/incubat
 
 
 ### What type of PR is it?
-[Bug Fix | Improvement | Feature | Documentation | Hot Fix | Refactoring]
+* [ ] - Bug Fix
+* [ ] - Improvement
+* [ ] - Feature
+* [ ] - Documentation
+* [ ] - Hot Fix
+* [ ] - Refactoring
 
 ### Todos
 * [ ] - Task
@@ -15,10 +20,9 @@ First time? Check out the contributing guide - https://github.com/apache/incubat
 
 ### How should this be tested?
 
-
 ### Screenshots (if appropriate)
 
 ### Questions:
-* Does the licenses files need update? Yes/No
-* Is there breaking changes for older versions? Yes/No
-* Does this needs documentation? Yes/No
+* [ ] - The licenses files need update.
+* [ ] - There is breaking changes for older versions.
+* [ ] - It needs documentation.
