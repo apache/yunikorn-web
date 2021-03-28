@@ -87,6 +87,7 @@ export class SchedulerService {
             if (allocations && allocations.length > 0) {
               const appAllocations = [];
               allocations.forEach(alloc => {
+                alloc.allocationKey = alloc.allocationTags['kubernetes.io/meta/namespace'] + '/\r' + alloc.allocationTags['kubernetes.io/meta/podName'];
                 appAllocations.push(
                   new AllocationInfo(
                     alloc['allocationKey'],
@@ -178,6 +179,7 @@ export class SchedulerService {
                 const appAllocations = [];
 
                 allocations.forEach(alloc => {
+                  alloc.allocationKey = alloc.allocationTags['kubernetes.io/meta/namespace'] + '/\r' + alloc.allocationKey['kubernetes.io/meta/podName'];
                   appAllocations.push(
                     new AllocationInfo(
                       alloc['allocationKey'],

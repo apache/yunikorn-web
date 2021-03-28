@@ -88,7 +88,14 @@
       "allocations": [
         {
           "allocationKey": "61b62a65-4eda-11e9-a9ce-025000000001",
-          "allocationTags": null,
+          "allocationTags": {
+            "kubernetes.io/label/dex-job-run-id": "4",
+            "kubernetes.io/label/name": "executor",
+            "kubernetes.io/label/queue": "root.default",
+            "kubernetes.io/label/spark-role": "executor",
+            "kubernetes.io/meta/namespace": "some-namespace",
+            "kubernetes.io/meta/podName": "some-pod-name"
+        },
           "uuid": "71cc082d-486d-4d5f-80e3-e6632a5d9409",
           "resource": "[vcore:1000 memory:1477]",
           "priority": "\u003cnil\u003e",
@@ -99,7 +106,14 @@
         },
         {
           "allocationKey": "66a086ec-4eda-11e9-a9ce-025000000001",
-          "allocationTags": null,
+          "allocationTags": {
+            "kubernetes.io/label/dex-job-run-id": "4",
+            "kubernetes.io/label/name": "executor",
+            "kubernetes.io/label/queue": "root.default",
+            "kubernetes.io/label/spark-role": "executor",
+            "kubernetes.io/meta/namespace": "some-namespace",
+            "kubernetes.io/meta/podName": "some-pod-name"
+        },
           "uuid": "d456a8ba-d9d7-43ff-9e8f-2ee213a14a09",
           "resource": "[vcore:1000 memory:1477]",
           "priority": "\u003cnil\u003e",
@@ -120,7 +134,14 @@
       "allocations": [
         {
           "allocationKey": "61b62a65-4eda-11e9-a9ce-025000000002",
-          "allocationTags": null,
+          "allocationTags": {
+            "kubernetes.io/label/dex-job-run-id": "4",
+            "kubernetes.io/label/name": "executor",
+            "kubernetes.io/label/queue": "root.default",
+            "kubernetes.io/label/spark-role": "executor",
+            "kubernetes.io/meta/namespace": "some-namespace",
+            "kubernetes.io/meta/podName": "some-pod-name"
+        },
           "uuid": "71cc082d-486d-4d5f-80e3-e6632a5d9764",
           "resource": "[vcore:500 memory:1300]",
           "priority": "\u003cnil\u003e",
@@ -131,7 +152,14 @@
         },
         {
           "allocationKey": "66a086ec-4eda-11e9-a9ce-025000000002",
-          "allocationTags": null,
+          "allocationTags": {
+            "kubernetes.io/label/dex-job-run-id": "4",
+            "kubernetes.io/label/name": "executor",
+            "kubernetes.io/label/queue": "root.default",
+            "kubernetes.io/label/spark-role": "executor",
+            "kubernetes.io/meta/namespace": "some-namespace",
+            "kubernetes.io/meta/podName": "some-pod-name"
+        },
           "uuid": "d456a8ba-d9d7-43ff-9e8f-2ee213a157s8",
           "resource": "[vcore:500 memory:1300]",
           "priority": "\u003cnil\u003e",
@@ -152,7 +180,14 @@
       "allocations": [
         {
           "allocationKey": "61b62a65-4eda-11e9-a9ce-025000000002",
-          "allocationTags": null,
+          "allocationTags": {
+            "kubernetes.io/label/dex-job-run-id": "4",
+            "kubernetes.io/label/name": "executor",
+            "kubernetes.io/label/queue": "root.default",
+            "kubernetes.io/label/spark-role": "executor",
+            "kubernetes.io/meta/namespace": "some-namespace",
+            "kubernetes.io/meta/podName": "some-pod-name"
+        },
           "uuid": "71cc082d-486d-4d5f-80e3-e6632a5d9764",
           "resource": "[vcore:500 memory:1300]",
           "priority": "\u003cnil\u003e",
@@ -232,7 +267,14 @@
           "allocations": [
             {
               "allocationKey": "036954e8-78d7-11ea-a9f2-0aafc96ae9e0",
-              "allocationTags": null,
+              "allocationTags": {
+                "kubernetes.io/label/dex-job-run-id": "4",
+                "kubernetes.io/label/name": "executor",
+                "kubernetes.io/label/queue": "root.default",
+                "kubernetes.io/label/spark-role": "executor",
+                "kubernetes.io/meta/namespace": "some-namespace",
+                "kubernetes.io/meta/podName": "some-pod-name"
+            },
               "uuid": "d662b17b-7fdd-44b5-ae37-0f697277dc0f",
               "resource": "[vcore:100]",
               "priority": "<nil>",
@@ -243,7 +285,14 @@
             },
             {
               "allocationKey": "03693499-78d7-11ea-a9f2-0aafc96ae9e0",
-              "allocationTags": null,
+              "allocationTags": {
+                "kubernetes.io/label/dex-job-run-id": "4",
+                "kubernetes.io/label/name": "executor",
+                "kubernetes.io/label/queue": "root.default",
+                "kubernetes.io/label/spark-role": "executor",
+                "kubernetes.io/meta/namespace": "some-namespace",
+                "kubernetes.io/meta/podName": "some-pod-name"
+            },
               "uuid": "4fbe06b7-6e37-4a61-bb33-2c629391cfd0",
               "resource": "[vcore:10]",
               "priority": "<nil>",
@@ -254,7 +303,14 @@
             },
             {
               "allocationKey": "cbae18dd-78d6-11ea-a9f2-0aafc96ae9e0",
-              "allocationTags": null,
+              "allocationTags": {
+                "kubernetes.io/label/dex-job-run-id": "4",
+                "kubernetes.io/label/name": "executor",
+                "kubernetes.io/label/queue": "root.default",
+                "kubernetes.io/label/spark-role": "executor",
+                "kubernetes.io/meta/namespace": "some-namespace",
+                "kubernetes.io/meta/podName": "some-pod-name"
+            },
               "uuid": "b8f28638-17f9-428b-94a1-55b640dda5fa",
               "resource": "[memory:1074 vcore:500]",
               "priority": "<nil>",
@@ -265,7 +321,14 @@
             },
             {
               "allocationKey": "cbaf5077-78d6-11ea-a9f2-0aafc96ae9e0",
-              "allocationTags": null,
+              "allocationTags": {
+                "kubernetes.io/label/dex-job-run-id": "4",
+                "kubernetes.io/label/name": "executor",
+                "kubernetes.io/label/queue": "root.default",
+                "kubernetes.io/label/spark-role": "executor",
+                "kubernetes.io/meta/namespace": "some-namespace",
+                "kubernetes.io/meta/podName": "some-pod-name"
+            },
               "uuid": "efdbbe9a-7929-48c9-afd1-c55f99d2deac",
               "resource": "[memory:1074 vcore:500]",
               "priority": "<nil>",
@@ -276,7 +339,14 @@
             },
             {
               "allocationKey": "cbae6510-78d6-11ea-a9f2-0aafc96ae9e0",
-              "allocationTags": null,
+              "allocationTags": {
+                "kubernetes.io/label/dex-job-run-id": "4",
+                "kubernetes.io/label/name": "executor",
+                "kubernetes.io/label/queue": "root.default",
+                "kubernetes.io/label/spark-role": "executor",
+                "kubernetes.io/meta/namespace": "some-namespace",
+                "kubernetes.io/meta/podName": "some-pod-name"
+            },
               "uuid": "5b911654-0123-480f-86c3-c5ed56871776",
               "resource": "[memory:1074 vcore:500]",
               "priority": "<nil>",
@@ -287,7 +357,14 @@
             },
             {
               "allocationKey": "0f5b3f2d-78d7-11ea-a9f2-0aafc96ae9e0",
-              "allocationTags": null,
+              "allocationTags": {
+                "kubernetes.io/label/dex-job-run-id": "4",
+                "kubernetes.io/label/name": "executor",
+                "kubernetes.io/label/queue": "root.default",
+                "kubernetes.io/label/spark-role": "executor",
+                "kubernetes.io/meta/namespace": "some-namespace",
+                "kubernetes.io/meta/podName": "some-pod-name"
+            },
               "uuid": "fb4f65a8-e434-4ff8-9c7f-e5a1633e0c9e",
               "resource": "[memory:525]",
               "priority": "<nil>",
@@ -298,7 +375,14 @@
             },
             {
               "allocationKey": "0f5b0ae5-78d7-11ea-a9f2-0aafc96ae9e0",
-              "allocationTags": null,
+              "allocationTags": {
+                "kubernetes.io/label/dex-job-run-id": "4",
+                "kubernetes.io/label/name": "executor",
+                "kubernetes.io/label/queue": "root.default",
+                "kubernetes.io/label/spark-role": "executor",
+                "kubernetes.io/meta/namespace": "some-namespace",
+                "kubernetes.io/meta/podName": "some-pod-name"
+            },
               "uuid": "4c33c27e-5b52-41f1-95c1-a81d480f02b9",
               "resource": "[memory:1]",
               "priority": "<nil>",
@@ -309,7 +393,14 @@
             },
             {
               "allocationKey": "0f5f56f1-78d7-11ea-a9f2-0aafc96ae9e0",
-              "allocationTags": null,
+              "allocationTags": {
+                "kubernetes.io/label/dex-job-run-id": "4",
+                "kubernetes.io/label/name": "executor",
+                "kubernetes.io/label/queue": "root.default",
+                "kubernetes.io/label/spark-role": "executor",
+                "kubernetes.io/meta/namespace": "some-namespace",
+                "kubernetes.io/meta/podName": "some-pod-name"
+            },
               "uuid": "65cf4028-5b36-46c2-ac2e-5dbfb00975e9",
               "resource": "[memory:210 vcore:100]",
               "priority": "<nil>",
@@ -354,7 +445,14 @@
           "allocations": [
             {
               "allocationKey": "cbb629c9-78d6-11ea-a9f2-0aafc96ae9e0",
-              "allocationTags": null,
+              "allocationTags": {
+                "kubernetes.io/label/dex-job-run-id": "4",
+                "kubernetes.io/label/name": "executor",
+                "kubernetes.io/label/queue": "root.default",
+                "kubernetes.io/label/spark-role": "executor",
+                "kubernetes.io/meta/namespace": "some-namespace",
+                "kubernetes.io/meta/podName": "some-pod-name"
+            },
               "uuid": "5434e58b-ccb4-4484-9536-312594908b94",
               "resource": "[memory:1074 vcore:500]",
               "priority": "<nil>",
@@ -365,7 +463,14 @@
             },
             {
               "allocationKey": "cbad7dbe-78d6-11ea-a9f2-0aafc96ae9e0",
-              "allocationTags": null,
+              "allocationTags": {
+                "kubernetes.io/label/dex-job-run-id": "4",
+                "kubernetes.io/label/name": "executor",
+                "kubernetes.io/label/queue": "root.default",
+                "kubernetes.io/label/spark-role": "executor",
+                "kubernetes.io/meta/namespace": "some-namespace",
+                "kubernetes.io/meta/podName": "some-pod-name"
+            },
               "uuid": "274c8bba-2144-4d51-bb54-024a29d477f1",
               "resource": "[memory:1074 vcore:500]",
               "priority": "<nil>",
@@ -376,7 +481,14 @@
             },
             {
               "allocationKey": "156690e4-78d7-11ea-a9f2-0aafc96ae9e0",
-              "allocationTags": null,
+              "allocationTags": {
+                "kubernetes.io/label/dex-job-run-id": "4",
+                "kubernetes.io/label/name": "executor",
+                "kubernetes.io/label/queue": "root.default",
+                "kubernetes.io/label/spark-role": "executor",
+                "kubernetes.io/meta/namespace": "some-namespace",
+                "kubernetes.io/meta/podName": "some-pod-name"
+            },
               "uuid": "1b1f8f09-0a32-4eaa-b3e4-8121ffd3fba6",
               "resource": "[memory:525]",
               "priority": "<nil>",
@@ -387,7 +499,14 @@
             },
             {
               "allocationKey": "156689d4-78d7-11ea-a9f2-0aafc96ae9e0",
-              "allocationTags": null,
+              "allocationTags": {
+                "kubernetes.io/label/dex-job-run-id": "4",
+                "kubernetes.io/label/name": "executor",
+                "kubernetes.io/label/queue": "root.default",
+                "kubernetes.io/label/spark-role": "executor",
+                "kubernetes.io/meta/namespace": "some-namespace",
+                "kubernetes.io/meta/podName": "some-pod-name"
+            },
               "uuid": "5804da82-8131-402f-b2e0-8422c445127f",
               "resource": "[memory:1]",
               "priority": "<nil>",
@@ -398,7 +517,14 @@
             },
             {
               "allocationKey": "15694abd-78d7-11ea-a9f2-0aafc96ae9e0",
-              "allocationTags": null,
+              "allocationTags": {
+                "kubernetes.io/label/dex-job-run-id": "4",
+                "kubernetes.io/label/name": "executor",
+                "kubernetes.io/label/queue": "root.default",
+                "kubernetes.io/label/spark-role": "executor",
+                "kubernetes.io/meta/namespace": "some-namespace",
+                "kubernetes.io/meta/podName": "some-pod-name"
+            },
               "uuid": "4c128885-2ed6-4127-89e4-70a490c0265f",
               "resource": "[memory:210 vcore:100]",
               "priority": "<nil>",
@@ -409,7 +535,14 @@
             },
             {
               "allocationKey": "0974c389-78d7-11ea-a9f2-0aafc96ae9e0",
-              "allocationTags": null,
+              "allocationTags": {
+                "kubernetes.io/label/dex-job-run-id": "4",
+                "kubernetes.io/label/name": "executor",
+                "kubernetes.io/label/queue": "root.default",
+                "kubernetes.io/label/spark-role": "executor",
+                "kubernetes.io/meta/namespace": "some-namespace",
+                "kubernetes.io/meta/podName": "some-pod-name"
+            },
               "uuid": "bf9f9c0b-78cf-4e82-976a-3af94f011e23",
               "resource": "[vcore:100]",
               "priority": "<nil>",
@@ -420,7 +553,14 @@
             },
             {
               "allocationKey": "09749d93-78d7-11ea-a9f2-0aafc96ae9e0",
-              "allocationTags": null,
+              "allocationTags": {
+                "kubernetes.io/label/dex-job-run-id": "4",
+                "kubernetes.io/label/name": "executor",
+                "kubernetes.io/label/queue": "root.default",
+                "kubernetes.io/label/spark-role": "executor",
+                "kubernetes.io/meta/namespace": "some-namespace",
+                "kubernetes.io/meta/podName": "some-pod-name"
+            },
               "uuid": "564f2a71-4df8-48ec-9611-300ff260bb9a",
               "resource": "[vcore:10]",
               "priority": "<nil>",
@@ -431,7 +571,14 @@
             },
             {
               "allocationKey": "cbb66256-78d6-11ea-a9f2-0aafc96ae9e0",
-              "allocationTags": null,
+              "allocationTags": {
+                "kubernetes.io/label/dex-job-run-id": "4",
+                "kubernetes.io/label/name": "executor",
+                "kubernetes.io/label/queue": "root.default",
+                "kubernetes.io/label/spark-role": "executor",
+                "kubernetes.io/meta/namespace": "some-namespace",
+                "kubernetes.io/meta/podName": "some-pod-name"
+            },
               "uuid": "a6901552-0762-4b2d-9aca-a88d0168369e",
               "resource": "[memory:1074 vcore:500]",
               "priority": "<nil>",
@@ -465,7 +612,14 @@
           "allocations": [
             {
               "allocationKey": "11946368-78d7-11ea-a9f2-0aafc96ae9e0",
-              "allocationTags": null,
+              "allocationTags": {
+                "kubernetes.io/label/dex-job-run-id": "4",
+                "kubernetes.io/label/name": "executor",
+                "kubernetes.io/label/queue": "root.default",
+                "kubernetes.io/label/spark-role": "executor",
+                "kubernetes.io/meta/namespace": "some-namespace",
+                "kubernetes.io/meta/podName": "some-pod-name"
+            },
               "uuid": "24cab7f8-49ef-499a-be5c-0ab91f0e9af7",
               "resource": "[memory:525]",
               "priority": "<nil>",
@@ -476,7 +630,14 @@
             },
             {
               "allocationKey": "11946e82-78d7-11ea-a9f2-0aafc96ae9e0",
-              "allocationTags": null,
+              "allocationTags": {
+                "kubernetes.io/label/dex-job-run-id": "4",
+                "kubernetes.io/label/name": "executor",
+                "kubernetes.io/label/queue": "root.default",
+                "kubernetes.io/label/spark-role": "executor",
+                "kubernetes.io/meta/namespace": "some-namespace",
+                "kubernetes.io/meta/podName": "some-pod-name"
+            },
               "uuid": "ef9e99de-61b8-4b18-8272-6de7087e8c76",
               "resource": "[memory:1]",
               "priority": "<nil>",
@@ -487,7 +648,14 @@
             },
             {
               "allocationKey": "05ac28a1-78d7-11ea-a9f2-0aafc96ae9e0",
-              "allocationTags": null,
+              "allocationTags": {
+                "kubernetes.io/label/dex-job-run-id": "4",
+                "kubernetes.io/label/name": "executor",
+                "kubernetes.io/label/queue": "root.default",
+                "kubernetes.io/label/spark-role": "executor",
+                "kubernetes.io/meta/namespace": "some-namespace",
+                "kubernetes.io/meta/podName": "some-pod-name"
+            },
               "uuid": "2ac3e691-9a1f-4f5c-a9cc-d6afbc3a10b1",
               "resource": "[vcore:10]",
               "priority": "<nil>",
@@ -498,7 +666,14 @@
             },
             {
               "allocationKey": "05ac2f5a-78d7-11ea-a9f2-0aafc96ae9e0",
-              "allocationTags": null,
+              "allocationTags": {
+                "kubernetes.io/label/dex-job-run-id": "4",
+                "kubernetes.io/label/name": "executor",
+                "kubernetes.io/label/queue": "root.default",
+                "kubernetes.io/label/spark-role": "executor",
+                "kubernetes.io/meta/namespace": "some-namespace",
+                "kubernetes.io/meta/podName": "some-pod-name"
+            },
               "uuid": "23bd81e1-1a8f-4321-b733-d7d47cb614df",
               "resource": "[vcore:100]",
               "priority": "<nil>",
@@ -509,7 +684,14 @@
             },
             {
               "allocationKey": "cbadbb6b-78d6-11ea-a9f2-0aafc96ae9e0",
-              "allocationTags": null,
+              "allocationTags": {
+                "kubernetes.io/label/dex-job-run-id": "4",
+                "kubernetes.io/label/name": "executor",
+                "kubernetes.io/label/queue": "root.default",
+                "kubernetes.io/label/spark-role": "executor",
+                "kubernetes.io/meta/namespace": "some-namespace",
+                "kubernetes.io/meta/podName": "some-pod-name"
+            },
               "uuid": "1899ccb7-c4e2-4564-bb27-5bdbf7289ee9",
               "resource": "[memory:1074 vcore:500]",
               "priority": "<nil>",
@@ -520,7 +702,14 @@
             },
             {
               "allocationKey": "cbbb7fcf-78d6-11ea-a9f2-0aafc96ae9e0",
-              "allocationTags": null,
+              "allocationTags": {
+                "kubernetes.io/label/dex-job-run-id": "4",
+                "kubernetes.io/label/name": "executor",
+                "kubernetes.io/label/queue": "root.default",
+                "kubernetes.io/label/spark-role": "executor",
+                "kubernetes.io/meta/namespace": "some-namespace",
+                "kubernetes.io/meta/podName": "some-pod-name"
+            },
               "uuid": "d9aed216-6732-4502-b04e-60ac489cdb83",
               "resource": "[memory:1074 vcore:500]",
               "priority": "<nil>",
@@ -531,7 +720,14 @@
             },
             {
               "allocationKey": "cbb4cf93-78d6-11ea-a9f2-0aafc96ae9e0",
-              "allocationTags": null,
+              "allocationTags": {
+                "kubernetes.io/label/dex-job-run-id": "4",
+                "kubernetes.io/label/name": "executor",
+                "kubernetes.io/label/queue": "root.default",
+                "kubernetes.io/label/spark-role": "executor",
+                "kubernetes.io/meta/namespace": "some-namespace",
+                "kubernetes.io/meta/podName": "some-pod-name"
+            },
               "uuid": "f0eabf29-96c0-429f-b20e-da5e69252cb1",
               "resource": "[memory:1074 vcore:500]",
               "priority": "<nil>",
@@ -542,7 +738,14 @@
             },
             {
               "allocationKey": "1197b3e0-78d7-11ea-a9f2-0aafc96ae9e0",
-              "allocationTags": null,
+              "allocationTags": {
+                "kubernetes.io/label/dex-job-run-id": "4",
+                "kubernetes.io/label/name": "executor",
+                "kubernetes.io/label/queue": "root.default",
+                "kubernetes.io/label/spark-role": "executor",
+                "kubernetes.io/meta/namespace": "some-namespace",
+                "kubernetes.io/meta/podName": "some-pod-name"
+            },
               "uuid": "8157574d-ed6a-49fe-be92-2b42b11d8679",
               "resource": "[memory:210 vcore:100]",
               "priority": "<nil>",
