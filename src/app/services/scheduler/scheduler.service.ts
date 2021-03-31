@@ -31,6 +31,7 @@ import { AllocationInfo } from '@app/models/alloc-info.model';
 import { HistoryInfo } from '@app/models/history-info.model';
 import { NodeInfo } from '@app/models/node-info.model';
 import { NOT_AVAILABLE } from '@app/utils/constants';
+import { connectableObservableDescriptor } from 'rxjs/internal/observable/ConnectableObservable';
 
 @Injectable({
   providedIn: 'root',
@@ -87,12 +88,15 @@ export class SchedulerService {
             if (allocations && allocations.length > 0) {
               const appAllocations = [];
               allocations.forEach((alloc) => {
-                alloc.allocationKey =
+                let displayName =
                   alloc.allocationTags['kubernetes.io/meta/namespace'] +
                   '/\r' +
                   alloc.allocationTags['kubernetes.io/meta/podName'];
+                alloc['displayName'] = displayName;
+                console.log(alloc['displayName']);
                 appAllocations.push(
                   new AllocationInfo(
+                    alloc['displayName'],
                     alloc['allocationKey'],
                     alloc['allocationTags'],
                     alloc['uuid'],
@@ -188,6 +192,7 @@ export class SchedulerService {
                     alloc.allocationKey['kubernetes.io/meta/podName'];
                   appAllocations.push(
                     new AllocationInfo(
+                      alloc['displayName'],
                       alloc['allocationKey'],
                       alloc['allocationTags'],
                       alloc['uuid'],
