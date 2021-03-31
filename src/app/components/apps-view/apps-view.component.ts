@@ -76,10 +76,9 @@ export class AppsViewComponent implements OnInit {
 
     this.allocColumnDef = [
       { colId: 'allocationKey', colName: 'Allocation Key' },
-      { colId: 'resource', colName: 'Resource', colFormatter: CommonUtil.resourceColumnFormatter },
-      { colId: 'queueName', colName: 'Queue Name' },
-      { colId: 'priority', colName: 'Priority' },
       { colId: 'nodeId', colName: 'Node ID' },
+      { colId: 'resource', colName: 'Resource', colFormatter: CommonUtil.resourceColumnFormatter },
+      { colId: 'priority', colName: 'Priority' },
     ];
 
     this.allocColumnIds = this.allocColumnDef.map(col => col.colId);
