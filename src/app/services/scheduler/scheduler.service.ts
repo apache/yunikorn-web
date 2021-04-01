@@ -31,7 +31,6 @@ import { AllocationInfo } from '@app/models/alloc-info.model';
 import { HistoryInfo } from '@app/models/history-info.model';
 import { NodeInfo } from '@app/models/node-info.model';
 import { NOT_AVAILABLE } from '@app/utils/constants';
-import { connectableObservableDescriptor } from 'rxjs/internal/observable/ConnectableObservable';
 
 @Injectable({
   providedIn: 'root',
@@ -88,12 +87,16 @@ export class SchedulerService {
             if (allocations && allocations.length > 0) {
               const appAllocations = [];
               allocations.forEach((alloc) => {
-                let displayName =
-                  alloc.allocationTags['kubernetes.io/meta/namespace'] +
-                  '/\r' +
-                  alloc.allocationTags['kubernetes.io/meta/podName'];
-                alloc['displayName'] = displayName;
-                console.log(alloc['displayName']);
+                if (
+                  alloc.allocationTags['kubernetes.io/meta/namespace'] &&
+                  alloc.allocationTags['kubernetes.io/meta/podName']
+                ) {
+                  alloc[
+                    'displayName'
+                  ] = `${alloc.allocationTags['kubernetes.io/meta/namespace']}/\r${alloc.allocationTags['kubernetes.io/meta/podName']}`;
+                } else {
+                  alloc['displayName'] = `some-namespace/undefined`;
+                }
                 appAllocations.push(
                   new AllocationInfo(
                     alloc['displayName'],
@@ -186,10 +189,16 @@ export class SchedulerService {
                 const appAllocations = [];
 
                 allocations.forEach((alloc) => {
-                  alloc.allocationKey =
-                    alloc.allocationTags['kubernetes.io/meta/namespace'] +
-                    '/\r' +
-                    alloc.allocationKey['kubernetes.io/meta/podName'];
+                  if (
+                    alloc.allocationTags['kubernetes.io/meta/namespace'] &&
+                    alloc.allocationTags['kubernetes.io/meta/podName']
+                  ) {
+                    alloc[
+                      'displayName'
+                    ] = `${alloc.allocationTags['kubernetes.io/meta/namespace']}/\r${alloc.allocationTags['kubernetes.io/meta/podName']}`;
+                  } else {
+                    alloc['displayName'] = `some-namespace/undefined`;
+                  }
                   appAllocations.push(
                     new AllocationInfo(
                       alloc['displayName'],
