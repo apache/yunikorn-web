@@ -73,7 +73,7 @@ export class SchedulerService {
       map((data: any) => {
         const result = [];
         if (data && data.length > 0) {
-          data.forEach((app) => {
+          data.forEach(app => {
             const appInfo = new AppInfo(
               app['applicationID'],
               this.formatCapacity(this.splitCapacity(app['usedResource'], NOT_AVAILABLE)),
@@ -86,7 +86,7 @@ export class SchedulerService {
             const allocations = app['allocations'];
             if (allocations && allocations.length > 0) {
               const appAllocations = [];
-              allocations.forEach((alloc) => {
+              allocations.forEach(alloc => {
                 if (
                   alloc.allocationTags['kubernetes.io/meta/namespace'] &&
                   alloc.allocationTags['kubernetes.io/meta/podName']
