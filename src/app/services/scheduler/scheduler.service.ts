@@ -40,7 +40,7 @@ export class SchedulerService {
 
   public fetchClusterList(): Observable<ClusterInfo[]> {
     const clusterUrl = `${this.envConfig.getSchedulerWebAddress()}/ws/v1/clusters`;
-    return this.httpClient.get(clusterUrl).pipe(map((data) => data as ClusterInfo[]));
+    return this.httpClient.get(clusterUrl).pipe(map(data => data as ClusterInfo[]));
   }
 
   public fetchSchedulerQueues(): Observable<any> {
@@ -129,7 +129,7 @@ export class SchedulerService {
         const result = [];
 
         if (data && data.length) {
-          data.forEach((history) => {
+          data.forEach(history => {
             result.push(
               new HistoryInfo(Math.floor(history.timestamp / 1e6), +history.totalApplications)
             );
@@ -148,7 +148,7 @@ export class SchedulerService {
         const result = [];
 
         if (data && data.length) {
-          data.forEach((history) => {
+          data.forEach(history => {
             result.push(
               new HistoryInfo(Math.floor(history.timestamp / 1e6), +history.totalContainers)
             );
@@ -171,7 +171,7 @@ export class SchedulerService {
           for (const info of data) {
             const nodesInfoData = info.nodesInfo || [];
 
-            nodesInfoData.forEach((node) => {
+            nodesInfoData.forEach(node => {
               const nodeInfo = new NodeInfo(
                 node['nodeID'],
                 node['hostName'],
@@ -188,7 +188,7 @@ export class SchedulerService {
               if (allocations && allocations.length > 0) {
                 const appAllocations = [];
 
-                allocations.forEach((alloc) => {
+                allocations.forEach(alloc => {
                   if (
                     alloc.allocationTags['kubernetes.io/meta/namespace'] &&
                     alloc.allocationTags['kubernetes.io/meta/podName']
@@ -231,7 +231,7 @@ export class SchedulerService {
   private generateQueuesTree(data: any, currentQueue: QueueInfo) {
     if (data && data.queues && data.queues.length > 0) {
       const chilrenQs = [];
-      data.queues.forEach((queueData) => {
+      data.queues.forEach(queueData => {
         const childQueue = new QueueInfo();
         childQueue.queueName = '' + queueData.queuename;
         childQueue.state = queueData.status || 'RUNNING';
@@ -267,7 +267,7 @@ export class SchedulerService {
     if (data.properties && !CommonUtil.isEmpty(data.properties)) {
       const dataProps = Object.entries<string>(data.properties);
 
-      queue.queueProperties = dataProps.map((prop) => {
+      queue.queueProperties = dataProps.map(prop => {
         return {
           name: prop[0],
           value: prop[1],
