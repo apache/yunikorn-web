@@ -198,7 +198,7 @@ export class SchedulerService {
                       'displayName'
                     ] = `${alloc.allocationTags['kubernetes.io/meta/namespace']}/\r${alloc.allocationTags['kubernetes.io/meta/podName']}`;
                   } else {
-                    alloc['displayName'] = `some-namespace/undefined`;
+                    alloc['displayName'] = '<nil>';
                   }
                   appAllocations.push(
                     new AllocationInfo(
