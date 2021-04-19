@@ -75,6 +75,7 @@ export class AppsViewComponent implements OnInit {
     this.appColumnIds = this.appColumnDef.map(col => col.colId).concat('indicatorIcon');
 
     this.allocColumnDef = [
+      { colId: 'displayName', colName: 'Display Name' },
       { colId: 'allocationKey', colName: 'Allocation Key' },
       { colId: 'nodeId', colName: 'Node ID' },
       { colId: 'resource', colName: 'Resource', colFormatter: CommonUtil.resourceColumnFormatter },
