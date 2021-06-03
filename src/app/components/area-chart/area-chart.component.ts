@@ -16,26 +16,51 @@
  * limitations under the License.
  */
 
-import { Component, OnInit, AfterViewInit, Input, OnChanges, SimpleChanges } from '@angular/core';
+import {
+  Component,
+  OnInit,
+  AfterViewInit,
+  Input,
+  OnChanges,
+  SimpleChanges,
+  OnDestroy,
+  HostListener,
+} from '@angular/core';
 import Chart from 'chart.js';
 
 import { CommonUtil } from '@app/utils/common.util';
 
 import { AreaDataItem } from '@app/models/area-data.model';
+import { Subject, Subscription } from 'rxjs';
+import { throttleTime } from 'rxjs/operators';
 
 @Component({
   selector: 'app-area-chart',
   templateUrl: './area-chart.component.html',
-  styleUrls: ['./area-chart.component.scss']
+  styleUrls: ['./area-chart.component.scss'],
 })
-export class AreaChartComponent implements OnInit, AfterViewInit, OnChanges {
+export class AreaChartComponent implements OnInit, AfterViewInit, OnChanges, OnDestroy {
   chartContainerId: string;
 
   @Input() data: AreaDataItem[] = [];
   @Input() color = '#72bdd7';
   @Input() tooltipLabel = 'Value';
 
-  constructor() {}
+  private changeSize = new Subject();
+
+  dataShowing: AreaDataItem[];
+
+  constructor() {
+    this.changeSize
+      .asObservable()
+      .pipe()
+      .subscribe((event) => this.renderChart(this.dataShowing));
+  }
+
+  @HostListener('window:resize', ['$event'])
+  public onResize(event) {
+    this.changeSize.next(event);
+  }
 
   ngOnInit() {
     this.chartContainerId = CommonUtil.createUniqId('area_chart_');
@@ -49,7 +74,8 @@ export class AreaChartComponent implements OnInit, AfterViewInit, OnChanges {
 
   ngOnChanges(changes: SimpleChanges) {
     if (changes.data && changes.data.currentValue && changes.data.currentValue.length > 0) {
-      this.renderChart(changes.data.currentValue);
+      this.dataShowing = changes.data.currentValue;
+      this.renderChart(this.dataShowing);
     }
   }
 
@@ -73,9 +99,9 @@ export class AreaChartComponent implements OnInit, AfterViewInit, OnChanges {
             label: this.tooltipLabel,
             fill: 'start',
             pointBackgroundColor: 'rgb(114, 189, 215)',
-            pointHoverRadius: 5
-          }
-        ]
+            pointHoverRadius: 5,
+          },
+        ],
       },
       options: {
         responsive: true,
@@ -83,37 +109,41 @@ export class AreaChartComponent implements OnInit, AfterViewInit, OnChanges {
         maintainAspectRatio: false,
         animation: {
           animateScale: true,
-          animateRotate: true
+          animateRotate: true,
         },
         legend: {
-          display: true
+          display: true,
         },
         title: {
-          display: false
+          display: false,
         },
         elements: {
           line: {
-            tension: 0.4
-          }
+            tension: 0.4,
+          },
         },
         plugins: {
           filler: {
-            propagate: false
-          }
+            propagate: false,
+          },
         },
         scales: {
           xAxes: [
             {
               type: 'time',
               time: {
-                unit: 'minute'
-              }
-            }
-          ]
-        }
-      }
+                unit: 'minute',
+              },
+            },
+          ],
+        },
+      },
     });
 
     chart.update();
+  }
+
+  ngOnDestroy() {
+    this.changeSize.unsubscribe();
   }
 }
