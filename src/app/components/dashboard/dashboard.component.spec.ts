@@ -33,7 +33,7 @@ import { EventBusService } from '@app/services/event-bus/event-bus.service';
 import {
   MockSchedulerService,
   MockNgxSpinnerService,
-  MockEventBusService
+  MockEventBusService,
 } from '@app/testing/mocks';
 
 describe('DashboardComponent', () => {
@@ -47,14 +47,14 @@ describe('DashboardComponent', () => {
         MockComponent(AppStatusComponent),
         MockComponent(AppHistoryComponent),
         MockComponent(ContainerStatusComponent),
-        MockComponent(ContainerHistoryComponent)
+        MockComponent(ContainerHistoryComponent),
       ],
       imports: [MatCardModule, RouterTestingModule],
       providers: [
         { provide: SchedulerService, useValue: MockSchedulerService },
         { provide: NgxSpinnerService, useValue: MockNgxSpinnerService },
-        { provide: EventBusService, useValue: MockEventBusService }
-      ]
+        { provide: EventBusService, useValue: MockEventBusService },
+      ],
     });
   });
 

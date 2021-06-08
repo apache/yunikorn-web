@@ -18,14 +18,15 @@
 
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router, NavigationEnd } from '@angular/router';
-import { filter } from 'rxjs/operators';
+import { debounceTime, filter } from 'rxjs/operators';
+import { fromEvent } from 'rxjs';
 
 import { EventBusService, EventMap } from '@app/services/event-bus/event-bus.service';
 
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
-  styleUrls: ['./app.component.scss']
+  styleUrls: ['./app.component.scss'],
 })
 export class AppComponent implements OnInit {
   isNavOpen = true;
@@ -41,6 +42,10 @@ export class AppComponent implements OnInit {
     this.router.events.pipe(filter(event => event instanceof NavigationEnd)).subscribe(() => {
       this.generateBreadcrumb();
     });
+
+    fromEvent(window, 'resize')
+      .pipe(debounceTime(500))
+      .subscribe(() => this.eventBus.publish(EventMap.WindowResizedEvent));
   }
 
   generateBreadcrumb() {
@@ -64,12 +69,12 @@ export class AppComponent implements OnInit {
                       route.snapshot.data.breadcrumb.split(':')[1]
                     )
                   : route.snapshot.data.breadcrumb,
-                url
+                url,
               });
               if (route.snapshot.data.prependRoot) {
                 this.breadcrumbs.unshift({
                   label: 'Dashboard',
-                  url: '/'
+                  url: '/',
                 });
               }
             }

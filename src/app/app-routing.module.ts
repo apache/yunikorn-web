@@ -29,37 +29,37 @@ const appRoutes: Routes = [
   {
     path: 'dashboard',
     component: DashboardComponent,
-    data: { breadcrumb: 'Dashboard' }
+    data: { breadcrumb: 'Dashboard' },
   },
   {
     path: 'applications',
     component: AppsViewComponent,
-    data: { breadcrumb: 'Applications' }
+    data: { breadcrumb: 'Applications' },
   },
   {
     path: 'queues',
     component: QueuesViewComponent,
-    data: { breadcrumb: 'Queues' }
+    data: { breadcrumb: 'Queues' },
   },
   {
     path: 'nodes',
     component: NodesViewComponent,
-    data: { breadcrumb: 'Nodes' }
+    data: { breadcrumb: 'Nodes' },
   },
   {
     path: 'error',
     component: ErrorViewComponent,
-    data: { breadcrumb: 'Error' }
+    data: { breadcrumb: 'Error' },
   },
   {
     path: '',
     pathMatch: 'full',
-    redirectTo: 'dashboard'
-  }
+    redirectTo: 'dashboard',
+  },
 ];
 
 @NgModule({
   imports: [RouterModule.forRoot(appRoutes, { useHash: true })],
-  exports: [RouterModule]
+  exports: [RouterModule],
 })
 export class AppRoutingModule {}

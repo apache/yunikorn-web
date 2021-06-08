@@ -23,7 +23,7 @@ import { DonutDataItem } from '@app/models/donut-data.model';
 @Component({
   selector: 'app-container-status',
   templateUrl: './container-status.component.html',
-  styleUrls: ['./container-status.component.scss']
+  styleUrls: ['./container-status.component.scss'],
 })
 export class ContainerStatusComponent implements OnInit {
   @Input()

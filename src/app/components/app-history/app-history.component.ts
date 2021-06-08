@@ -23,7 +23,7 @@ import { AreaDataItem } from '@app/models/area-data.model';
 @Component({
   selector: 'app-application-history',
   templateUrl: './app-history.component.html',
-  styleUrls: ['./app-history.component.scss']
+  styleUrls: ['./app-history.component.scss'],
 })
 export class AppHistoryComponent implements OnInit {
   @Input()

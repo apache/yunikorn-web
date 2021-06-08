@@ -28,7 +28,7 @@ describe('ApiErrorInterceptor', () => {
   configureTestSuite(() => {
     TestBed.configureTestingModule({
       imports: [RouterTestingModule],
-      providers: [ApiErrorInterceptor]
+      providers: [ApiErrorInterceptor],
     });
   });
 

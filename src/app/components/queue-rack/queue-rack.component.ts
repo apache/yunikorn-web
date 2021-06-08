@@ -24,7 +24,7 @@ import { NOT_AVAILABLE } from '@app/utils/constants';
 @Component({
   selector: 'app-queue-rack',
   templateUrl: './queue-rack.component.html',
-  styleUrls: ['./queue-rack.component.scss']
+  styleUrls: ['./queue-rack.component.scss'],
 })
 export class QueueRackComponent implements OnInit {
   @Input() queueList: QueueInfo[] = [];
@@ -44,7 +44,7 @@ export class QueueRackComponent implements OnInit {
     item.isExpanded = !item.isExpanded;
     this.toggleChildren.emit({
       queueItem: item,
-      nextLevel: this.nextLevel
+      nextLevel: this.nextLevel,
     });
   }
 

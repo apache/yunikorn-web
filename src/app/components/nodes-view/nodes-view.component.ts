@@ -58,7 +58,7 @@ export class NodesViewComponent implements OnInit {
       { colId: 'nodeId', colName: 'Node ID' },
       { colId: 'rackName', colName: 'Rack Name' },
       { colId: 'hostName', colName: 'Host Name' },
-      { colId: 'partitionName', colName: 'Partition Name' },
+      { colId: 'partitionName', colName: 'Partition' },
       { colId: 'capacity', colName: 'Capacity', colFormatter: CommonUtil.resourceColumnFormatter },
       { colId: 'occupied', colName: 'Used', colFormatter: CommonUtil.resourceColumnFormatter },
       {
@@ -76,6 +76,7 @@ export class NodesViewComponent implements OnInit {
     this.nodeColumnIds = this.nodeColumnDef.map(col => col.colId).concat('indicatorIcon');
 
     this.allocColumnDef = [
+      { colId: 'displayName', colName: 'Display Name' },
       { colId: 'allocationKey', colName: 'Allocation Key' },
       { colId: 'resource', colName: 'Resource', colFormatter: CommonUtil.resourceColumnFormatter },
       { colId: 'queueName', colName: 'Queue Name' },

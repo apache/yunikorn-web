@@ -29,7 +29,7 @@ describe('QueueRackComponent', () => {
   configureTestSuite(() => {
     TestBed.configureTestingModule({
       declarations: [QueueRackComponent],
-      imports: [MatCardModule, MatProgressBarModule]
+      imports: [MatCardModule, MatProgressBarModule],
     });
   });
 

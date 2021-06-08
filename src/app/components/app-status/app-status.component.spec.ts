@@ -31,7 +31,7 @@ describe('AppStatusComponent', () => {
   configureTestSuite(() => {
     TestBed.configureTestingModule({
       declarations: [AppStatusComponent, MockComponent(DonutChartComponent)],
-      imports: [MatCardModule]
+      imports: [MatCardModule],
     });
   });
 

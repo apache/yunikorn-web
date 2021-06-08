@@ -30,7 +30,7 @@ export function envConfigFactory(envConfig: EnvconfigService) {
 }
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class EnvconfigService {
   private envConfig: EnvConfig;

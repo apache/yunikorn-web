@@ -30,7 +30,7 @@ import { EventBusService, EventMap } from '@app/services/event-bus/event-bus.ser
 @Component({
   selector: 'app-dashboard',
   templateUrl: './dashboard.component.html',
-  styleUrls: ['./dashboard.component.scss']
+  styleUrls: ['./dashboard.component.scss'],
 })
 export class DashboardComponent implements OnInit {
   clusterList: ClusterInfo[] = [];
@@ -80,6 +80,8 @@ export class DashboardComponent implements OnInit {
     });
 
     this.eventBus.getEvent(EventMap.LayoutChangedEvent).subscribe(() => {
+      this.updateAppStatusData(this.clusterInfo);
+      this.updateContainerStatusData(this.clusterInfo);
       this.appHistoryData = this.getAreaChartData(this.initialAppHistory);
       this.containerHistoryData = this.getAreaChartData(this.initialContainerHistory);
     });
@@ -90,7 +92,7 @@ export class DashboardComponent implements OnInit {
       new DonutDataItem('Failed', +info.failedApplications, '#cc6164'),
       new DonutDataItem('Pending', +info.pendingApplications, '#facc54'),
       new DonutDataItem('Running', +info.runningApplications, '#26bbf0'),
-      new DonutDataItem('Completed', +info.completedApplications, '#60cea5')
+      new DonutDataItem('Completed', +info.completedApplications, '#60cea5'),
     ];
   }
 
@@ -98,7 +100,7 @@ export class DashboardComponent implements OnInit {
     this.containerStatusData = [
       new DonutDataItem('Failed', +info.failedContainers, '#cc6164'),
       new DonutDataItem('Pending', +info.pendingContainers, '#facc54'),
-      new DonutDataItem('Running', +info.runningContainers, '#26bbf0')
+      new DonutDataItem('Running', +info.runningContainers, '#26bbf0'),
     ];
   }
 
@@ -121,7 +123,7 @@ export class DashboardComponent implements OnInit {
       runningContainers: 'n/a',
       activeNodes: 'n/a',
       totalNodes: 'n/a',
-      failedNodes: 'n/a'
+      failedNodes: 'n/a',
     };
   }
 }

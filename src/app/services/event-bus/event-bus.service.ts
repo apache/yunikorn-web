@@ -20,7 +20,8 @@ import { Injectable } from '@angular/core';
 import { Observable, Subject } from 'rxjs';
 
 export const EventMap = {
-  LayoutChangedEvent: 'LAYOUT_CHANGED_EVENT'
+  LayoutChangedEvent: 'LAYOUT_CHANGED_EVENT',
+  WindowResizedEvent: 'WINDOW_RESIZED_EVENT',
 };
 
 interface EventRegistry {
@@ -28,7 +29,7 @@ interface EventRegistry {
 }
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class EventBusService {
   private eventRegistry: EventRegistry = {};

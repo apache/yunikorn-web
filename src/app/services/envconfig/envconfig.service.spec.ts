@@ -28,7 +28,7 @@ describe('EnvconfigService', () => {
   configureTestSuite(() => {
     TestBed.configureTestingModule({
       imports: [HttpClientTestingModule],
-      providers: [EnvconfigService]
+      providers: [EnvconfigService],
     });
   });
 

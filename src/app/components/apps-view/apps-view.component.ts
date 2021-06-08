@@ -31,7 +31,7 @@ import { CommonUtil } from '@app/utils/common.util';
 @Component({
   selector: 'app-applications-view',
   templateUrl: './apps-view.component.html',
-  styleUrls: ['./apps-view.component.scss']
+  styleUrls: ['./apps-view.component.scss'],
 })
 export class AppsViewComponent implements OnInit {
   @ViewChild('appsViewMatPaginator', { static: true }) appPaginator: MatPaginator;
@@ -66,10 +66,10 @@ export class AppsViewComponent implements OnInit {
       {
         colId: 'usedResource',
         colName: 'Used Resource',
-        colFormatter: CommonUtil.resourceColumnFormatter
+        colFormatter: CommonUtil.resourceColumnFormatter,
       },
       { colId: 'partition', colName: 'Partition' },
-      { colId: 'submissionTime', colName: 'Submission Time' }
+      { colId: 'submissionTime', colName: 'Submission Time' },
     ];
 
     this.appColumnIds = this.appColumnDef.map(col => col.colId).concat('indicatorIcon');

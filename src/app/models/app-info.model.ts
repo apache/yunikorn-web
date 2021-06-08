@@ -28,7 +28,7 @@ export class AppInfo {
     public queueName: string,
     public submissionTime: number,
     public applicationState: string,
-    public allocations: AllocationInfo[] | null,
+    public allocations: AllocationInfo[] | null
   ) {}
 
   get formattedSubmissionTime() {

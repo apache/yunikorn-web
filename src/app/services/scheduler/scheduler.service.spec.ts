@@ -30,7 +30,7 @@ describe('SchedulerService', () => {
   configureTestSuite(() => {
     TestBed.configureTestingModule({
       imports: [HttpClientTestingModule],
-      providers: [SchedulerService, { provide: EnvconfigService, useValue: MockEnvconfigService }]
+      providers: [SchedulerService, { provide: EnvconfigService, useValue: MockEnvconfigService }],
     });
   });
 

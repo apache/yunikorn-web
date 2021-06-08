@@ -24,15 +24,14 @@ import {
   OnChanges,
   SimpleChanges,
   OnDestroy,
-  HostListener,
 } from '@angular/core';
 import Chart from 'chart.js';
+import { Subject } from 'rxjs';
+import { takeUntil } from 'rxjs/operators';
 
 import { CommonUtil } from '@app/utils/common.util';
-
 import { AreaDataItem } from '@app/models/area-data.model';
-import { Subject, Subscription } from 'rxjs';
-import { throttleTime } from 'rxjs/operators';
+import { EventBusService, EventMap } from '@app/services/event-bus/event-bus.service';
 
 @Component({
   selector: 'app-area-chart',
@@ -40,30 +39,29 @@ import { throttleTime } from 'rxjs/operators';
   styleUrls: ['./area-chart.component.scss'],
 })
 export class AreaChartComponent implements OnInit, AfterViewInit, OnChanges, OnDestroy {
+  destroy$ = new Subject<boolean>();
+
   chartContainerId: string;
+  areaChartData: AreaDataItem[];
 
   @Input() data: AreaDataItem[] = [];
   @Input() color = '#72bdd7';
   @Input() tooltipLabel = 'Value';
 
-  private changeSize = new Subject();
-
-  dataShowing: AreaDataItem[];
-
-  constructor() {
-    this.changeSize
-      .asObservable()
-      .pipe()
-      .subscribe((event) => this.renderChart(this.dataShowing));
-  }
-
-  @HostListener('window:resize', ['$event'])
-  public onResize(event) {
-    this.changeSize.next(event);
-  }
+  constructor(private eventBus: EventBusService) {}
 
   ngOnInit() {
     this.chartContainerId = CommonUtil.createUniqId('area_chart_');
+
+    this.eventBus
+      .getEvent(EventMap.WindowResizedEvent)
+      .pipe(takeUntil(this.destroy$))
+      .subscribe(() => this.renderChart(this.areaChartData));
+  }
+
+  ngOnDestroy() {
+    this.destroy$.next(true);
+    this.destroy$.unsubscribe();
   }
 
   ngAfterViewInit() {
@@ -74,8 +72,8 @@ export class AreaChartComponent implements OnInit, AfterViewInit, OnChanges, OnD
 
   ngOnChanges(changes: SimpleChanges) {
     if (changes.data && changes.data.currentValue && changes.data.currentValue.length > 0) {
-      this.dataShowing = changes.data.currentValue;
-      this.renderChart(this.dataShowing);
+      this.areaChartData = changes.data.currentValue;
+      this.renderChart(this.areaChartData);
     }
   }
 
@@ -141,9 +139,5 @@ export class AreaChartComponent implements OnInit, AfterViewInit, OnChanges, OnD
     });
 
     chart.update();
-  }
-
-  ngOnDestroy() {
-    this.changeSize.unsubscribe();
   }
 }

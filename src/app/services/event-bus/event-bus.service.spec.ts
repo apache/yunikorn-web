@@ -26,7 +26,7 @@ describe('EventBusService', () => {
 
   configureTestSuite(() => {
     TestBed.configureTestingModule({
-      providers: [EventBusService]
+      providers: [EventBusService],
     });
   });
 

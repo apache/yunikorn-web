@@ -29,7 +29,7 @@ import {
   MatTableModule,
   MatPaginatorModule,
   MatDividerModule,
-  MatSortModule
+  MatSortModule,
 } from '@angular/material';
 
 describe('NodesViewComponent', () => {
@@ -44,13 +44,13 @@ describe('NodesViewComponent', () => {
         MatTableModule,
         MatPaginatorModule,
         MatDividerModule,
-        MatSortModule
+        MatSortModule,
       ],
       providers: [
         { provide: SchedulerService, useValue: MockSchedulerService },
         { provide: NgxSpinnerService, useValue: MockNgxSpinnerService },
-        { provide: HAMMER_LOADER, useValue: () => new Promise(() => {}) }
-      ]
+        { provide: HAMMER_LOADER, useValue: () => new Promise(() => {}) },
+      ],
     });
   });
 

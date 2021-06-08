@@ -27,7 +27,7 @@ describe('DonutChartComponent', () => {
 
   configureTestSuite(() => {
     TestBed.configureTestingModule({
-      declarations: [DonutChartComponent]
+      declarations: [DonutChartComponent],
     });
   });
 
