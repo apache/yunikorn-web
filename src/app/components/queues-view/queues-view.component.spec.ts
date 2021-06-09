@@ -38,8 +38,8 @@ describe('QueuesViewComponent', () => {
       imports: [NoopAnimationsModule, MatDividerModule, MatSelectModule, MatSidenavModule],
       providers: [
         { provide: SchedulerService, useValue: MockSchedulerService },
-        { provide: NgxSpinnerService, useValue: MockNgxSpinnerService }
-      ]
+        { provide: NgxSpinnerService, useValue: MockNgxSpinnerService },
+      ],
     });
   });
 

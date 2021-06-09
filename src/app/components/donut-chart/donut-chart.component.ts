@@ -16,28 +16,49 @@
  * limitations under the License.
  */
 
-import { Component, OnInit, AfterViewInit, Input, OnChanges, SimpleChanges } from '@angular/core';
+import {
+  Component,
+  OnInit,
+  AfterViewInit,
+  Input,
+  OnChanges,
+  SimpleChanges,
+  OnDestroy,
+} from '@angular/core';
 import Chart from 'chart.js';
+import { Subject } from 'rxjs';
+import { takeUntil } from 'rxjs/operators';
 
 import { CommonUtil } from '@app/utils/common.util';
 import { DonutDataItem } from '@app/models/donut-data.model';
+import { EventBusService, EventMap } from '@app/services/event-bus/event-bus.service';
 
 @Component({
   selector: 'app-donut-chart',
   templateUrl: './donut-chart.component.html',
-  styleUrls: ['./donut-chart.component.scss']
+  styleUrls: ['./donut-chart.component.scss'],
 })
-export class DonutChartComponent implements OnInit, AfterViewInit, OnChanges {
+export class DonutChartComponent implements OnInit, AfterViewInit, OnChanges, OnDestroy {
+  destroy$ = new Subject<boolean>();
   chartContainerId: string;
+  donutChartData: DonutDataItem[];
 
   @Input() data: DonutDataItem[] = [];
-  @Input() width = '360px';
-  @Input() height = '180px';
 
-  constructor() {}
+  constructor(private eventBus: EventBusService) {}
 
   ngOnInit() {
     this.chartContainerId = CommonUtil.createUniqId('donut_chart_');
+
+    this.eventBus
+      .getEvent(EventMap.WindowResizedEvent)
+      .pipe(takeUntil(this.destroy$))
+      .subscribe(() => this.renderChart(this.donutChartData));
+  }
+
+  ngOnDestroy() {
+    this.destroy$.next(true);
+    this.destroy$.unsubscribe();
   }
 
   ngAfterViewInit() {
@@ -48,7 +69,8 @@ export class DonutChartComponent implements OnInit, AfterViewInit, OnChanges {
 
   ngOnChanges(changes: SimpleChanges) {
     if (changes.data && changes.data.currentValue && changes.data.currentValue.length > 0) {
-      this.renderChart(changes.data.currentValue);
+      this.donutChartData = changes.data.currentValue;
+      this.renderChart(this.donutChartData);
     }
   }
 
@@ -71,23 +93,23 @@ export class DonutChartComponent implements OnInit, AfterViewInit, OnChanges {
         datasets: [
           {
             data: dataValues,
-            backgroundColor: colors
-          }
-        ]
+            backgroundColor: colors,
+          },
+        ],
       },
       options: {
         responsive: true,
         animation: {
           animateScale: true,
-          animateRotate: true
+          animateRotate: true,
         },
         legend: {
-          display: false
+          display: false,
         },
         title: {
-          display: false
-        }
-      }
+          display: false,
+        },
+      },
     });
 
     chart.update();

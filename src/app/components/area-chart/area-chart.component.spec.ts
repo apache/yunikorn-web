@@ -27,7 +27,7 @@ describe('AreaChartComponent', () => {
 
   configureTestSuite(() => {
     TestBed.configureTestingModule({
-      declarations: [AreaChartComponent]
+      declarations: [AreaChartComponent],
     });
   });
 

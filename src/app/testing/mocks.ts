@@ -27,19 +27,19 @@ export const MockSchedulerService = {
   fetchAppList: () => of([]),
   fetchAppHistory: () => of([]),
   fetchContainerHistory: () => of([]),
-  fetchNodeList: () => of([])
+  fetchNodeList: () => of([]),
 };
 
 export const MockNgxSpinnerService = {
   show: noopFn,
-  hide: noopFn
+  hide: noopFn,
 };
 
 export const MockEnvconfigService = {
-  getSchedulerWebAddress: noopFn
+  getSchedulerWebAddress: noopFn,
 };
 
 export const MockEventBusService = {
   getEvent: () => of<any>(),
-  publish: noopFn
+  publish: noopFn,
 };

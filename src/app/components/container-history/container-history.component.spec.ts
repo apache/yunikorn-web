@@ -31,7 +31,7 @@ describe('ContainerHistoryComponent', () => {
   configureTestSuite(() => {
     TestBed.configureTestingModule({
       declarations: [ContainerHistoryComponent, MockComponent(AreaChartComponent)],
-      imports: [MatCardModule]
+      imports: [MatCardModule],
     });
   });
 

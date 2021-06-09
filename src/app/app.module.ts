@@ -36,7 +36,7 @@ import {
   MatInputModule,
   MatTooltipModule,
   MatMenuModule,
-  MatButtonModule
+  MatButtonModule,
 } from '@angular/material';
 
 import { AppRoutingModule } from './app-routing.module';
@@ -70,7 +70,7 @@ import { ErrorViewComponent } from './components/error-view/error-view.component
     QueueRackComponent,
     AppsViewComponent,
     NodesViewComponent,
-    ErrorViewComponent
+    ErrorViewComponent,
   ],
   imports: [
     BrowserModule,
@@ -92,21 +92,21 @@ import { ErrorViewComponent } from './components/error-view/error-view.component
     MatTooltipModule,
     MatMenuModule,
     MatButtonModule,
-    AppRoutingModule
+    AppRoutingModule,
   ],
   providers: [
     {
       provide: APP_INITIALIZER,
       useFactory: envConfigFactory,
       deps: [EnvconfigService],
-      multi: true
+      multi: true,
     },
     {
       provide: HTTP_INTERCEPTORS,
       useClass: ApiErrorInterceptor,
-      multi: true
-    }
+      multi: true,
+    },
   ],
-  bootstrap: [AppComponent]
+  bootstrap: [AppComponent],
 })
 export class AppModule {}

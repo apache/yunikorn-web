@@ -37,8 +37,8 @@ describe('AppComponent', () => {
       imports: [RouterTestingModule, NgxSpinnerModule, MatMenuModule, MatTooltipModule],
       providers: [
         { provide: EventBusService, useValue: MockEventBusService },
-        { provide: HAMMER_LOADER, useValue: () => new Promise(() => {}) }
-      ]
+        { provide: HAMMER_LOADER, useValue: () => new Promise(() => {}) },
+      ],
     });
   });
 

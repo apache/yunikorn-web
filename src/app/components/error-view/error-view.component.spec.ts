@@ -29,7 +29,7 @@ describe('ErrorViewComponent', () => {
   configureTestSuite(() => {
     TestBed.configureTestingModule({
       imports: [MatCardModule],
-      declarations: [ErrorViewComponent]
+      declarations: [ErrorViewComponent],
     });
   });
 

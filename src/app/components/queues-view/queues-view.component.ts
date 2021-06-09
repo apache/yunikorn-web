@@ -40,7 +40,7 @@ export const MAX_QUEUE_LEVELS = 5;
 @Component({
   selector: 'app-queues-view',
   templateUrl: './queues-view.component.html',
-  styleUrls: ['./queues-view.component.scss']
+  styleUrls: ['./queues-view.component.scss'],
 })
 export class QueuesViewComponent implements OnInit {
   @ViewChild('matDrawer', { static: false }) matDrawer: MatDrawer;
@@ -60,7 +60,7 @@ export class QueuesViewComponent implements OnInit {
     { level: 'level_05', next: 'level_06' },
     { level: 'level_06', next: 'level_07' },
     { level: 'level_07', next: 'level_08' },
-    { level: 'level_08', next: 'level_09' }
+    { level: 'level_08', next: 'level_09' },
   ];
   resourceValueFormatter = CommonUtil.resourceColumnFormatter;
 

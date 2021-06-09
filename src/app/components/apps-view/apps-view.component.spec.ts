@@ -28,7 +28,7 @@ import {
   MatDividerModule,
   MatSortModule,
   MatInputModule,
-  MatTooltipModule
+  MatTooltipModule,
 } from '@angular/material';
 
 import { AppsViewComponent } from './apps-view.component';
@@ -50,13 +50,13 @@ describe('AppsViewComponent', () => {
         MatDividerModule,
         MatSortModule,
         MatInputModule,
-        MatTooltipModule
+        MatTooltipModule,
       ],
       providers: [
         { provide: SchedulerService, useValue: MockSchedulerService },
         { provide: NgxSpinnerService, useValue: MockNgxSpinnerService },
-        { provide: HAMMER_LOADER, useValue: () => new Promise(() => {}) }
-      ]
+        { provide: HAMMER_LOADER, useValue: () => new Promise(() => {}) },
+      ],
     });
   });
 
