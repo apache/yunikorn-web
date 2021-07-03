@@ -17,6 +17,8 @@
  */
 
 import { Component, OnInit } from '@angular/core';
+import { ActivatedRoute, Router } from '@angular/router';
+import { ApiErrorInfo } from '@app/models/api-error-info.model';
 
 @Component({
   selector: 'app-error-view',
@@ -24,7 +26,21 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./error-view.component.scss'],
 })
 export class ErrorViewComponent implements OnInit {
-  constructor() {}
+  apiError: ApiErrorInfo;
+  lastActiveUrl: string;
 
-  ngOnInit() {}
+  constructor(private activatedRoute: ActivatedRoute, private router: Router) {}
+
+  ngOnInit() {
+    this.apiError = window.history.state;
+    this.lastActiveUrl = this.activatedRoute.snapshot.queryParams['last'];
+  }
+
+  retryLastActiveUrlAgain() {
+    if (this.lastActiveUrl) {
+      this.router.navigateByUrl(this.lastActiveUrl);
+    } else {
+      this.router.navigateByUrl('/');
+    }
+  }
 }
