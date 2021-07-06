@@ -27,6 +27,7 @@ import {
   HttpRequest,
   HttpErrorResponse,
 } from '@angular/common/http';
+import { ApiErrorInfo } from '@app/models/api-error-info.model';
 
 @Injectable()
 export class ApiErrorInterceptor implements HttpInterceptor {
@@ -36,8 +37,26 @@ export class ApiErrorInterceptor implements HttpInterceptor {
     return next.handle(request).pipe(catchError(this.handleApiError.bind(this)));
   }
 
-  handleApiError(error: HttpErrorResponse) {
-    this.router.navigate(['/error']);
-    return throwError(error);
+  handleApiError(response: HttpErrorResponse) {
+    if (!this.router.url.startsWith('/error')) {
+      this.router.navigate(['/error'], {
+        queryParams: { last: this.router.url },
+        state: this.parseErrorResponse(response.error),
+      });
+    }
+
+    return throwError(response);
+  }
+
+  parseErrorResponse(error: any): ApiErrorInfo {
+    if (error) {
+      return {
+        statusCode: error.StatusCode,
+        message: error.Message,
+        description: error.Description,
+      };
+    } else {
+      return null;
+    }
   }
 }

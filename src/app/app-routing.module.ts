@@ -52,9 +52,8 @@ const appRoutes: Routes = [
     data: { breadcrumb: 'Error' },
   },
   {
-    path: '',
-    pathMatch: 'full',
-    redirectTo: 'dashboard',
+    path: '**',
+    redirectTo: '/dashboard',
   },
 ];
 

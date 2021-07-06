@@ -16,15 +16,8 @@
  * limitations under the License.
  */
 
-.error-view {
-  color: #cb0100;
-  text-align: center;
-  font-size: 16px;
-  .center-header {
-    display: flex;
-    justify-content: center;
-  }
-  .try-btn {
-    color: #333;
-  }
+export interface ApiErrorInfo {
+  statusCode: number;
+  message: string;
+  description: string;
 }
