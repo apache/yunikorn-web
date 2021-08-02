@@ -37,14 +37,26 @@ endif
 # Set the default web port, this must be the same as in the nginx/nginx.conf file.
 PORT=9889
 
-.PHONY: check-license
-check-license:
-	@echo "Checking license header"
-	@licRes=$$(grep -Lr --exclude-dir={node_modules,dist} --include=*.{sh,md,yaml,yml,js,ts,html,js,scss} "Licensed to the Apache Software Foundation" .) ; \
-	if [ -n "$${licRes}" ]; then \
-		echo "following files have incorrect license header:\n$${licRes}" ; \
+.PHONY: license-check
+# This is a bit convoluted but using a recursive grep on linux fails to write anything when run
+# from the Makefile. That caused the pull-request license check run from the github action to
+# always pass. The syntax for find is slightly different too but that at least works in a similar
+# way on both Mac and Linux. Excluding all .git* files from the checks.
+OS := $(shell uname -s)
+license-check:
+	@echo "checking license headers:"
+ifeq (Darwin,$(OS))
+	$(shell find -E . ! -path "./.git*" ! -path "./node_modules*" ! -path "./dist*" -regex ".*\.(sh|md|yaml|yml|js|ts|html|js|scss)" -exec grep -L "Licensed to the Apache Software Foundation" {} \; > LICRES)
+else
+	$(shell find . ! -path "./.git*" ! -path "./node_modules*" ! -path "./dist*" -regex ".*\.\(sh\|md\|yaml\|yml\|js\|ts\|html\|js\|scss\)" -exec grep -L "Licensed to the Apache Software Foundation" {} \; > LICRES)
+endif
+	@if [ -s LICRES ]; then \
+		echo "following files are missing license header:" ; \
+		cat LICRES ; \
+		rm -f LICRES ; \
 		exit 1; \
-	fi
+	fi ; \
+	rm -f LICRES
 
 # Start web interface in a local dev setup
 .PHONY: start-dev

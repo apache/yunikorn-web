@@ -35,7 +35,7 @@ jobs:
         - npm install -g protractor
         - npm install yarn
       script:
-        - make check-license
+        - make license-check
         - make build-prod
         - yarn test:coverage
         - yarn lint
