@@ -28,19 +28,19 @@ export class PartitionInfo {
 
 export interface Partition {
   name: string;
-  capacity: capacity;
+  capacity: Capacity;
   nodeSortingPolicy: string;
-  applications: applications;
+  applications: Applications;
   state: string;
   lastStateTransitionTime: string;
 }
 
-export interface capacity {
+export interface Capacity {
   capacity: string;
   usedcapacity: string;
 }
 
-export interface applications {
+export interface Applications {
   Expired: number;
   Running: number;
   total: number;

@@ -36,7 +36,7 @@ import { EventBusService, EventMap } from '@app/services/event-bus/event-bus.ser
 export class DashboardComponent implements OnInit {
   clusterList: ClusterInfo[] = [];
   partitionList: Partition[] = [];
-  nodeSortPolicy: string = '';
+  nodeSortPolicy = '';
   appStatusData: DonutDataItem[] = [];
   containerStatusData: DonutDataItem[] = [];
   appHistoryData: AreaDataItem[] = [];
@@ -75,7 +75,7 @@ export class DashboardComponent implements OnInit {
     this.scheduler.fetchPartionList().subscribe(list => {
       this.partitionList = list;
 
-      if(list && list[0]) {
+      if (list && list[0]) {
         this.nodeSortPolicy = list[0].nodeSortingPolicy;
       }
     });
