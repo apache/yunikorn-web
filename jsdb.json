@@ -759,5 +759,22 @@
         }
       ]
     }
+  ],
+  "partitions": [
+    {
+      "name": "[mycluster]default",
+      "capacity": {
+        "capacity": "[ephemeral-storage:1769639440732 hugepages-1Gi:0 hugepages-2Mi:0 memory:278069 pods:220 vcore:92000]",
+        "usedcapacity": "[memory:264 vcore:1100]"
+      },
+      "nodeSortingPolicy": "fair",
+      "applications": {
+        "Expired": 1,
+        "Running": 2,
+        "total": 3
+      },
+      "state": "Active",
+      "lastStateTransitionTime": "2021-04-10 14:25:36.290159355 +0000 UTC m=+1.047008320"
+    }
   ]
 }

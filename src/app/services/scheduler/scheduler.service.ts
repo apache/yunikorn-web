@@ -31,6 +31,7 @@ import { AllocationInfo } from '@app/models/alloc-info.model';
 import { HistoryInfo } from '@app/models/history-info.model';
 import { NodeInfo } from '@app/models/node-info.model';
 import { NOT_AVAILABLE } from '@app/utils/constants';
+import { Partition } from '@app/models/partition-info.model';
 
 @Injectable({
   providedIn: 'root',
@@ -41,6 +42,11 @@ export class SchedulerService {
   public fetchClusterList(): Observable<ClusterInfo[]> {
     const clusterUrl = `${this.envConfig.getSchedulerWebAddress()}/ws/v1/clusters`;
     return this.httpClient.get(clusterUrl).pipe(map(data => data as ClusterInfo[]));
+  }
+
+  public fetchPartionList(): Observable<Partition[]> {
+    const partitionUrl = `${this.envConfig.getSchedulerWebAddress()}/ws/v1/partitions`;
+    return this.httpClient.get(partitionUrl).pipe(map(data => data as Partition[]));
   }
 
   public fetchSchedulerQueues(): Observable<any> {

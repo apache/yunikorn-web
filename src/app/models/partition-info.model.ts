@@ -24,3 +24,24 @@ export class PartitionInfo {
     this.value = value;
   }
 }
+
+
+export interface Partition {
+  name: string;
+  capacity: capacity;
+  nodeSortingPolicy: string;
+  applications: applications;
+  state: string;
+  lastStateTransitionTime: string;
+}
+
+export interface capacity {
+  capacity: string;
+  usedcapacity: string;
+}
+
+export interface applications {
+  Expired: number;
+  Running: number;
+  total: number;
+}

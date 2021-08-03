@@ -25,6 +25,7 @@ import { ClusterInfo } from '@app/models/cluster-info.model';
 import { DonutDataItem } from '@app/models/donut-data.model';
 import { AreaDataItem } from '@app/models/area-data.model';
 import { HistoryInfo } from '@app/models/history-info.model';
+import { Partition } from '@app/models/partition-info.model';
 import { EventBusService, EventMap } from '@app/services/event-bus/event-bus.service';
 
 @Component({
@@ -34,6 +35,8 @@ import { EventBusService, EventMap } from '@app/services/event-bus/event-bus.ser
 })
 export class DashboardComponent implements OnInit {
   clusterList: ClusterInfo[] = [];
+  partitionList: Partition[] = [];
+  nodeSortPolicy: string = '';
   appStatusData: DonutDataItem[] = [];
   containerStatusData: DonutDataItem[] = [];
   appHistoryData: AreaDataItem[] = [];
@@ -68,6 +71,14 @@ export class DashboardComponent implements OnInit {
           this.updateContainerStatusData(this.clusterInfo);
         }
       });
+
+    this.scheduler.fetchPartionList().subscribe(list => {
+      this.partitionList = list;
+
+      if(list && list[0]) {
+        this.nodeSortPolicy = list[0].nodeSortingPolicy;
+      }
+    });
 
     this.scheduler.fetchAppHistory().subscribe(data => {
       this.initialAppHistory = data;
