@@ -67,7 +67,7 @@ export class QueuesViewComponent implements OnInit {
   constructor(private scheduler: SchedulerService, private spinner: NgxSpinnerService) {}
 
   ngOnInit() {
-    this.queueLevels.forEach(obj => {
+    this.queueLevels.forEach((obj) => {
       this.queueList[obj.level] = null;
     });
     this.partitionList = [];
@@ -79,7 +79,7 @@ export class QueuesViewComponent implements OnInit {
           this.spinner.hide();
         })
       )
-      .subscribe(data => {
+      .subscribe((data) => {
         if (data && data.rootQueue) {
           this.rootQueue = data.rootQueue;
           this.queueList['level_00'] = [this.rootQueue];
@@ -129,7 +129,7 @@ export class QueuesViewComponent implements OnInit {
 
   collapseChildrenQueues(queue: QueueInfo) {
     if (queue && queue.children) {
-      queue.children.forEach(child => {
+      queue.children.forEach((child) => {
         child.isExpanded = false;
         return this.collapseChildrenQueues(child);
       });
@@ -141,7 +141,7 @@ export class QueuesViewComponent implements OnInit {
       queue.isSelected = false;
     }
     if (queue && queue.children) {
-      queue.children.forEach(child => {
+      queue.children.forEach((child) => {
         return this.unselectChildrenQueues(child, selected);
       });
     }

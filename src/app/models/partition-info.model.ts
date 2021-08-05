@@ -25,7 +25,6 @@ export class PartitionInfo {
   }
 }
 
-
 export interface Partition {
   name: string;
   capacity: Capacity;

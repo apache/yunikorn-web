@@ -72,7 +72,7 @@ export class AppsViewComponent implements OnInit {
       { colId: 'submissionTime', colName: 'Submission Time' },
     ];
 
-    this.appColumnIds = this.appColumnDef.map(col => col.colId).concat('indicatorIcon');
+    this.appColumnIds = this.appColumnDef.map((col) => col.colId).concat('indicatorIcon');
 
     this.allocColumnDef = [
       { colId: 'displayName', colName: 'Display Name' },
@@ -82,7 +82,7 @@ export class AppsViewComponent implements OnInit {
       { colId: 'priority', colName: 'Priority' },
     ];
 
-    this.allocColumnIds = this.allocColumnDef.map(col => col.colId);
+    this.allocColumnIds = this.allocColumnDef.map((col) => col.colId);
 
     this.spinner.show();
     this.scheduler
@@ -92,7 +92,7 @@ export class AppsViewComponent implements OnInit {
           this.spinner.hide();
         })
       )
-      .subscribe(data => {
+      .subscribe((data) => {
         this.initialAppData = data;
         this.appDataSource.data = data;
       });
@@ -105,7 +105,7 @@ export class AppsViewComponent implements OnInit {
   }
 
   unselectAllRowsButOne(row: AppInfo) {
-    this.appDataSource.data.map(app => {
+    this.appDataSource.data.map((app) => {
       if (app !== row) {
         app.isSelected = false;
       }
@@ -157,7 +157,7 @@ export class AppsViewComponent implements OnInit {
     if (searchTerm) {
       this.removeRowSelection();
       this.appDataSource.data = this.initialAppData.filter(
-        data =>
+        (data) =>
           data.applicationId.toLowerCase().includes(searchTerm) ||
           data.queueName.toLowerCase().includes(searchTerm)
       );

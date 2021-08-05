@@ -18,9 +18,7 @@
 
 export class CommonUtil {
   static createUniqId(prefix?: string): string {
-    const uniqid = Math.random()
-      .toString(36)
-      .substr(2);
+    const uniqid = Math.random().toString(36).substr(2);
 
     if (prefix) {
       return prefix + uniqid;

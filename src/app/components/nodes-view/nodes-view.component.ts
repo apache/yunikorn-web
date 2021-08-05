@@ -73,7 +73,7 @@ export class NodesViewComponent implements OnInit {
       },
     ];
 
-    this.nodeColumnIds = this.nodeColumnDef.map(col => col.colId).concat('indicatorIcon');
+    this.nodeColumnIds = this.nodeColumnDef.map((col) => col.colId).concat('indicatorIcon');
 
     this.allocColumnDef = [
       { colId: 'displayName', colName: 'Display Name' },
@@ -84,7 +84,7 @@ export class NodesViewComponent implements OnInit {
       { colId: 'applicationId', colName: 'Application ID' },
     ];
 
-    this.allocColumnIds = this.allocColumnDef.map(col => col.colId);
+    this.allocColumnIds = this.allocColumnDef.map((col) => col.colId);
 
     this.spinner.show();
     this.scheduler
@@ -94,13 +94,13 @@ export class NodesViewComponent implements OnInit {
           this.spinner.hide();
         })
       )
-      .subscribe(data => {
+      .subscribe((data) => {
         this.nodeDataSource.data = data;
       });
   }
 
   unselectAllRowsButOne(row: NodeInfo) {
-    this.nodeDataSource.data.map(node => {
+    this.nodeDataSource.data.map((node) => {
       if (node !== row) {
         node.isSelected = false;
       }
