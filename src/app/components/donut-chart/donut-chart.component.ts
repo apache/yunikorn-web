@@ -82,9 +82,9 @@ export class DonutChartComponent implements OnInit, AfterViewInit, OnChanges, On
       '2d'
     );
 
-    const dataValues = chartData.map((d) => d.value);
-    const chartLabels = chartData.map((d) => d.name);
-    const colors = chartData.map((d) => d.color);
+    const dataValues = chartData.map(d => d.value);
+    const chartLabels = chartData.map(d => d.name);
+    const colors = chartData.map(d => d.color);
 
     const chart = new Chart(ctx, {
       type: 'doughnut',

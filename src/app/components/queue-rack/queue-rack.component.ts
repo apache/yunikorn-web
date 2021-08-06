@@ -49,7 +49,7 @@ export class QueueRackComponent implements OnInit {
   }
 
   collapseQueueList(item: QueueInfo) {
-    this.queueList.forEach((queue) => {
+    this.queueList.forEach(queue => {
       if (queue !== item) {
         queue.isExpanded = false;
       }
@@ -86,7 +86,7 @@ export class QueueRackComponent implements OnInit {
         .replace(/[^:0-9]/g, '')
         .split(':');
       if (splitted.length !== 0) {
-        const capacities: number[] = splitted.map((x) => +x);
+        const capacities: number[] = splitted.map(x => +x);
         max = Math.max(...capacities);
       }
     }

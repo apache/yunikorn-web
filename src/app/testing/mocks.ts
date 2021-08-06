@@ -23,6 +23,7 @@ export const noopFn = () => {};
 export const MockSchedulerService = {
   fetchClusterByName: () => of({}),
   fetchClusterList: () => of([]),
+  fetchPartitionList: () => of([]),
   fetchSchedulerQueues: () => of({}),
   fetchAppList: () => of([]),
   fetchAppHistory: () => of([]),

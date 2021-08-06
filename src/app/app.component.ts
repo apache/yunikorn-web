@@ -39,7 +39,7 @@ export class AppComponent implements OnInit {
   ) {}
 
   ngOnInit() {
-    this.router.events.pipe(filter((event) => event instanceof NavigationEnd)).subscribe(() => {
+    this.router.events.pipe(filter(event => event instanceof NavigationEnd)).subscribe(() => {
       this.generateBreadcrumb();
     });
 
@@ -55,11 +55,11 @@ export class AppComponent implements OnInit {
     do {
       const childrenRoutes = currentRoute.children;
       currentRoute = null;
-      childrenRoutes.forEach((route) => {
+      childrenRoutes.forEach(route => {
         if (route.outlet === 'primary') {
           const routeSnapshot = route.snapshot;
           if (routeSnapshot) {
-            url += '/' + routeSnapshot.url.map((segment) => segment.path).join('/');
+            url += '/' + routeSnapshot.url.map(segment => segment.path).join('/');
             if (!!route.snapshot.data.breadcrumb) {
               this.breadcrumbs.push({
                 label: route.snapshot.data.breadcrumb.includes(':')
