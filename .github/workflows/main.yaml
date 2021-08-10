@@ -3,7 +3,7 @@ name: Pre-commit Checks
 on:
   pull_request:
     branches:
-      - master
+      - YUNIKORN-775
 
 jobs:
   build:
@@ -18,20 +18,24 @@ jobs:
       - name: Check License
         run: make license-check
 
+      - name: Lint Test
+        run: yarn lint
+
       - name: Set Node.js Environment
         uses: actions/setup-node@v2
         with:
           node-version: 12.14
-      - run: npm install -g @angular/cli  > /dev/null
-      - run: npm install karma
-      - run: npm install -g protractor
-      - run: yarn install
+      - run: |
+          npm install -g @angular/cli  > /dev/null
+          npm install karma
+          npm install -g protractor
+          yarn install
 
       - name: Unit Test
         run: ng test --watch=false
 
-      - name: Build Test
-        run: ng build
+      - name: Build
+        run: ng build --prod
 
       - name: Test Coverage
         run: yarn test:coverage
