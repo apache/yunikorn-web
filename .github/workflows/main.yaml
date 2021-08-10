@@ -18,9 +18,6 @@ jobs:
       - name: Check License
         run: make license-check
 
-      - name: Lint Test
-        run: yarn lint
-
       - name: Set Node.js Environment
         uses: actions/setup-node@v2
         with:
@@ -30,6 +27,9 @@ jobs:
           npm install karma
           npm install -g protractor
           yarn install
+
+      - name: Lint Test
+        run: yarn lint
 
       - name: Unit Test
         run: ng test --watch=false
