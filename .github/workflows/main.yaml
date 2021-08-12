@@ -1,0 +1,41 @@
+name: Pre-commit Checks
+
+on:
+  pull_request:
+    branches:
+      - master
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout Source Code
+        uses: actions/checkout@v2
+        with:
+          fetch-depth: 2
+
+      - name: Check License
+        run: make license-check
+
+      - name: Set Node.js Environment
+        uses: actions/setup-node@v2
+        with:
+          node-version: 12.14
+      - run: |
+          npm install -g @angular/cli  > /dev/null
+          npm install karma
+          npm install -g protractor
+          yarn install
+
+      - name: Lint Test
+        run: yarn lint
+
+      - name: Unit Test
+        run: ng test --watch=false
+
+      - name: Build
+        run: ng build --prod
+
+      - name: Test Coverage
+        run: yarn test:coverage
