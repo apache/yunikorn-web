@@ -20,7 +20,7 @@
     "partitionName": "[mycluster]default",
     "capacity": {
       "capacity": "map[ephemeral-storage:56453061334 hugepages-1Gi:0 hugepages-2Mi:0 memory:5869 pods:110 vcore:4000]",
-      "usedcapacity": "0"
+      "usedCapacity": "0"
     },
     "nodes": null,
     "queues": {
@@ -28,9 +28,9 @@
       "status": "Active",
       "capacities": {
         "capacity": "[memory:1000000 vcore:100000]",
-        "maxcapacity": "[ephemeral-storage:56453061334 hugepages-1Gi:0 hugepages-2Mi:0 memory:5869 pods:110 vcore:4000]",
-        "usedcapacity": "[memory:1024 vcore:500]",
-        "absusedcapacity": "[memory:17 vcore:12]"
+        "maxCapacity": "[ephemeral-storage:56453061334 hugepages-1Gi:0 hugepages-2Mi:0 memory:5869 pods:110 vcore:4000]",
+        "usedCapacity": "[memory:1024 vcore:500]",
+        "absUsedCapacity": "[memory:17 vcore:12]"
       },
       "queues": [
         {
@@ -38,9 +38,9 @@
           "status": "Active",
           "capacities": {
             "capacity": "[memory:500000 vcore:50000]",
-            "maxcapacity": "[memory:800000 vcore:80000]",
-            "usedcapacity": "[]",
-            "absusedcapacity": "[]"
+            "maxCapacity": "[memory:800000 vcore:80000]",
+            "usedCapacity": "[]",
+            "absUsedCapacity": "[]"
           },
           "queues": null,
           "properties": {
@@ -53,9 +53,9 @@
           "status": "Active",
           "capacities": {
             "capacity": "[memory:400000 vcore:40000]",
-            "maxcapacity": "[memory:600000 vcore:60000]",
-            "usedcapacity": "[]",
-            "absusedcapacity": "[]"
+            "maxCapacity": "[memory:600000 vcore:60000]",
+            "usedCapacity": "[]",
+            "absUsedCapacity": "[]"
           },
           "queues": null,
           "properties": {}
@@ -65,9 +65,9 @@
           "status": "Active",
           "capacities": {
             "capacity": "[memory:100000 vcore:10000]",
-            "maxcapacity": "[memory:100000 vcore:10000]",
-            "usedcapacity": "[memory:1024 vcore:500]",
-            "absusedcapacity": "[memory:1 vcore:5]"
+            "maxCapacity": "[memory:100000 vcore:10000]",
+            "usedCapacity": "[memory:1024 vcore:500]",
+            "absUsedCapacity": "[memory:1 vcore:5]"
           },
           "queues": null,
           "properties": {}
@@ -765,7 +765,7 @@
       "name": "[mycluster]default",
       "capacity": {
         "capacity": "[ephemeral-storage:1769639440732 hugepages-1Gi:0 hugepages-2Mi:0 memory:278069 pods:220 vcore:92000]",
-        "usedcapacity": "[memory:264 vcore:1100]"
+        "usedCapacity": "[memory:264 vcore:1100]"
       },
       "nodeSortingPolicy": "fair",
       "applications": {
