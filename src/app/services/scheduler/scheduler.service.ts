@@ -259,9 +259,9 @@ export class SchedulerService {
 
   private fillQueueCapacities(data: any, queue: QueueInfo) {
     const configCap = data['capacities']['capacity'] as string;
-    const usedCap = data['capacities']['usedcapacity'] as string;
-    const maxCap = data['capacities']['maxcapacity'] as string;
-    const absUsedCapacity = data['capacities']['absusedcapacity'] as string;
+    const usedCap = data['capacities']['usedCapacity'] as string;
+    const maxCap = data['capacities']['maxCapacity'] as string;
+    const absUsedCapacity = data['capacities']['absUsedCapacity'] as string;
 
     queue.capacity = this.formatCapacity(this.splitCapacity(configCap, NOT_AVAILABLE));
     queue.maxCapacity = this.formatCapacity(this.splitCapacity(maxCap, NOT_AVAILABLE));

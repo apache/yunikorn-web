@@ -36,7 +36,7 @@ export interface Partition {
 
 export interface Capacity {
   capacity: string;
-  usedcapacity: string;
+  usedCapacity: string;
 }
 
 export interface Applications {
