@@ -64,7 +64,7 @@ export class SchedulerService {
           this.fillQueueProperties(rootQueueData, rootQueue);
           rootQueue = this.generateQueuesTree(rootQueueData, rootQueue);
         }
-        const partitionName = data['partitionname'] || '';
+        const partitionName = data['partitionName'] || '';
         return {
           rootQueue,
           partitionName,
