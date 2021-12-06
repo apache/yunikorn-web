@@ -16,7 +16,7 @@
 # limitations under the License.
 
 # State 1
-FROM node:12.13.1-alpine as buildstage
+FROM node:14.18-alpine3.14 as buildstage
 
 WORKDIR /usr/uiapp
 
@@ -29,7 +29,7 @@ RUN yarn install
 RUN yarn build:prod
 
 # Stage 2
-FROM nginx:1.18.0-alpine
+FROM nginx:1.21.4-alpine
 
 COPY --from=buildstage /usr/uiapp/dist/yunikorn-web /usr/share/nginx/html
 
