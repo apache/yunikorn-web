@@ -16,7 +16,7 @@
 # limitations under the License.
 
 # State 1
-FROM node:16-alpine3.14 as buildstage
+FROM node:14.18-alpine3.14 as buildstage
 
 WORKDIR /usr/uiapp
 
