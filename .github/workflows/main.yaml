@@ -21,7 +21,7 @@ jobs:
       - name: Set Node.js Environment
         uses: actions/setup-node@v2
         with:
-          node-version: 12.14
+          node-version: 16.13
       - run: |
           npm install -g @angular/cli  > /dev/null
           npm install karma
