@@ -35,4 +35,14 @@ COPY --from=buildstage /usr/uiapp/dist/yunikorn-web /usr/share/nginx/html
 
 COPY ./nginx/nginx.conf /etc/nginx/conf.d/default.conf
 
+RUN mkdir -p /opt/nginx/work && \
+    chown -R nginx:nginx /opt/nginx/work && \
+    chmod 755 /opt/nginx/work && \
+    mkdir -p /var/cache/nginx /var/log/nginx && \
+    chown -R nginx:nginx /var/cache/nginx /var/log/nginx && \
+    sed -i 's_^user .*$__' /etc/nginx/nginx.conf && \
+    sed -i 's_^pid .*$_pid /opt/nginx/work/nginx.pid;_' /etc/nginx/nginx.conf
+
+WORKDIR /opt/nginx/work
+USER nginx
 ENTRYPOINT [ "nginx", "-c", "/etc/nginx/nginx.conf", "-g", "daemon off;"]
