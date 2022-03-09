@@ -50,7 +50,7 @@ export class SchedulerService {
   }
 
   fetchSchedulerQueues(partitionName: string): Observable<any> {
-    const queuesUrl = `${this.envConfig.getSchedulerWebAddress()}/ws/v1/${partitionName}/queues`;
+    const queuesUrl = `${this.envConfig.getSchedulerWebAddress()}/ws/v1/partition/${partitionName}/queues`;
 
     return this.httpClient.get(queuesUrl).pipe(
       map((data: any) => {
@@ -169,68 +169,66 @@ export class SchedulerService {
     );
   }
 
-  fetchNodeList(): Observable<NodeInfo[]> {
-    const nodesUrl = `${this.envConfig.getSchedulerWebAddress()}/ws/v1/nodes`;
+  fetchNodeList(partitionName: string): Observable<NodeInfo[]> {
+    const nodesUrl = `${this.envConfig.getSchedulerWebAddress()}/ws/v1/partition/${partitionName}/nodes`;
 
     return this.httpClient.get(nodesUrl).pipe(
       map((data: any) => {
         const result = [];
 
         if (data && data.length > 0) {
-          for (const info of data) {
-            const nodesInfoData = info.nodesInfo || [];
+          data.forEach(node => {
+            const nodeInfo = new NodeInfo(
+              node['nodeID'],
+              node['hostName'],
+              node['rackName'],
+              node['partition'] || NOT_AVAILABLE,
+              this.formatCapacity(this.splitCapacity(node['capacity'], NOT_AVAILABLE)),
+              this.formatCapacity(this.splitCapacity(node['allocated'], NOT_AVAILABLE)),
+              this.formatCapacity(this.splitCapacity(node['occupied'], NOT_AVAILABLE)),
+              this.formatCapacity(this.splitCapacity(node['available'], NOT_AVAILABLE)),
+              this.formatCapacity(this.splitCapacity(node['utilized'], NOT_AVAILABLE)),
+              []
+            );
 
-            nodesInfoData.forEach(node => {
-              const nodeInfo = new NodeInfo(
-                node['nodeID'],
-                node['hostName'],
-                node['rackName'],
-                info['partitionName'],
-                this.formatCapacity(this.splitCapacity(node['capacity'], NOT_AVAILABLE)),
-                this.formatCapacity(this.splitCapacity(node['allocated'], NOT_AVAILABLE)),
-                this.formatCapacity(this.splitCapacity(node['occupied'], NOT_AVAILABLE)),
-                this.formatCapacity(this.splitCapacity(node['available'], NOT_AVAILABLE)),
-                []
-              );
+            const allocations = node['allocations'];
 
-              const allocations = node['allocations'];
-              if (allocations && allocations.length > 0) {
-                const appAllocations = [];
+            if (allocations && allocations.length > 0) {
+              const appAllocations = [];
 
-                allocations.forEach(alloc => {
-                  if (
-                    alloc.allocationTags &&
-                    alloc.allocationTags['kubernetes.io/meta/namespace'] &&
-                    alloc.allocationTags['kubernetes.io/meta/podName']
-                  ) {
-                    alloc[
-                      'displayName'
-                    ] = `${alloc.allocationTags['kubernetes.io/meta/namespace']}/${alloc.allocationTags['kubernetes.io/meta/podName']}`;
-                  } else {
-                    alloc['displayName'] = '<nil>';
-                  }
-                  appAllocations.push(
-                    new AllocationInfo(
-                      alloc['displayName'],
-                      alloc['allocationKey'],
-                      alloc['allocationTags'],
-                      alloc['uuid'],
-                      this.formatCapacity(this.splitCapacity(alloc['resource'], NOT_AVAILABLE)),
-                      alloc['priority'],
-                      alloc['queueName'],
-                      alloc['nodeId'],
-                      alloc['applicationId'],
-                      alloc['partition']
-                    )
-                  );
-                });
+              allocations.forEach(alloc => {
+                if (
+                  alloc.allocationTags &&
+                  alloc.allocationTags['kubernetes.io/meta/namespace'] &&
+                  alloc.allocationTags['kubernetes.io/meta/podName']
+                ) {
+                  alloc[
+                    'displayName'
+                  ] = `${alloc.allocationTags['kubernetes.io/meta/namespace']}/${alloc.allocationTags['kubernetes.io/meta/podName']}`;
+                } else {
+                  alloc['displayName'] = '<nil>';
+                }
+                appAllocations.push(
+                  new AllocationInfo(
+                    alloc['displayName'],
+                    alloc['allocationKey'],
+                    alloc['allocationTags'],
+                    alloc['uuid'],
+                    this.formatCapacity(this.splitCapacity(alloc['resource'], NOT_AVAILABLE)),
+                    alloc['priority'],
+                    alloc['queueName'],
+                    alloc['nodeId'],
+                    alloc['applicationId'],
+                    alloc['partition']
+                  )
+                );
+              });
 
-                nodeInfo.setAllocations(appAllocations);
-              }
+              nodeInfo.setAllocations(appAllocations);
+            }
 
-              result.push(nodeInfo);
-            });
-          }
+            result.push(nodeInfo);
+          });
         }
 
         return result;

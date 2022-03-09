@@ -29,6 +29,7 @@ export class NodeInfo {
     public allocated: string,
     public occupied: string,
     public available: string,
+    public utilized: string,
     public allocations: AllocationInfo[] | null
   ) {}
 

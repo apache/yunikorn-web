@@ -71,21 +71,30 @@ export class QueuesViewComponent implements OnInit {
       this.queueList[obj.level] = null;
     });
 
-    this.scheduler.fetchPartitionList().subscribe(list => {
-      if (list && list.length > 0) {
-        list.forEach(part => {
-          this.partitionList.push(new PartitionInfo(part.name, part.name));
-        });
+    this.spinner.show();
 
-        this.partitionSelected = list[0].name;
+    this.scheduler
+      .fetchPartitionList()
+      .pipe(
+        finalize(() => {
+          this.spinner.hide();
+        })
+      )
+      .subscribe(list => {
+        if (list && list.length > 0) {
+          list.forEach(part => {
+            this.partitionList.push(new PartitionInfo(part.name, part.name));
+          });
 
-        // Fetching queues once partitions has been loaded.
-        this.fetchSchedulerQueuesForPartition(this.partitionSelected);
-      } else {
-        this.partitionList = [];
-        this.partitionSelected = '';
-      }
-    });
+          this.partitionSelected = list[0].name;
+
+          // Fetching queues once partitions has been loaded.
+          this.fetchSchedulerQueuesForPartition(this.partitionSelected);
+        } else {
+          this.partitionList = [];
+          this.partitionSelected = '';
+        }
+      });
   }
 
   fetchSchedulerQueuesForPartition(partitionName: string) {

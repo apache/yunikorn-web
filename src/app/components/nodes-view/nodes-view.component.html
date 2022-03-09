@@ -16,6 +16,21 @@
  * limitations under the License.
  -->
 
+<div class="top-part">
+  <label class="part-label">Partition: </label>
+  <mat-form-field>
+    <mat-select
+      [(value)]="partitionSelected"
+      (selectionChange)="onPartitionSelectionChanged($event)"
+    >
+      <mat-option *ngFor="let part of partitionList" [value]="part.value">
+        {{ part.name }}
+      </mat-option>
+    </mat-select>
+  </mat-form-field>
+</div>
+<mat-divider></mat-divider>
+<br />
 <div class="nodes-view">
   <div class="mat-elevation-z8">
     <mat-table [dataSource]="nodeDataSource" matSort>

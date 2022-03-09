@@ -17,7 +17,7 @@
  */
 
 import { Component, OnInit, ViewChild } from '@angular/core';
-import { MatPaginator, MatSort, MatTableDataSource } from '@angular/material';
+import { MatPaginator, MatSelectChange, MatSort, MatTableDataSource } from '@angular/material';
 import { NgxSpinnerService } from 'ngx-spinner';
 import { finalize } from 'rxjs/operators';
 
@@ -26,6 +26,7 @@ import { NodeInfo } from '@app/models/node-info.model';
 import { AllocationInfo } from '@app/models/alloc-info.model';
 import { ColumnDef } from '@app/models/column-def.model';
 import { CommonUtil } from '@app/utils/common.util';
+import { PartitionInfo } from '@app/models/partition-info.model';
 
 @Component({
   selector: 'app-nodes-view',
@@ -46,6 +47,8 @@ export class NodesViewComponent implements OnInit {
   allocColumnIds: string[] = [];
 
   selectedRow: NodeInfo | null = null;
+  partitionList: PartitionInfo[] = [];
+  partitionSelected = '';
 
   constructor(private scheduler: SchedulerService, private spinner: NgxSpinnerService) {}
 
@@ -71,6 +74,11 @@ export class NodesViewComponent implements OnInit {
         colName: 'Available',
         colFormatter: CommonUtil.resourceColumnFormatter,
       },
+      {
+        colId: 'utilized',
+        colName: 'Utilized',
+        colFormatter: CommonUtil.resourceColumnFormatter,
+      },
     ];
 
     this.nodeColumnIds = this.nodeColumnDef.map(col => col.colId).concat('indicatorIcon');
@@ -87,8 +95,35 @@ export class NodesViewComponent implements OnInit {
     this.allocColumnIds = this.allocColumnDef.map(col => col.colId);
 
     this.spinner.show();
+
     this.scheduler
-      .fetchNodeList()
+      .fetchPartitionList()
+      .pipe(
+        finalize(() => {
+          this.spinner.hide();
+        })
+      )
+      .subscribe(list => {
+        if (list && list.length > 0) {
+          list.forEach(part => {
+            this.partitionList.push(new PartitionInfo(part.name, part.name));
+          });
+
+          this.partitionSelected = list[0].name;
+          this.fetchNodeListForPartition(this.partitionSelected);
+        } else {
+          this.partitionList = [];
+          this.partitionSelected = '';
+        }
+      });
+  }
+
+  fetchNodeListForPartition(partitionName: string) {
+    this.spinner.show();
+    this.nodeDataSource.data = [];
+
+    this.scheduler
+      .fetchNodeList(partitionName)
       .pipe(
         finalize(() => {
           this.spinner.hide();
@@ -120,6 +155,14 @@ export class NodesViewComponent implements OnInit {
     }
   }
 
+  clearRowSelection() {
+    if (this.selectedRow) {
+      this.selectedRow.isSelected = false;
+    }
+    this.selectedRow = null;
+    this.allocDataSource.data = [];
+  }
+
   onPaginatorChanged() {
     if (this.selectedRow) {
       this.selectedRow.isSelected = false;
@@ -134,5 +177,11 @@ export class NodesViewComponent implements OnInit {
 
   isAllocDataSourceEmpty() {
     return this.allocDataSource.data && this.allocDataSource.data.length === 0;
+  }
+
+  onPartitionSelectionChanged(selected: MatSelectChange) {
+    this.partitionSelected = selected.value;
+    this.clearRowSelection();
+    this.fetchNodeListForPartition(this.partitionSelected);
   }
 }
