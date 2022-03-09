@@ -27,6 +27,7 @@ import { AreaDataItem } from '@app/models/area-data.model';
 import { HistoryInfo } from '@app/models/history-info.model';
 import { Partition } from '@app/models/partition-info.model';
 import { EventBusService, EventMap } from '@app/services/event-bus/event-bus.service';
+import { NOT_AVAILABLE } from '@app/utils/constants';
 
 @Component({
   selector: 'app-dashboard',
@@ -37,6 +38,7 @@ export class DashboardComponent implements OnInit {
   clusterList: ClusterInfo[] = [];
   partitionList: Partition[] = [];
   nodeSortPolicy = '';
+  partitionName = '';
   appStatusData: DonutDataItem[] = [];
   containerStatusData: DonutDataItem[] = [];
   appHistoryData: AreaDataItem[] = [];
@@ -76,7 +78,11 @@ export class DashboardComponent implements OnInit {
       this.partitionList = list;
 
       if (list && list[0]) {
-        this.nodeSortPolicy = list[0].nodeSortingPolicy;
+        this.nodeSortPolicy = list[0].nodeSortingPolicy
+          ? list[0].nodeSortingPolicy.type
+          : NOT_AVAILABLE;
+
+        this.partitionName = list[0].name || NOT_AVAILABLE;
       }
     });
 

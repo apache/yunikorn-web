@@ -17,66 +17,98 @@
     }
   ],
   "queues": {
-    "partitionName": "[mycluster]default",
-    "capacity": {
-      "capacity": "map[ephemeral-storage:56453061334 hugepages-1Gi:0 hugepages-2Mi:0 memory:5869 pods:110 vcore:4000]",
-      "usedCapacity": "0"
+    "queuename": "root",
+    "status": "Active",
+    "partition": "default",
+    "maxResource": "[]",
+    "guaranteedResource": "[]",
+    "allocatedResource": "[]",
+    "isLeaf": false,
+    "isManaged": true,
+    "properties": {
+      "application.sort.policy": "stateaware"
     },
-    "nodes": null,
-    "queues": {
-      "queuename": "root",
-      "status": "Active",
-      "capacities": {
-        "capacity": "[memory:1000000 vcore:100000]",
-        "maxCapacity": "[ephemeral-storage:56453061334 hugepages-1Gi:0 hugepages-2Mi:0 memory:5869 pods:110 vcore:4000]",
-        "usedCapacity": "[memory:1024 vcore:500]",
-        "absUsedCapacity": "[memory:17 vcore:12]"
-      },
-      "queues": [
-        {
-          "queuename": "advertisement",
-          "status": "Active",
-          "capacities": {
-            "capacity": "[memory:500000 vcore:50000]",
-            "maxCapacity": "[memory:800000 vcore:80000]",
-            "usedCapacity": "[]",
-            "absUsedCapacity": "[]"
-          },
-          "queues": null,
+    "parent": "",
+    "template": {
+      "maxResource": "[memory:600000]",
+      "guaranteedResource": "[memory:400000]",
+      "properties": {
+        "application.sort.policy": "stateaware"
+      }
+    },
+    "children": [
+      {
+        "queuename": "root.a",
+        "status": "Active",
+        "partition": "",
+        "maxResource": "[memory:800000 vcore:80000]",
+        "guaranteedResource": "[memory:500000 vcore:50000]",
+        "allocatedResource": "[]",
+        "isLeaf": false,
+        "isManaged": true,
+        "properties": {
+          "application.sort.policy": "stateaware"
+        },
+        "parent": "root",
+        "template": {
+          "maxResource": "[memory:600000]",
+          "guaranteedResource": "[memory:400000]",
           "properties": {
-            "property2": "value2",
-            "someProperty": "someValue"
+            "application.sort.policy": "stateaware"
           }
         },
-        {
-          "queuename": "search",
-          "status": "Active",
-          "capacities": {
-            "capacity": "[memory:400000 vcore:40000]",
-            "maxCapacity": "[memory:600000 vcore:60000]",
-            "usedCapacity": "[]",
-            "absUsedCapacity": "[]"
-          },
-          "queues": null,
-          "properties": {}
+        "children": [
+          {
+            "queuename": "root.a.a1",
+            "status": "Active",
+            "partition": "",
+            "maxResource": "[memory:800000 vcore:80000]",
+            "guaranteedResource": "[memory:500000 vcore:50000]",
+            "allocatedResource": "[]",
+            "isLeaf": true,
+            "isManaged": true,
+            "properties": {
+              "application.sort.policy": "stateaware"
+            },
+            "parent": "root.a",
+            "template": null,
+            "children": []
+          }
+        ]
+      },
+      {
+        "queuename": "root.b",
+        "status": "Active",
+        "partition": "",
+        "maxResource": "[memory:600000 vcore:60000]",
+        "guaranteedResource": "[memory:400000 vcore:40000]",
+        "allocatedResource": "[]",
+        "isLeaf": true,
+        "isManaged": true,
+        "properties": {
+          "application.sort.policy": "stateaware"
         },
-        {
-          "queuename": "sandbox",
-          "status": "Active",
-          "capacities": {
-            "capacity": "[memory:100000 vcore:10000]",
-            "maxCapacity": "[memory:100000 vcore:10000]",
-            "usedCapacity": "[memory:1024 vcore:500]",
-            "absUsedCapacity": "[memory:1 vcore:5]"
-          },
-          "queues": null,
-          "properties": {}
-        }
-      ],
-      "properties": {
-        "property1": "value1"
+        "parent": "root",
+        "template": null,
+        "children": []
+      },
+      {
+        "queuename": "root.c",
+        "status": "Active",
+        "partition": "",
+        "maxResource": "[memory:100000 vcore:10000]",
+        "guaranteedResource": "[memory:100000 vcore:10000]",
+        "allocatedResource": "[]",
+        "isLeaf": true,
+        "isManaged": true,
+        "properties": {
+          "application.sort.policy": "stateaware"
+        },
+        "parent": "root",
+        "template": null,
+        "children": []
       }
-    }
+    ]
   },
   "apps": [
     {
@@ -95,7 +127,7 @@
             "kubernetes.io/label/spark-role": "executor",
             "kubernetes.io/meta/namespace": "some-namespace",
             "kubernetes.io/meta/podName": "some-pod-name"
-        },
+          },
           "uuid": "71cc082d-486d-4d5f-80e3-e6632a5d9409",
           "resource": "[vcore:1000 memory:1477]",
           "priority": "\u003cnil\u003e",
@@ -113,7 +145,7 @@
             "kubernetes.io/label/spark-role": "executor",
             "kubernetes.io/meta/namespace": "some-namespace",
             "kubernetes.io/meta/podName": "some-pod-name"
-        },
+          },
           "uuid": "d456a8ba-d9d7-43ff-9e8f-2ee213a14a09",
           "resource": "[vcore:1000 memory:1477]",
           "priority": "\u003cnil\u003e",
@@ -141,7 +173,7 @@
             "kubernetes.io/label/spark-role": "executor",
             "kubernetes.io/meta/namespace": "some-namespace",
             "kubernetes.io/meta/podName": "some-pod-name"
-        },
+          },
           "uuid": "71cc082d-486d-4d5f-80e3-e6632a5d9764",
           "resource": "[vcore:500 memory:1300]",
           "priority": "\u003cnil\u003e",
@@ -159,7 +191,7 @@
             "kubernetes.io/label/spark-role": "executor",
             "kubernetes.io/meta/namespace": "some-namespace",
             "kubernetes.io/meta/podName": "some-pod-name"
-        },
+          },
           "uuid": "d456a8ba-d9d7-43ff-9e8f-2ee213a157s8",
           "resource": "[vcore:500 memory:1300]",
           "priority": "\u003cnil\u003e",
@@ -187,7 +219,7 @@
             "kubernetes.io/label/spark-role": "executor",
             "kubernetes.io/meta/namespace": "some-namespace",
             "kubernetes.io/meta/podName": "some-pod-name"
-        },
+          },
           "uuid": "71cc082d-486d-4d5f-80e3-e6632a5d9764",
           "resource": "[vcore:500 memory:1300]",
           "priority": "\u003cnil\u003e",
@@ -274,7 +306,7 @@
                 "kubernetes.io/label/spark-role": "executor",
                 "kubernetes.io/meta/namespace": "some-namespace",
                 "kubernetes.io/meta/podName": "some-pod-name"
-            },
+              },
               "uuid": "d662b17b-7fdd-44b5-ae37-0f697277dc0f",
               "resource": "[vcore:100]",
               "priority": "<nil>",
@@ -292,7 +324,7 @@
                 "kubernetes.io/label/spark-role": "executor",
                 "kubernetes.io/meta/namespace": "some-namespace",
                 "kubernetes.io/meta/podName": "some-pod-name"
-            },
+              },
               "uuid": "4fbe06b7-6e37-4a61-bb33-2c629391cfd0",
               "resource": "[vcore:10]",
               "priority": "<nil>",
@@ -310,7 +342,7 @@
                 "kubernetes.io/label/spark-role": "executor",
                 "kubernetes.io/meta/namespace": "some-namespace",
                 "kubernetes.io/meta/podName": "some-pod-name"
-            },
+              },
               "uuid": "b8f28638-17f9-428b-94a1-55b640dda5fa",
               "resource": "[memory:1074 vcore:500]",
               "priority": "<nil>",
@@ -328,7 +360,7 @@
                 "kubernetes.io/label/spark-role": "executor",
                 "kubernetes.io/meta/namespace": "some-namespace",
                 "kubernetes.io/meta/podName": "some-pod-name"
-            },
+              },
               "uuid": "efdbbe9a-7929-48c9-afd1-c55f99d2deac",
               "resource": "[memory:1074 vcore:500]",
               "priority": "<nil>",
@@ -346,7 +378,7 @@
                 "kubernetes.io/label/spark-role": "executor",
                 "kubernetes.io/meta/namespace": "some-namespace",
                 "kubernetes.io/meta/podName": "some-pod-name"
-            },
+              },
               "uuid": "5b911654-0123-480f-86c3-c5ed56871776",
               "resource": "[memory:1074 vcore:500]",
               "priority": "<nil>",
@@ -364,7 +396,7 @@
                 "kubernetes.io/label/spark-role": "executor",
                 "kubernetes.io/meta/namespace": "some-namespace",
                 "kubernetes.io/meta/podName": "some-pod-name"
-            },
+              },
               "uuid": "fb4f65a8-e434-4ff8-9c7f-e5a1633e0c9e",
               "resource": "[memory:525]",
               "priority": "<nil>",
@@ -382,7 +414,7 @@
                 "kubernetes.io/label/spark-role": "executor",
                 "kubernetes.io/meta/namespace": "some-namespace",
                 "kubernetes.io/meta/podName": "some-pod-name"
-            },
+              },
               "uuid": "4c33c27e-5b52-41f1-95c1-a81d480f02b9",
               "resource": "[memory:1]",
               "priority": "<nil>",
@@ -400,7 +432,7 @@
                 "kubernetes.io/label/spark-role": "executor",
                 "kubernetes.io/meta/namespace": "some-namespace",
                 "kubernetes.io/meta/podName": "some-pod-name"
-            },
+              },
               "uuid": "65cf4028-5b36-46c2-ac2e-5dbfb00975e9",
               "resource": "[memory:210 vcore:100]",
               "priority": "<nil>",
@@ -452,7 +484,7 @@
                 "kubernetes.io/label/spark-role": "executor",
                 "kubernetes.io/meta/namespace": "some-namespace",
                 "kubernetes.io/meta/podName": "some-pod-name"
-            },
+              },
               "uuid": "5434e58b-ccb4-4484-9536-312594908b94",
               "resource": "[memory:1074 vcore:500]",
               "priority": "<nil>",
@@ -470,7 +502,7 @@
                 "kubernetes.io/label/spark-role": "executor",
                 "kubernetes.io/meta/namespace": "some-namespace",
                 "kubernetes.io/meta/podName": "some-pod-name"
-            },
+              },
               "uuid": "274c8bba-2144-4d51-bb54-024a29d477f1",
               "resource": "[memory:1074 vcore:500]",
               "priority": "<nil>",
@@ -488,7 +520,7 @@
                 "kubernetes.io/label/spark-role": "executor",
                 "kubernetes.io/meta/namespace": "some-namespace",
                 "kubernetes.io/meta/podName": "some-pod-name"
-            },
+              },
               "uuid": "1b1f8f09-0a32-4eaa-b3e4-8121ffd3fba6",
               "resource": "[memory:525]",
               "priority": "<nil>",
@@ -506,7 +538,7 @@
                 "kubernetes.io/label/spark-role": "executor",
                 "kubernetes.io/meta/namespace": "some-namespace",
                 "kubernetes.io/meta/podName": "some-pod-name"
-            },
+              },
               "uuid": "5804da82-8131-402f-b2e0-8422c445127f",
               "resource": "[memory:1]",
               "priority": "<nil>",
@@ -524,7 +556,7 @@
                 "kubernetes.io/label/spark-role": "executor",
                 "kubernetes.io/meta/namespace": "some-namespace",
                 "kubernetes.io/meta/podName": "some-pod-name"
-            },
+              },
               "uuid": "4c128885-2ed6-4127-89e4-70a490c0265f",
               "resource": "[memory:210 vcore:100]",
               "priority": "<nil>",
@@ -542,7 +574,7 @@
                 "kubernetes.io/label/spark-role": "executor",
                 "kubernetes.io/meta/namespace": "some-namespace",
                 "kubernetes.io/meta/podName": "some-pod-name"
-            },
+              },
               "uuid": "bf9f9c0b-78cf-4e82-976a-3af94f011e23",
               "resource": "[vcore:100]",
               "priority": "<nil>",
@@ -560,7 +592,7 @@
                 "kubernetes.io/label/spark-role": "executor",
                 "kubernetes.io/meta/namespace": "some-namespace",
                 "kubernetes.io/meta/podName": "some-pod-name"
-            },
+              },
               "uuid": "564f2a71-4df8-48ec-9611-300ff260bb9a",
               "resource": "[vcore:10]",
               "priority": "<nil>",
@@ -578,7 +610,7 @@
                 "kubernetes.io/label/spark-role": "executor",
                 "kubernetes.io/meta/namespace": "some-namespace",
                 "kubernetes.io/meta/podName": "some-pod-name"
-            },
+              },
               "uuid": "a6901552-0762-4b2d-9aca-a88d0168369e",
               "resource": "[memory:1074 vcore:500]",
               "priority": "<nil>",
@@ -619,7 +651,7 @@
                 "kubernetes.io/label/spark-role": "executor",
                 "kubernetes.io/meta/namespace": "some-namespace",
                 "kubernetes.io/meta/podName": "some-pod-name"
-            },
+              },
               "uuid": "24cab7f8-49ef-499a-be5c-0ab91f0e9af7",
               "resource": "[memory:525]",
               "priority": "<nil>",
@@ -637,7 +669,7 @@
                 "kubernetes.io/label/spark-role": "executor",
                 "kubernetes.io/meta/namespace": "some-namespace",
                 "kubernetes.io/meta/podName": "some-pod-name"
-            },
+              },
               "uuid": "ef9e99de-61b8-4b18-8272-6de7087e8c76",
               "resource": "[memory:1]",
               "priority": "<nil>",
@@ -655,7 +687,7 @@
                 "kubernetes.io/label/spark-role": "executor",
                 "kubernetes.io/meta/namespace": "some-namespace",
                 "kubernetes.io/meta/podName": "some-pod-name"
-            },
+              },
               "uuid": "2ac3e691-9a1f-4f5c-a9cc-d6afbc3a10b1",
               "resource": "[vcore:10]",
               "priority": "<nil>",
@@ -673,7 +705,7 @@
                 "kubernetes.io/label/spark-role": "executor",
                 "kubernetes.io/meta/namespace": "some-namespace",
                 "kubernetes.io/meta/podName": "some-pod-name"
-            },
+              },
               "uuid": "23bd81e1-1a8f-4321-b733-d7d47cb614df",
               "resource": "[vcore:100]",
               "priority": "<nil>",
@@ -691,7 +723,7 @@
                 "kubernetes.io/label/spark-role": "executor",
                 "kubernetes.io/meta/namespace": "some-namespace",
                 "kubernetes.io/meta/podName": "some-pod-name"
-            },
+              },
               "uuid": "1899ccb7-c4e2-4564-bb27-5bdbf7289ee9",
               "resource": "[memory:1074 vcore:500]",
               "priority": "<nil>",
@@ -709,7 +741,7 @@
                 "kubernetes.io/label/spark-role": "executor",
                 "kubernetes.io/meta/namespace": "some-namespace",
                 "kubernetes.io/meta/podName": "some-pod-name"
-            },
+              },
               "uuid": "d9aed216-6732-4502-b04e-60ac489cdb83",
               "resource": "[memory:1074 vcore:500]",
               "priority": "<nil>",
@@ -727,7 +759,7 @@
                 "kubernetes.io/label/spark-role": "executor",
                 "kubernetes.io/meta/namespace": "some-namespace",
                 "kubernetes.io/meta/podName": "some-pod-name"
-            },
+              },
               "uuid": "f0eabf29-96c0-429f-b20e-da5e69252cb1",
               "resource": "[memory:1074 vcore:500]",
               "priority": "<nil>",
@@ -745,7 +777,7 @@
                 "kubernetes.io/label/spark-role": "executor",
                 "kubernetes.io/meta/namespace": "some-namespace",
                 "kubernetes.io/meta/podName": "some-pod-name"
-            },
+              },
               "uuid": "8157574d-ed6a-49fe-be92-2b42b11d8679",
               "resource": "[memory:210 vcore:100]",
               "priority": "<nil>",
@@ -762,19 +794,49 @@
   ],
   "partitions": [
     {
-      "name": "[mycluster]default",
-      "capacity": {
-        "capacity": "[ephemeral-storage:1769639440732 hugepages-1Gi:0 hugepages-2Mi:0 memory:278069 pods:220 vcore:92000]",
-        "usedCapacity": "[memory:264 vcore:1100]"
-      },
-      "nodeSortingPolicy": "fair",
-      "applications": {
-        "Expired": 1,
-        "Running": 2,
-        "total": 3
-      },
+      "name": "default",
+      "clusterId": "mycluster",
       "state": "Active",
-      "lastStateTransitionTime": "2021-04-10 14:25:36.290159355 +0000 UTC m=+1.047008320"
+      "lastStateTransitionTime": "2021-05-20 12:25:49.018953 +0530 IST m=+0.005949717",
+      "capacity": {
+        "capacity": "[memory:1000 vcore:1000]",
+        "usedCapacity": "[memory:800 vcore:500]"
+      },
+      "nodeSortingPolicy": {
+        "type": "fair",
+        "resourceWeights": {
+          "memory": 1.5,
+          "vcore": 1.3
+        }
+      },
+      "applications": {
+        "New": 5,
+        "Pending": 5,
+        "total": 10
+      }
+    },
+    {
+      "name": "gpu",
+      "clusterId": "mycluster",
+      "state": "Active",
+      "lastStateTransitionTime": "2021-05-19 12:25:49.018953 +0530 IST m=+0.005949717",
+      "capacity": {
+        "capacity": "[memory:2000 vcore:2000]",
+        "usedCapacity": "[memory:500 vcore:300]"
+      },
+      "nodeSortingPolicy": {
+        "type": "binpacking",
+        "resourceWeights": {
+          "memory": 0,
+          "vcore": 4.11
+        }
+      },
+      "applications": {
+        "New": 5,
+        "Running": 10,
+        "Pending": 5,
+        "total": 20
+      }
     }
   ]
 }

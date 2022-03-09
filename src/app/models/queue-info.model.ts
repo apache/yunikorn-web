@@ -18,25 +18,30 @@
 
 export class QueueInfo {
   queueName: string;
-  state: 'RUNNING' | 'STOPPED';
-  capacity: string;
-  maxCapacity: string;
-  usedCapacity: string;
-  absoluteCapacity: string;
-  absoluteMaxCapacity: string;
-  absoluteUsedCapacity: string;
-  queuePath: string;
+  status: string;
+  partitionName: string;
+  maxResource: string;
+  guaranteedResource: string;
+  allocatedResource: string;
   parentQueue: null | QueueInfo;
   children: null | QueueInfo[];
-  isLeafQueue: boolean;
+  properties: QueuePropertyItem[];
+  template: null | QueueTemplate;
+  isLeaf: boolean;
+  isManaged: boolean;
   isExpanded = false;
   isSelected = false;
-  queueProperties: QueuePropertyItem[];
 }
 
 export interface QueuePropertyItem {
   name: string;
   value: string;
+}
+
+export interface QueueTemplate {
+  maxResource: string;
+  guaranteedResource: string;
+  properties: { [key: string]: string };
 }
 
 export interface SchedulerInfo {

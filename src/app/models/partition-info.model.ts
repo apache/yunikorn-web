@@ -19,6 +19,7 @@
 export class PartitionInfo {
   name: string;
   value: string;
+
   constructor(name: string, value: string) {
     this.name = name;
     this.value = value;
@@ -27,10 +28,11 @@ export class PartitionInfo {
 
 export interface Partition {
   name: string;
-  capacity: Capacity;
-  nodeSortingPolicy: string;
-  applications: Applications;
   state: string;
+  clusterId: string;
+  capacity: Capacity;
+  nodeSortingPolicy: NodeSortingPolicy;
+  applications: Applications;
   lastStateTransitionTime: string;
 }
 
@@ -40,7 +42,16 @@ export interface Capacity {
 }
 
 export interface Applications {
-  Expired: number;
+  New: number;
   Running: number;
+  Pending: number;
   total: number;
+}
+
+export interface NodeSortingPolicy {
+  type: string;
+  resourceWeights: {
+    memory: number;
+    vcore: number;
+  };
 }

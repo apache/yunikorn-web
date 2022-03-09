@@ -1,4 +1,3 @@
 {
-  "protocol": "http:",
-  "localSchedulerWebAddress": "localhost:9080"
+  "localSchedulerWebAddress": "http://localhost:9889"
 }

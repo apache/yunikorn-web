@@ -9,7 +9,7 @@
     "lint": "ng lint",
     "e2e": "ng e2e",
     "build:prod": "ng build --prod",
-    "start:srv": "json-server -w jsdb.json",
+    "start:srv": "json-server --watch json-db.json",
     "test:coverage": "ng test --code-coverage --karma-config=./karma.conf.ci.js",
     "prettify": "prettier --config ./.prettierrc --write 'src/**/*.{js,ts,json,css,scss,md,html}'"
   },

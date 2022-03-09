@@ -61,21 +61,16 @@ export class QueueRackComponent implements OnInit {
     this.queueSelected.emit(queue);
   }
 
+  // FIXME: Implement using absolute usage value in new /{partition}/queues REST API.
+  // Currently absolute usage value is not available in /{partition}/queues REST API.
   getQueueCapacityColor(queue: QueueInfo) {
-    const absUsedCapacity = this.getMaxAbsValue(queue.absoluteUsedCapacity);
-    if (absUsedCapacity > 60 && absUsedCapacity <= 75) {
-      return '#60cea5';
-    } else if (absUsedCapacity > 75 && absUsedCapacity < 90) {
-      return '#ffbc0b';
-    } else if (absUsedCapacity >= 90) {
-      return '#ef6162';
-    }
     return '#fff';
   }
 
+  // FIXME: Implement using absolute usage value in new /{partition}/queues REST API.
+  // Currently absolute usage value is not available in /{partition}/queues REST API.
   getProgressBarValue(queue: QueueInfo) {
-    const absUsedCapacity = this.getMaxAbsValue(queue.absoluteUsedCapacity);
-    return Math.min(absUsedCapacity, 100);
+    return 0;
   }
 
   getMaxAbsValue(absCapacities: string): number {

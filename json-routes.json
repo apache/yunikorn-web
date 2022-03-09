@@ -1,5 +1,6 @@
 {
   "/ws/v1/*": "/$1",
+  "/:partition/queues": "/queues",
   "/history/apps": "/appHistory",
   "/history/containers": "/containerHistory"
 }
