@@ -83,6 +83,9 @@ export class DashboardComponent implements OnInit {
           : NOT_AVAILABLE;
 
         this.partitionName = list[0].name || NOT_AVAILABLE;
+      } else {
+        this.nodeSortPolicy = NOT_AVAILABLE;
+        this.partitionName = NOT_AVAILABLE;
       }
     });
 
@@ -127,20 +130,20 @@ export class DashboardComponent implements OnInit {
 
   getEmptyClusterInfo(): ClusterInfo {
     return {
-      clusterName: 'n/a',
-      clusterStatus: 'n/a',
-      totalApplications: 'n/a',
-      failedApplications: 'n/a',
-      pendingApplications: 'n/a',
-      runningApplications: 'n/a',
-      completedApplications: 'n/a',
-      totalContainers: 'n/a',
-      failedContainers: 'n/a',
-      pendingContainers: 'n/a',
-      runningContainers: 'n/a',
-      activeNodes: 'n/a',
-      totalNodes: 'n/a',
-      failedNodes: 'n/a',
+      clusterName: NOT_AVAILABLE,
+      clusterStatus: NOT_AVAILABLE,
+      totalApplications: NOT_AVAILABLE,
+      failedApplications: NOT_AVAILABLE,
+      pendingApplications: NOT_AVAILABLE,
+      runningApplications: NOT_AVAILABLE,
+      completedApplications: NOT_AVAILABLE,
+      totalContainers: NOT_AVAILABLE,
+      failedContainers: NOT_AVAILABLE,
+      pendingContainers: NOT_AVAILABLE,
+      runningContainers: NOT_AVAILABLE,
+      activeNodes: NOT_AVAILABLE,
+      totalNodes: NOT_AVAILABLE,
+      failedNodes: NOT_AVAILABLE,
     };
   }
 }

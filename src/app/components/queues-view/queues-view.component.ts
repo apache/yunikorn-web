@@ -87,12 +87,11 @@ export class QueuesViewComponent implements OnInit {
           });
 
           this.partitionSelected = list[0].name;
-
-          // Fetching queues once partitions has been loaded.
           this.fetchSchedulerQueuesForPartition(this.partitionSelected);
         } else {
-          this.partitionList = [];
+          this.partitionList = [new PartitionInfo('-- Select --', '')];
           this.partitionSelected = '';
+          this.queueList = {};
         }
       });
   }
@@ -199,8 +198,13 @@ export class QueuesViewComponent implements OnInit {
   }
 
   onPartitionSelectionChanged(selected: MatSelectChange) {
-    this.partitionSelected = selected.value;
-    this.closeQueueDrawer();
-    this.fetchSchedulerQueuesForPartition(this.partitionSelected);
+    if (selected.value !== '') {
+      this.partitionSelected = selected.value;
+      this.closeQueueDrawer();
+      this.fetchSchedulerQueuesForPartition(this.partitionSelected);
+    } else {
+      this.partitionSelected = '';
+      this.queueList = {};
+    }
   }
 }

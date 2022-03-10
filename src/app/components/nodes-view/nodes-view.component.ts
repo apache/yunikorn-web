@@ -112,8 +112,9 @@ export class NodesViewComponent implements OnInit {
           this.partitionSelected = list[0].name;
           this.fetchNodeListForPartition(this.partitionSelected);
         } else {
-          this.partitionList = [];
+          this.partitionList = [new PartitionInfo('-- Select --', '')];
           this.partitionSelected = '';
+          this.nodeDataSource.data = [];
         }
       });
   }
