@@ -18,6 +18,7 @@
 
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
+import { RouterTestingModule } from '@angular/router/testing';
 import { configureTestSuite } from 'ng-bullet';
 import { MockComponent } from 'ng-mocks';
 import { NgxSpinnerService } from 'ngx-spinner';
@@ -35,7 +36,13 @@ describe('QueuesViewComponent', () => {
   configureTestSuite(() => {
     TestBed.configureTestingModule({
       declarations: [QueuesViewComponent, MockComponent(QueueRackComponent)],
-      imports: [NoopAnimationsModule, MatDividerModule, MatSelectModule, MatSidenavModule],
+      imports: [
+        NoopAnimationsModule,
+        RouterTestingModule,
+        MatDividerModule,
+        MatSelectModule,
+        MatSidenavModule,
+      ],
       providers: [
         { provide: SchedulerService, useValue: MockSchedulerService },
         { provide: NgxSpinnerService, useValue: MockNgxSpinnerService },
