@@ -16,17 +16,12 @@
  * limitations under the License.
  */
 
-export class AllocationInfo {
-  constructor(
-    public displayName: string,
-    public allocationKey: string,
-    public allocationTags: null | string,
-    public uuid: string,
-    public resource: string,
-    public priority: string,
-    public queueName: string,
-    public nodeId: string,
-    public applicationId: string,
-    public partition: string
-  ) {}
+export class DropdownItem {
+  name: string;
+  value: string;
+
+  constructor(name: string, value: string) {
+    this.name = name;
+    this.value = value;
+  }
 }

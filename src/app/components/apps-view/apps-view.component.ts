@@ -17,7 +17,13 @@
  */
 
 import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
-import { MatPaginator, MatTableDataSource, MatSort } from '@angular/material';
+import {
+  MatPaginator,
+  MatTableDataSource,
+  MatSort,
+  MatSelectChange,
+  MatGridTileHeaderCssMatStyler,
+} from '@angular/material';
 import { finalize, debounceTime, distinctUntilChanged } from 'rxjs/operators';
 import { NgxSpinnerService } from 'ngx-spinner';
 import { fromEvent } from 'rxjs';
@@ -27,6 +33,9 @@ import { AppInfo } from '@app/models/app-info.model';
 import { AllocationInfo } from '@app/models/alloc-info.model';
 import { ColumnDef } from '@app/models/column-def.model';
 import { CommonUtil } from '@app/utils/common.util';
+import { PartitionInfo } from '@app/models/partition-info.model';
+import { DropdownItem } from '@app/models/dropdown-item.model';
+import { QueueInfo } from '@app/models/queue-info.model';
 
 @Component({
   selector: 'app-applications-view',
@@ -50,6 +59,10 @@ export class AppsViewComponent implements OnInit {
   selectedRow: AppInfo | null = null;
   initialAppData: AppInfo[] = [];
   searchText = '';
+  partitionList: PartitionInfo[] = [];
+  partitionSelected = '';
+  leafQueueList: DropdownItem[] = [];
+  leafQueueSelected = '';
 
   constructor(private scheduler: SchedulerService, private spinner: NgxSpinnerService) {}
 
@@ -84,9 +97,75 @@ export class AppsViewComponent implements OnInit {
 
     this.allocColumnIds = this.allocColumnDef.map(col => col.colId);
 
-    this.spinner.show();
+    fromEvent(this.searchInput.nativeElement, 'keyup')
+      .pipe(debounceTime(500), distinctUntilChanged())
+      .subscribe(() => {
+        this.onSearchAppData();
+      });
+
     this.scheduler
-      .fetchAppList()
+      .fetchPartitionList()
+      .pipe(
+        finalize(() => {
+          this.spinner.hide();
+        })
+      )
+      .subscribe(list => {
+        if (list && list.length > 0) {
+          list.forEach(part => {
+            this.partitionList.push(new PartitionInfo(part.name, part.name));
+          });
+
+          this.partitionSelected = list[0].name;
+          this.fetchQueuesForPartition(this.partitionSelected);
+        } else {
+          this.partitionList = [new PartitionInfo('-- Select --', '')];
+          this.partitionSelected = '';
+          this.leafQueueList = [new DropdownItem('-- Select --', '')];
+          this.leafQueueSelected = '';
+          this.appDataSource.data = [];
+        }
+      });
+  }
+
+  fetchQueuesForPartition(partitionName: string) {
+    this.spinner.show();
+
+    this.scheduler
+      .fetchSchedulerQueues(partitionName)
+      .pipe(
+        finalize(() => {
+          this.spinner.hide();
+        })
+      )
+      .subscribe(data => {
+        if (data && data.rootQueue) {
+          const leafQueueList = this.generateLeafQueueList(data.rootQueue);
+          this.leafQueueList = [new DropdownItem('-- Select --', ''), ...leafQueueList];
+          this.leafQueueSelected = '';
+        } else {
+          this.leafQueueList = [new DropdownItem('-- Select --', '')];
+        }
+      });
+  }
+
+  generateLeafQueueList(rootQueue: QueueInfo, list: DropdownItem[] = []): DropdownItem[] {
+    if (rootQueue && rootQueue.isLeaf) {
+      list.push(new DropdownItem(rootQueue.queueName, rootQueue.queueName));
+    }
+
+    if (rootQueue && rootQueue.children) {
+      rootQueue.children.forEach(child => this.generateLeafQueueList(child, list));
+    }
+
+    return list;
+  }
+
+  fetchAppListForPartitionAndQueue(partitionName: string, queueName: string) {
+    this.spinner.show();
+
+    this.scheduler
+      .fetchAppList(partitionName, queueName)
       .pipe(
         finalize(() => {
           this.spinner.hide();
@@ -95,12 +174,6 @@ export class AppsViewComponent implements OnInit {
       .subscribe(data => {
         this.initialAppData = data;
         this.appDataSource.data = data;
-      });
-
-    fromEvent(this.searchInput.nativeElement, 'keyup')
-      .pipe(debounceTime(500), distinctUntilChanged())
-      .subscribe(() => {
-        this.onSearchAppData();
       });
   }
 
@@ -156,13 +229,42 @@ export class AppsViewComponent implements OnInit {
 
     if (searchTerm) {
       this.removeRowSelection();
-      this.appDataSource.data = this.initialAppData.filter(
-        data =>
-          data.applicationId.toLowerCase().includes(searchTerm) ||
-          data.queueName.toLowerCase().includes(searchTerm)
+      this.appDataSource.data = this.initialAppData.filter(data =>
+        data.applicationId.toLowerCase().includes(searchTerm)
       );
     } else {
       this.onClearSearch();
+    }
+  }
+
+  onPartitionSelectionChanged(selected: MatSelectChange) {
+    if (selected.value !== '') {
+      this.searchText = '';
+      this.partitionSelected = selected.value;
+      this.appDataSource.data = [];
+      this.removeRowSelection();
+      this.fetchQueuesForPartition(this.partitionSelected);
+    } else {
+      this.searchText = '';
+      this.partitionSelected = '';
+      this.leafQueueSelected = '';
+      this.appDataSource.data = [];
+      this.removeRowSelection();
+    }
+  }
+
+  onQueueSelectionChanged(selected: MatSelectChange) {
+    if (selected.value !== '') {
+      this.searchText = '';
+      this.leafQueueSelected = selected.value;
+      this.appDataSource.data = [];
+      this.removeRowSelection();
+      this.fetchAppListForPartitionAndQueue(this.partitionSelected, this.leafQueueSelected);
+    } else {
+      this.searchText = '';
+      this.leafQueueSelected = '';
+      this.appDataSource.data = [];
+      this.removeRowSelection();
     }
   }
 }

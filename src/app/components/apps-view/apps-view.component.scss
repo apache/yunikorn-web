@@ -16,6 +16,46 @@
  * limitations under the License.
  */
 
+.top-section {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  .search-wrapper {
+    width: 500px;
+    position: absolute;
+    right: 20px;
+    input {
+      width: calc(100% - 22px);
+      color: #333;
+    }
+    .clear-btn {
+      outline: none;
+      border: none;
+      padding: 0 0 0 4px;
+      cursor: pointer;
+      background: transparent;
+      i {
+        font-size: 18px;
+        &:hover {
+          color: #f44336;
+        }
+      }
+    }
+    .search-icon {
+      margin-left: 4px;
+      font-size: 17px;
+    }
+  }
+  .dropdown-wrapper {
+    padding-right: 40px;
+    .dropdown-label {
+      color: #333;
+      font-size: 1.2em;
+      margin-right: 10px;
+    }
+  }
+}
+
 .apps-view {
   width: 100%;
   height: 100%;
@@ -57,29 +97,5 @@
     color: #666;
     width: 100%;
     text-align: center;
-  }
-  .search-wrapper {
-    width: 500px;
-    input {
-      width: calc(100% - 22px);
-      color: #333;
-    }
-    .clear-btn {
-      outline: none;
-      border: none;
-      padding: 0 0 0 4px;
-      cursor: pointer;
-      background: transparent;
-      i {
-        font-size: 18px;
-        &:hover {
-          color: #f44336;
-        }
-      }
-    }
-    .search-icon {
-      margin-left: 4px;
-      font-size: 17px;
-    }
   }
 }

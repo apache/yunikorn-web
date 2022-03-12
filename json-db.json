@@ -112,124 +112,86 @@
   },
   "apps": [
     {
-      "applicationID": "spark-00001",
-      "usedResource": "[vcore:2000 memory:2954]",
-      "partition": "[my-kube-cluster]default",
-      "queueName": "root.advertisement",
-      "submissionTime": 1553503546471791764,
+      "applicationID": "app-4",
+      "usedResource": "[]",
+      "partition": "default",
+      "queueName": "root.default",
+      "submissionTime": 1646038700214288000,
+      "allocations": [],
+      "applicationState": "New"
+    },
+    {
+      "applicationID": "app-1",
+      "usedResource": "[memory:50 vcore:30]",
+      "partition": "default",
+      "queueName": "root.default",
+      "submissionTime": 1646038700213796000,
       "allocations": [
         {
-          "allocationKey": "61b62a65-4eda-11e9-a9ce-025000000001",
-          "allocationTags": {
-            "kubernetes.io/label/dex-job-run-id": "4",
-            "kubernetes.io/label/name": "executor",
-            "kubernetes.io/label/queue": "root.default",
-            "kubernetes.io/label/spark-role": "executor",
-            "kubernetes.io/meta/namespace": "some-namespace",
-            "kubernetes.io/meta/podName": "some-pod-name"
-          },
-          "uuid": "71cc082d-486d-4d5f-80e3-e6632a5d9409",
-          "resource": "[vcore:1000 memory:1477]",
-          "priority": "\u003cnil\u003e",
-          "queueName": "root.advertisement",
-          "nodeId": "docker-for-desktop",
-          "applicationId": "spark-00001",
+          "allocationKey": "54e5d77b-f4c3-4607-8038-03c9499dd99d",
+          "allocationTags": null,
+          "uuid": "08033f9a-4699-403c-9204-6333856b41bd",
+          "resource": "[memory:50 vcore:30]",
+          "priority": "<nil>",
+          "queueName": "root.default",
+          "nodeId": "node-0001",
+          "applicationId": "application-0002",
+          "partition": "default"
+        }
+      ],
+      "applicationState": "New"
+    },
+    {
+      "applicationID": "app-3",
+      "usedResource": "",
+      "partition": "default",
+      "queueName": "root.default",
+      "submissionTime": 1646038700214204000,
+      "allocations": [],
+      "applicationState": "New"
+    },
+    {
+      "applicationID": "app-2",
+      "usedResource": "[memory:30 vcore:30]",
+      "partition": "default",
+      "queueName": "root.default",
+      "submissionTime": 1646038700214057000,
+      "allocations": [
+        {
+          "allocationKey": "54e5d77b-f4c3-4607-8038-03c9499dd99d",
+          "allocationTags": null,
+          "uuid": "08033f9a-4699-403c-9204-6333844444bd",
+          "resource": "[memory:10 vcore:10]",
+          "priority": "<nil>",
+          "queueName": "root.default",
+          "nodeId": "node-0001",
+          "applicationId": "application-0002",
           "partition": "default"
         },
         {
-          "allocationKey": "66a086ec-4eda-11e9-a9ce-025000000001",
-          "allocationTags": {
-            "kubernetes.io/label/dex-job-run-id": "4",
-            "kubernetes.io/label/name": "executor",
-            "kubernetes.io/label/queue": "root.default",
-            "kubernetes.io/label/spark-role": "executor",
-            "kubernetes.io/meta/namespace": "some-namespace",
-            "kubernetes.io/meta/podName": "some-pod-name"
-          },
-          "uuid": "d456a8ba-d9d7-43ff-9e8f-2ee213a14a09",
-          "resource": "[vcore:1000 memory:1477]",
-          "priority": "\u003cnil\u003e",
-          "queueName": "root.advertisement",
-          "nodeId": "docker-for-desktop",
-          "applicationId": "spark-00001",
-          "partition": "default"
-        }
-      ],
-      "applicationState": "Running"
-    },
-    {
-      "applicationID": "spark-00002",
-      "usedResource": "[vcore:1000 memory:2600]",
-      "partition": "[my-kube-cluster]default",
-      "queueName": "root.marketing",
-      "submissionTime": 1553700102031791764,
-      "allocations": [
-        {
-          "allocationKey": "61b62a65-4eda-11e9-a9ce-025000000002",
-          "allocationTags": {
-            "kubernetes.io/label/dex-job-run-id": "4",
-            "kubernetes.io/label/name": "executor",
-            "kubernetes.io/label/queue": "root.default",
-            "kubernetes.io/label/spark-role": "executor",
-            "kubernetes.io/meta/namespace": "some-namespace",
-            "kubernetes.io/meta/podName": "some-pod-name"
-          },
-          "uuid": "71cc082d-486d-4d5f-80e3-e6632a5d9764",
-          "resource": "[vcore:500 memory:1300]",
-          "priority": "\u003cnil\u003e",
-          "queueName": "root.marketing",
-          "nodeId": "docker-for-desktop",
-          "applicationId": "spark-00002",
+          "allocationKey": "54e5d77b-f4c3-4607-8038-03c9499dd99d",
+          "allocationTags": null,
+          "uuid": "08033f9a-4699-403c-9204-6333846844bd",
+          "resource": "[memory:10 vcore:10]",
+          "priority": "<nil>",
+          "queueName": "root.default",
+          "nodeId": "node-0001",
+          "applicationId": "application-0002",
           "partition": "default"
         },
         {
-          "allocationKey": "66a086ec-4eda-11e9-a9ce-025000000002",
-          "allocationTags": {
-            "kubernetes.io/label/dex-job-run-id": "4",
-            "kubernetes.io/label/name": "executor",
-            "kubernetes.io/label/queue": "root.default",
-            "kubernetes.io/label/spark-role": "executor",
-            "kubernetes.io/meta/namespace": "some-namespace",
-            "kubernetes.io/meta/podName": "some-pod-name"
-          },
-          "uuid": "d456a8ba-d9d7-43ff-9e8f-2ee213a157s8",
-          "resource": "[vcore:500 memory:1300]",
-          "priority": "\u003cnil\u003e",
-          "queueName": "root.marketing",
-          "nodeId": "docker-for-desktop",
-          "applicationId": "spark-00002",
+          "allocationKey": "54e5d77b-f4c3-4607-8038-03c9499dd99d",
+          "allocationTags": null,
+          "uuid": "08033f9a-4699-403c-9204-63338844888d",
+          "resource": "[memory:10 vcore:10]",
+          "priority": "<nil>",
+          "queueName": "root.default",
+          "nodeId": "node-0001",
+          "applicationId": "application-0002",
           "partition": "default"
         }
       ],
-      "applicationState": "Running"
-    },
-    {
-      "applicationID": "spark-00003",
-      "usedResource": "[vcore:1000 memory:2600]",
-      "partition": "[my-kube-cluster]default",
-      "queueName": "root.marketing",
-      "submissionTime": 1553703611071791764,
-      "allocations": [
-        {
-          "allocationKey": "61b62a65-4eda-11e9-a9ce-025000000002",
-          "allocationTags": {
-            "kubernetes.io/label/dex-job-run-id": "4",
-            "kubernetes.io/label/name": "executor",
-            "kubernetes.io/label/queue": "root.default",
-            "kubernetes.io/label/spark-role": "executor",
-            "kubernetes.io/meta/namespace": "some-namespace",
-            "kubernetes.io/meta/podName": "some-pod-name"
-          },
-          "uuid": "71cc082d-486d-4d5f-80e3-e6632a5d9764",
-          "resource": "[vcore:500 memory:1300]",
-          "priority": "\u003cnil\u003e",
-          "queueName": "root.marketing",
-          "nodeId": "docker-for-desktop",
-          "applicationId": "spark-00003",
-          "partition": "default"
-        }
-      ],
-      "applicationState": "Running"
+      "applicationState": "New"
     }
   ],
   "appHistory": [

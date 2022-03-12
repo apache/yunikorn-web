@@ -54,9 +54,8 @@ export class SchedulerService {
 
     return this.httpClient.get(queuesUrl).pipe(
       map((data: any) => {
-        let rootQueue = new QueueInfo();
-
-        if (data) {
+        if (data && !CommonUtil.isEmpty(data)) {
+          let rootQueue = new QueueInfo();
           rootQueue.queueName = data.queuename;
           rootQueue.status = data.status || NOT_AVAILABLE;
           rootQueue.isLeaf = data.isLeaf;
@@ -66,17 +65,22 @@ export class SchedulerService {
           this.fillQueueResources(data, rootQueue);
           this.fillQueuePropertiesAndTemplate(data, rootQueue);
           rootQueue = this.generateQueuesTree(data, rootQueue);
+
+          return {
+            rootQueue,
+          };
         }
 
         return {
-          rootQueue,
+          rootQueue: null,
         };
       })
     );
   }
 
-  fetchAppList(): Observable<AppInfo[]> {
-    const appsUrl = `${this.envConfig.getSchedulerWebAddress()}/ws/v1/apps`;
+  fetchAppList(partitionName: string, queueName: string): Observable<AppInfo[]> {
+    const appsUrl = `${this.envConfig.getSchedulerWebAddress()}/ws/v1/partition/${partitionName}/queue/${queueName}/applications`;
+
     return this.httpClient.get(appsUrl).pipe(
       map((data: any) => {
         const result = [];
@@ -126,6 +130,7 @@ export class SchedulerService {
             result.push(appInfo);
           });
         }
+
         return result;
       })
     );
