@@ -17,6 +17,7 @@
  */
 
 import { Component, OnInit, ViewChild } from '@angular/core';
+import { Router } from '@angular/router';
 import { MatDrawer, MatSelectChange } from '@angular/material';
 import { NgxSpinnerService } from 'ngx-spinner';
 import { finalize } from 'rxjs/operators';
@@ -64,7 +65,11 @@ export class QueuesViewComponent implements OnInit {
   ];
   resourceValueFormatter = CommonUtil.resourceColumnFormatter;
 
-  constructor(private scheduler: SchedulerService, private spinner: NgxSpinnerService) {}
+  constructor(
+    private scheduler: SchedulerService,
+    private spinner: NgxSpinnerService,
+    private router: Router
+  ) {}
 
   ngOnInit() {
     this.queueLevels.forEach(obj => {
@@ -205,6 +210,19 @@ export class QueuesViewComponent implements OnInit {
     } else {
       this.partitionSelected = '';
       this.queueList = {};
+    }
+  }
+
+  gotoApplicationsForPartitionAndQueue(event: MouseEvent, queueName: string) {
+    event.preventDefault();
+
+    if (this.partitionSelected && queueName) {
+      this.router.navigate(['/applications'], {
+        queryParams: {
+          partition: this.partitionSelected,
+          queue: queueName,
+        },
+      });
     }
   }
 }

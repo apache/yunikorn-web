@@ -17,13 +17,8 @@
  */
 
 import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
-import {
-  MatPaginator,
-  MatTableDataSource,
-  MatSort,
-  MatSelectChange,
-  MatGridTileHeaderCssMatStyler,
-} from '@angular/material';
+import { ActivatedRoute, Router } from '@angular/router';
+import { MatPaginator, MatTableDataSource, MatSort, MatSelectChange } from '@angular/material';
 import { finalize, debounceTime, distinctUntilChanged } from 'rxjs/operators';
 import { NgxSpinnerService } from 'ngx-spinner';
 import { fromEvent } from 'rxjs';
@@ -64,7 +59,12 @@ export class AppsViewComponent implements OnInit {
   leafQueueList: DropdownItem[] = [];
   leafQueueSelected = '';
 
-  constructor(private scheduler: SchedulerService, private spinner: NgxSpinnerService) {}
+  constructor(
+    private scheduler: SchedulerService,
+    private spinner: NgxSpinnerService,
+    private activatedRoute: ActivatedRoute,
+    private router: Router
+  ) {}
 
   ngOnInit() {
     this.appDataSource.paginator = this.appPaginator;
@@ -143,6 +143,7 @@ export class AppsViewComponent implements OnInit {
           const leafQueueList = this.generateLeafQueueList(data.rootQueue);
           this.leafQueueList = [new DropdownItem('-- Select --', ''), ...leafQueueList];
           this.leafQueueSelected = '';
+          this.fetchApplicationsUsingQueryParams();
         } else {
           this.leafQueueList = [new DropdownItem('-- Select --', '')];
         }
@@ -175,6 +176,25 @@ export class AppsViewComponent implements OnInit {
         this.initialAppData = data;
         this.appDataSource.data = data;
       });
+  }
+
+  fetchApplicationsUsingQueryParams() {
+    const partitionName = this.activatedRoute.snapshot.queryParams['partition'];
+    const queueName = this.activatedRoute.snapshot.queryParams['queue'];
+
+    if (partitionName && queueName) {
+      this.partitionSelected = partitionName;
+      this.leafQueueSelected = queueName;
+      this.fetchAppListForPartitionAndQueue(partitionName, queueName);
+    }
+
+    this.router.navigate([], {
+      queryParams: {
+        partition: null,
+        queue: null,
+      },
+      queryParamsHandling: 'merge',
+    });
   }
 
   unselectAllRowsButOne(row: AppInfo) {

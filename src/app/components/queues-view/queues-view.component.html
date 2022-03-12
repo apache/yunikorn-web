@@ -19,7 +19,10 @@
 <div class="top-part">
   <label class="part-label">Partition: </label>
   <mat-form-field>
-    <mat-select [(value)]="partitionSelected" (selectionChange)="onPartitionSelectionChanged($event)">
+    <mat-select
+      [(value)]="partitionSelected"
+      (selectionChange)="onPartitionSelectionChanged($event)"
+    >
       <mat-option *ngFor="let part of partitionList" [value]="part.value">
         {{ part.name }}
       </mat-option>
@@ -84,6 +87,17 @@
             <div class="flex-grid item-wrapper" *ngFor="let prop of selectedQueue.properties">
               <div class="left-item">{{ prop.name }}:</div>
               <div class="right-item">{{ prop.value }}</div>
+            </div>
+            <div class="flex-grid item-wrapper" *ngIf="selectedQueue.isLeaf">
+              <div class="left-item">Applications:</div>
+              <div class="right-item">
+                <a
+                  href="#"
+                  class="app-link"
+                  (click)="gotoApplicationsForPartitionAndQueue($event, selectedQueue.queueName)"
+                  >Link</a
+                >
+              </div>
             </div>
           </div>
         </mat-drawer-content>
