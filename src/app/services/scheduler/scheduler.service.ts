@@ -249,7 +249,7 @@ export class SchedulerService {
         const childQueue = new QueueInfo();
 
         childQueue.queueName = queueData.queuename as string;
-        childQueue.status = queueData.status || 'n/a';
+        childQueue.status = queueData.status || NOT_AVAILABLE;
         childQueue.parentQueue = currentQueue ? currentQueue : null;
         childQueue.isLeaf = queueData.isLeaf;
 
