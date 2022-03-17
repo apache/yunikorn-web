@@ -1,0 +1,8 @@
+{
+  "/ws/v1/*": "/$1",
+  "/history/apps": "/appHistory",
+  "/history/containers": "/containerHistory",
+  "/partition/:partition/queues": "/queues",
+  "/partition/:partition/nodes": "/nodes",
+  "/partition/:partition/queue/:queue/applications": "/apps"
+}

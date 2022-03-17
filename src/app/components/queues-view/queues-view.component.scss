@@ -17,7 +17,7 @@
  */
 
 .part-label {
-  color: #666;
+  color: #333;
   font-size: 1.2em;
   margin-right: 10px;
 }
@@ -71,6 +71,14 @@
     }
     .right-item {
       font-weight: 600;
+    }
+  }
+  .app-link {
+    text-decoration: none;
+    font-size: 1.1em;
+    color: #666;
+    &:hover {
+      text-decoration: underline;
     }
   }
 }

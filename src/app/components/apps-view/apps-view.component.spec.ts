@@ -18,6 +18,7 @@
 
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
+import { RouterTestingModule } from '@angular/router/testing';
 import { HAMMER_LOADER } from '@angular/platform-browser';
 import { NgxSpinnerService } from 'ngx-spinner';
 import { configureTestSuite } from 'ng-bullet';
@@ -29,6 +30,7 @@ import {
   MatSortModule,
   MatInputModule,
   MatTooltipModule,
+  MatSelectModule,
 } from '@angular/material';
 
 import { AppsViewComponent } from './apps-view.component';
@@ -44,6 +46,7 @@ describe('AppsViewComponent', () => {
       declarations: [AppsViewComponent],
       imports: [
         NoopAnimationsModule,
+        RouterTestingModule,
         FormsModule,
         MatTableModule,
         MatPaginatorModule,
@@ -51,6 +54,7 @@ describe('AppsViewComponent', () => {
         MatSortModule,
         MatInputModule,
         MatTooltipModule,
+        MatSelectModule,
       ],
       providers: [
         { provide: SchedulerService, useValue: MockSchedulerService },

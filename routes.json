@@ -1,5 +1,0 @@
-{
-  "/ws/v1/*": "/$1",
-  "/history/apps": "/appHistory",
-  "/history/containers": "/containerHistory"
-}

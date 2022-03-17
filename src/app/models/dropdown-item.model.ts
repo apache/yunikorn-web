@@ -16,7 +16,7 @@
  * limitations under the License.
  */
 
-export class PartitionInfo {
+export class DropdownItem {
   name: string;
   value: string;
 
@@ -24,34 +24,4 @@ export class PartitionInfo {
     this.name = name;
     this.value = value;
   }
-}
-
-export interface Partition {
-  name: string;
-  state: string;
-  clusterId: string;
-  capacity: Capacity;
-  nodeSortingPolicy: NodeSortingPolicy;
-  applications: Applications;
-  lastStateTransitionTime: string;
-}
-
-export interface Capacity {
-  capacity: string;
-  usedCapacity: string;
-}
-
-export interface Applications {
-  New: number;
-  Running: number;
-  Pending: number;
-  total: number;
-}
-
-export interface NodeSortingPolicy {
-  type: string;
-  resourceWeights: {
-    memory: number;
-    vcore: number;
-  };
 }

@@ -30,6 +30,7 @@ import {
   MatPaginatorModule,
   MatDividerModule,
   MatSortModule,
+  MatSelectModule,
 } from '@angular/material';
 
 describe('NodesViewComponent', () => {
@@ -45,6 +46,7 @@ describe('NodesViewComponent', () => {
         MatPaginatorModule,
         MatDividerModule,
         MatSortModule,
+        MatSelectModule,
       ],
       providers: [
         { provide: SchedulerService, useValue: MockSchedulerService },

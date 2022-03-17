@@ -20,7 +20,7 @@ export class AllocationInfo {
   constructor(
     public displayName: string,
     public allocationKey: string,
-    public allocationTags: string,
+    public allocationTags: null | string,
     public uuid: string,
     public resource: string,
     public priority: string,

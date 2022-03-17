@@ -39,42 +39,48 @@ import { Partition } from '@app/models/partition-info.model';
 export class SchedulerService {
   constructor(private httpClient: HttpClient, private envConfig: EnvconfigService) {}
 
-  public fetchClusterList(): Observable<ClusterInfo[]> {
+  fetchClusterList(): Observable<ClusterInfo[]> {
     const clusterUrl = `${this.envConfig.getSchedulerWebAddress()}/ws/v1/clusters`;
     return this.httpClient.get(clusterUrl).pipe(map(data => data as ClusterInfo[]));
   }
 
-  public fetchPartitionList(): Observable<Partition[]> {
+  fetchPartitionList(): Observable<Partition[]> {
     const partitionUrl = `${this.envConfig.getSchedulerWebAddress()}/ws/v1/partitions`;
     return this.httpClient.get(partitionUrl).pipe(map(data => data as Partition[]));
   }
 
-  public fetchSchedulerQueues(): Observable<any> {
-    const queuesUrl = `${this.envConfig.getSchedulerWebAddress()}/ws/v1/queues`;
+  fetchSchedulerQueues(partitionName: string): Observable<any> {
+    const queuesUrl = `${this.envConfig.getSchedulerWebAddress()}/ws/v1/partition/${partitionName}/queues`;
+
     return this.httpClient.get(queuesUrl).pipe(
       map((data: any) => {
-        let rootQueue = new QueueInfo();
-        if (data && data.queues) {
-          const rootQueueData = data.queues;
-          rootQueue.queueName = rootQueueData.queuename;
-          rootQueue.state = rootQueueData.status || 'RUNNING';
+        if (data && !CommonUtil.isEmpty(data)) {
+          let rootQueue = new QueueInfo();
+          rootQueue.queueName = data.queuename;
+          rootQueue.status = data.status || NOT_AVAILABLE;
+          rootQueue.isLeaf = data.isLeaf;
+          rootQueue.isManaged = data.isManaged;
+          rootQueue.partitionName = data.partition;
           rootQueue.children = null;
-          rootQueue.isLeafQueue = false;
-          this.fillQueueCapacities(rootQueueData, rootQueue);
-          this.fillQueueProperties(rootQueueData, rootQueue);
-          rootQueue = this.generateQueuesTree(rootQueueData, rootQueue);
+          this.fillQueueResources(data, rootQueue);
+          this.fillQueuePropertiesAndTemplate(data, rootQueue);
+          rootQueue = this.generateQueuesTree(data, rootQueue);
+
+          return {
+            rootQueue,
+          };
         }
-        const partitionName = data['partitionName'] || '';
+
         return {
-          rootQueue,
-          partitionName,
+          rootQueue: null,
         };
       })
     );
   }
 
-  public fetchAppList(): Observable<AppInfo[]> {
-    const appsUrl = `${this.envConfig.getSchedulerWebAddress()}/ws/v1/apps`;
+  fetchAppList(partitionName: string, queueName: string): Observable<AppInfo[]> {
+    const appsUrl = `${this.envConfig.getSchedulerWebAddress()}/ws/v1/partition/${partitionName}/queue/${queueName}/applications`;
+
     return this.httpClient.get(appsUrl).pipe(
       map((data: any) => {
         const result = [];
@@ -124,12 +130,13 @@ export class SchedulerService {
             result.push(appInfo);
           });
         }
+
         return result;
       })
     );
   }
 
-  public fetchAppHistory(): Observable<HistoryInfo[]> {
+  fetchAppHistory(): Observable<HistoryInfo[]> {
     const appHistoryUrl = `${this.envConfig.getSchedulerWebAddress()}/ws/v1/history/apps`;
     return this.httpClient.get(appHistoryUrl).pipe(
       map((data: any[]) => {
@@ -148,7 +155,7 @@ export class SchedulerService {
     );
   }
 
-  public fetchContainerHistory(): Observable<HistoryInfo[]> {
+  fetchContainerHistory(): Observable<HistoryInfo[]> {
     const containerHistoryUrl = `${this.envConfig.getSchedulerWebAddress()}/ws/v1/history/containers`;
     return this.httpClient.get(containerHistoryUrl).pipe(
       map((data: any[]) => {
@@ -167,68 +174,66 @@ export class SchedulerService {
     );
   }
 
-  public fetchNodeList(): Observable<NodeInfo[]> {
-    const nodesUrl = `${this.envConfig.getSchedulerWebAddress()}/ws/v1/nodes`;
+  fetchNodeList(partitionName: string): Observable<NodeInfo[]> {
+    const nodesUrl = `${this.envConfig.getSchedulerWebAddress()}/ws/v1/partition/${partitionName}/nodes`;
 
     return this.httpClient.get(nodesUrl).pipe(
       map((data: any) => {
         const result = [];
 
         if (data && data.length > 0) {
-          for (const info of data) {
-            const nodesInfoData = info.nodesInfo || [];
+          data.forEach(node => {
+            const nodeInfo = new NodeInfo(
+              node['nodeID'],
+              node['hostName'],
+              node['rackName'],
+              node['partition'] || NOT_AVAILABLE,
+              this.formatCapacity(this.splitCapacity(node['capacity'], NOT_AVAILABLE)),
+              this.formatCapacity(this.splitCapacity(node['allocated'], NOT_AVAILABLE)),
+              this.formatCapacity(this.splitCapacity(node['occupied'], NOT_AVAILABLE)),
+              this.formatCapacity(this.splitCapacity(node['available'], NOT_AVAILABLE)),
+              this.formatCapacity(this.splitCapacity(node['utilized'], NOT_AVAILABLE)),
+              []
+            );
 
-            nodesInfoData.forEach(node => {
-              const nodeInfo = new NodeInfo(
-                node['nodeID'],
-                node['hostName'],
-                node['rackName'],
-                info['partitionName'],
-                this.formatCapacity(this.splitCapacity(node['capacity'], NOT_AVAILABLE)),
-                this.formatCapacity(this.splitCapacity(node['allocated'], NOT_AVAILABLE)),
-                this.formatCapacity(this.splitCapacity(node['occupied'], NOT_AVAILABLE)),
-                this.formatCapacity(this.splitCapacity(node['available'], NOT_AVAILABLE)),
-                []
-              );
+            const allocations = node['allocations'];
 
-              const allocations = node['allocations'];
-              if (allocations && allocations.length > 0) {
-                const appAllocations = [];
+            if (allocations && allocations.length > 0) {
+              const appAllocations = [];
 
-                allocations.forEach(alloc => {
-                  if (
-                    alloc.allocationTags &&
-                    alloc.allocationTags['kubernetes.io/meta/namespace'] &&
-                    alloc.allocationTags['kubernetes.io/meta/podName']
-                  ) {
-                    alloc[
-                      'displayName'
-                    ] = `${alloc.allocationTags['kubernetes.io/meta/namespace']}/${alloc.allocationTags['kubernetes.io/meta/podName']}`;
-                  } else {
-                    alloc['displayName'] = '<nil>';
-                  }
-                  appAllocations.push(
-                    new AllocationInfo(
-                      alloc['displayName'],
-                      alloc['allocationKey'],
-                      alloc['allocationTags'],
-                      alloc['uuid'],
-                      this.formatCapacity(this.splitCapacity(alloc['resource'], NOT_AVAILABLE)),
-                      alloc['priority'],
-                      alloc['queueName'],
-                      alloc['nodeId'],
-                      alloc['applicationId'],
-                      alloc['partition']
-                    )
-                  );
-                });
+              allocations.forEach(alloc => {
+                if (
+                  alloc.allocationTags &&
+                  alloc.allocationTags['kubernetes.io/meta/namespace'] &&
+                  alloc.allocationTags['kubernetes.io/meta/podName']
+                ) {
+                  alloc[
+                    'displayName'
+                  ] = `${alloc.allocationTags['kubernetes.io/meta/namespace']}/${alloc.allocationTags['kubernetes.io/meta/podName']}`;
+                } else {
+                  alloc['displayName'] = '<nil>';
+                }
+                appAllocations.push(
+                  new AllocationInfo(
+                    alloc['displayName'],
+                    alloc['allocationKey'],
+                    alloc['allocationTags'],
+                    alloc['uuid'],
+                    this.formatCapacity(this.splitCapacity(alloc['resource'], NOT_AVAILABLE)),
+                    alloc['priority'],
+                    alloc['queueName'],
+                    alloc['nodeId'],
+                    alloc['applicationId'],
+                    alloc['partition']
+                  )
+                );
+              });
 
-                nodeInfo.setAllocations(appAllocations);
-              }
+              nodeInfo.setAllocations(appAllocations);
+            }
 
-              result.push(nodeInfo);
-            });
-          }
+            result.push(nodeInfo);
+          });
         }
 
         return result;
@@ -237,52 +242,61 @@ export class SchedulerService {
   }
 
   private generateQueuesTree(data: any, currentQueue: QueueInfo) {
-    if (data && data.queues && data.queues.length > 0) {
+    if (data && data.children && data.children.length > 0) {
       const chilrenQs = [];
-      data.queues.forEach(queueData => {
+
+      data.children.forEach(queueData => {
         const childQueue = new QueueInfo();
-        childQueue.queueName = '' + queueData.queuename;
-        childQueue.state = queueData.status || 'RUNNING';
+
+        childQueue.queueName = queueData.queuename as string;
+        childQueue.status = queueData.status || NOT_AVAILABLE;
         childQueue.parentQueue = currentQueue ? currentQueue : null;
-        this.fillQueueCapacities(queueData, childQueue);
-        this.fillQueueProperties(queueData, childQueue);
+        childQueue.isLeaf = queueData.isLeaf;
+
+        this.fillQueueResources(queueData, childQueue);
+        this.fillQueuePropertiesAndTemplate(queueData, childQueue);
         chilrenQs.push(childQueue);
+
         return this.generateQueuesTree(queueData, childQueue);
       });
+
       currentQueue.children = chilrenQs;
-      currentQueue.isLeafQueue = false;
-    } else {
-      currentQueue.isLeafQueue = true;
     }
+
     return currentQueue;
   }
 
-  private fillQueueCapacities(data: any, queue: QueueInfo) {
-    const configCap = data['capacities']['capacity'] as string;
-    const usedCap = data['capacities']['usedCapacity'] as string;
-    const maxCap = data['capacities']['maxCapacity'] as string;
-    const absUsedCapacity = data['capacities']['absUsedCapacity'] as string;
-
-    queue.capacity = this.formatCapacity(this.splitCapacity(configCap, NOT_AVAILABLE));
-    queue.maxCapacity = this.formatCapacity(this.splitCapacity(maxCap, NOT_AVAILABLE));
-    queue.usedCapacity = this.formatCapacity(this.splitCapacity(usedCap, NOT_AVAILABLE));
-    queue.absoluteUsedCapacity = this.formatAbsCapacity(
-      this.splitCapacity(absUsedCapacity, NOT_AVAILABLE)
+  private fillQueueResources(data: any, queue: QueueInfo) {
+    const maxResource = data['maxResource'] as string;
+    const guaranteedResource = data['guaranteedResource'] as string;
+    const allocatedResource = data['allocatedResource'] as string;
+    queue.maxResource = this.formatCapacity(this.splitCapacity(maxResource, NOT_AVAILABLE));
+    queue.guaranteedResource = this.formatCapacity(
+      this.splitCapacity(guaranteedResource, NOT_AVAILABLE)
+    );
+    queue.allocatedResource = this.formatCapacity(
+      this.splitCapacity(allocatedResource, NOT_AVAILABLE)
     );
   }
 
-  private fillQueueProperties(data: any, queue: QueueInfo) {
+  private fillQueuePropertiesAndTemplate(data: any, queue: QueueInfo) {
     if (data.properties && !CommonUtil.isEmpty(data.properties)) {
       const dataProps = Object.entries<string>(data.properties);
 
-      queue.queueProperties = dataProps.map(prop => {
+      queue.properties = dataProps.map(prop => {
         return {
           name: prop[0],
           value: prop[1],
         } as QueuePropertyItem;
       });
     } else {
-      queue.queueProperties = [];
+      queue.properties = [];
+    }
+
+    if (data.template) {
+      queue.template = data.template;
+    } else {
+      queue.template = null;
     }
   }
 

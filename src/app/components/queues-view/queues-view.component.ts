@@ -17,7 +17,8 @@
  */
 
 import { Component, OnInit, ViewChild } from '@angular/core';
-import { MatDrawer } from '@angular/material';
+import { Router } from '@angular/router';
+import { MatDrawer, MatSelectChange } from '@angular/material';
 import { NgxSpinnerService } from 'ngx-spinner';
 import { finalize } from 'rxjs/operators';
 
@@ -64,31 +65,58 @@ export class QueuesViewComponent implements OnInit {
   ];
   resourceValueFormatter = CommonUtil.resourceColumnFormatter;
 
-  constructor(private scheduler: SchedulerService, private spinner: NgxSpinnerService) {}
+  constructor(
+    private scheduler: SchedulerService,
+    private spinner: NgxSpinnerService,
+    private router: Router
+  ) {}
 
   ngOnInit() {
     this.queueLevels.forEach(obj => {
       this.queueList[obj.level] = null;
     });
-    this.partitionList = [];
+
     this.spinner.show();
+
     this.scheduler
-      .fetchSchedulerQueues()
+      .fetchPartitionList()
+      .pipe(
+        finalize(() => {
+          this.spinner.hide();
+        })
+      )
+      .subscribe(list => {
+        if (list && list.length > 0) {
+          list.forEach(part => {
+            this.partitionList.push(new PartitionInfo(part.name, part.name));
+          });
+
+          this.partitionSelected = list[0].name;
+          this.fetchSchedulerQueuesForPartition(this.partitionSelected);
+        } else {
+          this.partitionList = [new PartitionInfo('-- Select --', '')];
+          this.partitionSelected = '';
+          this.queueList = {};
+        }
+      });
+  }
+
+  fetchSchedulerQueuesForPartition(partitionName: string) {
+    this.spinner.show();
+
+    this.scheduler
+      .fetchSchedulerQueues(partitionName)
       .pipe(
         finalize(() => {
           this.spinner.hide();
         })
       )
       .subscribe(data => {
+        this.queueList = {};
+
         if (data && data.rootQueue) {
           this.rootQueue = data.rootQueue;
           this.queueList['level_00'] = [this.rootQueue];
-        }
-        if (data && data.partitionName) {
-          this.partitionList.push(new PartitionInfo(data.partitionName, data.partitionName));
-          this.partitionSelected = data.partitionName;
-        } else {
-          this.partitionList.push(new PartitionInfo('default', ''));
         }
       });
   }
@@ -171,6 +199,30 @@ export class QueuesViewComponent implements OnInit {
     } else {
       this.selectedQueue = null;
       this.closeMatDrawer();
+    }
+  }
+
+  onPartitionSelectionChanged(selected: MatSelectChange) {
+    if (selected.value !== '') {
+      this.partitionSelected = selected.value;
+      this.closeQueueDrawer();
+      this.fetchSchedulerQueuesForPartition(this.partitionSelected);
+    } else {
+      this.partitionSelected = '';
+      this.queueList = {};
+    }
+  }
+
+  gotoApplicationsForPartitionAndQueue(event: MouseEvent, queueName: string) {
+    event.preventDefault();
+
+    if (this.partitionSelected && queueName) {
+      this.router.navigate(['/applications'], {
+        queryParams: {
+          partition: this.partitionSelected,
+          queue: queueName,
+        },
+      });
     }
   }
 }

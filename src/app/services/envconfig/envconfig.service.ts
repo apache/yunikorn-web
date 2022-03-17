@@ -55,10 +55,7 @@ export class EnvconfigService {
 
   getSchedulerWebAddress() {
     if (!environment.production) {
-      const protocol = this.envConfig.protocol || DEFAULT_PROTOCOL;
-      const localSchedulerWebAddress = this.envConfig.localSchedulerWebAddress;
-
-      return `${protocol}//${localSchedulerWebAddress}`;
+      return this.envConfig.localSchedulerWebAddress;
     }
 
     return `${this.uiProtocol}//${this.uiHostname}:${this.uiPort}`;

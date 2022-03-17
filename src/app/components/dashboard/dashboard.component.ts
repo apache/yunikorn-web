@@ -27,6 +27,7 @@ import { AreaDataItem } from '@app/models/area-data.model';
 import { HistoryInfo } from '@app/models/history-info.model';
 import { Partition } from '@app/models/partition-info.model';
 import { EventBusService, EventMap } from '@app/services/event-bus/event-bus.service';
+import { NOT_AVAILABLE } from '@app/utils/constants';
 
 @Component({
   selector: 'app-dashboard',
@@ -37,6 +38,7 @@ export class DashboardComponent implements OnInit {
   clusterList: ClusterInfo[] = [];
   partitionList: Partition[] = [];
   nodeSortPolicy = '';
+  partitionName = '';
   appStatusData: DonutDataItem[] = [];
   containerStatusData: DonutDataItem[] = [];
   appHistoryData: AreaDataItem[] = [];
@@ -76,7 +78,14 @@ export class DashboardComponent implements OnInit {
       this.partitionList = list;
 
       if (list && list[0]) {
-        this.nodeSortPolicy = list[0].nodeSortingPolicy;
+        this.nodeSortPolicy = list[0].nodeSortingPolicy
+          ? list[0].nodeSortingPolicy.type
+          : NOT_AVAILABLE;
+
+        this.partitionName = list[0].name || NOT_AVAILABLE;
+      } else {
+        this.nodeSortPolicy = NOT_AVAILABLE;
+        this.partitionName = NOT_AVAILABLE;
       }
     });
 
@@ -121,20 +130,20 @@ export class DashboardComponent implements OnInit {
 
   getEmptyClusterInfo(): ClusterInfo {
     return {
-      clusterName: 'n/a',
-      clusterStatus: 'n/a',
-      totalApplications: 'n/a',
-      failedApplications: 'n/a',
-      pendingApplications: 'n/a',
-      runningApplications: 'n/a',
-      completedApplications: 'n/a',
-      totalContainers: 'n/a',
-      failedContainers: 'n/a',
-      pendingContainers: 'n/a',
-      runningContainers: 'n/a',
-      activeNodes: 'n/a',
-      totalNodes: 'n/a',
-      failedNodes: 'n/a',
+      clusterName: NOT_AVAILABLE,
+      clusterStatus: NOT_AVAILABLE,
+      totalApplications: NOT_AVAILABLE,
+      failedApplications: NOT_AVAILABLE,
+      pendingApplications: NOT_AVAILABLE,
+      runningApplications: NOT_AVAILABLE,
+      completedApplications: NOT_AVAILABLE,
+      totalContainers: NOT_AVAILABLE,
+      failedContainers: NOT_AVAILABLE,
+      pendingContainers: NOT_AVAILABLE,
+      runningContainers: NOT_AVAILABLE,
+      activeNodes: NOT_AVAILABLE,
+      totalNodes: NOT_AVAILABLE,
+      failedNodes: NOT_AVAILABLE,
     };
   }
 }

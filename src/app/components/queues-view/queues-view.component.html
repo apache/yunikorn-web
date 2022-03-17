@@ -19,7 +19,10 @@
 <div class="top-part">
   <label class="part-label">Partition: </label>
   <mat-form-field>
-    <mat-select [(value)]="partitionSelected">
+    <mat-select
+      [(value)]="partitionSelected"
+      (selectionChange)="onPartitionSelectionChanged($event)"
+    >
       <mat-option *ngFor="let part of partitionList" [value]="part.value">
         {{ part.name }}
       </mat-option>
@@ -53,44 +56,48 @@
           </div>
           <div class="content" *ngIf="selectedQueue">
             <div class="flex-grid item-wrapper">
-              <div class="left-item">Queue Name:</div>
+              <div class="left-item">Name:</div>
               <div class="right-item">{{ selectedQueue.queueName }}</div>
             </div>
             <div class="flex-grid item-wrapper">
-              <div class="left-item">Queue State:</div>
-              <div class="right-item">{{ selectedQueue.state }}</div>
+              <div class="left-item">Status:</div>
+              <div class="right-item">{{ selectedQueue.status }}</div>
             </div>
             <div class="flex-grid item-wrapper">
-              <div class="left-item">Configured Capacity:</div>
+              <div class="left-item">Allocated:</div>
               <div
                 class="right-item"
-                [innerHTML]="resourceValueFormatter(selectedQueue.capacity)"
+                [innerHTML]="resourceValueFormatter(selectedQueue.allocatedResource)"
               ></div>
             </div>
             <div class="flex-grid item-wrapper">
-              <div class="left-item">Configured Max Capacity:</div>
+              <div class="left-item">Max:</div>
               <div
                 class="right-item"
-                [innerHTML]="resourceValueFormatter(selectedQueue.maxCapacity)"
+                [innerHTML]="resourceValueFormatter(selectedQueue.maxResource)"
               ></div>
             </div>
             <div class="flex-grid item-wrapper">
-              <div class="left-item">Used Capacity:</div>
+              <div class="left-item">Guaranteed:</div>
               <div
                 class="right-item"
-                [innerHTML]="resourceValueFormatter(selectedQueue.usedCapacity)"
+                [innerHTML]="resourceValueFormatter(selectedQueue.guaranteedResource)"
               ></div>
             </div>
-            <div class="flex-grid item-wrapper">
-              <div class="left-item">Absolute Used Capacity:</div>
-              <div
-                class="right-item"
-                [innerHTML]="resourceValueFormatter(selectedQueue.absoluteUsedCapacity)"
-              ></div>
-            </div>
-            <div class="flex-grid item-wrapper" *ngFor="let prop of selectedQueue.queueProperties">
+            <div class="flex-grid item-wrapper" *ngFor="let prop of selectedQueue.properties">
               <div class="left-item">{{ prop.name }}:</div>
               <div class="right-item">{{ prop.value }}</div>
+            </div>
+            <div class="flex-grid item-wrapper" *ngIf="selectedQueue.isLeaf">
+              <div class="left-item">Applications:</div>
+              <div class="right-item">
+                <a
+                  href="#"
+                  class="app-link"
+                  (click)="gotoApplicationsForPartitionAndQueue($event, selectedQueue.queueName)"
+                  >Link</a
+                >
+              </div>
             </div>
           </div>
         </mat-drawer-content>

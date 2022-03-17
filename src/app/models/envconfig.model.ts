@@ -17,6 +17,5 @@
  */
 
 export interface EnvConfig {
-  protocol?: string;
   localSchedulerWebAddress: string;
 }

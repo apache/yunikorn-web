@@ -16,13 +16,39 @@
  * limitations under the License.
  -->
 
-<div class="apps-view">
+<div class="top-section">
+  <div class="dropdown-wrapper">
+    <label class="dropdown-label">Partition: </label>
+    <mat-form-field>
+      <mat-select
+        [(value)]="partitionSelected"
+        (selectionChange)="onPartitionSelectionChanged($event)"
+      >
+        <mat-option *ngFor="let part of partitionList" [value]="part.value">
+          {{ part.name }}
+        </mat-option>
+      </mat-select>
+    </mat-form-field>
+  </div>
+  <div class="dropdown-wrapper">
+    <label class="dropdown-label">Queue: </label>
+    <mat-form-field>
+      <mat-select
+        [(value)]="leafQueueSelected"
+        (selectionChange)="onQueueSelectionChanged($event)"
+      >
+        <mat-option *ngFor="let queue of leafQueueList" [value]="queue.value">
+          {{ queue.name }}
+        </mat-option>
+      </mat-select>
+    </mat-form-field>
+  </div>
   <mat-form-field class="search-wrapper white-mat-form-field">
     <input
       matInput
       type="text"
       [(ngModel)]="searchText"
-      placeholder="Search By Application ID or Queue Name"
+      placeholder="Search By Application ID"
       #searchInput
     />
     <button
@@ -36,6 +62,27 @@
     </button>
     <i *ngIf="!searchText" class="fas fa-search search-icon"></i>
   </mat-form-field>
+</div>
+<div class="apps-view">
+  <!-- <mat-form-field class="search-wrapper white-mat-form-field">
+    <input
+      matInput
+      type="text"
+      [(ngModel)]="searchText"
+      placeholder="Search By Application ID"
+      #searchInput
+    />
+    <button
+      class="clear-btn"
+      *ngIf="searchText"
+      (click)="onClearSearch()"
+      matTooltip="Clear Search"
+      matTooltipShowDelay="500"
+    >
+      <i class="far fa-times-circle"></i>
+    </button>
+    <i *ngIf="!searchText" class="fas fa-search search-icon"></i>
+  </mat-form-field> -->
   <div class="mat-elevation-z8">
     <mat-table [dataSource]="appDataSource" matSort>
       <ng-container [matColumnDef]="columnDef.colId" *ngFor="let columnDef of appColumnDef">
