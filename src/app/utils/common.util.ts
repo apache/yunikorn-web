@@ -30,8 +30,18 @@ export class CommonUtil {
   }
 
   static formatMemory(value: number | string): string {
-    let unit = 'MB';
+    let unit = 'bytes';
     let toValue = +value;
+
+    if (toValue / 1000 >= 1) {
+      toValue = toValue / 1000;
+      unit = 'KB';
+    }
+
+    if (toValue / 1000 >= 1) {
+      toValue = toValue / 1000;
+      unit = 'MB';
+    }
 
     if (toValue / 1000 >= 1) {
       toValue = toValue / 1000;
