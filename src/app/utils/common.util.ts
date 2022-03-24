@@ -70,10 +70,10 @@ export class CommonUtil {
     const toValue = +value;
 
     if (toValue >= 10000) {
-      return `${(toValue / 1000).toFixed(1)} ${unit}`;
+      return `${(toValue / 1000).toLocaleString(undefined, { maximumFractionDigits: 1 })} ${unit}`;
     }
 
-    return toValue.toString();
+    return toValue.toLocaleString();
   }
 
   static resourceColumnFormatter(value: string): string {

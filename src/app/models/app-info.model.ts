@@ -16,17 +16,21 @@
  * limitations under the License.
  */
 
+import { NOT_AVAILABLE } from '@app/utils/constants';
 import * as moment from 'moment';
 import { AllocationInfo } from './alloc-info.model';
 
 export class AppInfo {
   isSelected = false;
+
   constructor(
     public applicationId: string,
     public usedResource: string,
+    public maxUsedResource: string,
     public partition: string,
     public queueName: string,
     public submissionTime: number,
+    public finishedTime: null | number,
     public applicationState: string,
     public allocations: AllocationInfo[] | null
   ) {}
@@ -34,6 +38,15 @@ export class AppInfo {
   get formattedSubmissionTime() {
     const millisecs = Math.round(this.submissionTime / (1000 * 1000));
     return moment(millisecs).format('YYYY/MM/DD HH:mm:ss');
+  }
+
+  get formattedFinishedTime() {
+    if (this.finishedTime) {
+      const millisecs = Math.round(this.finishedTime / (1000 * 1000));
+      return moment(millisecs).format('YYYY/MM/DD HH:mm:ss');
+    }
+
+    return NOT_AVAILABLE;
   }
 
   setAllocations(allocs: AllocationInfo[]) {
