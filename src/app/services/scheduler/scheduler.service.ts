@@ -25,7 +25,7 @@ import { QueueInfo, QueuePropertyItem } from '@app/models/queue-info.model';
 import { EnvconfigService } from '../envconfig/envconfig.service';
 import { ClusterInfo } from '@app/models/cluster-info.model';
 import { CommonUtil } from '@app/utils/common.util';
-import { ResourceInfo } from '@app/models/resource-info.model';
+import { SchedulerResourceInfo } from '@app/models/resource-info.model';
 import { AppInfo } from '@app/models/app-info.model';
 import { AllocationInfo } from '@app/models/alloc-info.model';
 import { HistoryInfo } from '@app/models/history-info.model';
@@ -88,10 +88,12 @@ export class SchedulerService {
           data.forEach(app => {
             const appInfo = new AppInfo(
               app['applicationID'],
-              this.formatCapacity(this.splitCapacity(app['usedResource'], NOT_AVAILABLE)),
+              this.formatResource(app['usedResource'] as SchedulerResourceInfo),
+              this.formatResource(app['maxUsedResource'] as SchedulerResourceInfo),
               app['partition'],
               app['queueName'],
               app['submissionTime'],
+              app['finishedTime'],
               app['applicationState'],
               []
             );
@@ -116,7 +118,7 @@ export class SchedulerService {
                     alloc['allocationKey'],
                     alloc['allocationTags'],
                     alloc['uuid'],
-                    this.formatCapacity(this.splitCapacity(alloc['resource'], NOT_AVAILABLE)),
+                    this.formatResource(alloc['resource'] as SchedulerResourceInfo),
                     alloc['priority'],
                     alloc['queueName'],
                     alloc['nodeId'],
@@ -188,11 +190,11 @@ export class SchedulerService {
               node['hostName'],
               node['rackName'],
               node['partition'] || NOT_AVAILABLE,
-              this.formatCapacity(this.splitCapacity(node['capacity'], NOT_AVAILABLE)),
-              this.formatCapacity(this.splitCapacity(node['allocated'], NOT_AVAILABLE)),
-              this.formatCapacity(this.splitCapacity(node['occupied'], NOT_AVAILABLE)),
-              this.formatCapacity(this.splitCapacity(node['available'], NOT_AVAILABLE)),
-              this.formatCapacity(this.splitCapacity(node['utilized'], NOT_AVAILABLE)),
+              this.formatResource(node['capacity'] as SchedulerResourceInfo),
+              this.formatResource(node['allocated'] as SchedulerResourceInfo),
+              this.formatResource(node['occupied'] as SchedulerResourceInfo),
+              this.formatResource(node['available'] as SchedulerResourceInfo),
+              this.formatResource(node['utilized'] as SchedulerResourceInfo),
               []
             );
 
@@ -219,7 +221,7 @@ export class SchedulerService {
                     alloc['allocationKey'],
                     alloc['allocationTags'],
                     alloc['uuid'],
-                    this.formatCapacity(this.splitCapacity(alloc['resource'], NOT_AVAILABLE)),
+                    this.formatResource(alloc['resource'] as SchedulerResourceInfo),
                     alloc['priority'],
                     alloc['queueName'],
                     alloc['nodeId'],
@@ -267,16 +269,12 @@ export class SchedulerService {
   }
 
   private fillQueueResources(data: any, queue: QueueInfo) {
-    const maxResource = data['maxResource'] as string;
-    const guaranteedResource = data['guaranteedResource'] as string;
-    const allocatedResource = data['allocatedResource'] as string;
-    queue.maxResource = this.formatCapacity(this.splitCapacity(maxResource, NOT_AVAILABLE));
-    queue.guaranteedResource = this.formatCapacity(
-      this.splitCapacity(guaranteedResource, NOT_AVAILABLE)
-    );
-    queue.allocatedResource = this.formatCapacity(
-      this.splitCapacity(allocatedResource, NOT_AVAILABLE)
-    );
+    const maxResource = data['maxResource'] as SchedulerResourceInfo;
+    const guaranteedResource = data['guaranteedResource'] as SchedulerResourceInfo;
+    const allocatedResource = data['allocatedResource'] as SchedulerResourceInfo;
+    queue.maxResource = this.formatResource(maxResource);
+    queue.guaranteedResource = this.formatResource(guaranteedResource);
+    queue.allocatedResource = this.formatResource(allocatedResource);
   }
 
   private fillQueuePropertiesAndTemplate(data: any, queue: QueueInfo) {
@@ -300,59 +298,21 @@ export class SchedulerService {
     }
   }
 
-  private splitCapacity(capacity: string = '', defaultValue: string): ResourceInfo {
-    const splitted = capacity
-      .replace('map', '')
-      .replace(/[\[\]]/g, '')
-      .split(' ');
-
-    const resources: ResourceInfo = {
-      memory: defaultValue,
-      vcore: defaultValue,
-    };
-
-    for (const resource of splitted) {
-      if (resource) {
-        const values = resource.split(':');
-        if (values[0] === 'memory' && values[1] !== '') {
-          resources.memory = values[1];
-        }
-        if (values[0] === 'vcore' && values[1] !== '') {
-          resources.vcore = values[1];
-        }
-      }
-    }
-
-    return resources;
-  }
-
-  private formatCapacity(resourceInfo: ResourceInfo) {
+  private formatResource(resource: SchedulerResourceInfo): string {
     const formatted = [];
-    if (resourceInfo.memory !== NOT_AVAILABLE) {
-      formatted.push(`Memory: ${CommonUtil.formatMemory(resourceInfo.memory)}`);
-    } else {
-      formatted.push(`Memory: ${resourceInfo.memory}`);
-    }
-    if (resourceInfo.vcore !== NOT_AVAILABLE) {
-      formatted.push(`CPU: ${CommonUtil.formatCount(resourceInfo.vcore)}`);
-    } else {
-      formatted.push(`CPU: ${resourceInfo.vcore}`);
-    }
-    return formatted.join(', ');
-  }
 
-  private formatAbsCapacity(resourceInfo: ResourceInfo) {
-    const formatted = [];
-    if (resourceInfo.memory !== NOT_AVAILABLE) {
-      formatted.push(`Memory: ${resourceInfo.memory}%`);
+    if (resource && resource.memory !== undefined) {
+      formatted.push(`Memory: ${CommonUtil.formatMemory(resource.memory)}`);
     } else {
-      formatted.push(`Memory: ${resourceInfo.memory}`);
+      formatted.push(`Memory: ${NOT_AVAILABLE}`);
     }
-    if (resourceInfo.vcore !== NOT_AVAILABLE) {
-      formatted.push(`CPU: ${resourceInfo.vcore}%`);
+
+    if (resource && resource.vcore !== undefined) {
+      formatted.push(`CPU: ${CommonUtil.formatCount(resource.vcore)}`);
     } else {
-      formatted.push(`CPU: ${resourceInfo.vcore}`);
+      formatted.push(`CPU: ${NOT_AVAILABLE}`);
     }
+
     return formatted.join(', ');
   }
 }

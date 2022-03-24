@@ -20,9 +20,9 @@
     "queuename": "root",
     "status": "Active",
     "partition": "default",
-    "maxResource": "[]",
-    "guaranteedResource": "[]",
-    "allocatedResource": "[]",
+    "maxResource": {},
+    "guaranteedResource": {},
+    "allocatedResource": {},
     "isLeaf": false,
     "isManaged": true,
     "properties": {
@@ -30,8 +30,12 @@
     },
     "parent": "",
     "template": {
-      "maxResource": "[memory:600000]",
-      "guaranteedResource": "[memory:400000]",
+      "maxResource": {
+        "memory": 600000
+      },
+      "guaranteedResource": {
+        "memory": 400000
+      },
       "properties": {
         "application.sort.policy": "stateaware"
       }
@@ -41,9 +45,15 @@
         "queuename": "root.a",
         "status": "Active",
         "partition": "",
-        "maxResource": "[memory:800000 vcore:80000]",
-        "guaranteedResource": "[memory:500000 vcore:50000]",
-        "allocatedResource": "[]",
+        "maxResource": {
+          "memory": 800000,
+          "vcore": 80000000
+        },
+        "guaranteedResource": {
+          "memory": 500000,
+          "vcore": 50000000
+        },
+        "allocatedResource": {},
         "isLeaf": false,
         "isManaged": true,
         "properties": {
@@ -51,8 +61,12 @@
         },
         "parent": "root",
         "template": {
-          "maxResource": "[memory:600000]",
-          "guaranteedResource": "[memory:400000]",
+          "maxResource": {
+            "memory": 600000
+          },
+          "guaranteedResource": {
+            "memory": 400000
+          },
           "properties": {
             "application.sort.policy": "stateaware"
           }
@@ -62,9 +76,15 @@
             "queuename": "root.a.a1",
             "status": "Active",
             "partition": "",
-            "maxResource": "[memory:800000 vcore:80000]",
-            "guaranteedResource": "[memory:500000 vcore:50000]",
-            "allocatedResource": "[]",
+            "maxResource": {
+              "memory": 800000,
+              "vcore": 80000000
+            },
+            "guaranteedResource": {
+              "memory": 500000,
+              "vcore": 50000000
+            },
+            "allocatedResource": {},
             "isLeaf": true,
             "isManaged": true,
             "properties": {
@@ -72,17 +92,25 @@
             },
             "parent": "root.a",
             "template": null,
-            "children": []
+            "children": [],
+            "absUsedCapacity": {}
           }
-        ]
+        ],
+        "absUsedCapacity": {}
       },
       {
         "queuename": "root.b",
         "status": "Active",
         "partition": "",
-        "maxResource": "[memory:600000 vcore:60000]",
-        "guaranteedResource": "[memory:400000 vcore:40000]",
-        "allocatedResource": "[]",
+        "maxResource": {
+          "memory": 600000,
+          "vcore": 60000000
+        },
+        "guaranteedResource": {
+          "memory": 400000,
+          "vcore": 40000000
+        },
+        "allocatedResource": {},
         "isLeaf": true,
         "isManaged": true,
         "properties": {
@@ -90,15 +118,22 @@
         },
         "parent": "root",
         "template": null,
-        "children": []
+        "children": [],
+        "absUsedCapacity": {}
       },
       {
         "queuename": "root.c",
         "status": "Active",
         "partition": "",
-        "maxResource": "[memory:100000 vcore:10000]",
-        "guaranteedResource": "[memory:100000 vcore:10000]",
-        "allocatedResource": "[]",
+        "maxResource": {
+          "memory": 100000,
+          "vcore": 10000000
+        },
+        "guaranteedResource": {
+          "memory": 100000,
+          "vcore": 10000000
+        },
+        "allocatedResource": {},
         "isLeaf": true,
         "isManaged": true,
         "properties": {
@@ -106,32 +141,44 @@
         },
         "parent": "root",
         "template": null,
-        "children": []
+        "children": [],
+        "absUsedCapacity": {}
       }
-    ]
+    ],
+    "absUsedCapacity": {}
   },
   "apps": [
     {
       "applicationID": "app-4",
-      "usedResource": "[]",
+      "usedResource": {},
+      "maxUsedResource": {},
       "partition": "default",
       "queueName": "root.default",
       "submissionTime": 1646038700214288000,
+      "finishedTime": null,
       "allocations": [],
       "applicationState": "New"
     },
     {
       "applicationID": "app-1",
-      "usedResource": "[memory:50 vcore:30]",
+      "usedResource": {
+        "memory": 50,
+        "vcore": 30
+      },
+      "maxUsedResource": {},
       "partition": "default",
       "queueName": "root.default",
-      "submissionTime": 1646038700213796000,
+      "submissionTime": 1647932353565263000,
+      "finishedTime": 1647932353565363000,
       "allocations": [
         {
           "allocationKey": "54e5d77b-f4c3-4607-8038-03c9499dd99d",
           "allocationTags": null,
           "uuid": "08033f9a-4699-403c-9204-6333856b41bd",
-          "resource": "[memory:50 vcore:30]",
+          "resource": {
+            "memory": 50,
+            "vcore": 30
+          },
           "priority": "<nil>",
           "queueName": "root.default",
           "nodeId": "node-0001",
@@ -143,25 +190,34 @@
     },
     {
       "applicationID": "app-3",
-      "usedResource": "",
+      "usedResource": {},
+      "maxUsedResource": {},
       "partition": "default",
       "queueName": "root.default",
-      "submissionTime": 1646038700214204000,
+      "submissionTime": 1647932353565263000,
+      "finishedTime": 1647932353565363000,
       "allocations": [],
       "applicationState": "New"
     },
     {
       "applicationID": "app-2",
-      "usedResource": "[memory:30 vcore:30]",
+      "usedResource": {
+        "memory": 30,
+        "vcore": 30
+      },
       "partition": "default",
       "queueName": "root.default",
-      "submissionTime": 1646038700214057000,
+      "submissionTime": 1647932353565263000,
+      "finishedTime": 1647932353565363000,
       "allocations": [
         {
           "allocationKey": "54e5d77b-f4c3-4607-8038-03c9499dd99d",
           "allocationTags": null,
           "uuid": "08033f9a-4699-403c-9204-6333844444bd",
-          "resource": "[memory:10 vcore:10]",
+          "resource": {
+            "memory": 10,
+            "vcore": 10
+          },
           "priority": "<nil>",
           "queueName": "root.default",
           "nodeId": "node-0001",
@@ -172,7 +228,10 @@
           "allocationKey": "54e5d77b-f4c3-4607-8038-03c9499dd99d",
           "allocationTags": null,
           "uuid": "08033f9a-4699-403c-9204-6333846844bd",
-          "resource": "[memory:10 vcore:10]",
+          "resource": {
+            "memory": 10,
+            "vcore": 10
+          },
           "priority": "<nil>",
           "queueName": "root.default",
           "nodeId": "node-0001",
@@ -183,7 +242,10 @@
           "allocationKey": "54e5d77b-f4c3-4607-8038-03c9499dd99d",
           "allocationTags": null,
           "uuid": "08033f9a-4699-403c-9204-63338844888d",
-          "resource": "[memory:10 vcore:10]",
+          "resource": {
+            "memory": 10,
+            "vcore": 10
+          },
           "priority": "<nil>",
           "queueName": "root.default",
           "nodeId": "node-0001",
@@ -251,17 +313,43 @@
       "nodeID": "node-1",
       "hostName": "",
       "rackName": "",
-      "capacity": "[memory:1000 vcore:1000]",
-      "allocated": "[memory:500 vcore:300]",
-      "occupied": "[]",
-      "available": "[memory:500 vcore:700]",
-      "utilized": "[memory:50 vcore:30]",
+      "capacity": {
+        "ephemeral-storage": 62725623808,
+        "hugepages-1Gi": 0,
+        "hugepages-2Mi": 0,
+        "memory": 2081755136,
+        "pods": 110,
+        "vcore": 6000
+      },
+      "allocated": {
+        "memory": 0,
+        "vcore": 0
+      },
+      "occupied": {
+        "memory": 577716800,
+        "vcore": 200
+      },
+      "available": {
+        "ephemeral-storage": 62725623808,
+        "hugepages-1Gi": 0,
+        "hugepages-2Mi": 0,
+        "memory": 1504038336,
+        "pods": 110,
+        "vcore": 5800
+      },
+      "utilized": {
+        "memory": 0,
+        "vcore": 0
+      },
       "allocations": [
         {
           "allocationKey": "alloc-1",
           "allocationTags": null,
           "uuid": "alloc-1-uuid",
-          "resource": "[memory:500 vcore:300]",
+          "resource": {
+            "memory": 500,
+            "vcore": 300
+          },
           "priority": "0",
           "queueName": "root.default",
           "nodeId": "node-1",
@@ -275,17 +363,43 @@
       "nodeID": "node-2",
       "hostName": "",
       "rackName": "",
-      "capacity": "[memory:1000 vcore:1000]",
-      "allocated": "[memory:300 vcore:500]",
-      "occupied": "[]",
-      "available": "[memory:700 vcore:500]",
-      "utilized": "[memory:30 vcore:50]",
+      "capacity": {
+        "ephemeral-storage": 62725623808,
+        "hugepages-1Gi": 0,
+        "hugepages-2Mi": 0,
+        "memory": 2081755136,
+        "pods": 110,
+        "vcore": 6000
+      },
+      "allocated": {
+        "memory": 0,
+        "vcore": 0
+      },
+      "occupied": {
+        "memory": 577716800,
+        "vcore": 200
+      },
+      "available": {
+        "ephemeral-storage": 62725623808,
+        "hugepages-1Gi": 0,
+        "hugepages-2Mi": 0,
+        "memory": 1504038336,
+        "pods": 110,
+        "vcore": 5800
+      },
+      "utilized": {
+        "memory": 0,
+        "vcore": 0
+      },
       "allocations": [
         {
           "allocationKey": "alloc-2",
           "allocationTags": null,
           "uuid": "alloc-2-uuid",
-          "resource": "[memory:300 vcore:500]",
+          "resource": {
+            "memory": 500,
+            "vcore": 300
+          },
           "priority": "0",
           "queueName": "root.default",
           "nodeId": "node-2",

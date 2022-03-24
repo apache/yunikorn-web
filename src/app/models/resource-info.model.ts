@@ -20,3 +20,8 @@ export interface ResourceInfo {
   memory: string;
   vcore: string;
 }
+
+export interface SchedulerResourceInfo {
+  memory: number;
+  vcore: number;
+}
