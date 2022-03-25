@@ -20,7 +20,7 @@
 YuniKorn web provides a web interface on top of the scheduler. It provides insight in the current and historic scheduler status.
 It depends on `yunikorn-core` which encapsulates all the actual scheduling logic.
 
-For detailed information on the components and how to build the overall scheduler please see the [yunikorn-core](https://github.com/apache/incubator-yunikorn-core).
+For detailed information on the components and how to build the overall scheduler please see the [yunikorn-core](https://github.com/apache/yunikorn-core).
 
 This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 8.3.19.
 
