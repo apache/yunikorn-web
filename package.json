@@ -38,7 +38,7 @@
     "@angular/router": "~8.2.14",
     "chart.js": "^2.9.3",
     "core-js": "^3.6.0",
-    "moment": "^2.24.0",
+    "moment": "^2.29.2",
     "ngx-spinner": "^8.1.0",
     "rxjs": "~6.4.0",
     "tslib": "^1.10.0",
