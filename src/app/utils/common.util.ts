@@ -62,7 +62,7 @@ export class CommonUtil {
   }
 
   static formatPercent(value: number | string): string {
-    let toValue = +value;
+    const toValue = +value;
     return `${toValue.toFixed(0)}%`;
   }
 
