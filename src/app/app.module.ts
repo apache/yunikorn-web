@@ -16,28 +16,27 @@
  * limitations under the License.
  */
 
-import { NgModule, APP_INITIALIZER } from '@angular/core';
+import { NgModule, APP_INITIALIZER, CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
+import { CommonModule } from '@angular/common';
 import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { NgxSpinnerModule } from 'ngx-spinner';
 import { FormsModule } from '@angular/forms';
-import {
-  MatCardModule,
-  MatTabsModule,
-  MatSelectModule,
-  MatDividerModule,
-  MatListModule,
-  MatProgressBarModule,
-  MatSidenavModule,
-  MatTableModule,
-  MatPaginatorModule,
-  MatSortModule,
-  MatInputModule,
-  MatTooltipModule,
-  MatMenuModule,
-  MatButtonModule,
-} from '@angular/material';
+import { MatCardModule } from '@angular/material/card';
+import { MatTabsModule } from '@angular/material/tabs';
+import { MatSelectModule } from '@angular/material/select';
+import { MatDividerModule } from '@angular/material/divider';
+import { MatListModule } from '@angular/material/list';
+import { MatProgressBarModule } from '@angular/material/progress-bar';
+import { MatSidenavModule } from '@angular/material/sidenav';
+import { MatTableModule } from '@angular/material/table';
+import { MatPaginatorModule } from '@angular/material/paginator';
+import { MatSortModule } from '@angular/material/sort';
+import { MatInputModule } from '@angular/material/input';
+import { MatTooltipModule } from '@angular/material/tooltip';
+import { MatMenuModule } from '@angular/material/menu';
+import { MatButtonModule } from '@angular/material/button';
 
 import { AppRoutingModule } from './app-routing.module';
 import { envConfigFactory, EnvconfigService } from './services/envconfig/envconfig.service';
@@ -74,6 +73,7 @@ import { ErrorViewComponent } from './components/error-view/error-view.component
   ],
   imports: [
     BrowserModule,
+    CommonModule,
     BrowserAnimationsModule,
     HttpClientModule,
     NgxSpinnerModule,
@@ -108,5 +108,6 @@ import { ErrorViewComponent } from './components/error-view/error-view.component
     },
   ],
   bootstrap: [AppComponent],
+  schemas: [CUSTOM_ELEMENTS_SCHEMA],
 })
 export class AppModule {}

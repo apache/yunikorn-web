@@ -22,7 +22,9 @@ import { RouterTestingModule } from '@angular/router/testing';
 import { configureTestSuite } from 'ng-bullet';
 import { MockComponent } from 'ng-mocks';
 import { NgxSpinnerService } from 'ngx-spinner';
-import { MatDividerModule, MatSelectModule, MatSidenavModule } from '@angular/material';
+import { MatDividerModule } from '@angular/material/divider';
+import { MatSelectModule } from '@angular/material/select';
+import { MatSidenavModule } from '@angular/material/sidenav';
 
 import { QueuesViewComponent } from './queues-view.component';
 import { QueueRackComponent } from '@app/components/queue-rack/queue-rack.component';

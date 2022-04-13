@@ -23,15 +23,13 @@ import { HAMMER_LOADER } from '@angular/platform-browser';
 import { NgxSpinnerService } from 'ngx-spinner';
 import { configureTestSuite } from 'ng-bullet';
 import { FormsModule } from '@angular/forms';
-import {
-  MatTableModule,
-  MatPaginatorModule,
-  MatDividerModule,
-  MatSortModule,
-  MatInputModule,
-  MatTooltipModule,
-  MatSelectModule,
-} from '@angular/material';
+import { MatTableModule } from '@angular/material/table';
+import { MatPaginatorModule } from '@angular/material/paginator';
+import { MatDividerModule } from '@angular/material/divider';
+import { MatSortModule } from '@angular/material/sort';
+import { MatInputModule } from '@angular/material/input';
+import { MatTooltipModule } from '@angular/material/tooltip';
+import { MatSelectModule } from '@angular/material/select';
 
 import { AppsViewComponent } from './apps-view.component';
 import { SchedulerService } from '@app/services/scheduler/scheduler.service';

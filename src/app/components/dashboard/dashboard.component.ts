@@ -44,8 +44,8 @@ export class DashboardComponent implements OnInit {
   appHistoryData: AreaDataItem[] = [];
   containerHistoryData: AreaDataItem[] = [];
   clusterInfo: ClusterInfo = this.getEmptyClusterInfo();
-  initialAppHistory: HistoryInfo[];
-  initialContainerHistory: HistoryInfo[];
+  initialAppHistory: HistoryInfo[] = [];
+  initialContainerHistory: HistoryInfo[] = [];
 
   constructor(
     private scheduler: SchedulerService,
@@ -63,7 +63,7 @@ export class DashboardComponent implements OnInit {
           this.spinner.hide();
         })
       )
-      .subscribe(list => {
+      .subscribe((list) => {
         this.clusterList = list;
 
         if (list && list[0]) {
@@ -74,7 +74,7 @@ export class DashboardComponent implements OnInit {
         }
       });
 
-    this.scheduler.fetchPartitionList().subscribe(list => {
+    this.scheduler.fetchPartitionList().subscribe((list) => {
       this.partitionList = list;
 
       if (list && list[0]) {
@@ -89,12 +89,12 @@ export class DashboardComponent implements OnInit {
       }
     });
 
-    this.scheduler.fetchAppHistory().subscribe(data => {
+    this.scheduler.fetchAppHistory().subscribe((data) => {
       this.initialAppHistory = data;
       this.appHistoryData = this.getAreaChartData(data);
     });
 
-    this.scheduler.fetchContainerHistory().subscribe(data => {
+    this.scheduler.fetchContainerHistory().subscribe((data) => {
       this.initialContainerHistory = data;
       this.containerHistoryData = this.getAreaChartData(data);
     });
@@ -125,7 +125,7 @@ export class DashboardComponent implements OnInit {
   }
 
   getAreaChartData(data: HistoryInfo[]): AreaDataItem[] {
-    return data ? data.map(d => new AreaDataItem(d.value, new Date(d.timestamp))) : [];
+    return data ? data.map((d) => new AreaDataItem(d.value, new Date(d.timestamp))) : [];
   }
 
   getEmptyClusterInfo(): ClusterInfo {

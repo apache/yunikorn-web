@@ -25,13 +25,35 @@ import {
   SimpleChanges,
   OnDestroy,
 } from '@angular/core';
-import Chart from 'chart.js';
 import { Subject } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
+import {
+  Chart,
+  LineElement,
+  PointElement,
+  LineController,
+  LinearScale,
+  TimeSeriesScale,
+  Filler,
+  Legend,
+  Title,
+} from 'chart.js';
+import 'chartjs-adapter-date-fns';
 
 import { CommonUtil } from '@app/utils/common.util';
 import { AreaDataItem } from '@app/models/area-data.model';
 import { EventBusService, EventMap } from '@app/services/event-bus/event-bus.service';
+
+Chart.register(
+  LineElement,
+  PointElement,
+  LineController,
+  LinearScale,
+  TimeSeriesScale,
+  Filler,
+  Legend,
+  Title
+);
 
 @Component({
   selector: 'app-area-chart',
@@ -41,8 +63,9 @@ import { EventBusService, EventMap } from '@app/services/event-bus/event-bus.ser
 export class AreaChartComponent implements OnInit, AfterViewInit, OnChanges, OnDestroy {
   destroy$ = new Subject<boolean>();
 
-  chartContainerId: string;
-  areaChartData: AreaDataItem[];
+  chartContainerId = '';
+  areaChartData: AreaDataItem[] = [];
+  areaChart: Chart<'line', AreaDataItem[], unknown> | undefined;
 
   @Input() data: AreaDataItem[] = [];
   @Input() color = '#72bdd7';
@@ -71,8 +94,12 @@ export class AreaChartComponent implements OnInit, AfterViewInit, OnChanges, OnD
   }
 
   ngOnChanges(changes: SimpleChanges) {
-    if (changes.data && changes.data.currentValue && changes.data.currentValue.length > 0) {
-      this.areaChartData = changes.data.currentValue;
+    if (
+      changes['data'] &&
+      changes['data'].currentValue &&
+      changes['data'].currentValue.length > 0
+    ) {
+      this.areaChartData = changes['data'].currentValue;
       this.renderChart(this.areaChartData);
     }
   }
@@ -86,7 +113,11 @@ export class AreaChartComponent implements OnInit, AfterViewInit, OnChanges, OnD
       '2d'
     );
 
-    const chart = new Chart(ctx, {
+    if (this.areaChart) {
+      this.areaChart.destroy();
+    }
+
+    this.areaChart = new Chart(ctx!, {
       type: 'line',
       data: {
         datasets: [
@@ -105,16 +136,6 @@ export class AreaChartComponent implements OnInit, AfterViewInit, OnChanges, OnD
         responsive: true,
         spanGaps: false,
         maintainAspectRatio: false,
-        animation: {
-          animateScale: true,
-          animateRotate: true,
-        },
-        legend: {
-          display: true,
-        },
-        title: {
-          display: false,
-        },
         elements: {
           line: {
             tension: 0.4,
@@ -124,20 +145,32 @@ export class AreaChartComponent implements OnInit, AfterViewInit, OnChanges, OnD
           filler: {
             propagate: false,
           },
+          legend: {
+            display: true,
+          },
+          title: {
+            display: false,
+          },
+          tooltip: {
+            position: 'nearest',
+          },
         },
         scales: {
-          xAxes: [
-            {
-              type: 'time',
-              time: {
-                unit: 'minute',
-              },
+          x: {
+            type: 'timeseries',
+            time: {
+              unit: 'minute',
             },
-          ],
+          },
+          y: {
+            ticks: {
+              stepSize: 1,
+            },
+          },
         },
       },
     });
 
-    chart.update();
+    this.areaChart.update();
   }
 }

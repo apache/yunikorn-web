@@ -26,8 +26,7 @@ import { AreaDataItem } from '@app/models/area-data.model';
   styleUrls: ['./container-history.component.scss'],
 })
 export class ContainerHistoryComponent implements OnInit {
-  @Input()
-  chartData: AreaDataItem[];
+  @Input() chartData: AreaDataItem[] = [];
 
   constructor() {}
 

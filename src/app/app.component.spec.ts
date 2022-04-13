@@ -20,7 +20,8 @@ import { TestBed, ComponentFixture } from '@angular/core/testing';
 import { RouterTestingModule } from '@angular/router/testing';
 import { NgxSpinnerModule } from 'ngx-spinner';
 import { configureTestSuite } from 'ng-bullet';
-import { MatMenuModule, MatTooltipModule } from '@angular/material';
+import { MatMenuModule } from '@angular/material/menu';
+import { MatTooltipModule } from '@angular/material/tooltip';
 import { HAMMER_LOADER } from '@angular/platform-browser';
 
 import { AppComponent } from './app.component';

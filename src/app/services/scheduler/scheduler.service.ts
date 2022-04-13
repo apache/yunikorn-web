@@ -41,12 +41,12 @@ export class SchedulerService {
 
   fetchClusterList(): Observable<ClusterInfo[]> {
     const clusterUrl = `${this.envConfig.getSchedulerWebAddress()}/ws/v1/clusters`;
-    return this.httpClient.get(clusterUrl).pipe(map(data => data as ClusterInfo[]));
+    return this.httpClient.get(clusterUrl).pipe(map((data) => data as ClusterInfo[]));
   }
 
   fetchPartitionList(): Observable<Partition[]> {
     const partitionUrl = `${this.envConfig.getSchedulerWebAddress()}/ws/v1/partitions`;
-    return this.httpClient.get(partitionUrl).pipe(map(data => data as Partition[]));
+    return this.httpClient.get(partitionUrl).pipe(map((data) => data as Partition[]));
   }
 
   fetchSchedulerQueues(partitionName: string): Observable<any> {
@@ -83,9 +83,10 @@ export class SchedulerService {
 
     return this.httpClient.get(appsUrl).pipe(
       map((data: any) => {
-        const result = [];
+        const result: AppInfo[] = [];
+
         if (data && data.length > 0) {
-          data.forEach(app => {
+          data.forEach((app: any) => {
             const appInfo = new AppInfo(
               app['applicationID'],
               this.formatResource(app['usedResource'] as SchedulerResourceInfo),
@@ -99,8 +100,9 @@ export class SchedulerService {
             );
             const allocations = app['allocations'];
             if (allocations && allocations.length > 0) {
-              const appAllocations = [];
-              allocations.forEach(alloc => {
+              const appAllocations: AllocationInfo[] = [];
+
+              allocations.forEach((alloc: any) => {
                 if (
                   alloc.allocationTags &&
                   alloc.allocationTags['kubernetes.io/meta/namespace'] &&
@@ -112,6 +114,7 @@ export class SchedulerService {
                 } else {
                   alloc['displayName'] = `<nil>`;
                 }
+
                 appAllocations.push(
                   new AllocationInfo(
                     alloc['displayName'],
@@ -127,8 +130,10 @@ export class SchedulerService {
                   )
                 );
               });
+
               appInfo.setAllocations(appAllocations);
             }
+
             result.push(appInfo);
           });
         }
@@ -141,11 +146,11 @@ export class SchedulerService {
   fetchAppHistory(): Observable<HistoryInfo[]> {
     const appHistoryUrl = `${this.envConfig.getSchedulerWebAddress()}/ws/v1/history/apps`;
     return this.httpClient.get(appHistoryUrl).pipe(
-      map((data: any[]) => {
-        const result = [];
+      map((data: any) => {
+        const result: HistoryInfo[] = [];
 
         if (data && data.length) {
-          data.forEach(history => {
+          data.forEach((history: any) => {
             result.push(
               new HistoryInfo(Math.floor(history.timestamp / 1e6), +history.totalApplications)
             );
@@ -160,11 +165,11 @@ export class SchedulerService {
   fetchContainerHistory(): Observable<HistoryInfo[]> {
     const containerHistoryUrl = `${this.envConfig.getSchedulerWebAddress()}/ws/v1/history/containers`;
     return this.httpClient.get(containerHistoryUrl).pipe(
-      map((data: any[]) => {
-        const result = [];
+      map((data: any) => {
+        const result: HistoryInfo[] = [];
 
         if (data && data.length) {
-          data.forEach(history => {
+          data.forEach((history: any) => {
             result.push(
               new HistoryInfo(Math.floor(history.timestamp / 1e6), +history.totalContainers)
             );
@@ -181,10 +186,10 @@ export class SchedulerService {
 
     return this.httpClient.get(nodesUrl).pipe(
       map((data: any) => {
-        const result = [];
+        const result: NodeInfo[] = [];
 
         if (data && data.length > 0) {
-          data.forEach(node => {
+          data.forEach((node: any) => {
             const nodeInfo = new NodeInfo(
               node['nodeID'],
               node['hostName'],
@@ -201,9 +206,9 @@ export class SchedulerService {
             const allocations = node['allocations'];
 
             if (allocations && allocations.length > 0) {
-              const appAllocations = [];
+              const appAllocations: AllocationInfo[] = [];
 
-              allocations.forEach(alloc => {
+              allocations.forEach((alloc: any) => {
                 if (
                   alloc.allocationTags &&
                   alloc.allocationTags['kubernetes.io/meta/namespace'] &&
@@ -215,6 +220,7 @@ export class SchedulerService {
                 } else {
                   alloc['displayName'] = '<nil>';
                 }
+
                 appAllocations.push(
                   new AllocationInfo(
                     alloc['displayName'],
@@ -245,9 +251,9 @@ export class SchedulerService {
 
   private generateQueuesTree(data: any, currentQueue: QueueInfo) {
     if (data && data.children && data.children.length > 0) {
-      const chilrenQs = [];
+      const chilrenQs: QueueInfo[] = [];
 
-      data.children.forEach(queueData => {
+      data.children.forEach((queueData: any) => {
         const childQueue = new QueueInfo();
 
         childQueue.queueName = queueData.queuename as string;
@@ -281,7 +287,7 @@ export class SchedulerService {
     if (data.properties && !CommonUtil.isEmpty(data.properties)) {
       const dataProps = Object.entries<string>(data.properties);
 
-      queue.properties = dataProps.map(prop => {
+      queue.properties = dataProps.map((prop) => {
         return {
           name: prop[0],
           value: prop[1],

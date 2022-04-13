@@ -26,8 +26,8 @@ import { ApiErrorInfo } from '@app/models/api-error-info.model';
   styleUrls: ['./error-view.component.scss'],
 })
 export class ErrorViewComponent implements OnInit {
-  apiError: ApiErrorInfo;
-  lastActiveUrl: string;
+  apiError: ApiErrorInfo | null = null;
+  lastActiveUrl = '';
 
   constructor(private activatedRoute: ActivatedRoute, private router: Router) {}
 

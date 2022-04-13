@@ -42,11 +42,14 @@ export class EnvconfigService {
     this.uiProtocol = window.location.protocol;
     this.uiHostname = window.location.hostname;
     this.uiPort = window.location.port;
+    this.envConfig = {
+      localSchedulerWebAddress: 'http://localhost:9889',
+    };
   }
 
   loadEnvConfig(): Promise<void> {
-    return new Promise(resolve => {
-      this.httpClient.get<EnvConfig>(ENV_CONFIG_JSON_URL).subscribe(data => {
+    return new Promise((resolve) => {
+      this.httpClient.get<EnvConfig>(ENV_CONFIG_JSON_URL).subscribe((data) => {
         this.envConfig = data;
         resolve();
       });

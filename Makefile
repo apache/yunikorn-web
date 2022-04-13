@@ -70,8 +70,7 @@ build:
 
 # Run the tests after building
 test: build
-	ng test
-	ng e2e
+	yarn test:singleRun
 
 # Build the web interface in a production ready version
 .PHONY: build-prod
@@ -82,6 +81,7 @@ build-prod:
 .PHONY: clean
 clean:
 	rm -rf ./dist
+	rm -rf ./coverage
 	rm -rf ./node_modules
 	rm -rf ./out
 	rm -rf ./out-tsc

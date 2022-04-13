@@ -16,7 +16,7 @@
  * limitations under the License.
  */
 
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { NgxSpinnerService } from 'ngx-spinner';
 import { configureTestSuite } from 'ng-bullet';
@@ -25,13 +25,11 @@ import { NodesViewComponent } from './nodes-view.component';
 import { SchedulerService } from '@app/services/scheduler/scheduler.service';
 import { HAMMER_LOADER } from '@angular/platform-browser';
 import { MockSchedulerService, MockNgxSpinnerService } from '@app/testing/mocks';
-import {
-  MatTableModule,
-  MatPaginatorModule,
-  MatDividerModule,
-  MatSortModule,
-  MatSelectModule,
-} from '@angular/material';
+import { MatTableModule } from '@angular/material/table';
+import { MatPaginatorModule } from '@angular/material/paginator';
+import { MatDividerModule } from '@angular/material/divider';
+import { MatSortModule } from '@angular/material/sort';
+import { MatSelectModule } from '@angular/material/select';
 
 describe('NodesViewComponent', () => {
   let component: NodesViewComponent;

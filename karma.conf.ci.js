@@ -21,7 +21,7 @@
 
 process.env.CHROME_BIN = require('puppeteer').executablePath();
 
-module.exports = function(config) {
+module.exports = function (config) {
   config.set({
     basePath: '',
     frameworks: ['jasmine', '@angular-devkit/build-angular'],
@@ -29,21 +29,22 @@ module.exports = function(config) {
       require('karma-jasmine'),
       require('karma-chrome-launcher'),
       require('karma-jasmine-html-reporter'),
+      require('karma-coverage'),
       require('karma-coverage-istanbul-reporter'),
       require('@angular-devkit/build-angular/plugins/karma'),
-      require('karma-super-dots-reporter')
+      require('karma-super-dots-reporter'),
     ],
     client: {
-      clearContext: false // leave Jasmine Spec Runner output visible in browser
+      clearContext: false, // leave Jasmine Spec Runner output visible in browser
+    },
+    reporters: ['super-dots', 'coverage-istanbul'],
+    superDotsReporter: {
+      nbDotsPerLine: 180,
     },
     coverageIstanbulReporter: {
       dir: require('path').join(__dirname, './coverage/yunikorn-web'),
       reports: ['text-summary'],
-      fixWebpackSourcePaths: true
-    },
-    reporters: ['super-dots'],
-    superDotsReporter: {
-      nbDotsPerLine: 180
+      fixWebpackSourcePaths: true,
     },
     port: 9876,
     colors: true,
@@ -55,6 +56,6 @@ module.exports = function(config) {
     browserDisconnectTimeout: 180000,
     browserNoActivityTimeout: 180000,
     singleRun: true,
-    restartOnFileChange: true
+    restartOnFileChange: true,
   });
 };

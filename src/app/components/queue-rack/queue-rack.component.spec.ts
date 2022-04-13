@@ -16,8 +16,9 @@
  * limitations under the License.
  */
 
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
-import { MatCardModule, MatProgressBarModule } from '@angular/material';
+import { ComponentFixture, TestBed } from '@angular/core/testing';
+import { MatCardModule } from '@angular/material/card';
+import { MatProgressBarModule } from '@angular/material/progress-bar';
 import { configureTestSuite } from 'ng-bullet';
 
 import { QueueRackComponent } from './queue-rack.component';

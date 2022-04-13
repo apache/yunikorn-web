@@ -45,10 +45,10 @@ export class ApiErrorInterceptor implements HttpInterceptor {
       });
     }
 
-    return throwError(response);
+    return throwError(() => response);
   }
 
-  parseErrorResponse(error: any): ApiErrorInfo {
+  parseErrorResponse(error: any): ApiErrorInfo | undefined {
     if (error) {
       return {
         statusCode: error.StatusCode,
@@ -56,7 +56,7 @@ export class ApiErrorInterceptor implements HttpInterceptor {
         description: error.Description,
       };
     } else {
-      return null;
+      return undefined;
     }
   }
 }

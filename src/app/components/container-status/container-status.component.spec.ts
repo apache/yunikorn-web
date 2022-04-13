@@ -22,7 +22,7 @@ import { MockComponent } from 'ng-mocks';
 
 import { ContainerStatusComponent } from './container-status.component';
 import { DonutChartComponent } from '@app/components/donut-chart/donut-chart.component';
-import { MatCardModule } from '@angular/material';
+import { MatCardModule } from '@angular/material/card';
 
 describe('ContainerStatusComponent', () => {
   let component: ContainerStatusComponent;
