@@ -27,7 +27,7 @@ import { NOT_AVAILABLE } from '@app/utils/constants';
   styleUrls: ['./queue-rack.component.scss'],
 })
 export class QueueRackComponent implements OnInit {
-  @Input() queueList: QueueInfo[] = [];
+  @Input() queueList: QueueInfo[] | null = [];
   @Input() nextLevel = '';
 
   @Output() toggleChildren = new EventEmitter<ToggleQueueChildrenEvent>();
@@ -49,11 +49,13 @@ export class QueueRackComponent implements OnInit {
   }
 
   collapseQueueList(item: QueueInfo) {
-    this.queueList.forEach(queue => {
-      if (queue !== item) {
-        queue.isExpanded = false;
-      }
-    });
+    if (this.queueList) {
+      this.queueList.forEach((queue) => {
+        if (queue !== item) {
+          queue.isExpanded = false;
+        }
+      });
+    }
   }
 
   onQueueSelected(queue: QueueInfo) {
@@ -81,7 +83,7 @@ export class QueueRackComponent implements OnInit {
         .replace(/[^:0-9]/g, '')
         .split(':');
       if (splitted.length !== 0) {
-        const capacities: number[] = splitted.map(x => +x);
+        const capacities: number[] = splitted.map((x) => +x);
         max = Math.max(...capacities);
       }
     }

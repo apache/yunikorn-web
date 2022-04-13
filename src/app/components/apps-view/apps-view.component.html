@@ -33,10 +33,7 @@
   <div class="dropdown-wrapper">
     <label class="dropdown-label">Queue: </label>
     <mat-form-field>
-      <mat-select
-        [(value)]="leafQueueSelected"
-        (selectionChange)="onQueueSelectionChanged($event)"
-      >
+      <mat-select [(value)]="leafQueueSelected" (selectionChange)="onQueueSelectionChanged($event)">
         <mat-option *ngFor="let queue of leafQueueList" [value]="queue.value">
           {{ queue.name }}
         </mat-option>
@@ -95,7 +92,12 @@
         <ng-template #renderNext_1>
           <ng-container *ngIf="columnDef.colId === 'usedResource'; else renderNext_2">
             <mat-cell *matCellDef="let element">
-              <span [innerHTML]="columnDef.colFormatter(element[columnDef.colId])"></span>
+              <ng-container *ngIf="columnDef.colFormatter; else showAppRawData">
+                <span [innerHTML]="columnDef.colFormatter(element[columnDef.colId])"></span>
+              </ng-container>
+              <ng-template #showAppRawData>
+                <span>{{ element[columnDef.colId] }}</span>
+              </ng-template>
             </mat-cell>
           </ng-container>
         </ng-template>
@@ -155,7 +157,12 @@
 
           <ng-container *ngIf="columnDef.colId === 'resource'; else renderNext_3">
             <mat-cell *matCellDef="let element">
-              <span [innerHTML]="columnDef.colFormatter(element[columnDef.colId])"></span>
+              <ng-container *ngIf="columnDef.colFormatter; else showAllocRowData">
+                <span [innerHTML]="columnDef.colFormatter(element[columnDef.colId])"></span>
+              </ng-container>
+              <ng-template #showAllocRowData>
+                <span>{{ element[columnDef.colId] }}</span>
+              </ng-template>
             </mat-cell>
           </ng-container>
 

@@ -18,10 +18,10 @@
 
 export class AreaDataItem {
   y: number;
-  t: Date;
+  x: Date;
 
   constructor(value: number, date: Date) {
     this.y = value;
-    this.t = date;
+    this.x = date;
   }
 }

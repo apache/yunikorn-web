@@ -26,8 +26,7 @@ import { DonutDataItem } from '@app/models/donut-data.model';
   styleUrls: ['./app-status.component.scss'],
 })
 export class AppStatusComponent implements OnInit {
-  @Input()
-  chartData: DonutDataItem[];
+  @Input() chartData: DonutDataItem[] = [];
 
   constructor() {}
 

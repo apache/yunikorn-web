@@ -18,9 +18,7 @@
 
 export class CommonUtil {
   static createUniqId(prefix?: string): string {
-    const uniqid = Math.random()
-      .toString(36)
-      .substr(2);
+    const uniqid = Math.random().toString(36).substr(2);
 
     if (prefix) {
       return prefix + uniqid;
@@ -61,11 +59,6 @@ export class CommonUtil {
     return `${toValue.toFixed(1)} ${unit}`;
   }
 
-  static formatPercent(value: number | string): string {
-    const toValue = +value;
-    return `${toValue.toFixed(0)}%`;
-  }
-
   static isEmpty(arg: object | any[]): boolean {
     return Object.keys(arg).length === 0;
   }
@@ -83,5 +76,10 @@ export class CommonUtil {
 
   static resourceColumnFormatter(value: string): string {
     return value.split(', ').join('<br/>');
+  }
+
+  static formatPercent(value: number | string): string {
+    const toValue = +value;
+    return `${toValue.toFixed(0)}%`;
   }
 }

@@ -18,7 +18,8 @@
 
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { Router } from '@angular/router';
-import { MatDrawer, MatSelectChange } from '@angular/material';
+import { MatDrawer } from '@angular/material/sidenav';
+import { MatSelectChange } from '@angular/material/select';
 import { NgxSpinnerService } from 'ngx-spinner';
 import { finalize } from 'rxjs/operators';
 
@@ -44,13 +45,13 @@ export const MAX_QUEUE_LEVELS = 5;
   styleUrls: ['./queues-view.component.scss'],
 })
 export class QueuesViewComponent implements OnInit {
-  @ViewChild('matDrawer', { static: false }) matDrawer: MatDrawer;
+  @ViewChild('matDrawer', { static: false }) matDrawer!: MatDrawer;
 
   isDrawerContainerOpen = false;
   partitionSelected = '';
   partitionList: PartitionInfo[] = [];
-  rootQueue: QueueInfo = null;
-  selectedQueue: QueueInfo = null;
+  rootQueue: QueueInfo | null = null;
+  selectedQueue: QueueInfo | null = null;
   queueList: QueueList = {};
   queueLevels: QueueLevel[] = [
     { level: 'level_00', next: 'level_01' },
@@ -72,7 +73,7 @@ export class QueuesViewComponent implements OnInit {
   ) {}
 
   ngOnInit() {
-    this.queueLevels.forEach(obj => {
+    this.queueLevels.forEach((obj) => {
       this.queueList[obj.level] = null;
     });
 
@@ -85,9 +86,9 @@ export class QueuesViewComponent implements OnInit {
           this.spinner.hide();
         })
       )
-      .subscribe(list => {
+      .subscribe((list) => {
         if (list && list.length > 0) {
-          list.forEach(part => {
+          list.forEach((part) => {
             this.partitionList.push(new PartitionInfo(part.name, part.name));
           });
 
@@ -111,12 +112,12 @@ export class QueuesViewComponent implements OnInit {
           this.spinner.hide();
         })
       )
-      .subscribe(data => {
+      .subscribe((data) => {
         this.queueList = {};
 
         if (data && data.rootQueue) {
           this.rootQueue = data.rootQueue;
-          this.queueList['level_00'] = [this.rootQueue];
+          this.queueList['level_00'] = [this.rootQueue!];
         }
       });
   }
@@ -157,7 +158,7 @@ export class QueuesViewComponent implements OnInit {
 
   collapseChildrenQueues(queue: QueueInfo) {
     if (queue && queue.children) {
-      queue.children.forEach(child => {
+      queue.children.forEach((child) => {
         child.isExpanded = false;
         return this.collapseChildrenQueues(child);
       });
@@ -169,7 +170,7 @@ export class QueuesViewComponent implements OnInit {
       queue.isSelected = false;
     }
     if (queue && queue.children) {
-      queue.children.forEach(child => {
+      queue.children.forEach((child) => {
         return this.unselectChildrenQueues(child, selected);
       });
     }
@@ -191,7 +192,7 @@ export class QueuesViewComponent implements OnInit {
   }
 
   onQueueItemSelected(selected: QueueInfo) {
-    this.unselectChildrenQueues(this.rootQueue, selected);
+    this.unselectChildrenQueues(this.rootQueue!, selected);
     if (selected.isSelected) {
       this.selectedQueue = selected;
       this.isDrawerContainerOpen = true;

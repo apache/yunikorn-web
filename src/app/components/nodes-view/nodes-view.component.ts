@@ -17,7 +17,10 @@
  */
 
 import { Component, OnInit, ViewChild } from '@angular/core';
-import { MatPaginator, MatSelectChange, MatSort, MatTableDataSource } from '@angular/material';
+import { MatPaginator } from '@angular/material/paginator';
+import { MatSelectChange } from '@angular/material/select';
+import { MatSort } from '@angular/material/sort';
+import { MatTableDataSource } from '@angular/material/table';
 import { NgxSpinnerService } from 'ngx-spinner';
 import { finalize } from 'rxjs/operators';
 
@@ -34,9 +37,9 @@ import { PartitionInfo } from '@app/models/partition-info.model';
   styleUrls: ['./nodes-view.component.scss'],
 })
 export class NodesViewComponent implements OnInit {
-  @ViewChild('nodesViewMatPaginator', { static: true }) nodePaginator: MatPaginator;
-  @ViewChild('allocationMatPaginator', { static: true }) allocPaginator: MatPaginator;
-  @ViewChild(MatSort, { static: true }) nodeSort: MatSort;
+  @ViewChild('nodesViewMatPaginator', { static: true }) nodePaginator!: MatPaginator;
+  @ViewChild('allocationMatPaginator', { static: true }) allocPaginator!: MatPaginator;
+  @ViewChild(MatSort, { static: true }) nodeSort!: MatSort;
 
   nodeDataSource = new MatTableDataSource<NodeInfo>([]);
   nodeColumnDef: ColumnDef[] = [];
@@ -81,7 +84,7 @@ export class NodesViewComponent implements OnInit {
       },
     ];
 
-    this.nodeColumnIds = this.nodeColumnDef.map(col => col.colId).concat('indicatorIcon');
+    this.nodeColumnIds = this.nodeColumnDef.map((col) => col.colId).concat('indicatorIcon');
 
     this.allocColumnDef = [
       { colId: 'displayName', colName: 'Display Name' },
@@ -92,7 +95,7 @@ export class NodesViewComponent implements OnInit {
       { colId: 'applicationId', colName: 'Application ID' },
     ];
 
-    this.allocColumnIds = this.allocColumnDef.map(col => col.colId);
+    this.allocColumnIds = this.allocColumnDef.map((col) => col.colId);
 
     this.spinner.show();
 
@@ -103,9 +106,9 @@ export class NodesViewComponent implements OnInit {
           this.spinner.hide();
         })
       )
-      .subscribe(list => {
+      .subscribe((list) => {
         if (list && list.length > 0) {
-          list.forEach(part => {
+          list.forEach((part) => {
             this.partitionList.push(new PartitionInfo(part.name, part.name));
           });
 
@@ -130,13 +133,13 @@ export class NodesViewComponent implements OnInit {
           this.spinner.hide();
         })
       )
-      .subscribe(data => {
+      .subscribe((data) => {
         this.nodeDataSource.data = data;
       });
   }
 
   unselectAllRowsButOne(row: NodeInfo) {
-    this.nodeDataSource.data.map(node => {
+    this.nodeDataSource.data.map((node) => {
       if (node !== row) {
         node.isSelected = false;
       }
@@ -152,7 +155,9 @@ export class NodesViewComponent implements OnInit {
     } else {
       this.selectedRow = row;
       row.isSelected = true;
-      this.allocDataSource.data = row.allocations;
+      if (row.allocations) {
+        this.allocDataSource.data = row.allocations;
+      }
     }
   }
 

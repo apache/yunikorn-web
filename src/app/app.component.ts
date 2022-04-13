@@ -39,7 +39,7 @@ export class AppComponent implements OnInit {
   ) {}
 
   ngOnInit() {
-    this.router.events.pipe(filter(event => event instanceof NavigationEnd)).subscribe(() => {
+    this.router.events.pipe(filter((event) => event instanceof NavigationEnd)).subscribe(() => {
       this.generateBreadcrumb();
     });
 
@@ -51,27 +51,28 @@ export class AppComponent implements OnInit {
   generateBreadcrumb() {
     this.breadcrumbs = [];
     let url = '';
-    let currentRoute = this.route.root;
+    let currentRoute: ActivatedRoute | null = this.route.root;
+
     do {
       const childrenRoutes = currentRoute.children;
       currentRoute = null;
-      childrenRoutes.forEach(route => {
+      childrenRoutes.forEach((route) => {
         if (route.outlet === 'primary') {
           const routeSnapshot = route.snapshot;
           if (routeSnapshot) {
-            url += '/' + routeSnapshot.url.map(segment => segment.path).join('/');
-            if (!!route.snapshot.data.breadcrumb) {
+            url += '/' + routeSnapshot.url.map((segment) => segment.path).join('/');
+            if (!!route.snapshot.data['breadcrumb']) {
               this.breadcrumbs.push({
-                label: route.snapshot.data.breadcrumb.includes(':')
+                label: route.snapshot.data['breadcrumb'].includes(':')
                   ? this.getResourceName(
-                      route.snapshot.data.breadcrumb,
+                      route.snapshot.data['breadcrumb'],
                       routeSnapshot.params,
-                      route.snapshot.data.breadcrumb.split(':')[1]
+                      route.snapshot.data['breadcrumb'].split(':')[1]
                     )
-                  : route.snapshot.data.breadcrumb,
+                  : route.snapshot.data['breadcrumb'],
                 url,
               });
-              if (route.snapshot.data.prependRoot) {
+              if (route.snapshot.data['prependRoot']) {
                 this.breadcrumbs.unshift({
                   label: 'Dashboard',
                   url: '/',
@@ -85,7 +86,7 @@ export class AppComponent implements OnInit {
     } while (currentRoute);
   }
 
-  getResourceName(label: string, params: object, routeParam: string) {
+  getResourceName(label: string, params: Record<string, any>, routeParam: string) {
     return label.replace(`:${routeParam}`, params[routeParam]);
   }
 

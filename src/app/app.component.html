@@ -16,37 +16,37 @@
  * limitations under the License.
  -->
 
-<div class="navigation" [ngClass]="{ open: isNavOpen }">
+<div class="navigation" [class.open]="isNavOpen">
   <div class="logo">
-    <a [routerLink]="['/']">
+    <a routerLink="/">
       <img src="./assets/images/logo.png" />
       <div class="text-md text-semibold">YuniKorn</div>
     </a>
   </div>
   <ul class="navigation-primary">
     <li routerLinkActive="active">
-      <a [routerLink]="['/dashboard']">
+      <a routerLink="/dashboard">
         <i class="fa fa-caret-right fa-2x"></i>
         <i class="fa fa-th-large"></i>
         <span>Dashboard</span>
       </a>
     </li>
     <li routerLinkActive="active">
-      <a [routerLink]="['/queues']">
+      <a routerLink="/queues">
         <i class="fa fa-caret-right"></i>
         <i class="fa fa-sitemap" style="width: 16px"></i>
         <span>Queues</span>
       </a>
     </li>
     <li routerLinkActive="active">
-      <a [routerLink]="['/applications']">
+      <a routerLink="/applications">
         <i class="fa fa-caret-right"></i>
         <i class="fa fa-indent"></i>
         <span>Applications</span>
       </a>
     </li>
     <li routerLinkActive="active">
-      <a [routerLink]="['/nodes']">
+      <a routerLink="/nodes">
         <i class="fa fa-caret-right"></i>
         <i class="fa fa-server"></i>
         <span>Nodes</span>
@@ -64,7 +64,7 @@
       <div class="breadcrumb-wrapper">
         <ul class="breadcrumb">
           <li *ngFor="let crumb of breadcrumbs">
-            <a href="#" [routerLink]="[crumb.url]">{{ crumb.label }}</a>
+            <a href="#" routerLink="crumb.url">{{ crumb.label }}</a>
           </li>
         </ul>
         <div class="help-menu">
@@ -78,9 +78,7 @@
             <i class="fa fa-question"></i>
           </button>
           <mat-menu #helpMenu="matMenu" xPosition="before">
-            <button mat-menu-item (click)="openYuniKornHelp('/')">
-              Apache YuniKorn
-            </button>
+            <button mat-menu-item (click)="openYuniKornHelp('/')">Apache YuniKorn</button>
             <button mat-menu-item (click)="openYuniKornHelp('/docs')">Documentation</button>
             <button mat-menu-item (click)="openYuniKornHelp('/community/sessions')">
               Sessions and Demos

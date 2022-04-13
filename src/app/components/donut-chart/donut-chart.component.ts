@@ -25,13 +25,15 @@ import {
   SimpleChanges,
   OnDestroy,
 } from '@angular/core';
-import Chart from 'chart.js';
 import { Subject } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
+import { Chart, ArcElement, DoughnutController } from 'chart.js';
 
 import { CommonUtil } from '@app/utils/common.util';
 import { DonutDataItem } from '@app/models/donut-data.model';
 import { EventBusService, EventMap } from '@app/services/event-bus/event-bus.service';
+
+Chart.register(ArcElement, DoughnutController);
 
 @Component({
   selector: 'app-donut-chart',
@@ -40,8 +42,9 @@ import { EventBusService, EventMap } from '@app/services/event-bus/event-bus.ser
 })
 export class DonutChartComponent implements OnInit, AfterViewInit, OnChanges, OnDestroy {
   destroy$ = new Subject<boolean>();
-  chartContainerId: string;
-  donutChartData: DonutDataItem[];
+  chartContainerId = '';
+  donutChartData: DonutDataItem[] = [];
+  donutChart: Chart<'doughnut', number[], string> | undefined;
 
   @Input() data: DonutDataItem[] = [];
 
@@ -68,8 +71,12 @@ export class DonutChartComponent implements OnInit, AfterViewInit, OnChanges, On
   }
 
   ngOnChanges(changes: SimpleChanges) {
-    if (changes.data && changes.data.currentValue && changes.data.currentValue.length > 0) {
-      this.donutChartData = changes.data.currentValue;
+    if (
+      changes['data'] &&
+      changes['data'].currentValue &&
+      changes['data'].currentValue.length > 0
+    ) {
+      this.donutChartData = changes['data'].currentValue;
       this.renderChart(this.donutChartData);
     }
   }
@@ -82,11 +89,15 @@ export class DonutChartComponent implements OnInit, AfterViewInit, OnChanges, On
       '2d'
     );
 
-    const dataValues = chartData.map(d => d.value);
-    const chartLabels = chartData.map(d => d.name);
-    const colors = chartData.map(d => d.color);
+    const dataValues = chartData.map((d) => d.value);
+    const chartLabels = chartData.map((d) => d.name);
+    const colors = chartData.map((d) => d.color);
 
-    const chart = new Chart(ctx, {
+    if (this.donutChart) {
+      this.donutChart.destroy();
+    }
+
+    this.donutChart = new Chart(ctx!, {
       type: 'doughnut',
       data: {
         labels: chartLabels,
@@ -103,15 +114,20 @@ export class DonutChartComponent implements OnInit, AfterViewInit, OnChanges, On
           animateScale: true,
           animateRotate: true,
         },
-        legend: {
-          display: false,
-        },
-        title: {
-          display: false,
+        plugins: {
+          legend: {
+            display: false,
+          },
+          title: {
+            display: false,
+          },
+          tooltip: {
+            position: 'nearest',
+          },
         },
       },
     });
 
-    chart.update();
+    this.donutChart.update();
   }
 }

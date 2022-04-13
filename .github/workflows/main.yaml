@@ -24,21 +24,16 @@ jobs:
       - name: Set Node.js Environment
         uses: actions/setup-node@v2
         with:
-          node-version: 14.18
+          node-version: 16.14.2
       - run: |
-          npm install -g @angular/cli  > /dev/null
-          npm install karma
-          npm install -g protractor
-          yarn install
+          npm install -g @angular/cli > /dev/null
+          npm install -g yarn > /dev/null
 
-      - name: Lint Test
-        run: yarn lint
+      - name: Install Dependencies
+        run: yarn install
 
-      - name: Unit Test
-        run: ng test --watch=false
-
-      - name: Build
-        run: ng build --prod
+      - name: Build Prod
+        run: yarn build:prod
 
       - name: Test Coverage
         run: yarn test:coverage

@@ -18,7 +18,10 @@
 
 import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
-import { MatPaginator, MatTableDataSource, MatSort, MatSelectChange } from '@angular/material';
+import { MatPaginator } from '@angular/material/paginator';
+import { MatTableDataSource } from '@angular/material/table';
+import { MatSort } from '@angular/material/sort';
+import { MatSelectChange } from '@angular/material/select';
 import { finalize, debounceTime, distinctUntilChanged } from 'rxjs/operators';
 import { NgxSpinnerService } from 'ngx-spinner';
 import { fromEvent } from 'rxjs';
@@ -38,10 +41,10 @@ import { QueueInfo } from '@app/models/queue-info.model';
   styleUrls: ['./apps-view.component.scss'],
 })
 export class AppsViewComponent implements OnInit {
-  @ViewChild('appsViewMatPaginator', { static: true }) appPaginator: MatPaginator;
-  @ViewChild('allocationMatPaginator', { static: true }) allocPaginator: MatPaginator;
-  @ViewChild(MatSort, { static: true }) appSort: MatSort;
-  @ViewChild('searchInput', { static: true }) searchInput: ElementRef;
+  @ViewChild('appsViewMatPaginator', { static: true }) appPaginator!: MatPaginator;
+  @ViewChild('allocationMatPaginator', { static: true }) allocPaginator!: MatPaginator;
+  @ViewChild(MatSort, { static: true }) appSort!: MatSort;
+  @ViewChild('searchInput', { static: true }) searchInput!: ElementRef;
 
   appDataSource = new MatTableDataSource<AppInfo>([]);
   appColumnDef: ColumnDef[] = [];
@@ -85,7 +88,7 @@ export class AppsViewComponent implements OnInit {
       { colId: 'submissionTime', colName: 'Submission Time' },
     ];
 
-    this.appColumnIds = this.appColumnDef.map(col => col.colId).concat('indicatorIcon');
+    this.appColumnIds = this.appColumnDef.map((col) => col.colId).concat('indicatorIcon');
 
     this.allocColumnDef = [
       { colId: 'displayName', colName: 'Display Name' },
@@ -95,7 +98,7 @@ export class AppsViewComponent implements OnInit {
       { colId: 'priority', colName: 'Priority' },
     ];
 
-    this.allocColumnIds = this.allocColumnDef.map(col => col.colId);
+    this.allocColumnIds = this.allocColumnDef.map((col) => col.colId);
 
     fromEvent(this.searchInput.nativeElement, 'keyup')
       .pipe(debounceTime(500), distinctUntilChanged())
@@ -110,9 +113,9 @@ export class AppsViewComponent implements OnInit {
           this.spinner.hide();
         })
       )
-      .subscribe(list => {
+      .subscribe((list) => {
         if (list && list.length > 0) {
-          list.forEach(part => {
+          list.forEach((part) => {
             this.partitionList.push(new PartitionInfo(part.name, part.name));
           });
 
@@ -138,7 +141,7 @@ export class AppsViewComponent implements OnInit {
           this.spinner.hide();
         })
       )
-      .subscribe(data => {
+      .subscribe((data) => {
         if (data && data.rootQueue) {
           const leafQueueList = this.generateLeafQueueList(data.rootQueue);
           this.leafQueueList = [new DropdownItem('-- Select --', ''), ...leafQueueList];
@@ -156,7 +159,7 @@ export class AppsViewComponent implements OnInit {
     }
 
     if (rootQueue && rootQueue.children) {
-      rootQueue.children.forEach(child => this.generateLeafQueueList(child, list));
+      rootQueue.children.forEach((child) => this.generateLeafQueueList(child, list));
     }
 
     return list;
@@ -172,7 +175,7 @@ export class AppsViewComponent implements OnInit {
           this.spinner.hide();
         })
       )
-      .subscribe(data => {
+      .subscribe((data) => {
         this.initialAppData = data;
         this.appDataSource.data = data;
       });
@@ -198,7 +201,7 @@ export class AppsViewComponent implements OnInit {
   }
 
   unselectAllRowsButOne(row: AppInfo) {
-    this.appDataSource.data.map(app => {
+    this.appDataSource.data.map((app) => {
       if (app !== row) {
         app.isSelected = false;
       }
@@ -214,7 +217,9 @@ export class AppsViewComponent implements OnInit {
     } else {
       this.selectedRow = row;
       row.isSelected = true;
-      this.allocDataSource.data = row.allocations;
+      if (row.allocations) {
+        this.allocDataSource.data = row.allocations;
+      }
     }
   }
 
@@ -249,7 +254,7 @@ export class AppsViewComponent implements OnInit {
 
     if (searchTerm) {
       this.removeRowSelection();
-      this.appDataSource.data = this.initialAppData.filter(data =>
+      this.appDataSource.data = this.initialAppData.filter((data) =>
         data.applicationId.toLowerCase().includes(searchTerm)
       );
     } else {

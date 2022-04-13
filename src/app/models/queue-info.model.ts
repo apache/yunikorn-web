@@ -17,20 +17,20 @@
  */
 
 export class QueueInfo {
-  queueName: string;
-  status: string;
-  partitionName: string;
-  maxResource: string;
-  guaranteedResource: string;
-  allocatedResource: string;
-  parentQueue: null | QueueInfo;
-  children: null | QueueInfo[];
-  properties: QueuePropertyItem[];
-  template: null | QueueTemplate;
-  isLeaf: boolean;
-  isManaged: boolean;
-  isExpanded = false;
-  isSelected = false;
+  queueName: string = '';
+  status: string = '';
+  partitionName: string = '';
+  maxResource: string = '';
+  guaranteedResource: string = '';
+  allocatedResource: string = '';
+  parentQueue: null | QueueInfo = null;
+  children: null | QueueInfo[] = null;
+  properties: QueuePropertyItem[] = [];
+  template: null | QueueTemplate = null;
+  isLeaf: boolean = false;
+  isManaged: boolean = false;
+  isExpanded: boolean = false;
+  isSelected: boolean = false;
 }
 
 export interface QueuePropertyItem {

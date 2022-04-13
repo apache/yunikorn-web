@@ -42,7 +42,12 @@
           "
         >
           <mat-cell *matCellDef="let element">
-            <span [innerHTML]="columnDef.colFormatter(element[columnDef.colId])"></span>
+            <ng-container *ngIf="columnDef.colFormatter; else showNodeRawData">
+              <span [innerHTML]="columnDef.colFormatter(element[columnDef.colId])"></span>
+            </ng-container>
+            <ng-template #showNodeRawData>
+              <span>{{ element[columnDef.colId] }}</span>
+            </ng-template>
           </mat-cell>
         </ng-container>
 
@@ -101,7 +106,12 @@
 
           <ng-container *ngIf="columnDef.colId === 'resource'; else renderNext_2">
             <mat-cell *matCellDef="let element">
-              <span [innerHTML]="columnDef.colFormatter(element[columnDef.colId])"></span>
+              <ng-container *ngIf="columnDef.colFormatter; else showAllocRowData">
+                <span [innerHTML]="columnDef.colFormatter(element[columnDef.colId])"></span>
+              </ng-container>
+              <ng-template #showAllocRowData>
+                <span>{{ element[columnDef.colId] }}</span>
+              </ng-template>
             </mat-cell>
           </ng-container>
 

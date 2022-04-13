@@ -22,7 +22,7 @@ It depends on `yunikorn-core` which encapsulates all the actual scheduling logic
 
 For detailed information on the components and how to build the overall scheduler please see the [yunikorn-core](https://github.com/apache/yunikorn-core).
 
-This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 8.3.19.
+This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 13.3.0.
 
 ## Development Environment setup
 ### Dependencies
@@ -30,9 +30,8 @@ The project requires a number of external tools to be installed before the build
 - [Node.js](https://nodejs.org/en/)
 - [Angular CLI](https://github.com/angular/angular-cli)
 - [Karma](https://karma-runner.github.io)
-- [Protractor](http://www.protractortest.org/)
-- [json-server](https://www.npmjs.com/package/json-server)
 - [yarn](https://www.npmjs.com/package/yarn)
+- [json-server](https://www.npmjs.com/package/json-server)
 
 ### Development server
 
@@ -63,8 +62,6 @@ The project uses [multi-stage build](https://docs.docker.com/develop/develop-ima
 All tests can be executed via `make test`. It will first build the project and then execute the unit tests followed by the end to end tests.  
 If you want to run the unit tests separately, run `yarn test` to execute them via [Karma](https://karma-runner.github.io). If you want to run the unit tests with code coverage, run `yarn test:coverage`.
 
-The end to end tests run via [Protractor](http://www.protractortest.org/) and can be directly run by executing `yarn e2e`.
-
 ## Local development
 Beside the simple all in way to start the development server via make you can also start a development environment manually. 
 
@@ -86,5 +83,4 @@ The port is also referenced in other scripts and configurations to this port als
 - Makefile
 
 ## How do I contribute code?
-
 See how to contribute code from [this guide](docs/how-to-contribute.md).
