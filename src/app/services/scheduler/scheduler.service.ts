@@ -194,7 +194,7 @@ export class SchedulerService {
               this.formatResource(node['allocated'] as SchedulerResourceInfo),
               this.formatResource(node['occupied'] as SchedulerResourceInfo),
               this.formatResource(node['available'] as SchedulerResourceInfo),
-              this.formatResource(node['utilized'] as SchedulerResourceInfo),
+              this.formatPercent(node['utilized'] as SchedulerResourceInfo),
               []
             );
 
@@ -309,6 +309,24 @@ export class SchedulerService {
 
     if (resource && resource.vcore !== undefined) {
       formatted.push(`CPU: ${CommonUtil.formatCount(resource.vcore)}`);
+    } else {
+      formatted.push(`CPU: ${NOT_AVAILABLE}`);
+    }
+
+    return formatted.join(', ');
+  }
+
+  private formatPercent(resource: SchedulerResourceInfo): string {
+    const formatted = [];
+
+    if (resource && resource.memory !== undefined) {
+      formatted.push(`Memory: ${CommonUtil.formatPercent(resource.memory)}`);
+    } else {
+      formatted.push(`Memory: ${NOT_AVAILABLE}`);
+    }
+
+    if (resource && resource.vcore !== undefined) {
+      formatted.push(`CPU: ${CommonUtil.formatPercent(resource.vcore)}`);
     } else {
       formatted.push(`CPU: ${NOT_AVAILABLE}`);
     }

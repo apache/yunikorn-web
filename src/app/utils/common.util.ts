@@ -61,6 +61,11 @@ export class CommonUtil {
     return `${toValue.toFixed(1)} ${unit}`;
   }
 
+  static formatPercent(value: number | string): string {
+    const toValue = +value;
+    return `${toValue.toFixed(0)}%`;
+  }
+
   static isEmpty(arg: object | any[]): boolean {
     return Object.keys(arg).length === 0;
   }
