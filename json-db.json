@@ -337,10 +337,7 @@
         "pods": 110,
         "vcore": 5800
       },
-      "utilized": {
-        "memory": 0,
-        "vcore": 0
-      },
+      "utilized": 0,
       "allocations": [
         {
           "allocationKey": "alloc-1",
@@ -387,10 +384,7 @@
         "pods": 110,
         "vcore": 5800
       },
-      "utilized": {
-        "memory": 0,
-        "vcore": 0
-      },
+      "utilized": 0,
       "allocations": [
         {
           "allocationKey": "alloc-2",
