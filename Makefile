@@ -90,9 +90,9 @@ clean:
 .PHONY: image
 image:
 	@echo "Building web UI docker image"
-	@SHA=$$(git rev-parse --short=12 HEAD) ; \
+	@WEB_SHA=$$(git rev-parse --short=12 HEAD) ; \
 	docker build -t ${REGISTRY}/yunikorn:web-${VERSION} . \
-	--label "GitRevision=$${SHA}" \
+	--label "yunikorn-web-revision=$${WEB_SHA}" \
 	--label "Version=${VERSION}" \
 	--label "BuildTimeStamp=${DATE}"
 
