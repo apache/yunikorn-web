@@ -24,7 +24,7 @@ COPY . .
 
 RUN rm -rf ./dist
 
-RUN yarn install
+RUN PUPPETEER_SKIP_CHROMIUM_DOWNLOAD=1 yarn install
 
 RUN yarn build:prod
 

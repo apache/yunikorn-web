@@ -66,7 +66,7 @@ start-dev:
 # Build the web interface for dev and test
 .PHONY: build
 build:
-	yarn install && ng build
+	PUPPETEER_SKIP_CHROMIUM_DOWNLOAD=1 && yarn install && ng build
 
 # Run the tests after building
 test: build
@@ -75,7 +75,7 @@ test: build
 # Build the web interface in a production ready version
 .PHONY: build-prod
 build-prod:
-	yarn install && yarn build:prod
+	PUPPETEER_SKIP_CHROMIUM_DOWNLOAD=1 && yarn install && yarn build:prod
 
 # Simple clean of generated files only (no local cleanup).
 .PHONY: clean
