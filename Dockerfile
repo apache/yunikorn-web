@@ -33,10 +33,10 @@ FROM nginx:1.21.4-alpine
 
 COPY --from=buildstage /usr/uiapp/dist/yunikorn-web /usr/share/nginx/html
 
-COPY ./nginx/nginx.conf /etc/nginx/conf.d/default.conf
+COPY ./nginx/default.conf.template /etc/nginx/templates/
 
 RUN mkdir -p /opt/nginx/work && \
-    chown -R nginx:nginx /opt/nginx/work && \
+    chown -R nginx:nginx /opt/nginx/work /etc/nginx/conf.d && \
     chmod 755 /opt/nginx/work && \
     mkdir -p /var/cache/nginx /var/log/nginx && \
     chown -R nginx:nginx /var/cache/nginx /var/log/nginx && \
@@ -45,4 +45,4 @@ RUN mkdir -p /opt/nginx/work && \
 
 WORKDIR /opt/nginx/work
 USER nginx
-ENTRYPOINT [ "nginx", "-c", "/etc/nginx/nginx.conf", "-g", "daemon off;"]
+ENTRYPOINT ["sh", "-c", "envsubst \"`env | awk -F = '{printf \" $$%s\", $$1}'`\" < /etc/nginx/templates/default.conf.template > /etc/nginx/conf.d/default.conf && nginx -c /etc/nginx/nginx.conf -g 'daemon off;'"]
