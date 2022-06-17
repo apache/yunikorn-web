@@ -37,6 +37,26 @@ endif
 # Set the default web port, this must be the same as in the nginx/nginx.conf file.
 PORT=9889
 
+# Allow architecture to be overwritten
+ifeq ($(HOST_ARCH),)
+HOST_ARCH := $(shell uname -m)
+endif
+
+# Build architecture settings:
+# EXEC_ARCH defines the architecture of the executables that gets compiled
+# DOCKER_ARCH defines the architecture of the docker image
+ifeq (x86_64, $(HOST_ARCH))
+DOCKER_ARCH := amd64
+else ifeq (i386, $(HOST_ARCH))
+DOCKER_ARCH := i386
+else ifeq (aarch64, $(HOST_ARCH))
+DOCKER_ARCH := arm64v8
+else ifeq (armv7l, $(HOST_ARCH))
+DOCKER_ARCH := arm32v7
+endif
+
+WEB_SHA=$$(git rev-parse --short=12 HEAD)
+
 .PHONY: license-check
 # This is a bit convoluted but using a recursive grep on linux fails to write anything when run
 # from the Makefile. That caused the pull-request license check run from the github action to
@@ -90,20 +110,13 @@ clean:
 .PHONY: image
 image:
 	@echo "Building web UI docker image"
-	@WEB_SHA=$$(git rev-parse --short=12 HEAD) ; \
-	docker build -t ${REGISTRY}/yunikorn:web-${VERSION} . \
+	docker build -t ${REGISTRY}/yunikorn:web-${DOCKER_ARCH}-${VERSION} . \
 	--label "yunikorn-web-revision=$${WEB_SHA}" \
 	--label "Version=${VERSION}" \
-	--label "BuildTimeStamp=${DATE}"
+	--label "BuildTimeStamp=${DATE}" \
+	${QUIET} --build-arg ARCH=${DOCKER_ARCH}/
 
 # Run the web interface from the production image
 .PHONY: run
 run: image
-	docker run -d -p ${PORT}:9889 ${REGISTRY}/yunikorn:web-${VERSION}
-
-# Pushing the production image to the public repository
-.PHONY: push_image
-push_image: image
-	@echo "Pushing web UI docker image"
-	echo "${DOCKER_PASSWORD}" | docker login -u "${DOCKER_USERNAME}" --password-stdin
-	docker push ${REGISTRY}/yunikorn:web-${VERSION}
+	docker run -d -p ${PORT}:9889 ${REGISTRY}/yunikorn:web-${DOCKER_ARCH}-${VERSION}
