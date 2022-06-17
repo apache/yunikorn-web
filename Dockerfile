@@ -15,7 +15,8 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-# State 1
+ARG ARCH=
+# Buildstage: use the local architecture
 FROM node:16.14.2-alpine3.15 as buildstage
 
 WORKDIR /usr/uiapp
@@ -28,8 +29,8 @@ RUN PUPPETEER_SKIP_CHROMIUM_DOWNLOAD=1 yarn install
 
 RUN yarn build:prod
 
-# Stage 2
-FROM nginx:1.21.4-alpine
+# Imagestage: use the requested architecture
+FROM ${ARCH}nginx:1.21.4-alpine
 
 COPY --from=buildstage /usr/uiapp/dist/yunikorn-web /usr/share/nginx/html
 
