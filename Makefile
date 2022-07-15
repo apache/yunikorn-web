@@ -62,10 +62,10 @@ WEB_SHA=$$(git rev-parse --short=12 HEAD)
 # from the Makefile. That caused the pull-request license check run from the github action to
 # always pass. The syntax for find is slightly different too but that at least works in a similar
 # way on both Mac and Linux. Excluding all .git* files from the checks.
-OS := $(shell uname -s)
+OS := $(shell uname -s | tr '[:upper:]' '[:lower:]')
 license-check:
 	@echo "checking license headers:"
-ifeq (Darwin,$(OS))
+ifeq (darwin,$(OS))
 	$(shell find -E . ! -path "./.git*" ! -path "./node_modules*" ! -path "./dist*" -regex ".*\.(sh|md|yaml|yml|js|ts|html|js|scss)" -exec grep -L "Licensed to the Apache Software Foundation" {} \; > LICRES)
 else
 	$(shell find . ! -path "./.git*" ! -path "./node_modules*" ! -path "./dist*" -regex ".*\.\(sh\|md\|yaml\|yml\|js\|ts\|html\|js\|scss\)" -exec grep -L "Licensed to the Apache Software Foundation" {} \; > LICRES)
@@ -77,6 +77,7 @@ endif
 		exit 1; \
 	fi ; \
 	rm -f LICRES
+	@echo "  all OK"
 
 # Start web interface in a local dev setup
 .PHONY: start-dev
@@ -108,13 +109,16 @@ clean:
 
 # Build an image based on the production ready version
 .PHONY: image
+NODE_VERSION := $(shell cat .nvmrc)
 image:
 	@echo "Building web UI docker image"
 	docker build -t ${REGISTRY}/yunikorn:web-${DOCKER_ARCH}-${VERSION} . \
 	--label "yunikorn-web-revision=$${WEB_SHA}" \
 	--label "Version=${VERSION}" \
 	--label "BuildTimeStamp=${DATE}" \
-	${QUIET} --build-arg ARCH=${DOCKER_ARCH}/
+	--build-arg NODE_VERSION=${NODE_VERSION} \
+	--build-arg ARCH=${DOCKER_ARCH}/ \
+	${QUIET}
 
 # Run the web interface from the production image
 .PHONY: run

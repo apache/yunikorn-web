@@ -14,26 +14,21 @@ jobs:
 
     steps:
       - name: Checkout Source Code
-        uses: actions/checkout@v2
+        uses: actions/checkout@v3
         with:
           fetch-depth: 2
-
       - name: Check License
         run: make license-check
-
       - name: Set Node.js Environment
-        uses: actions/setup-node@v2
+        uses: actions/setup-node@v3
         with:
-          node-version: 16.14.2
+          node-version-file: '.nvmrc'
       - run: |
           npm install -g @angular/cli > /dev/null
           npm install -g yarn > /dev/null
-
       - name: Install Dependencies
         run: yarn install
-
       - name: Build Prod
         run: yarn build:prod
-
       - name: Test Coverage
         run: yarn test:coverage
