@@ -16,34 +16,35 @@
 # limitations under the License.
 
 ARG ARCH=
+ARG NODE_VERSION=
 # Buildstage: use the local architecture
-FROM node:16.14.2-alpine3.15 as buildstage
+FROM node:${NODE_VERSION}-alpine as buildstage
 
-WORKDIR /usr/uiapp
-
-COPY . .
-
-RUN rm -rf ./dist
+WORKDIR /work
+# Only copy what is needed for the build
+COPY *.json *.js yarn.lock .browserslistrc /work/
+COPY src /work/src/
 
 RUN PUPPETEER_SKIP_CHROMIUM_DOWNLOAD=1 yarn install
-
 RUN yarn build:prod
 
 # Imagestage: use the requested architecture
-FROM ${ARCH}nginx:1.21.4-alpine
+FROM ${ARCH}nginx:1.22-alpine
 
-COPY --from=buildstage /usr/uiapp/dist/yunikorn-web /usr/share/nginx/html
+# Home location for all data and configs
+ENV HOME=/opt/yunikorn
+EXPOSE 9889
 
-COPY ./nginx/nginx.conf /etc/nginx/conf.d/default.conf
+# Always run everything as yunikorn
+RUN mkdir -p $HOME && \
+    addgroup -S -g 4444 yunikorn && \
+    adduser -S -h $HOME -G yunikorn -u 4444 yunikorn -s /bin/sh && \
+    chown -R 4444:0 $HOME && \
+    chmod -R g=u $HOME
 
-RUN mkdir -p /opt/nginx/work && \
-    chown -R nginx:nginx /opt/nginx/work && \
-    chmod 755 /opt/nginx/work && \
-    mkdir -p /var/cache/nginx /var/log/nginx && \
-    chown -R nginx:nginx /var/cache/nginx /var/log/nginx && \
-    sed -i 's_^user .*$__' /etc/nginx/nginx.conf && \
-    sed -i 's_^pid .*$_pid /opt/nginx/work/nginx.pid;_' /etc/nginx/nginx.conf
+COPY --chown=4444:0 ./nginx/nginx.conf $HOME/
+COPY --chown=4444:0 --from=buildstage /work/dist/yunikorn-web $HOME/html/
 
-WORKDIR /opt/nginx/work
-USER nginx
-ENTRYPOINT [ "nginx", "-c", "/etc/nginx/nginx.conf", "-g", "daemon off;"]
+WORKDIR $HOME
+USER yunikorn
+ENTRYPOINT nginx -c $HOME/nginx.conf
