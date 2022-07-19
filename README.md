@@ -83,4 +83,4 @@ The port is also referenced in other scripts and configurations to this port als
 - Makefile
 
 ## How do I contribute code?
-See how to contribute code from [this guide](docs/how-to-contribute.md).
+See how to contribute code from [this guide](https://yunikorn.apache.org/community/how_to_contribute).
