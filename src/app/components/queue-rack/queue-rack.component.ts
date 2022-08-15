@@ -20,6 +20,7 @@ import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 
 import { QueueInfo, ToggleQueueChildrenEvent } from '@app/models/queue-info.model';
 import { NOT_AVAILABLE } from '@app/utils/constants';
+import { queueScheduler } from 'rxjs';
 
 @Component({
   selector: 'app-queue-rack',
@@ -63,30 +64,19 @@ export class QueueRackComponent implements OnInit {
     this.queueSelected.emit(queue);
   }
 
-  // FIXME: Implement using absolute usage value in new /{partition}/queues REST API.
-  // Currently absolute usage value is not available in /{partition}/queues REST API.
   getQueueCapacityColor(queue: QueueInfo) {
+    const value = queue.absoluteUsedPercent;
+    if (value > 60 && value <= 75) {
+      return '#60cea5';
+    } else if (value > 75 && value < 90) {
+      return '#ffbc0b';
+    } else if (value >= 90) {
+      return '#ef6162';
+    }
     return '#fff';
   }
 
-  // FIXME: Implement using absolute usage value in new /{partition}/queues REST API.
-  // Currently absolute usage value is not available in /{partition}/queues REST API.
   getProgressBarValue(queue: QueueInfo) {
-    return 0;
-  }
-
-  getMaxAbsValue(absCapacities: string): number {
-    let max = 0;
-    if (absCapacities !== null) {
-      const splitted = absCapacities
-        .replace(NOT_AVAILABLE, '0')
-        .replace(/[^:0-9]/g, '')
-        .split(':');
-      if (splitted.length !== 0) {
-        const capacities: number[] = splitted.map((x) => +x);
-        max = Math.max(...capacities);
-      }
-    }
-    return max;
+    return queue.absoluteUsedPercent;
   }
 }
