@@ -18,7 +18,7 @@
 
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { Observable } from 'rxjs';
+import { Observable, queueScheduler } from 'rxjs';
 import { map } from 'rxjs/operators';
 
 import { QueueInfo, QueuePropertyItem } from '@app/models/queue-info.model';
@@ -278,9 +278,12 @@ export class SchedulerService {
     const maxResource = data['maxResource'] as SchedulerResourceInfo;
     const guaranteedResource = data['guaranteedResource'] as SchedulerResourceInfo;
     const allocatedResource = data['allocatedResource'] as SchedulerResourceInfo;
+    const absUsedCapacity = data['absUsedCapacity'] as SchedulerResourceInfo;
     queue.maxResource = this.formatResource(maxResource);
     queue.guaranteedResource = this.formatResource(guaranteedResource);
     queue.allocatedResource = this.formatResource(allocatedResource);
+    queue.absoluteUsedCapacity = this.formatPercent(absUsedCapacity);
+    queue.absoluteUsedPercent = this.absUsagePercent(absUsedCapacity);
   }
 
   private fillQueuePropertiesAndTemplate(data: any, queue: QueueInfo) {
@@ -338,5 +341,19 @@ export class SchedulerService {
     }
 
     return formatted.join(', ');
+  }
+
+  private absUsagePercent(resource: SchedulerResourceInfo): number {
+    let result = 0;
+
+    if (resource && resource.memory !== undefined) {
+      result = Math.max(result, resource.memory);
+    }
+
+    if (resource && resource.vcore !== undefined) {
+      result = Math.max(result, resource.vcore);
+    }
+
+    return Math.max(0, Math.min(result, 100));
   }
 }

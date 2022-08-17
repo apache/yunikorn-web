@@ -23,6 +23,8 @@ export class QueueInfo {
   maxResource: string = '';
   guaranteedResource: string = '';
   allocatedResource: string = '';
+  absoluteUsedCapacity: string = '';
+  absoluteUsedPercent: number = 0;
   parentQueue: null | QueueInfo = null;
   children: null | QueueInfo[] = null;
   properties: QueuePropertyItem[] = [];
