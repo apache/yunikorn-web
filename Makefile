@@ -113,7 +113,7 @@ clean:
 .PHONY: image
 NODE_VERSION := $(shell cat .nvmrc)
 image:
-	@echo "Building web UI docker image:${DOCKER_ARCH}"
+	@echo "Building web UI docker image"
 	docker build -t ${REGISTRY}/yunikorn:web-${DOCKER_ARCH}-${VERSION} . \
 	--label "yunikorn-web-revision=$${WEB_SHA}" \
 	--label "Version=${VERSION}" \
