@@ -49,7 +49,7 @@ ifeq (x86_64, $(HOST_ARCH))
 DOCKER_ARCH := amd64
 else ifeq (i386, $(HOST_ARCH))
 DOCKER_ARCH := i386
-else ifeq (aarch64, $(HOST_ARCH))
+else ifneq (,$(filter $(HOST_ARCH), arm64 aarch64))
 DOCKER_ARCH := arm64v8
 else ifeq (armv7l, $(HOST_ARCH))
 DOCKER_ARCH := arm32v7
@@ -111,7 +111,7 @@ clean:
 .PHONY: image
 NODE_VERSION := $(shell cat .nvmrc)
 image:
-	@echo "Building web UI docker image"
+	@echo "Building web UI docker image:${DOCKER_ARCH}"
 	docker build -t ${REGISTRY}/yunikorn:web-${DOCKER_ARCH}-${VERSION} . \
 	--label "yunikorn-web-revision=$${WEB_SHA}" \
 	--label "Version=${VERSION}" \
