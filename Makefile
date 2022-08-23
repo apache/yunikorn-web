@@ -53,6 +53,8 @@ else ifneq (,$(filter $(HOST_ARCH), arm64 aarch64))
 DOCKER_ARCH := arm64v8
 else ifeq (armv7l, $(HOST_ARCH))
 DOCKER_ARCH := arm32v7
+else
+DOCKER_ARCH := amd64
 endif
 
 WEB_SHA=$$(git rev-parse --short=12 HEAD)
