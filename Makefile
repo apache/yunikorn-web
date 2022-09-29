@@ -57,7 +57,7 @@ else
 DOCKER_ARCH := amd64
 endif
 
-WEB_SHA=$$(git rev-parse --short=12 HEAD)
+WEB_SHA=$(shell git rev-parse --short=12 HEAD)
 
 .PHONY: license-check
 # This is a bit convoluted but using a recursive grep on linux fails to write anything when run
@@ -115,7 +115,7 @@ NODE_VERSION := $(shell cat .nvmrc)
 image:
 	@echo "Building web UI docker image"
 	docker build -t ${REGISTRY}/yunikorn:web-${DOCKER_ARCH}-${VERSION} . \
-	--label "yunikorn-web-revision=$${WEB_SHA}" \
+	--label "yunikorn-web-revision=${WEB_SHA}" \
 	--label "Version=${VERSION}" \
 	--label "BuildTimeStamp=${DATE}" \
 	--build-arg NODE_VERSION=${NODE_VERSION} \
