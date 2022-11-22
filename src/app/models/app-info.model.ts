@@ -31,6 +31,7 @@ export class AppInfo {
     public queueName: string,
     public submissionTime: number,
     public finishedTime: null | number,
+    public lastStateChangeTime: null | number,
     public applicationState: string,
     public allocations: AllocationInfo[] | null
   ) {}

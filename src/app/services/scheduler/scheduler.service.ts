@@ -94,6 +94,7 @@ export class SchedulerService {
               app['partition'],
               app['queueName'],
               app['submissionTime'],
+              app['lastStateChangeTime'],
               app['finishedTime'],
               app['applicationState'],
               []
