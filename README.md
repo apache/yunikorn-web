@@ -48,11 +48,13 @@ Image builds are geared towards a production build and will always build with th
 Run `make image` to build the docker image `apache/yunikorn:web-latest`. 
 Run `make run` to build the image and deploy the container from the docker image `apache/yunikorn:web-latest`.
 
-You can set `REGISTRY` and `VERSION` in the commandline to build docker image with a specified version and registry. For example,
+You can set `REGISTRY`, `VERSION` and `DOCKER_ARCH` in the commandline to build docker image with a specified version, registry and host architecture. For example,
 ```
-make image REGISTRY=apache VERSION=latest
+make image REGISTRY=apache VERSION=latest DOCKER_ARCH=amd64
 ```
-This command will build binary with version `web-latest` and the docker full image tag is `apache/yunikorn:web-latest`.
+This command will build binary with version `web-latest` and the docker full image tag is `apache/yunikorn:web-amd64-latest`.
+
+The Makefile is smart enough to detect your host architecture but it will tag the image name.
 
 Run `make deploy-prod` to build and deploy the scheduler webapp using docker-compose.
 The project uses [multi-stage build](https://docs.docker.com/develop/develop-images/multistage-build/) feature of the docker and requires Docker 17.05 or higher.
