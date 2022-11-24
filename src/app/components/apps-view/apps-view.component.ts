@@ -80,12 +80,21 @@ export class AppsViewComponent implements OnInit {
       { colId: 'queueName', colName: 'Queue Name' },
       { colId: 'applicationState', colName: 'Application State' },
       {
+        colId: 'lastStateChangeTime',
+        colName: 'Last State Change Time',
+        colFormatter: CommonUtil.timeColumnFormatter,
+      },
+      {
         colId: 'usedResource',
         colName: 'Used Resource',
         colFormatter: CommonUtil.resourceColumnFormatter,
       },
       { colId: 'partition', colName: 'Partition' },
-      { colId: 'submissionTime', colName: 'Submission Time' },
+      {
+        colId: 'submissionTime',
+        colName: 'Submission Time',
+        colFormatter: CommonUtil.timeColumnFormatter,
+      },
     ];
 
     this.appColumnIds = this.appColumnDef.map((col) => col.colId).concat('indicatorIcon');

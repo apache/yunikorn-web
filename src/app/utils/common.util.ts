@@ -16,6 +16,9 @@
  * limitations under the License.
  */
 
+import { NOT_AVAILABLE } from '@app/utils/constants';
+import * as moment from 'moment';
+
 export class CommonUtil {
   static createUniqId(prefix?: string): string {
     const uniqid = Math.random().toString(36).substr(2);
@@ -81,5 +84,13 @@ export class CommonUtil {
   static formatPercent(value: number | string): string {
     const toValue = +value;
     return `${toValue.toFixed(0)}%`;
+  }
+
+  static timeColumnFormatter(value: null | number) {
+    if (value) {
+      const millisecs = Math.round(value / (1000 * 1000));
+      return moment(millisecs).format('YYYY/MM/DD HH:mm:ss');
+    }
+    return NOT_AVAILABLE;
   }
 }
