@@ -39,11 +39,6 @@ import { Partition } from '@app/models/partition-info.model';
 export class SchedulerService {
   constructor(private httpClient: HttpClient, private envConfig: EnvconfigService) {}
 
-  fetchClusterList(): Observable<ClusterInfo[]> {
-    const clusterUrl = `${this.envConfig.getSchedulerWebAddress()}/ws/v1/clusters`;
-    return this.httpClient.get(clusterUrl).pipe(map((data) => data as ClusterInfo[]));
-  }
-
   fetchPartitionList(): Observable<Partition[]> {
     const partitionUrl = `${this.envConfig.getSchedulerWebAddress()}/ws/v1/partitions`;
     return this.httpClient.get(partitionUrl).pipe(map((data) => data as Partition[]));
