@@ -16,7 +16,7 @@
  * limitations under the License.
  */
 
- export interface ClusterInfo {
+export interface ClusterInfo {
     clusterName: string;
     clusterStatus?: string;
-  }
+}

@@ -23,6 +23,7 @@ import { map } from 'rxjs/operators';
 
 import { QueueInfo, QueuePropertyItem } from '@app/models/queue-info.model';
 import { EnvconfigService } from '../envconfig/envconfig.service';
+import { ClusterInfo } from '@app/models/cluster-info.model';
 import { CommonUtil } from '@app/utils/common.util';
 import { SchedulerResourceInfo } from '@app/models/resource-info.model';
 import { AppInfo } from '@app/models/app-info.model';

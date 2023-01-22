@@ -48,6 +48,8 @@ export interface Applications {
   Running: number;
   Pending: number;
   total: number;
+  Rejected: number;
+  Completed: number;
 }
 
 export interface NodeSortingPolicy {
