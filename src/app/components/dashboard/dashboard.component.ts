@@ -20,6 +20,7 @@ import { Component, OnInit } from '@angular/core';
 import { NgxSpinnerService } from 'ngx-spinner';
 import { finalize } from 'rxjs/operators';
 import { SchedulerService } from '@app/services/scheduler/scheduler.service';
+import { ClusterInfo } from '@app/models/cluster-info.model';
 import { DonutDataItem } from '@app/models/donut-data.model';
 import { AreaDataItem } from '@app/models/area-data.model';
 import { HistoryInfo } from '@app/models/history-info.model';
@@ -33,6 +34,7 @@ import { NOT_AVAILABLE } from '@app/utils/constants';
   styleUrls: ['./dashboard.component.scss'],
 })
 export class DashboardComponent implements OnInit {
+  clusterList: ClusterInfo[] = [];
   partitionList: Partition[] = [];
   nodeSortPolicy = '';
   partitionName = '';
@@ -40,7 +42,6 @@ export class DashboardComponent implements OnInit {
   containerStatusData: DonutDataItem[] = [];
   appHistoryData: AreaDataItem[] = [];
   containerHistoryData: AreaDataItem[] = [];
-  partitionInfo: Partition = this.getEmptyPartitionInfo();
   initialAppHistory: HistoryInfo[] = [];
   initialContainerHistory: HistoryInfo[] = [];
 
@@ -54,19 +55,16 @@ export class DashboardComponent implements OnInit {
     this.spinner.show();
 
     this.scheduler
-      .fetchPartitionList()
+      .fetchClusterList()
       .pipe(
         finalize(() => {
           this.spinner.hide();
         })
       )
       .subscribe((list) => {
-        this.partitionList = list;
-
         if (list && list[0]) {
-          this.partitionInfo = list[0];
-          this.(this.partitionInfo);
-          this.updateContainerStatusData(this.partitionInfo);
+          this.clusterInfo = list[0];
+          this.clusterInfo.clusterStatus = 'Active';
         }
       });
 
@@ -96,8 +94,8 @@ export class DashboardComponent implements OnInit {
     });
 
     this.eventBus.getEvent(EventMap.LayoutChangedEvent).subscribe(() => {
-      this.updateAppStatusData(this.partitionInfo);
-      this.updateContainerStatusData(this.partitionInfo);
+      this.updateAppStatusData(this.partitionList[0]);
+      this.updateContainerStatusData(this.partitionList[0]);
       this.appHistoryData = this.getAreaChartData(this.initialAppHistory);
       this.containerHistoryData = this.getAreaChartData(this.initialContainerHistory);
     });
