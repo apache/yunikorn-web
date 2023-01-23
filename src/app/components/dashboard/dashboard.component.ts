@@ -117,10 +117,17 @@ export class DashboardComponent implements OnInit {
 
   updateAppStatusData(applications: Applications) {
     this.appStatusData = [
-      new DonutDataItem('Rejected', applications.Rejected, '#facc54'),
-      new DonutDataItem('Pending', applications.Pending, '#facc54'),
+      new DonutDataItem('New', applications.New, '#facc54'),
+      new DonutDataItem('Accepted', applications.Accepted, '#facc54'),
+      new DonutDataItem('Starting', applications.Starting, '#26bbf0'),
       new DonutDataItem('Running', applications.Running, '#26bbf0'),
+      new DonutDataItem('Rejected', applications.Rejected, '#cc6164'),
+      new DonutDataItem('Completing', applications.Completing, '#60cea5'),
       new DonutDataItem('Completed', applications.Completed, '#60cea5'),
+      new DonutDataItem('Failing', applications.Failing, '#cc6164'),
+      new DonutDataItem('Failed', applications.Failed, '#cc6164'),
+      new DonutDataItem('Expired', applications.Expired, '#cc6164'),
+      new DonutDataItem('Resuming', applications.Resuming, '#facc54'),
     ];
   }
 

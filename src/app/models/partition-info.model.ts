@@ -44,12 +44,18 @@ export interface Capacity {
 }
 
 export interface Applications {
-  New: number;
-  Running: number;
-  Pending: number;
+	New: number;
+	Accepted: number;
+	Starting: number;
+	Running: number;
+	Rejected: number;
+	Completing: number;
+	Completed: number;
+	Failing: number;
+	Failed: number;
+	Expired: number;
+	Resuming: number;
   total: number;
-  Rejected: number;
-  Completed: number;
 }
 
 export interface NodeSortingPolicy {

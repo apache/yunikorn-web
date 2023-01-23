@@ -43,7 +43,7 @@ export class SchedulerService {
     const clusterUrl = `${this.envConfig.getSchedulerWebAddress()}/ws/v1/clusters`;
     return this.httpClient.get(clusterUrl).pipe(map((data) => data as ClusterInfo[]));
   }
-    
+
   fetchPartitionList(): Observable<Partition[]> {
     const partitionUrl = `${this.envConfig.getSchedulerWebAddress()}/ws/v1/partitions`;
     return this.httpClient.get(partitionUrl).pipe(map((data) => data as Partition[]));
