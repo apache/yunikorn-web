@@ -29,7 +29,7 @@ RUN PUPPETEER_SKIP_CHROMIUM_DOWNLOAD=1 yarn install
 RUN yarn build:prod
 
 # Imagestage: use the requested architecture
-FROM ${ARCH}nginx:1.22-alpine
+FROM ${ARCH}nginx:1.23-alpine-slim
 
 # Home location for all data and configs
 ENV HOME=/opt/yunikorn
