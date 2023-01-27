@@ -17,6 +17,9 @@
  */
 
 export interface ClusterInfo {
+    startTime: number;
+    rmBuildInformation: string[];
+    partition: string;
     clusterName: string;
     clusterStatus?: string;
 }
