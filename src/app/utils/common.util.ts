@@ -31,34 +31,13 @@ export class CommonUtil {
   }
 
   static formatMemory(value: number | string): string {
-    let unit = 'bytes';
-    let toValue = +value;
-
-    if (toValue / 1000 >= 1) {
+    const units: readonly string[] = ['KB', 'MB', 'GB', 'TB', 'PB'];
+    var unit: string = 'bytes';
+    let toValue = +value
+    for (var i: number = 0, unitslen = units.length; toValue / 1000 >= 1 && i < unitslen;i = i + 1) {
       toValue = toValue / 1000;
-      unit = 'KB';
+      unit = units[i];
     }
-
-    if (toValue / 1000 >= 1) {
-      toValue = toValue / 1000;
-      unit = 'MB';
-    }
-
-    if (toValue / 1000 >= 1) {
-      toValue = toValue / 1000;
-      unit = 'GB';
-    }
-
-    if (toValue / 1000 >= 1) {
-      toValue = toValue / 1000;
-      unit = 'TB';
-    }
-
-    if (toValue / 1000 >= 1) {
-      toValue = toValue / 1000;
-      unit = 'PB';
-    }
-
     return `${toValue.toFixed(1)} ${unit}`;
   }
 
