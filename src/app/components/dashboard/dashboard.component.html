@@ -28,7 +28,7 @@
     </div>
     <div class="flex-primary">
       <div class="text-uppercase light-text">Nodes</div>
-      <div class="info-value strong-text">{{ clusterInfo.activeNodes }}</div>
+      <div class="info-value strong-text">{{ totalNodes | titlecase }}</div>
     </div>
     <div class="flex-primary">
       <div class="text-uppercase light-text">NodeSort Policy</div>
@@ -36,11 +36,11 @@
     </div>
     <div class="flex-primary">
       <div class="text-uppercase light-text">Applications</div>
-      <div class="info-value strong-text">{{ clusterInfo.runningApplications }}</div>
+      <div class="info-value strong-text">{{ totalApplications | titlecase }}</div>
     </div>
     <div class="flex-primary">
       <div class="text-uppercase light-text">Containers</div>
-      <div class="info-value strong-text">{{ clusterInfo.runningContainers }}</div>
+      <div class="info-value strong-text">{{ totalContainers | titlecase }}</div>
     </div>
     <div class="flex-primary">
       <div class="text-uppercase light-text">Partition</div>

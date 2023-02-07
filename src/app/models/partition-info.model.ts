@@ -34,6 +34,8 @@ export interface Partition {
   nodeSortingPolicy: NodeSortingPolicy;
   applications: Applications;
   lastStateTransitionTime: string;
+  totalNodes: number;
+  totalContainers: number;
 }
 
 export interface Capacity {
@@ -42,9 +44,17 @@ export interface Capacity {
 }
 
 export interface Applications {
-  New: number;
-  Running: number;
-  Pending: number;
+	New: number;
+	Accepted: number;
+	Starting: number;
+	Running: number;
+	Rejected: number;
+	Completing: number;
+	Completed: number;
+	Failing: number;
+	Failed: number;
+	Expired: number;
+	Resuming: number;
   total: number;
 }
 
