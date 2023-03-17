@@ -54,6 +54,7 @@ import { QueueRackComponent } from './components/queue-rack/queue-rack.component
 import { AppsViewComponent } from './components/apps-view/apps-view.component';
 import { NodesViewComponent } from './components/nodes-view/nodes-view.component';
 import { ErrorViewComponent } from './components/error-view/error-view.component';
+import { StatusViewComponent } from './components/status-view/status-view.component';
 
 @NgModule({
   declarations: [
@@ -70,6 +71,7 @@ import { ErrorViewComponent } from './components/error-view/error-view.component
     AppsViewComponent,
     NodesViewComponent,
     ErrorViewComponent,
+    StatusViewComponent,
   ],
   imports: [
     BrowserModule,
