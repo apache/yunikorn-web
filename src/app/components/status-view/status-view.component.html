@@ -1,0 +1,43 @@
+<div>
+    <mat-accordion>
+        <ng-container *ngIf="CurrentSchedulerHealth; else FailToConnection">
+            <mat-expansion-panel>
+                <mat-panel-title>
+                    Healthy
+                </mat-panel-title>
+                <mat-panel-description>
+                    <ng-container *ngIf="CurrentSchedulerHealth.Healthy; else SomethingHappens">
+                        <mat-icon> thumb_up_alt </mat-icon>
+                    </ng-container>
+                </mat-panel-description>
+            </mat-expansion-panel>
+            <mat-expansion-panel hideToggle *ngFor="let healthCheck of CurrentSchedulerHealth.HealthChecks">
+                <mat-panel-title>
+                    {{ healthCheck.Name }}
+                </mat-panel-title>
+                <mat-panel-description>
+                    {{ healthCheck.Description }}
+                    <ng-container *ngIf="CurrentSchedulerHealth.Healthy; else SomethingHappens">
+                        <mat-icon> thumb_up_alt </mat-icon>
+                    </ng-container>
+                </mat-panel-description>
+                <p> {{ healthCheck.DiagnosisMessage }} </p>
+            </mat-expansion-panel>
+        </ng-container>
+    </mat-accordion>
+</div>
+
+<ng-template #FailToConnection>
+    <mat-expansion-panel>
+        <mat-panel-title>
+            Scheduler Connection
+        </mat-panel-title>
+        <mat-panel-description>
+            <mat-icon>error_outline</mat-icon>
+        </mat-panel-description>
+    </mat-expansion-panel>
+</ng-template>
+
+<ng-template #SomethingHappens >
+    <mat-icon> running_with_errors </mat-icon>
+</ng-template>
