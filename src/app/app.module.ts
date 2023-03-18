@@ -57,7 +57,7 @@ import { AppsViewComponent } from './components/apps-view/apps-view.component';
 import { NodesViewComponent } from './components/nodes-view/nodes-view.component';
 import { ErrorViewComponent } from './components/error-view/error-view.component';
 import { StatusViewComponent } from './components/status-view/status-view.component';
-import { HealthchecksComponent } from './healthchecks/healthchecks.component';
+import { HealthchecksComponent } from './components/healthchecks/healthchecks.component';
 
 @NgModule({
   declarations: [
