@@ -12,7 +12,7 @@ import { SchedulerService } from '@app/services/scheduler/scheduler.service';
 })
 
 export class StatusViewComponent implements OnInit {
-  CurrentSchedulerHealth: SchedulerHealthInfo | null = null;
+  CurrentSchedulerHealth: SchedulerHealthInfo = new SchedulerHealthInfo;
 
   constructor(
     private scheduler: SchedulerService,
@@ -32,7 +32,7 @@ export class StatusViewComponent implements OnInit {
       if (healthInfos) {
         this.CurrentSchedulerHealth = healthInfos;
       } else {
-        this.CurrentSchedulerHealth = null;
+        this.CurrentSchedulerHealth = new SchedulerHealthInfo;
       }
     });
   }
