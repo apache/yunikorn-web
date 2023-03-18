@@ -40,7 +40,8 @@ export class StatusViewComponent implements OnInit {
   ngOnInit() {
     this.spinner.show();
 
-    this.scheduler.fetchSchedlerHealth()
+    this.scheduler
+    .fecthHealthchecks()
     .pipe(
       finalize(() => {
         this.spinner.hide();

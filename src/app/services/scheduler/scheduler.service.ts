@@ -251,9 +251,9 @@ export class SchedulerService {
     );
   }
 
-  fetchSchedlerHealth(): Observable<SchedulerHealthInfo> {
+  fecthHealthchecks(): Observable<SchedulerHealthInfo> {
     const healthCheckUrl = `${this.envConfig.getSchedulerWebAddress()}/ws/v1/scheduler/healthcheck`;
-    return this.httpClient.get(healthCheckUrl).pipe(map((data) => data as SchedulerHealthInfo));
+    return this.httpClient.get(healthCheckUrl).pipe(map((data: any) => data as SchedulerHealthInfo));
   }
 
   private generateQueuesTree(data: any, currentQueue: QueueInfo) {
