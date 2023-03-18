@@ -4,5 +4,6 @@
   "/history/containers": "/containerHistory",
   "/partition/:partition/queues": "/queues",
   "/partition/:partition/nodes": "/nodes",
-  "/partition/:partition/queue/:queue/applications": "/apps"
+  "/partition/:partition/queue/:queue/applications": "/apps",
+  "/scheduler/healthcheck": "/healthCheck"
 }
