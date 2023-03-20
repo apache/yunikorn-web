@@ -126,3 +126,8 @@ image:
 .PHONY: run
 run: image
 	docker run -d -p ${PORT}:9889 ${REGISTRY}/yunikorn:web-${DOCKER_ARCH}-${VERSION}
+
+# Start the json-server based on the json-db and route.
+.PHONY: json-server
+json-server:
+	json-server ./json-db.json
