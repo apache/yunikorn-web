@@ -2,6 +2,7 @@
 
 # Compiled output
 /dist
+/bin
 /tmp
 /out-tsc
 /bazel-out
@@ -34,6 +35,7 @@ yarn-error.log
 .sass-cache/
 /connect.lock
 /coverage
+/coverage.txt
 /libpeerconnection.log
 testem.log
 /typings
