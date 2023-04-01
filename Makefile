@@ -173,6 +173,7 @@ clean:
 NODE_VERSION := $(shell cat .nvmrc)
 image: build_server_prod
 	@echo "Building web UI docker image"
+	DOCKER_BUILDKIT=1 \
 	docker build -t ${REGISTRY}/yunikorn:web-${DOCKER_ARCH}-${VERSION} . \
 	--platform "linux/${DOCKER_ARCH}" \
 	--label "yunikorn-web-revision=${WEB_SHA}" \
