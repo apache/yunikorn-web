@@ -15,10 +15,9 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-ARG ARCH=
 ARG NODE_VERSION=
 # Buildstage: use the local architecture
-FROM node:${NODE_VERSION}-alpine as buildstage
+FROM --platform=$BUILDPLATFORM node:${NODE_VERSION}-alpine as buildstage
 
 WORKDIR /work
 # Only copy what is needed for the build
@@ -28,23 +27,12 @@ COPY src /work/src/
 RUN PUPPETEER_SKIP_CHROMIUM_DOWNLOAD=1 yarn install
 RUN yarn build:prod
 
-# Imagestage: use the requested architecture
-FROM ${ARCH}nginx:1.23-alpine-slim
-
-# Home location for all data and configs
-ENV HOME=/opt/yunikorn
+# Imagestage: use scratch base image
+FROM --platform=$TARGETPLATFORM scratch
+COPY --chown=0:0 bin/prod/yunikorn-web /
+COPY --chown=0:0 --from=buildstage /work/dist/yunikorn-web /html/
 EXPOSE 9889
+ENV DOCUMENT_ROOT /html
+USER 4444:4444
+ENTRYPOINT [ "/yunikorn-web" ]
 
-# Always run everything as yunikorn
-RUN mkdir -p $HOME && \
-    addgroup -S -g 4444 yunikorn && \
-    adduser -S -h $HOME -G yunikorn -u 4444 yunikorn -s /bin/sh && \
-    chown -R 4444:0 $HOME && \
-    chmod -R g=u $HOME
-
-COPY --chown=4444:0 ./nginx/nginx.conf $HOME/
-COPY --chown=4444:0 --from=buildstage /work/dist/yunikorn-web $HOME/html/
-
-WORKDIR $HOME
-USER yunikorn
-ENTRYPOINT nginx -c $HOME/nginx.conf
