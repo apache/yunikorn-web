@@ -55,7 +55,7 @@ ifeq ($(REGISTRY),)
 REGISTRY := apache
 endif
 
-# Set the default web port, this must be the same as in the nginx/nginx.conf file.
+# Set the default web port
 PORT=9889
 
 # Allow architecture to be overwritten
