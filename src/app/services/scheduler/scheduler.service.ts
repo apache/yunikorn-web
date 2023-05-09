@@ -32,6 +32,7 @@ import { HistoryInfo } from '@app/models/history-info.model';
 import { NodeInfo } from '@app/models/node-info.model';
 import { NOT_AVAILABLE } from '@app/utils/constants';
 import { Partition } from '@app/models/partition-info.model';
+import { SchedulerHealthInfo } from "@app/models/scheduler-health-info.model";
 
 @Injectable({
   providedIn: 'root',
@@ -248,6 +249,11 @@ export class SchedulerService {
         return result;
       })
     );
+  }
+
+  fecthHealthchecks(): Observable<SchedulerHealthInfo> {
+    const healthCheckUrl = `${this.envConfig.getSchedulerWebAddress()}/ws/v1/scheduler/healthcheck`;
+    return this.httpClient.get(healthCheckUrl).pipe(map((data: any) => data as SchedulerHealthInfo));
   }
 
   private generateQueuesTree(data: any, currentQueue: QueueInfo) {

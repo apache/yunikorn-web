@@ -15,33 +15,19 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
+ 
+@import "https://fonts.googleapis.com/icon?family=Material+Icons";
 
-import { of } from 'rxjs';
+.example-headers-align .mat-expansion-panel-header-title,
+.example-headers-align .mat-expansion-panel-header-description {
+  flex-basis: 0;
+}
 
-export const noopFn = () => {};
+.example-headers-align .mat-expansion-panel-header-description {
+  justify-content: space-between;
+  align-items: center;
+}
 
-export const MockSchedulerService = {
-  fetchClusterByName: () => of({}),
-  fetchClusterList: () => of([]),
-  fetchPartitionList: () => of([]),
-  fetchSchedulerQueues: () => of({}),
-  fetchAppList: () => of([]),
-  fetchAppHistory: () => of([]),
-  fetchContainerHistory: () => of([]),
-  fetchNodeList: () => of([]),
-  fecthHealthchecks: () => of([]),
-};
-
-export const MockNgxSpinnerService = {
-  show: noopFn,
-  hide: noopFn,
-};
-
-export const MockEnvconfigService = {
-  getSchedulerWebAddress: noopFn,
-};
-
-export const MockEventBusService = {
-  getEvent: () => of<any>(),
-  publish: noopFn,
-};
+.example-headers-align .mat-form-field + .mat-form-field {
+  margin-left: 8px;
+}

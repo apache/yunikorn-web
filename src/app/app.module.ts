@@ -37,6 +37,8 @@ import { MatInputModule } from '@angular/material/input';
 import { MatTooltipModule } from '@angular/material/tooltip';
 import { MatMenuModule } from '@angular/material/menu';
 import { MatButtonModule } from '@angular/material/button';
+import { MatExpansionModule } from '@angular/material/expansion';
+import {MatIconModule} from '@angular/material/icon';
 
 import { AppRoutingModule } from './app-routing.module';
 import { envConfigFactory, EnvconfigService } from './services/envconfig/envconfig.service';
@@ -54,6 +56,8 @@ import { QueueRackComponent } from './components/queue-rack/queue-rack.component
 import { AppsViewComponent } from './components/apps-view/apps-view.component';
 import { NodesViewComponent } from './components/nodes-view/nodes-view.component';
 import { ErrorViewComponent } from './components/error-view/error-view.component';
+import { StatusViewComponent } from './components/status-view/status-view.component';
+import { HealthchecksComponent } from './components/healthchecks/healthchecks.component';
 
 @NgModule({
   declarations: [
@@ -70,6 +74,8 @@ import { ErrorViewComponent } from './components/error-view/error-view.component
     AppsViewComponent,
     NodesViewComponent,
     ErrorViewComponent,
+    StatusViewComponent,
+    HealthchecksComponent,
   ],
   imports: [
     BrowserModule,
@@ -93,6 +99,8 @@ import { ErrorViewComponent } from './components/error-view/error-view.component
     MatMenuModule,
     MatButtonModule,
     AppRoutingModule,
+    MatExpansionModule,
+    MatIconModule,
   ],
   providers: [
     {

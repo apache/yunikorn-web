@@ -1,4 +1,4 @@
-/**
+<!--
  * Licensed to the Apache Software Foundation (ASF) under one
  * or more contributor license agreements.  See the NOTICE file
  * distributed with this work for additional information
@@ -14,34 +14,9 @@
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
  * See the License for the specific language governing permissions and
  * limitations under the License.
- */
+ -->
 
-import { of } from 'rxjs';
-
-export const noopFn = () => {};
-
-export const MockSchedulerService = {
-  fetchClusterByName: () => of({}),
-  fetchClusterList: () => of([]),
-  fetchPartitionList: () => of([]),
-  fetchSchedulerQueues: () => of({}),
-  fetchAppList: () => of([]),
-  fetchAppHistory: () => of([]),
-  fetchContainerHistory: () => of([]),
-  fetchNodeList: () => of([]),
-  fecthHealthchecks: () => of([]),
-};
-
-export const MockNgxSpinnerService = {
-  show: noopFn,
-  hide: noopFn,
-};
-
-export const MockEnvconfigService = {
-  getSchedulerWebAddress: noopFn,
-};
-
-export const MockEventBusService = {
-  getEvent: () => of<any>(),
-  publish: noopFn,
-};
+<div>
+    <h3>Entrypoint healthCheck</h3>
+    <app-healthchecks [schedulerHealth]="CurrentSchedulerHealth"></app-healthchecks>
+</div>

@@ -16,32 +16,21 @@
  * limitations under the License.
  */
 
-import { of } from 'rxjs';
+import { Component, Input, OnInit } from '@angular/core';
+import { SchedulerHealthInfo } from "@app/models/scheduler-health-info.model";
 
-export const noopFn = () => {};
+@Component({
+  selector: 'app-healthchecks',
+  templateUrl: './healthchecks.component.html',
+  styleUrls: ['./healthchecks.component.scss']
+})
 
-export const MockSchedulerService = {
-  fetchClusterByName: () => of({}),
-  fetchClusterList: () => of([]),
-  fetchPartitionList: () => of([]),
-  fetchSchedulerQueues: () => of({}),
-  fetchAppList: () => of([]),
-  fetchAppHistory: () => of([]),
-  fetchContainerHistory: () => of([]),
-  fetchNodeList: () => of([]),
-  fecthHealthchecks: () => of([]),
-};
+export class HealthchecksComponent implements OnInit {
+  @Input() schedulerHealth: SchedulerHealthInfo = new SchedulerHealthInfo;
 
-export const MockNgxSpinnerService = {
-  show: noopFn,
-  hide: noopFn,
-};
+  constructor() { }
 
-export const MockEnvconfigService = {
-  getSchedulerWebAddress: noopFn,
-};
+  ngOnInit(): void {
+  }
 
-export const MockEventBusService = {
-  getEvent: () => of<any>(),
-  publish: noopFn,
-};
+}

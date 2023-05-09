@@ -16,32 +16,15 @@
  * limitations under the License.
  */
 
-import { of } from 'rxjs';
+export class SchedulerHealthInfo {
+    Healthy: boolean = false;
+    HealthChecks: null | HealthCheckInfo[] = [];
+}
 
-export const noopFn = () => {};
+export interface HealthCheckInfo {
+    Name: string;
+	Succeeded: boolean;
+	Description: string;
+	DiagnosisMessage: string;
+}
 
-export const MockSchedulerService = {
-  fetchClusterByName: () => of({}),
-  fetchClusterList: () => of([]),
-  fetchPartitionList: () => of([]),
-  fetchSchedulerQueues: () => of({}),
-  fetchAppList: () => of([]),
-  fetchAppHistory: () => of([]),
-  fetchContainerHistory: () => of([]),
-  fetchNodeList: () => of([]),
-  fecthHealthchecks: () => of([]),
-};
-
-export const MockNgxSpinnerService = {
-  show: noopFn,
-  hide: noopFn,
-};
-
-export const MockEnvconfigService = {
-  getSchedulerWebAddress: noopFn,
-};
-
-export const MockEventBusService = {
-  getEvent: () => of<any>(),
-  publish: noopFn,
-};

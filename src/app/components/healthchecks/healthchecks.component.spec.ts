@@ -16,32 +16,28 @@
  * limitations under the License.
  */
 
-import { of } from 'rxjs';
+import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-export const noopFn = () => {};
+import { HealthchecksComponent } from './healthchecks.component';
 
-export const MockSchedulerService = {
-  fetchClusterByName: () => of({}),
-  fetchClusterList: () => of([]),
-  fetchPartitionList: () => of([]),
-  fetchSchedulerQueues: () => of({}),
-  fetchAppList: () => of([]),
-  fetchAppHistory: () => of([]),
-  fetchContainerHistory: () => of([]),
-  fetchNodeList: () => of([]),
-  fecthHealthchecks: () => of([]),
-};
+describe('HealthchecksComponent', () => {
+  let component: HealthchecksComponent;
+  let fixture: ComponentFixture<HealthchecksComponent>;
 
-export const MockNgxSpinnerService = {
-  show: noopFn,
-  hide: noopFn,
-};
+  beforeEach(async () => {
+    await TestBed.configureTestingModule({
+      declarations: [ HealthchecksComponent ]
+    })
+    .compileComponents();
+  });
 
-export const MockEnvconfigService = {
-  getSchedulerWebAddress: noopFn,
-};
+  beforeEach(() => {
+    fixture = TestBed.createComponent(HealthchecksComponent);
+    component = fixture.componentInstance;
+    fixture.detectChanges();
+  });
 
-export const MockEventBusService = {
-  getEvent: () => of<any>(),
-  publish: noopFn,
-};
+  it('should create', () => {
+    expect(component).toBeTruthy();
+  });
+});
