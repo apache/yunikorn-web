@@ -70,6 +70,8 @@ Beside the simple all in way to start the development server via make you can al
 The application depends on [json-server](https://www.npmjs.com/package/json-server) for data. Install json-server locally. Run `yarn start:srv` to start json-server for local development.
 Run `yarn start` to start the angular development server and navigate to `http://localhost:4200/`.
 
+After updating the context in the `json-db.json` or `json-route.json`, checking the json server is available  by running `make json-server`.
+
 ## Further help
 To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI README](https://github.com/angular/angular-cli/blob/master/README.md).
 
