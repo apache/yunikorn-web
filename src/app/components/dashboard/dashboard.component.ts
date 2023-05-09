@@ -20,7 +20,7 @@ import { Component, OnInit } from '@angular/core';
 import { NgxSpinnerService } from 'ngx-spinner';
 import { finalize } from 'rxjs/operators';
 import { SchedulerService } from '@app/services/scheduler/scheduler.service';
-import { ClusterInfo } from '@app/models/cluster-info.model';
+import { BuildInfo, ClusterInfo } from '@app/models/cluster-info.model';
 import { DonutDataItem } from '@app/models/donut-data.model';
 import { AreaDataItem } from '@app/models/area-data.model';
 import { HistoryInfo } from '@app/models/history-info.model';
@@ -46,6 +46,7 @@ export class DashboardComponent implements OnInit {
   appHistoryData: AreaDataItem[] = [];
   containerHistoryData: AreaDataItem[] = [];
   clusterInfo: ClusterInfo = this.getEmptyClusterInfo();
+  buildInfo: BuildInfo = this.getEmptyBuildInfo();
   initialAppHistory: HistoryInfo[] = [];
   initialContainerHistory: HistoryInfo[] = [];
 
@@ -71,6 +72,9 @@ export class DashboardComponent implements OnInit {
         if (list && list[0]) {
           this.clusterInfo = list[0];
           this.clusterInfo.clusterStatus = 'Active';
+          if (list[0].rmBuildInformation && list[0].rmBuildInformation[0]) {
+            this.buildInfo = list[0].rmBuildInformation[0];
+          }
         }
       });
 
@@ -147,6 +151,15 @@ export class DashboardComponent implements OnInit {
       partition: NOT_AVAILABLE,
       clusterName: NOT_AVAILABLE,
       clusterStatus: NOT_AVAILABLE,
+    };
+  }
+
+  getEmptyBuildInfo(): BuildInfo {
+    return {
+      buildDate: NOT_AVAILABLE,
+      buildVersion: NOT_AVAILABLE,
+      isPluginVersion: NOT_AVAILABLE,
+      rmId: NOT_AVAILABLE,
     };
   }
 }
