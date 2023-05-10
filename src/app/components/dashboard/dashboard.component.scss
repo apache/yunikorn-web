@@ -42,3 +42,22 @@
     margin-top: 30px;
   }
 }
+
+.info-card > .menu-trigger {
+  background: transparent;
+  background: #d7d7d7;
+  color: #666;
+  outline: none;
+  cursor: pointer;
+  border-radius: 8px;
+
+  &:hover {
+    background: #666;
+    color: #fff;
+  }
+}
+
+.about-card {
+  flex-direction: column;
+  padding: 10px;
+}

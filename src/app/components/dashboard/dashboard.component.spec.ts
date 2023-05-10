@@ -20,6 +20,7 @@ import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { RouterTestingModule } from '@angular/router/testing';
 import { configureTestSuite } from 'ng-bullet';
 import { MatCardModule } from '@angular/material/card';
+import { MatMenuModule } from '@angular/material/menu';
 import { NgxSpinnerService } from 'ngx-spinner';
 import { MockComponent } from 'ng-mocks';
 
@@ -49,7 +50,7 @@ describe('DashboardComponent', () => {
         MockComponent(ContainerStatusComponent),
         MockComponent(ContainerHistoryComponent),
       ],
-      imports: [MatCardModule, RouterTestingModule],
+      imports: [MatCardModule, MatMenuModule, RouterTestingModule],
       providers: [
         { provide: SchedulerService, useValue: MockSchedulerService },
         { provide: NgxSpinnerService, useValue: MockNgxSpinnerService },

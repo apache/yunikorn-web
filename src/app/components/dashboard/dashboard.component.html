@@ -46,6 +46,33 @@
       <div class="text-uppercase light-text">Partition</div>
       <div class="info-value strong-text">{{ partitionName | titlecase }}</div>
     </div>
+    <div class="info-card">
+      <button
+        class="menu-trigger"
+        mat-icon-button
+        matTooltip="More Info"
+        matTooltipShowDelay="500"
+        [matMenuTriggerFor]="InfoCard"
+      >
+        <i class="fa fa-info"></i>
+      </button>
+      <mat-menu #InfoCard="matMenu" xPosition="before">
+        <div class="flex-grid about-card">
+          <div class="flex-primary">
+            <div class="text-uppercase light-text">Build Date</div>
+            <div class="info-value strong-text">{{ buildInfo.buildDate }}</div>
+          </div>
+          <div class="flex-primary">
+            <div class="text-uppercase light-text">Build Version</div>
+            <div class="info-value strong-text">{{ buildInfo.buildVersion }}</div>
+          </div>
+          <div class="flex-primary">
+            <div class="text-uppercase light-text">RM Id</div>
+            <div class="info-value strong-text">{{ buildInfo.rmId }}</div>
+          </div>
+        </div>
+      </mat-menu>
+    </div>
   </div>
 </mat-card>
 
