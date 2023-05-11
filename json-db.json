@@ -1,40 +1,57 @@
 {
   "clusters": [
     {
-      "clusterName": "cluster-1",
-      "totalApplications": "1",
-      "failedApplications": "",
-      "pendingApplications": "",
-      "runningApplications": "1",
-      "completedApplications": "",
-      "totalContainers": "2",
-      "failedContainers": "",
-      "pendingContainers": "",
-      "runningContainers": "2",
-      "activeNodes": "1",
-      "totalNodes": "1",
-      "failedNodes": ""
+      "startTime": 1683692663386745934,
+      "rmBuildInformation": [
+        {
+          "buildDate": "2023-05-09T23:04:35+0800",
+          "buildVersion": "latest",
+          "isPluginVersion": "false",
+          "rmId": "mycluster"
+        }
+      ],
+      "partition": "default",
+      "clusterName": "kubernetes"
     }
   ],
   "queues": {
     "queuename": "root",
     "status": "Active",
     "partition": "default",
-    "maxResource": {},
+    "pendingResource": {
+      "memory": 0,
+      "pods": 0,
+      "vcore": 0
+    },
+    "maxResource": {
+      "ephemeral-storage": 99833802265,
+      "hugepages-1Gi": 0,
+      "hugepages-2Mi": 0,
+      "hugepages-32Mi": 0,
+      "hugepages-64Ki": 0,
+      "memory": 4110970880,
+      "pods": 110,
+      "vcore": 2000
+    },
     "guaranteedResource": {},
-    "allocatedResource": {},
+    "allocatedResource": {
+      "memory": 200000000,
+      "pods": 4,
+      "vcore": 40
+    },
+    "preemptingResource": {},
     "isLeaf": false,
     "isManaged": true,
-    "properties": {
-      "application.sort.policy": "stateaware"
-    },
+    "properties": {},
     "parent": "",
     "template": {
       "maxResource": {
-        "memory": 600000
+        "memory": 500000000,
+        "vcore": 500
       },
       "guaranteedResource": {
-        "memory": 400000
+        "memory": 100000000,
+        "vcore": 100
       },
       "properties": {
         "application.sort.policy": "stateaware"
@@ -42,30 +59,126 @@
     },
     "children": [
       {
-        "queuename": "root.a",
+        "queuename": "root.b",
         "status": "Active",
         "partition": "",
+        "pendingResource": {},
         "maxResource": {
-          "memory": 800000,
-          "vcore": 80000000
+          "memory": 300000000,
+          "vcore": 300
         },
         "guaranteedResource": {
-          "memory": 500000,
-          "vcore": 50000000
+          "memory": 200000000,
+          "vcore": 200
         },
         "allocatedResource": {},
-        "isLeaf": false,
+        "preemptingResource": {},
+        "isLeaf": true,
         "isManaged": true,
+        "properties": {},
+        "parent": "root",
+        "template": null,
+        "children": [],
+        "absUsedCapacity": {},
+        "maxRunningApps": 0,
+        "runningApps": 0,
+        "currentPriority": -2147483648,
+        "allocatingAcceptedApps": []
+      },
+      {
+        "queuename": "root.c",
+        "status": "Active",
+        "partition": "",
+        "pendingResource": {},
+        "maxResource": {
+          "memory": 300000000,
+          "vcore": 300
+        },
+        "guaranteedResource": {
+          "memory": 200000000,
+          "vcore": 200
+        },
+        "allocatedResource": {},
+        "preemptingResource": {},
+        "isLeaf": true,
+        "isManaged": true,
+        "properties": {},
+        "parent": "root",
+        "template": null,
+        "children": [],
+        "absUsedCapacity": {},
+        "maxRunningApps": 0,
+        "runningApps": 0,
+        "currentPriority": -2147483648,
+        "allocatingAcceptedApps": []
+      },
+      {
+        "queuename": "root.default",
+        "status": "Active",
+        "partition": "",
+        "pendingResource": {
+          "memory": 0,
+          "pods": 0,
+          "vcore": 0
+        },
+        "maxResource": {
+          "memory": 500000000,
+          "vcore": 500
+        },
+        "guaranteedResource": {
+          "memory": 100000000,
+          "vcore": 100
+        },
+        "allocatedResource": {
+          "memory": 200000000,
+          "pods": 4,
+          "vcore": 40
+        },
+        "preemptingResource": {},
+        "isLeaf": true,
+        "isManaged": false,
         "properties": {
           "application.sort.policy": "stateaware"
         },
         "parent": "root",
+        "template": null,
+        "children": [],
+        "absUsedCapacity": {
+          "memory": 40,
+          "vcore": 8
+        },
+        "maxRunningApps": 0,
+        "runningApps": 5,
+        "currentPriority": -2147483648,
+        "allocatingAcceptedApps": []
+      },
+      {
+        "queuename": "root.a",
+        "status": "Active",
+        "partition": "",
+        "pendingResource": {},
+        "maxResource": {
+          "memory": 100000000,
+          "vcore": 100
+        },
+        "guaranteedResource": {
+          "memory": 100000000,
+          "vcore": 100
+        },
+        "allocatedResource": {},
+        "preemptingResource": {},
+        "isLeaf": false,
+        "isManaged": true,
+        "properties": {},
+        "parent": "root",
         "template": {
           "maxResource": {
-            "memory": 600000
+            "memory": 500000000,
+            "vcore": 500
           },
           "guaranteedResource": {
-            "memory": 400000
+            "memory": 100000000,
+            "vcore": 100
           },
           "properties": {
             "application.sort.policy": "stateaware"
@@ -76,444 +189,624 @@
             "queuename": "root.a.a1",
             "status": "Active",
             "partition": "",
-            "maxResource": {
-              "memory": 800000,
-              "vcore": 80000000
-            },
-            "guaranteedResource": {
-              "memory": 500000,
-              "vcore": 50000000
-            },
+            "pendingResource": {},
+            "maxResource": {},
+            "guaranteedResource": {},
             "allocatedResource": {},
+            "preemptingResource": {},
             "isLeaf": true,
             "isManaged": true,
-            "properties": {
-              "application.sort.policy": "stateaware"
-            },
+            "properties": {},
             "parent": "root.a",
             "template": null,
             "children": [],
-            "absUsedCapacity": {}
+            "absUsedCapacity": {},
+            "maxRunningApps": 0,
+            "runningApps": 0,
+            "currentPriority": -2147483648,
+            "allocatingAcceptedApps": []
           }
         ],
-        "absUsedCapacity": {}
-      },
-      {
-        "queuename": "root.b",
-        "status": "Active",
-        "partition": "",
-        "maxResource": {
-          "memory": 600000,
-          "vcore": 60000000
-        },
-        "guaranteedResource": {
-          "memory": 400000,
-          "vcore": 40000000
-        },
-        "allocatedResource": {},
-        "isLeaf": true,
-        "isManaged": true,
-        "properties": {
-          "application.sort.policy": "stateaware"
-        },
-        "parent": "root",
-        "template": null,
-        "children": [],
-        "absUsedCapacity": {}
-      },
-      {
-        "queuename": "root.c",
-        "status": "Active",
-        "partition": "",
-        "maxResource": {
-          "memory": 100000,
-          "vcore": 10000000
-        },
-        "guaranteedResource": {
-          "memory": 100000,
-          "vcore": 10000000
-        },
-        "allocatedResource": {},
-        "isLeaf": true,
-        "isManaged": true,
-        "properties": {
-          "application.sort.policy": "stateaware"
-        },
-        "parent": "root",
-        "template": null,
-        "children": [],
-        "absUsedCapacity": {}
+        "absUsedCapacity": {},
+        "maxRunningApps": 0,
+        "runningApps": 0,
+        "currentPriority": -2147483648,
+        "allocatingAcceptedApps": []
       }
     ],
-    "absUsedCapacity": {}
+    "absUsedCapacity": {
+      "memory": 4,
+      "pods": 3,
+      "vcore": 2
+    },
+    "maxRunningApps": 0,
+    "runningApps": 5,
+    "currentPriority": -2147483648,
+    "allocatingAcceptedApps": []
   },
   "apps": [
     {
-      "applicationID": "app-4",
-      "usedResource": {},
-      "maxUsedResource": {},
+      "applicationID": "application-sleep-0005",
+      "usedResource": {
+        "memory": 50000000,
+        "pods": 1,
+        "vcore": 10
+      },
+      "maxUsedResource": {
+        "memory": 50000000,
+        "pods": 1,
+        "vcore": 10
+      },
+      "pendingResource": {
+        "memory": 0,
+        "pods": 0,
+        "vcore": 0
+      },
       "partition": "default",
       "queueName": "root.default",
-      "submissionTime": 1646038700214288000,
+      "submissionTime": 1683692665424997060,
       "finishedTime": null,
-      "allocations": [],
-      "applicationState": "New"
-    },
-    {
-      "applicationID": "app-1",
-      "usedResource": {
-        "memory": 50,
-        "vcore": 30
-      },
-      "maxUsedResource": {},
-      "partition": "default",
-      "queueName": "root.default",
-      "submissionTime": 1647932353565263000,
-      "finishedTime": 1647932353565363000,
+      "requests": [],
       "allocations": [
         {
-          "allocationKey": "54e5d77b-f4c3-4607-8038-03c9499dd99d",
-          "allocationTags": null,
-          "uuid": "08033f9a-4699-403c-9204-6333856b41bd",
-          "resource": {
-            "memory": 50,
-            "vcore": 30
+          "allocationKey": "67b34cd1-21b7-4ab4-a992-d3c1b5dc0e20",
+          "allocationTags": {
+            "kubernetes.io/label/app": "sleep",
+            "kubernetes.io/label/applicationId": "application-sleep-0005",
+            "kubernetes.io/label/queue": "root.a",
+            "kubernetes.io/meta/namespace": "default",
+            "kubernetes.io/meta/podName": "task4"
           },
-          "priority": "<nil>",
-          "queueName": "root.default",
-          "nodeId": "node-0001",
-          "applicationId": "application-0002",
-          "partition": "default"
+          "requestTime": 1683692667426734436,
+          "allocationTime": 1683692777012541197,
+          "allocationDelay": 109585806761,
+          "uuid": "d28274d4-4098-481f-b80a-9cf1afd086a0",
+          "resource": {
+            "memory": 50000000,
+            "pods": 1,
+            "vcore": 10
+          },
+          "priority": "0",
+          "nodeId": "lima-rancher-desktop",
+          "applicationId": "application-sleep-0005",
+          "partition": "default",
+          "placeholder": false,
+          "placeholderUsed": false,
+          "taskGroupName": "",
+          "preempted": false
         }
       ],
-      "applicationState": "New"
+      "applicationState": "Starting",
+      "user": "nobody",
+      "groups": [
+        "nobody"
+      ],
+      "rejectedMessage": "",
+      "stateLog": [
+        {
+          "time": 1683692667426745978,
+          "applicationState": "Accepted"
+        },
+        {
+          "time": 1683692777012614697,
+          "applicationState": "Starting"
+        }
+      ],
+      "placeholderData": [],
+      "hasReserved": false,
+      "reservations": [],
+      "maxRequestPriority": -2147483648
     },
     {
-      "applicationID": "app-3",
-      "usedResource": {},
-      "maxUsedResource": {},
-      "partition": "default",
-      "queueName": "root.default",
-      "submissionTime": 1647932353565263000,
-      "finishedTime": 1647932353565363000,
-      "allocations": [],
-      "applicationState": "New"
-    },
-    {
-      "applicationID": "app-2",
+      "applicationID": "application-sleep-0002",
       "usedResource": {
-        "memory": 30,
+        "memory": 150000000,
+        "pods": 3,
         "vcore": 30
+      },
+      "maxUsedResource": {
+        "memory": 150000000,
+        "pods": 3,
+        "vcore": 30
+      },
+      "pendingResource": {
+        "memory": 0,
+        "pods": 0,
+        "vcore": 0
       },
       "partition": "default",
       "queueName": "root.default",
-      "submissionTime": 1647932353565263000,
-      "finishedTime": 1647932353565363000,
+      "submissionTime": 1683692665424798852,
+      "finishedTime": null,
+      "requests": [],
       "allocations": [
         {
-          "allocationKey": "54e5d77b-f4c3-4607-8038-03c9499dd99d",
-          "allocationTags": null,
-          "uuid": "08033f9a-4699-403c-9204-6333844444bd",
+          "allocationKey": "89196eb9-42e8-4480-9bd1-91ca0ce80854",
+          "allocationTags": {
+            "kubernetes.io/label/app": "sleep",
+            "kubernetes.io/label/applicationId": "application-sleep-0002",
+            "kubernetes.io/label/pod-template-hash": "7b89667644",
+            "kubernetes.io/label/queue": "root.a",
+            "kubernetes.io/meta/namespace": "default",
+            "kubernetes.io/meta/podName": "sleep-dp-7b89667644-ff75z"
+          },
+          "requestTime": 1683692667425480520,
+          "allocationTime": 1683692667426304895,
+          "allocationDelay": 824375,
+          "uuid": "da8ab0ec-157e-487f-b607-a77fdcef9a27",
           "resource": {
-            "memory": 10,
+            "memory": 50000000,
+            "pods": 1,
             "vcore": 10
           },
-          "priority": "<nil>",
-          "queueName": "root.default",
-          "nodeId": "node-0001",
-          "applicationId": "application-0002",
-          "partition": "default"
+          "priority": "0",
+          "nodeId": "lima-rancher-desktop",
+          "applicationId": "application-sleep-0002",
+          "partition": "default",
+          "placeholder": false,
+          "placeholderUsed": false,
+          "taskGroupName": "",
+          "preempted": false
         },
         {
-          "allocationKey": "54e5d77b-f4c3-4607-8038-03c9499dd99d",
-          "allocationTags": null,
-          "uuid": "08033f9a-4699-403c-9204-6333846844bd",
+          "allocationKey": "20b73321-20e7-472e-af2b-f3a4da95e2d1",
+          "allocationTags": {
+            "kubernetes.io/label/app": "sleep",
+            "kubernetes.io/label/applicationId": "application-sleep-0002",
+            "kubernetes.io/label/pod-template-hash": "7b89667644",
+            "kubernetes.io/label/queue": "root.a",
+            "kubernetes.io/meta/namespace": "default",
+            "kubernetes.io/meta/podName": "sleep-dp-7b89667644-hd59j"
+          },
+          "requestTime": 1683692667426251936,
+          "allocationTime": 1683692667426598936,
+          "allocationDelay": 347000,
+          "uuid": "4ed50457-613c-4037-8f0f-d550ab4a8f13",
           "resource": {
-            "memory": 10,
+            "memory": 50000000,
+            "pods": 1,
             "vcore": 10
           },
-          "priority": "<nil>",
-          "queueName": "root.default",
-          "nodeId": "node-0001",
-          "applicationId": "application-0002",
-          "partition": "default"
+          "priority": "0",
+          "nodeId": "lima-rancher-desktop",
+          "applicationId": "application-sleep-0002",
+          "partition": "default",
+          "placeholder": false,
+          "placeholderUsed": false,
+          "taskGroupName": "",
+          "preempted": false
         },
         {
-          "allocationKey": "54e5d77b-f4c3-4607-8038-03c9499dd99d",
-          "allocationTags": null,
-          "uuid": "08033f9a-4699-403c-9204-63338844888d",
+          "allocationKey": "cdfa6598-dd3b-49b9-805c-ecda2a465c18",
+          "allocationTags": {
+            "kubernetes.io/label/app": "sleep",
+            "kubernetes.io/label/applicationId": "application-sleep-0002",
+            "kubernetes.io/label/pod-template-hash": "7b89667644",
+            "kubernetes.io/label/queue": "root.a",
+            "kubernetes.io/meta/namespace": "default",
+            "kubernetes.io/meta/podName": "sleep-dp-7b89667644-8c6j9"
+          },
+          "requestTime": 1683692667426435311,
+          "allocationTime": 1683692667426990103,
+          "allocationDelay": 554792,
+          "uuid": "7ffb634c-e4c7-4d18-8785-e08bf23f3d6d",
           "resource": {
-            "memory": 10,
+            "memory": 50000000,
+            "pods": 1,
             "vcore": 10
           },
-          "priority": "<nil>",
-          "queueName": "root.default",
-          "nodeId": "node-0001",
-          "applicationId": "application-0002",
-          "partition": "default"
+          "priority": "0",
+          "nodeId": "lima-rancher-desktop",
+          "applicationId": "application-sleep-0002",
+          "partition": "default",
+          "placeholder": false,
+          "placeholderUsed": false,
+          "taskGroupName": "",
+          "preempted": false
         }
       ],
-      "applicationState": "New"
+      "applicationState": "Running",
+      "user": "nobody",
+      "groups": [
+        "nobody"
+      ],
+      "rejectedMessage": "",
+      "stateLog": [
+        {
+          "time": 1683692667425545686,
+          "applicationState": "Accepted"
+        },
+        {
+          "time": 1683692667426366145,
+          "applicationState": "Starting"
+        },
+        {
+          "time": 1683692667426627228,
+          "applicationState": "Running"
+        }
+      ],
+      "placeholderData": [],
+      "hasReserved": false,
+      "reservations": [],
+      "maxRequestPriority": -2147483648
+    },
+    {
+      "applicationID": "application-sleep-0001",
+      "usedResource": {
+        "memory": 0,
+        "pods": 0,
+        "vcore": 0
+      },
+      "maxUsedResource": {
+        "memory": 50000000,
+        "pods": 1,
+        "vcore": 10
+      },
+      "pendingResource": {
+        "memory": 0,
+        "pods": 0,
+        "vcore": 0
+      },
+      "partition": "default",
+      "queueName": "root.default",
+      "submissionTime": 1683692665424937977,
+      "finishedTime": null,
+      "requests": [],
+      "allocations": [],
+      "applicationState": "Completing",
+      "user": "nobody",
+      "groups": [
+        "nobody"
+      ],
+      "rejectedMessage": "",
+      "stateLog": [
+        {
+          "time": 1683692667426534811,
+          "applicationState": "Accepted"
+        },
+        {
+          "time": 1683692743829099181,
+          "applicationState": "Starting"
+        },
+        {
+          "time": 1683692777012085530,
+          "applicationState": "Completing"
+        }
+      ],
+      "placeholderData": [],
+      "hasReserved": false,
+      "reservations": [],
+      "maxRequestPriority": -2147483648
     }
   ],
   "appHistory": [
     {
-      "timestamp": 1585238263802408000,
-      "totalApplications": "0"
-    },
-    {
-      "timestamp": 1585238323803183000,
-      "totalApplications": "0"
-    },
-    {
-      "timestamp": 1585238383803268000,
-      "totalApplications": "1"
-    },
-    {
-      "timestamp": 1585238443804046000,
-      "totalApplications": "2"
-    },
-    {
-      "timestamp": 1585238503806253000,
-      "totalApplications": "1"
-    },
-    {
-      "timestamp": 1585238563807452000,
+      "timestamp": 1683692723390326338,
       "totalApplications": "3"
+    },
+    {
+      "timestamp": 1683692783389687867,
+      "totalApplications": "5"
     }
   ],
   "containerHistory": [
     {
-      "timestamp": 1585238263802408000,
-      "totalContainers": "0"
+      "timestamp": 1683692723390326338,
+      "totalContainers": "4"
     },
     {
-      "timestamp": 1585238323803183000,
-      "totalContainers": "0"
-    },
-    {
-      "timestamp": 1585238383803268000,
-      "totalContainers": "1"
-    },
-    {
-      "timestamp": 1585238443804046000,
-      "totalContainers": "2"
-    },
-    {
-      "timestamp": 1585238503806253000,
-      "totalContainers": "1"
-    },
-    {
-      "timestamp": 1585238563807452000,
-      "totalContainers": "3"
+      "timestamp": 1683692783389687867,
+      "totalContainers": "4"
     }
   ],
   "nodes": [
     {
-      "nodeID": "node-1",
+      "nodeID": "lima-rancher-desktop",
       "hostName": "",
       "rackName": "",
       "capacity": {
-        "ephemeral-storage": 62725623808,
+        "ephemeral-storage": 99833802265,
         "hugepages-1Gi": 0,
         "hugepages-2Mi": 0,
-        "memory": 2081755136,
+        "hugepages-32Mi": 0,
+        "hugepages-64Ki": 0,
+        "memory": 4110970880,
         "pods": 110,
-        "vcore": 6000
+        "vcore": 2000
       },
       "allocated": {
-        "memory": 0,
-        "vcore": 0
+        "memory": 200000000,
+        "pods": 4,
+        "vcore": 40
       },
       "occupied": {
-        "memory": 577716800,
-        "vcore": 200
+        "memory": 1325400064,
+        "pods": 4,
+        "vcore": 500
       },
       "available": {
-        "ephemeral-storage": 62725623808,
+        "ephemeral-storage": 99833802265,
         "hugepages-1Gi": 0,
         "hugepages-2Mi": 0,
-        "memory": 1504038336,
-        "pods": 110,
-        "vcore": 5800
+        "hugepages-32Mi": 0,
+        "hugepages-64Ki": 0,
+        "memory": 2585570816,
+        "pods": 102,
+        "vcore": 1460
       },
       "utilized": {
-        "memory": 0,
-        "vcore": 0
+        "memory": 4,
+        "pods": 3,
+        "vcore": 2
       },
       "allocations": [
         {
-          "allocationKey": "alloc-1",
-          "allocationTags": null,
-          "uuid": "alloc-1-uuid",
+          "allocationKey": "89196eb9-42e8-4480-9bd1-91ca0ce80854",
+          "allocationTags": {
+            "kubernetes.io/label/app": "sleep",
+            "kubernetes.io/label/applicationId": "application-sleep-0002",
+            "kubernetes.io/label/pod-template-hash": "7b89667644",
+            "kubernetes.io/label/queue": "root.a",
+            "kubernetes.io/meta/namespace": "default",
+            "kubernetes.io/meta/podName": "sleep-dp-7b89667644-ff75z"
+          },
+          "requestTime": 1683692667425480520,
+          "allocationTime": 1683692667426304895,
+          "allocationDelay": 824375,
+          "uuid": "da8ab0ec-157e-487f-b607-a77fdcef9a27",
           "resource": {
-            "memory": 500,
-            "vcore": 300
+            "memory": 50000000,
+            "pods": 1,
+            "vcore": 10
           },
           "priority": "0",
-          "queueName": "root.default",
-          "nodeId": "node-1",
-          "applicationId": "app1",
-          "partition": ""
-        }
-      ],
-      "schedulable": true
-    },
-    {
-      "nodeID": "node-2",
-      "hostName": "",
-      "rackName": "",
-      "capacity": {
-        "ephemeral-storage": 62725623808,
-        "hugepages-1Gi": 0,
-        "hugepages-2Mi": 0,
-        "memory": 2081755136,
-        "pods": 110,
-        "vcore": 6000
-      },
-      "allocated": {
-        "memory": 0,
-        "vcore": 0
-      },
-      "occupied": {
-        "memory": 577716800,
-        "vcore": 200
-      },
-      "available": {
-        "ephemeral-storage": 62725623808,
-        "hugepages-1Gi": 0,
-        "hugepages-2Mi": 0,
-        "memory": 1504038336,
-        "pods": 110,
-        "vcore": 5800
-      },
-      "utilized": {
-        "memory": 0,
-        "vcore": 0
-      },
-      "allocations": [
+          "nodeId": "lima-rancher-desktop",
+          "applicationId": "application-sleep-0002",
+          "partition": "default",
+          "placeholder": false,
+          "placeholderUsed": false,
+          "taskGroupName": "",
+          "preempted": false
+        },
         {
-          "allocationKey": "alloc-2",
-          "allocationTags": null,
-          "uuid": "alloc-2-uuid",
+          "allocationKey": "20b73321-20e7-472e-af2b-f3a4da95e2d1",
+          "allocationTags": {
+            "kubernetes.io/label/app": "sleep",
+            "kubernetes.io/label/applicationId": "application-sleep-0002",
+            "kubernetes.io/label/pod-template-hash": "7b89667644",
+            "kubernetes.io/label/queue": "root.a",
+            "kubernetes.io/meta/namespace": "default",
+            "kubernetes.io/meta/podName": "sleep-dp-7b89667644-hd59j"
+          },
+          "requestTime": 1683692667426251936,
+          "allocationTime": 1683692667426598936,
+          "allocationDelay": 347000,
+          "uuid": "4ed50457-613c-4037-8f0f-d550ab4a8f13",
           "resource": {
-            "memory": 500,
-            "vcore": 300
+            "memory": 50000000,
+            "pods": 1,
+            "vcore": 10
           },
           "priority": "0",
-          "queueName": "root.default",
-          "nodeId": "node-2",
-          "applicationId": "app1",
-          "partition": ""
+          "nodeId": "lima-rancher-desktop",
+          "applicationId": "application-sleep-0002",
+          "partition": "default",
+          "placeholder": false,
+          "placeholderUsed": false,
+          "taskGroupName": "",
+          "preempted": false
+        },
+        {
+          "allocationKey": "67b34cd1-21b7-4ab4-a992-d3c1b5dc0e20",
+          "allocationTags": {
+            "kubernetes.io/label/app": "sleep",
+            "kubernetes.io/label/applicationId": "application-sleep-0005",
+            "kubernetes.io/label/queue": "root.a",
+            "kubernetes.io/meta/namespace": "default",
+            "kubernetes.io/meta/podName": "task4"
+          },
+          "requestTime": 1683692667426734436,
+          "allocationTime": 1683692777012541197,
+          "allocationDelay": 109585806761,
+          "uuid": "d28274d4-4098-481f-b80a-9cf1afd086a0",
+          "resource": {
+            "memory": 50000000,
+            "pods": 1,
+            "vcore": 10
+          },
+          "priority": "0",
+          "nodeId": "lima-rancher-desktop",
+          "applicationId": "application-sleep-0005",
+          "partition": "default",
+          "placeholder": false,
+          "placeholderUsed": false,
+          "taskGroupName": "",
+          "preempted": false
+        },
+        {
+          "allocationKey": "cdfa6598-dd3b-49b9-805c-ecda2a465c18",
+          "allocationTags": {
+            "kubernetes.io/label/app": "sleep",
+            "kubernetes.io/label/applicationId": "application-sleep-0002",
+            "kubernetes.io/label/pod-template-hash": "7b89667644",
+            "kubernetes.io/label/queue": "root.a",
+            "kubernetes.io/meta/namespace": "default",
+            "kubernetes.io/meta/podName": "sleep-dp-7b89667644-8c6j9"
+          },
+          "requestTime": 1683692667426435311,
+          "allocationTime": 1683692667426990103,
+          "allocationDelay": 554792,
+          "uuid": "7ffb634c-e4c7-4d18-8785-e08bf23f3d6d",
+          "resource": {
+            "memory": 50000000,
+            "pods": 1,
+            "vcore": 10
+          },
+          "priority": "0",
+          "nodeId": "lima-rancher-desktop",
+          "applicationId": "application-sleep-0002",
+          "partition": "default",
+          "placeholder": false,
+          "placeholderUsed": false,
+          "taskGroupName": "",
+          "preempted": false
         }
       ],
-      "schedulable": true
+      "schedulable": true,
+      "isReserved": false,
+      "reservations": []
     }
   ],
   "partitions": [
     {
-      "name": "default",
       "clusterId": "mycluster",
-      "state": "Active",
-      "lastStateTransitionTime": "2021-05-20 12:25:49.018953 +0530 IST m=+0.005949717",
+      "name": "default",
       "capacity": {
-        "capacity": "[memory:1000 vcore:1000]",
-        "usedCapacity": "[memory:800 vcore:500]"
+        "capacity": {
+          "ephemeral-storage": 99833802265,
+          "hugepages-1Gi": 0,
+          "hugepages-2Mi": 0,
+          "hugepages-32Mi": 0,
+          "hugepages-64Ki": 0,
+          "memory": 4110970880,
+          "pods": 110,
+          "vcore": 2000
+        },
+        "usedCapacity": {
+          "memory": 200000000,
+          "pods": 4,
+          "vcore": 40
+        },
+        "utilization": {
+          "memory": 4,
+          "pods": 3,
+          "vcore": 2
+        }
       },
       "nodeSortingPolicy": {
         "type": "fair",
         "resourceWeights": {
-          "memory": 1.5,
-          "vcore": 1.3
+          "memory": 1,
+          "vcore": 1
         }
       },
+      "totalNodes": 1,
       "applications": {
-        "New": 5,
-        "Pending": 5,
-        "total": 10
-      }
+        "Completed": 2,
+        "Completing": 1,
+        "Running": 1,
+        "Starting": 1,
+        "total": 5
+      },
+      "totalContainers": 4,
+      "state": "Active",
+      "lastStateTransitionTime": 1683692664405879143
     },
     {
-      "name": "gpu",
-      "clusterId": "mycluster",
-      "state": "Active",
-      "lastStateTransitionTime": "2021-05-19 12:25:49.018953 +0530 IST m=+0.005949717",
+      "clusterId": "mycluster-2",
+      "name": "cluster-2",
       "capacity": {
-        "capacity": "[memory:2000 vcore:2000]",
-        "usedCapacity": "[memory:500 vcore:300]"
+        "capacity": {
+          "ephemeral-storage": 2707068785486,
+          "hugepages-1Gi": 0,
+          "hugepages-2Mi": 0,
+          "memory": 365306871808,
+          "pods": 2553,
+          "vcore": 152000
+        },
+        "usedCapacity": {
+          "memory": 0,
+          "vcore": 0
+        },
+        "utilization": {
+          "memory": 0,
+          "vcore": 0
+        }
       },
       "nodeSortingPolicy": {
-        "type": "binpacking",
+        "type": "fair",
         "resourceWeights": {
-          "memory": 0,
-          "vcore": 4.11
+          "memory": 1,
+          "vcore": 1
         }
       },
       "applications": {
-        "New": 5,
-        "Running": 10,
-        "Pending": 5,
-        "total": 20
-      }
+        "Expired": 200,
+        "total": 200
+      },
+      "state": "Active",
+      "lastStateTransitionTime": 1682667061800465538
     }
   ],
   "healthCheck": {
-      "Healthy": true,
-      "HealthChecks": [
-          {
-              "Name": "Scheduling errors",
-              "Succeeded": true,
-              "Description": "Check for scheduling error entries in metrics",
-              "DiagnosisMessage": "There were 0 scheduling errors logged in the metrics"
-          },
-          {
-              "Name": "Failed nodes",
-              "Succeeded": true,
-              "Description": "Check for failed nodes entries in metrics",
-              "DiagnosisMessage": "There were 0 failed nodes logged in the metrics"
-          },
-          {
-              "Name": "Negative resources",
-              "Succeeded": true,
-              "Description": "Check for negative resources in the partitions",
-              "DiagnosisMessage": "Partitions with negative resources: []"
-          },
-          {
-              "Name": "Negative resources",
-              "Succeeded": true,
-              "Description": "Check for negative resources in the nodes",
-              "DiagnosisMessage": "Nodes with negative resources: []"
-          },
-          {
-              "Name": "Consistency of data",
-              "Succeeded": true,
-              "Description": "Check if a node's allocated resource <= total resource of the node",
-              "DiagnosisMessage": "Nodes with inconsistent data: []"
-          },
-          {
-              "Name": "Consistency of data",
-              "Succeeded": true,
-              "Description": "Check if total partition resource == sum of the node resources from the partition",
-              "DiagnosisMessage": "Partitions with inconsistent data: []"
-          },
-          {
-              "Name": "Consistency of data",
-              "Succeeded": true,
-              "Description": "Check if node total resource = allocated resource + occupied resource + available resource",
-              "DiagnosisMessage": "Nodes with inconsistent data: []"
-          },
-          {
-              "Name": "Consistency of data",
-              "Succeeded": true,
-              "Description": "Check if node capacity >= allocated resources on the node",
-              "DiagnosisMessage": "Nodes with inconsistent data: []"
-          },
-          {
-              "Name": "Reservation check",
-              "Succeeded": true,
-              "Description": "Check the reservation nr compared to the number of nodes",
-              "DiagnosisMessage": "Reservation/node nr ratio: [0.000000]"
-          }
-      ]
+    "Healthy": true,
+    "HealthChecks": [
+      {
+        "Name": "Scheduling errors",
+        "Succeeded": true,
+        "Description": "Check for scheduling error entries in metrics",
+        "DiagnosisMessage": "There were 0 scheduling errors logged in the metrics"
+      },
+      {
+        "Name": "Failed nodes",
+        "Succeeded": true,
+        "Description": "Check for failed nodes entries in metrics",
+        "DiagnosisMessage": "There were 0 failed nodes logged in the metrics"
+      },
+      {
+        "Name": "Negative resources",
+        "Succeeded": true,
+        "Description": "Check for negative resources in the partitions",
+        "DiagnosisMessage": "Partitions with negative resources: []"
+      },
+      {
+        "Name": "Negative resources",
+        "Succeeded": true,
+        "Description": "Check for negative resources in the nodes",
+        "DiagnosisMessage": "Nodes with negative resources: []"
+      },
+      {
+        "Name": "Consistency of data",
+        "Succeeded": true,
+        "Description": "Check if a node's allocated resource \u003c= total resource of the node",
+        "DiagnosisMessage": "Nodes with inconsistent data: []"
+      },
+      {
+        "Name": "Consistency of data",
+        "Succeeded": true,
+        "Description": "Check if total partition resource == sum of the node resources from the partition",
+        "DiagnosisMessage": "Partitions with inconsistent data: []"
+      },
+      {
+        "Name": "Consistency of data",
+        "Succeeded": true,
+        "Description": "Check if node total resource = allocated resource + occupied resource + available resource",
+        "DiagnosisMessage": "Nodes with inconsistent data: []"
+      },
+      {
+        "Name": "Consistency of data",
+        "Succeeded": true,
+        "Description": "Check if node capacity \u003e= allocated resources on the node",
+        "DiagnosisMessage": "Nodes with inconsistent data: []"
+      },
+      {
+        "Name": "Reservation check",
+        "Succeeded": true,
+        "Description": "Check the reservation nr compared to the number of nodes",
+        "DiagnosisMessage": "Reservation/node nr ratio: [0.000000]"
+      },
+      {
+        "Name": "Orphan allocation on node check",
+        "Succeeded": true,
+        "Description": "Check if there are orphan allocations on the nodes",
+        "DiagnosisMessage": "Orphan allocations: []"
+      },
+      {
+        "Name": "Orphan allocation on app check",
+        "Succeeded": true,
+        "Description": "Check if there are orphan allocations on the applications",
+        "DiagnosisMessage": "OrphanAllocations: []"
+      }
+    ]
   }
 }
