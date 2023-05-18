@@ -54,7 +54,7 @@
     "@types/node": "^12.11.1",
     "husky": "^7.0.4",
     "jasmine-core": "~4.0.0",
-    "json-server": "^0.17.0",
+    "json-server": "^0.17.3",
     "karma": "~6.3.0",
     "karma-chrome-launcher": "~3.1.0",
     "karma-coverage": "~2.1.0",
