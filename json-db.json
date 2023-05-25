@@ -71,7 +71,10 @@
           "memory": 200000000,
           "vcore": 200
         },
-        "allocatedResource": {},
+        "allocatedResource": {
+          "memory": 270000000,
+          "vcore": 270
+        },
         "preemptingResource": {},
         "isLeaf": true,
         "isManaged": true,
@@ -79,7 +82,10 @@
         "parent": "root",
         "template": null,
         "children": [],
-        "absUsedCapacity": {},
+        "absUsedCapacity": {
+          "memory": 90,
+          "vcore": 90
+        },
         "maxRunningApps": 0,
         "runningApps": 0,
         "currentPriority": -2147483648,
@@ -165,7 +171,14 @@
           "memory": 100000000,
           "vcore": 100
         },
-        "allocatedResource": {},
+        "allocatedResource": {
+          "memory": 80000000,
+          "vcore": 80
+        },
+        "absUsedCapacity": {
+          "memory": 80,
+          "vcore": 80
+        },
         "preemptingResource": {},
         "isLeaf": false,
         "isManaged": true,
@@ -190,9 +203,18 @@
             "status": "Active",
             "partition": "",
             "pendingResource": {},
-            "maxResource": {},
-            "guaranteedResource": {},
-            "allocatedResource": {},
+            "maxResource": {
+              "memory": 100000000,
+              "vcore": 100
+            },
+            "guaranteedResource": {
+              "memory": 100000000,
+              "vcore": 100
+            },
+            "allocatedResource": {
+              "memory": 80000000,
+              "vcore": 80
+            },
             "preemptingResource": {},
             "isLeaf": true,
             "isManaged": true,
@@ -200,14 +222,16 @@
             "parent": "root.a",
             "template": null,
             "children": [],
-            "absUsedCapacity": {},
+            "absUsedCapacity": {
+              "memory": 80,
+              "vcore": 80
+            },
             "maxRunningApps": 0,
             "runningApps": 0,
             "currentPriority": -2147483648,
             "allocatingAcceptedApps": []
           }
         ],
-        "absUsedCapacity": {},
         "maxRunningApps": 0,
         "runningApps": 0,
         "currentPriority": -2147483648,
