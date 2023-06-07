@@ -24,35 +24,35 @@
 .nodes-view {
   width: 100%;
   height: 100%;
-  .mat-header-cell {
+  .mat-mdc-header-cell {
     font-size: 15px;
     font-weight: bold;
     color: #666;
   }
-  .mat-cell {
+  .mat-mdc-cell {
     color: #333;
   }
-  .mat-row {
+  .mat-mdc-row {
     &:hover {
       background: #cccccc;
       cursor: pointer;
     }
     &.selected-row {
       background: #303d54;
-      .mat-cell {
+      .mat-mdc-cell {
         color: #fff;
       }
     }
   }
-  .mat-header-cell.indicator-icon,
-  .mat-cell.indicator-icon {
+  .mat-mdc-header-cell.indicator-icon,
+  .mat-mdc-cell.indicator-icon {
     max-width: 40px;
     font-size: 18px;
     margin-left: 10px;
   }
   .node-allocations {
     margin-top: 40px;
-    .mat-table {
+    .mat-mdc-table {
       margin-top: 20px;
     }
   }

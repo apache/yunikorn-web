@@ -112,26 +112,26 @@ p {
   flex-grow: 1;
 }
 
-.mat-card.box-card {
+.mat-mdc-card.box-card {
   padding: 0;
   border-radius: 0;
-  .mat-card-header {
+  .mat-mdc-card-header {
     color: #666;
     background-color: #f7f7f7;
     border-bottom: 1px solid #d5d5d5;
     padding: 15px 10px;
   }
-  .mat-card-title {
+  .mat-mdc-card-title {
     margin-left: -5px;
     font-weight: bold;
     margin-bottom: 0 !important;
   }
-  .mat-card-content {
+  .mat-mdc-card-content {
     padding: 10px;
   }
 }
 
-.white-mat-form-field .mat-form-field-flex {
+.white-mat-form-field .mat-mdc-form-field-flex {
   background-color: #fff;
-  padding: 0 5px 6px 5px;
+  padding: 0 5px 0 5px;
 }
