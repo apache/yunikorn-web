@@ -200,7 +200,7 @@ build_server_dev: init
 build_server_prod: init
 	@echo "building web server binary"
 	CGO_ENABLED=0 GOOS=linux GOARCH="${EXEC_ARCH}" \
-	go build -a -o=${RELEASE_BIN_DIR}/${SERVER_BINARY} -ldflags \
+	go build -a -o=${RELEASE_BIN_DIR}/${SERVER_BINARY} -trimpath -ldflags \
 	'-extldflags "-static" -X main.version=${VERSION} -X main.date=${DATE}' \
 	-tags netgo -installsuffix netgo \
 	./pkg/cmd/web/
