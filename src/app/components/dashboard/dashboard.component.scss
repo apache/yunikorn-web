@@ -16,7 +16,7 @@
  * limitations under the License.
  */
 
-.mat-card {
+.mat-mdc-card {
   padding: 20px;
   margin-bottom: 20px;
 }
@@ -46,11 +46,12 @@
 
 .info-card > .menu-trigger {
   background: #d7d7d7;
+  font-size: 14px;
   color: #666;
   outline: none;
   cursor: pointer;
   border-radius: 8px;
-  margin: 5px;
+  margin: 0px;
   &:hover {
     background: #666;
     color: #fff;
@@ -59,5 +60,12 @@
 
 .about-card {
   flex-direction: column;
+  font-size: 14px;
   padding: 10px;
+  line-height: 22px;
+}
+
+.about-card .info-value {
+  font-size: 14px;
+  margin: 0 0 3px 0;
 }

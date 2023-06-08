@@ -16,7 +16,7 @@
  * limitations under the License.
  -->
 
-<mat-card class="error-view">
+<mat-card appearance="outlined" class="error-view">
   <ng-container *ngIf="apiError && apiError.statusCode; else genericErrorMessage">
     <mat-card-header class="center-header">
       <mat-card-title>{{ apiError.statusCode }}: {{ apiError.message }}</mat-card-title>

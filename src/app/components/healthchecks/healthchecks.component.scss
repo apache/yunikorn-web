@@ -18,16 +18,16 @@
  
 @import "https://fonts.googleapis.com/icon?family=Material+Icons";
 
-.example-headers-align .mat-expansion-panel-header-title,
-.example-headers-align .mat-expansion-panel-header-description {
+.healthcheck-headers-align .mat-expansion-panel-header-title,
+.healthcheck-headers-align .mat-expansion-panel-header-description {
   flex-basis: 0;
 }
 
-.example-headers-align .mat-expansion-panel-header-description {
+.healthcheck-headers-align .mat-expansion-panel-header-description {
   justify-content: space-between;
   align-items: center;
 }
 
-.example-headers-align .mat-form-field + .mat-form-field {
+.healthcheck-headers-align .mat-mdc-form-field + .mat-form-field {
   margin-left: 8px;
 }

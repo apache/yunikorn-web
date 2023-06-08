@@ -17,7 +17,7 @@
  -->
 
 <div class="queue-rack">
-  <mat-card class="queue-item" *ngFor="let item of queueList">
+  <mat-card appearance="outlined" class="queue-item" *ngFor="let item of queueList">
     <div
       class="flex-grid queue-name"
       [ngClass]="{ selected: item.isSelected }"
