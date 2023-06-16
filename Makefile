@@ -19,7 +19,7 @@
 # Check if this GO tools version used is at least the version of go specified in
 # the go.mod file. The version in go.mod should be in sync with other repos.
 GO_VERSION := $(shell go version | awk '{print substr($$3, 3, 10)}')
-MOD_VERSION := $(shell cat .go_version) 
+MOD_VERSION := $(shell cat .go_version)
 
 GM := $(word 1,$(subst ., ,$(GO_VERSION)))
 MM := $(word 1,$(subst ., ,$(MOD_VERSION)))
@@ -75,7 +75,7 @@ EXEC_ARCH := 386
 DOCKER_ARCH := i386
 else ifneq (,$(filter $(HOST_ARCH), arm64 aarch64))
 EXEC_ARCH := arm64
-DOCKER_ARCH := arm64v8
+DOCKER_ARCH := arm64
 else ifeq (armv7l, $(HOST_ARCH))
 EXEC_ARCH := arm
 DOCKER_ARCH := arm32v7
