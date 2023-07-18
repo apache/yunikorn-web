@@ -29,7 +29,7 @@ RUN yarn build:prod
 
 # Imagestage: use scratch base image
 FROM --platform=$TARGETPLATFORM scratch
-COPY --chown=0:0 bin/prod/yunikorn-web /
+COPY --chown=0:0 build/prod/yunikorn-web /
 COPY --chown=0:0 --from=buildstage /work/dist/yunikorn-web /html/
 EXPOSE 9889
 ENV DOCUMENT_ROOT /html

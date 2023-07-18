@@ -42,3 +42,5 @@ jobs:
         run: make test_go
       - name: Code coverage
         uses: codecov/codecov-action@v3
+        with:
+          files: build/coverage.txt
