@@ -18,7 +18,13 @@
 
 # Check if this GO tools version used is at least the version of go specified in
 # the go.mod file. The version in go.mod should be in sync with other repos.
-GO_VERSION := $(shell go version | awk '{print substr($$3, 3, 10)}')
+
+# Go compiler selection
+ifeq ($(GO),)
+GO := go
+endif
+
+GO_VERSION := $(shell "$(GO)" version | awk '{print substr($$3, 3, 10)}')
 MOD_VERSION := $(shell cat .go_version)
 
 GM := $(word 1,$(subst ., ,$(GO_VERSION)))
@@ -37,7 +43,8 @@ endif
 # Make sure we are in the same directory as the Makefile
 BASE_DIR := $(dir $(abspath $(lastword $(MAKEFILE_LIST))))
 
-OUTPUT=bin
+OUTPUT=build
+TOOLS_DIR=tools
 DEV_BIN_DIR=${OUTPUT}/dev
 RELEASE_BIN_DIR=${OUTPUT}/prod
 SERVER_BINARY=yunikorn-web
@@ -57,6 +64,9 @@ endif
 
 # Set the default web port
 PORT=9889
+
+# Kernel (OS) Name
+OS := $(shell uname -s | tr '[:upper:]' '[:lower:]')
 
 # Allow architecture to be overwritten
 ifeq ($(HOST_ARCH),)
@@ -85,26 +95,41 @@ EXEC_ARCH := amd64
 DOCKER_ARCH := amd64
 endif
 
+# golangci-lint
+GOLANGCI_LINT_VERSION=1.53.3
+GOLANGCI_LINT_BIN=$(TOOLS_DIR)/golangci-lint
+GOLANGCI_LINT_ARCHIVE=golangci-lint-$(GOLANGCI_LINT_VERSION)-$(OS)-$(EXEC_ARCH).tar.gz
+GOLANGCI_LINT_ARCHIVEBASE=golangci-lint-$(GOLANGCI_LINT_VERSION)-$(OS)-$(EXEC_ARCH)
+
 WEB_SHA=$(shell git rev-parse --short=12 HEAD)
+
+ifeq ($(WEB_TAG),)
+WEB_TAG := $(REGISTRY)/yunikorn:web-$(DOCKER_ARCH)-$(VERSION)
+endif
 
 all:
 	$(MAKE) -C $(dir $(BASE_DIR)) build
 
-LINTBASE := $(shell go env GOPATH)/bin
-LINTBIN  := $(LINTBASE)/golangci-lint
-$(LINTBIN):
-	curl -sSfL https://raw.githubusercontent.com/golangci/golangci-lint/master/install.sh | sh -s -- -b $(LINTBASE) v1.51.2
-	stat $@ > /dev/null 2>&1
+# Install tools
+.PHONY: tools
+tools: $(GOLANGCI_LINT_BIN)
+
+# Install golangci-lint
+$(GOLANGCI_LINT_BIN):
+	@echo "installing golangci-lint v$(GOLANGCI_LINT_VERSION)"
+	@mkdir -p "$(TOOLS_DIR)"
+	@curl -sSfL "https://github.com/golangci/golangci-lint/releases/download/v$(GOLANGCI_LINT_VERSION)/$(GOLANGCI_LINT_ARCHIVE)" \
+		| tar -x -z --strip-components=1 -C "$(TOOLS_DIR)" "$(GOLANGCI_LINT_ARCHIVEBASE)/golangci-lint"
 
 # Run lint against the previous commit for PR and branch build
 # In dev setup look at all changes on top of master
 .PHONY: lint
-lint: $(LINTBIN)
+lint: $(GOLANGCI_LINT_BIN)
 	@echo "running golangci-lint"
-	git symbolic-ref -q HEAD && REV="origin/HEAD" || REV="HEAD^" ; \
+	@git symbolic-ref -q HEAD && REV="origin/HEAD" || REV="HEAD^" ; \
 	headSHA=$$(git rev-parse --short=12 $${REV}) ; \
 	echo "checking against commit sha $${headSHA}" ; \
-	${LINTBIN} run --new-from-rev=$${headSHA}
+	"$(GOLANGCI_LINT_BIN)" run --new-from-rev=$${headSHA}
 
 .PHONY: license-check
 # This is a bit convoluted but using a recursive grep on linux fails to write anything when run
@@ -115,17 +140,15 @@ OS := $(shell uname -s | tr '[:upper:]' '[:lower:]')
 license-check:
 	@echo "checking license headers:"
 ifeq (darwin,$(OS))
-	$(shell find -E . ! -path "./.git*" ! -path "./node_modules*" ! -path "./dist*" -regex ".*\.(sh|md|conf|yaml|yml|js|ts|html|js|scss)" -exec grep -L "Licensed to the Apache Software Foundation" {} \; > LICRES)
+	$(shell mkdir -p "$(OUTPUT)" && find -E . -not \( -path './.git*' -prune \) -not \( -path ./coverage -prune \) -not \( -path ./node_modules -prune \) -not \( -path ./build -prune \) -not \( -path ./tools -prune \) -regex ".*\.(go|sh|md|conf|yaml|yml|html|mod)" -exec grep -L "Licensed to the Apache Software Foundation" {} \; > "$(OUTPUT)/license-check.txt")
 else
-	$(shell find . ! -path "./.git*" ! -path "./node_modules*" ! -path "./dist*" -regex ".*\.\(sh\|md\|conf\|yaml\|yml\|js\|ts\|html\|js\|scss\)" -exec grep -L "Licensed to the Apache Software Foundation" {} \; > LICRES)
+	$(shell mkdir -p "$(OUTPUT)" && find . -not \( -path './.git*' -prune \) -not \( -path ./coverage -prune \) -not \( -path ./node_modules -prune \) -not \( -path ./build -prune \) -not \( -path ./tools -prune \) -regex ".*\.\(go\|sh\|md\|conf\|yaml\|yml\|html\|mod\)" -exec grep -L "Licensed to the Apache Software Foundation" {} \; > "$(OUTPUT)/license-check.txt")
 endif
-	@if [ -s LICRES ]; then \
+	@if [ -s "$(OUTPUT)/license-check.txt" ]; then \
 		echo "following files are missing license header:" ; \
-		cat LICRES ; \
-		rm -f LICRES ; \
+		cat "$(OUTPUT)/license-check.txt" ; \
 		exit 1; \
-	fi ; \
-	rm -f LICRES
+	fi
 	@echo "  all OK"
 
 # Start web interface in a local dev setup
@@ -146,8 +169,9 @@ test_js: build
 # Run Go unit tests
 .PHONY: test_go
 test_go:
-	go test ./pkg/... -cover -race -tags deadlock -coverprofile=coverage.txt -covermode=atomic
-	go vet $(REPO)...
+	"$(GO)" clean -testcache
+	"$(GO)" test ./pkg/... -cover -race -tags deadlock -coverprofile=build/coverage.txt -covermode=atomic
+	"$(GO)" vet $(REPO)...
 
 # Run the tests after building
 .PHONY: test
@@ -161,20 +185,20 @@ build-prod:
 # Simple clean of generated files only (no local cleanup).
 .PHONY: clean
 clean:
-	rm -rf ./dist
-	rm -rf ./coverage
-	rm -rf ./node_modules
-	rm -rf ./bin
-	rm -rf ./out
-	rm -rf ./out-tsc
+	@rm -rf ./dist ./coverage ./node_modules ./build ./bin ./out ./out-tsc ./coverage.txt
+
+# Remove all dist files
+.PHONY: distclean
+distclean: clean
+	@rm -rf ./tools
 
 # Build an image based on the production ready version
 .PHONY: image
 NODE_VERSION := $(shell cat .nvmrc)
-image: build_server_prod
+image: $(RELEASE_BIN_DIR)/$(SERVER_BINARY)
 	@echo "Building web UI docker image"
 	DOCKER_BUILDKIT=1 \
-	docker build -t ${REGISTRY}/yunikorn:web-${DOCKER_ARCH}-${VERSION} . \
+	docker build -t "$(WEB_TAG)" . \
 	--platform "linux/${DOCKER_ARCH}" \
 	--label "yunikorn-web-revision=${WEB_SHA}" \
 	--label "Version=${VERSION}" \
@@ -182,25 +206,24 @@ image: build_server_prod
 	--build-arg NODE_VERSION=${NODE_VERSION} \
 	${QUIET}
 
-# Create output directories
-.PHONY: init
-init:
-	mkdir -p ${DEV_BIN_DIR}
-	mkdir -p ${RELEASE_BIN_DIR}
-
 .PHONY: build_server_dev
-build_server_dev: init
+build_server_dev: $(DEV_BIN_DIR)/$(SERVER_BINARY)
+
+$(DEV_BIN_DIR)/$(SERVER_BINARY): go.mod go.sum pkg
 	@echo "building local web server binary"
-	go build -o=${DEV_BIN_DIR}/${SERVER_BINARY} -race -ldflags \
+	@mkdir -p "${DEV_BIN_DIR}"
+	"$(GO)" build -o=${DEV_BIN_DIR}/${SERVER_BINARY} -race -ldflags \
 	'-X main.version=${VERSION} -X main.date=${DATE}' \
 	./pkg/cmd/web/
-	@chmod +x ${DEV_BIN_DIR}/${SERVER_BINARY}
 
 .PHONY: build_server_prod
-build_server_prod: init
+build_server_prod: $(RELEASE_BIN_DIR)/$(SERVER_BINARY)
+
+$(RELEASE_BIN_DIR)/$(SERVER_BINARY): go.mod go.sum pkg
 	@echo "building web server binary"
+	@mkdir -p ${RELEASE_BIN_DIR}
 	CGO_ENABLED=0 GOOS=linux GOARCH="${EXEC_ARCH}" \
-	go build -a -o=${RELEASE_BIN_DIR}/${SERVER_BINARY} -trimpath -ldflags \
+	"$(GO)" build -a -o=${RELEASE_BIN_DIR}/${SERVER_BINARY} -trimpath -ldflags \
 	'-extldflags "-static" -X main.version=${VERSION} -X main.date=${DATE}' \
 	-tags netgo -installsuffix netgo \
 	./pkg/cmd/web/
@@ -208,7 +231,7 @@ build_server_prod: init
 # Run the web interface from the production image
 .PHONY: run
 run: image
-	docker run -d -p ${PORT}:9889 ${REGISTRY}/yunikorn:web-${DOCKER_ARCH}-${VERSION}
+	docker run -d -p ${PORT}:9889 "$(WEB_TAG)"
 
 # Start the json-server based on the json-db and route.
 .PHONY: json-server
