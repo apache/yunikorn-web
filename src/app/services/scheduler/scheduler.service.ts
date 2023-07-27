@@ -318,7 +318,7 @@ export class SchedulerService {
     const formatted = [];
 
     if (resource && resource.memory !== undefined) {
-      formatted.push(`Memory: ${CommonUtil.formatMemory(resource.memory)}`);
+      formatted.push(`Memory: ${CommonUtil.formatBytes(resource.memory)}`);
     } else {
       formatted.push(`Memory: ${NOT_AVAILABLE}`);
     }
@@ -329,16 +329,23 @@ export class SchedulerService {
       formatted.push(`CPU: ${NOT_AVAILABLE}`);
     }
 
-    if (resource && resource["nvidia.com/gpu"] !== undefined) {
-      formatted.push(`nvidia.com/gpu: ${CommonUtil.formatGpu(resource["nvidia.com/gpu"])}`);
-    }
-
-    if (resource && resource["amd.com/gpu"] !== undefined) {
-      formatted.push(`amd.com/gpu: ${CommonUtil.formatGpu(resource["amd.com/gpu"])}`);
-    }
-
-    if (resource && resource["gpu.intel.com/i915"] !== undefined) {
-      formatted.push(`gpu.intel.com/i915: ${CommonUtil.formatGpu(resource["gpu.intel.com/i915"])}`);
+    if (resource){
+      Object.keys(resource).forEach((key) => {
+        switch(key){
+          case "memory":
+          case "vcore":{
+            break;
+          }
+          case "ephemeral-storage":{
+            formatted.push(`ephemeral-storage: ${CommonUtil.formatBytes(resource[key])}`);
+            break;
+          }
+          default:{
+            formatted.push(`${key}: ${CommonUtil.formatOtherResource(resource[key])}`);
+            break;
+          }
+        }
+      });
     }
     
     return formatted.join(', ');

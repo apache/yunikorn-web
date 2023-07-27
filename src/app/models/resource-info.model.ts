@@ -19,15 +19,11 @@
 export interface ResourceInfo {
   memory: string;
   vcore: string;
-  "nvidia.com/gpu": string;
-  "amd.com/gpu": string;
-  "gpu.intel.com/i915": string;
+  [key: string]: string;
 }
 
 export interface SchedulerResourceInfo {
   memory: number;
   vcore: number;
-  "nvidia.com/gpu": number;
-  "amd.com/gpu": number;
-  "gpu.intel.com/i915": number;
+  [key: string]: number;
 }

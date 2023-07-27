@@ -30,7 +30,7 @@ export class CommonUtil {
     return uniqid;
   }
 
-  static formatMemory(value: number | string): string {
+  static formatBytes(value: number | string): string {
     const units: readonly string[] = ['KB', 'MB', 'GB', 'TB', 'PB'];
     var unit: string = 'bytes';
     let toValue = +value
@@ -55,7 +55,7 @@ export class CommonUtil {
     return toValue.toLocaleString();
   }
 
-  static formatGpu(value: number | string): string {
+  static formatOtherResource(value: number | string): string {
     const toValue = +value;
     return toValue.toLocaleString();
   }
