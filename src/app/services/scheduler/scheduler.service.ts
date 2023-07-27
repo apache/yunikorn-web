@@ -329,6 +329,18 @@ export class SchedulerService {
       formatted.push(`CPU: ${NOT_AVAILABLE}`);
     }
 
+    if (resource && resource["nvidia.com/gpu"] !== undefined) {
+      formatted.push(`nvidia.com/gpu: ${CommonUtil.formatGpu(resource["nvidia.com/gpu"])}`);
+    }
+
+    if (resource && resource["amd.com/gpu"] !== undefined) {
+      formatted.push(`amd.com/gpu: ${CommonUtil.formatGpu(resource["amd.com/gpu"])}`);
+    }
+
+    if (resource && resource["gpu.intel.com/i915"] !== undefined) {
+      formatted.push(`gpu.intel.com/i915: ${CommonUtil.formatGpu(resource["gpu.intel.com/i915"])}`);
+    }
+    
     return formatted.join(', ');
   }
 
