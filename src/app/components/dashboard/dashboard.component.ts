@@ -86,6 +86,7 @@ export class DashboardComponent implements OnInit {
           ? list[0].nodeSortingPolicy.type
           : NOT_AVAILABLE;
 
+        list[0].totalContainers = list[0].totalContainers || 0;
         this.partitionName = list[0].name || NOT_AVAILABLE;
         this.totalNodes = String(list[0].totalNodes);
         this.totalApplications = String(list[0].applications.total);
