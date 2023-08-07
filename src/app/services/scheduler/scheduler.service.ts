@@ -337,11 +337,19 @@ export class SchedulerService {
             break;
           }
           case "ephemeral-storage":{
-            formatted.push(`ephemeral-storage: ${CommonUtil.formatBytes(resource[key])}`);
+            if (resource[`ephemeral-storage`] == 0) {
+              formatted.push(`ephemeral-storage: ${NOT_AVAILABLE}`);
+            }else{
+              formatted.push(`ephemeral-storage: ${CommonUtil.formatBytes(resource[key])}`);
+            }
             break;
           }
           default:{
-            formatted.push(`${key}: ${CommonUtil.formatOtherResource(resource[key])}`);
+            if (resource[key] == 0) {
+              formatted.push(`${key}: ${NOT_AVAILABLE}`);
+            }else{
+              formatted.push(`${key}: ${CommonUtil.formatOtherResource(resource[key])}`);
+            }
             break;
           }
         }
