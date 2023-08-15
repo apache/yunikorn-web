@@ -318,7 +318,7 @@ export class SchedulerService {
     const formatted = [];
 
     if (resource && resource.memory !== undefined) {
-      formatted.push(`Memory: ${CommonUtil.formatMemory(resource.memory)}`);
+      formatted.push(`Memory: ${CommonUtil.formatBytes(resource.memory)}`);
     } else {
       formatted.push(`Memory: ${NOT_AVAILABLE}`);
     }
@@ -329,6 +329,33 @@ export class SchedulerService {
       formatted.push(`CPU: ${NOT_AVAILABLE}`);
     }
 
+    if (resource){
+      Object.keys(resource).forEach((key) => {
+        switch(key){
+          case "memory":
+          case "vcore":{
+            break;
+          }
+          case "ephemeral-storage":{
+            if (resource[`ephemeral-storage`] == 0) {
+              formatted.push(`ephemeral-storage: ${NOT_AVAILABLE}`);
+            }else{
+              formatted.push(`ephemeral-storage: ${CommonUtil.formatBytes(resource[key])}`);
+            }
+            break;
+          }
+          default:{
+            if (resource[key] == 0) {
+              formatted.push(`${key}: ${NOT_AVAILABLE}`);
+            }else{
+              formatted.push(`${key}: ${CommonUtil.formatOtherResource(resource[key])}`);
+            }
+            break;
+          }
+        }
+      });
+    }
+    
     return formatted.join(', ');
   }
 
