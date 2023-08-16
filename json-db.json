@@ -31,7 +31,10 @@
       "hugepages-64Ki": 0,
       "memory": 4110970880,
       "pods": 110,
-      "vcore": 2000
+      "vcore": 2000,
+      "nvidia.com/gpu": 10,
+      "amd.com/gpu": 10,
+      "gpu.intel.com/i915": 10
     },
     "guaranteedResource": {},
     "allocatedResource": {
@@ -65,11 +68,13 @@
         "pendingResource": {},
         "maxResource": {
           "memory": 300000000,
-          "vcore": 300
+          "vcore": 300,
+          "nvidia.com/gpu": 10
         },
         "guaranteedResource": {
           "memory": 200000000,
-          "vcore": 200
+          "vcore": 200,
+          "nvidia.com/gpu": 10
         },
         "allocatedResource": {
           "memory": 270000000,
@@ -98,11 +103,13 @@
         "pendingResource": {},
         "maxResource": {
           "memory": 300000000,
-          "vcore": 300
+          "vcore": 300,
+          "amd.com/gpu": 10
         },
         "guaranteedResource": {
           "memory": 200000000,
-          "vcore": 200
+          "vcore": 200,
+          "amd.com/gpu": 10
         },
         "allocatedResource": {},
         "preemptingResource": {},
@@ -165,11 +172,13 @@
         "pendingResource": {},
         "maxResource": {
           "memory": 100000000,
-          "vcore": 100
+          "vcore": 100,
+          "gpu.intel.com/i915": 10
         },
         "guaranteedResource": {
           "memory": 100000000,
-          "vcore": 100
+          "vcore": 100,
+          "gpu.intel.com/i915": 10
         },
         "allocatedResource": {
           "memory": 80000000,

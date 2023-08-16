@@ -30,7 +30,7 @@ export class CommonUtil {
     return uniqid;
   }
 
-  static formatMemory(value: number | string): string {
+  static formatBytes(value: number | string): string {
     const units: readonly string[] = ['kB', 'MB', 'GB', 'TB', 'PB'];
     let unit: string = 'bytes';
     let toValue = +value
@@ -48,11 +48,15 @@ export class CommonUtil {
   static formatCount(value: number | string): string {
     const unit = 'K';
     const toValue = +value;
-
     if (toValue >= 10000) {
       return `${(toValue / 1000).toLocaleString(undefined, { maximumFractionDigits: 1 })} ${unit}`;
     }
 
+    return toValue.toLocaleString();
+  }
+
+  static formatOtherResource(value: number | string): string {
+    const toValue = +value;
     return toValue.toLocaleString();
   }
 

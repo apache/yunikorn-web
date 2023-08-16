@@ -23,16 +23,16 @@ describe('CommonUtil', () => {
     expect(CommonUtil.createUniqId).toBeTruthy();
   });
 
-  it('should have formatMemory method', () => {
-    expect(CommonUtil.formatMemory).toBeTruthy();
+  it('should have formatBytes method', () => {
+    expect(CommonUtil.formatBytes).toBeTruthy();
   });
 
-  it('checking formatMemory method result', () => {
+  it('checking formatBytes method result', () => {
     const inputs: number[] = [100, 1100, 1200000, 1300000000, 1400000000000, 1500000000000000];
     const expected: string[] = ['100.0 bytes', '1.1 kB', '1.2 MB', '1.3 GB', '1.4 TB', '1.5 PB'];
-    for (let index: number = 0; index < inputs.length; index = index + 1) {
-      expect(CommonUtil.formatMemory(inputs[index])).toEqual(expected[index]);
-      expect(CommonUtil.formatMemory(inputs[index].toString())).toEqual(expected[index]);
+    for (let index = 0; index < inputs.length; index = index + 1) {
+      expect(CommonUtil.formatBytes(inputs[index])).toEqual(expected[index]);
+      expect(CommonUtil.formatBytes(inputs[index].toString())).toEqual(expected[index]);
     }
   });
 });
