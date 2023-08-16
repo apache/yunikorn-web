@@ -43,7 +43,16 @@
         >
           <mat-cell *matCellDef="let element">
             <ng-container *ngIf="columnDef.colFormatter; else showNodeRawData">
-              <span [innerHTML]="columnDef.colFormatter(element[columnDef.colId])"></span>
+              <div *ngIf="columnDef.colFormatter(element[columnDef.colId]) as colValue">
+                <span [innerHTML]="formatCol(colValue,columnDef.toggleMoreRes)"></span>
+                <span *ngIf="isLong(colValue)">
+                  <a  href="#" 
+                      (click)="$event.preventDefault(); $event.stopPropagation(); columnDef.toggleMoreRes = !columnDef.toggleMoreRes"
+                      class="mat-toggle-more">
+                      {{ columnDef.toggleMoreRes ? 'Less...' : 'More...' }}
+                  </a>
+                </span>
+              </div>
             </ng-container>
             <ng-template #showNodeRawData>
               <span>{{ element[columnDef.colId] }}</span>

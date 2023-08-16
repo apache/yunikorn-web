@@ -190,4 +190,22 @@ export class NodesViewComponent implements OnInit {
     this.clearRowSelection();
     this.fetchNodeListForPartition(this.partitionSelected);
   }
+
+  formatCol(colValue: string, toggle: boolean|undefined):string{
+    if(toggle==undefined){
+      toggle=false
+    }    
+    if(!toggle && colValue.split('<br/>').length>3){
+      return colValue.split('<br/>').slice(0,3).join('<br/>');
+    }else{
+      return colValue.split('<br/>').join('<br/>');
+    }
+  }
+
+  isLong(colValue: string):boolean {
+    if(colValue.split("<br/>").length>3){
+      return true
+    }
+    return false
+  }
 }

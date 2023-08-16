@@ -19,5 +19,6 @@
 export interface ColumnDef {
   colId: string;
   colName: string;
+  toggleMoreRes?: boolean;
   colFormatter?: (val: any) => any;
 }

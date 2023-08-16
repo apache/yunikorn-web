@@ -31,6 +31,18 @@
   }
   .mat-mdc-cell {
     color: #333;
+    display: flex;
+    flex-direction: column;
+    align-items: start;
+    .mat-toggle-more {
+      display: block;
+      color: #a1a3b7;
+      margin: 10px 0 0 0;
+      padding: 10px 0 0 0;
+      &:hover {
+        color: #8d00d4;
+      }
+    }
   }
   .mat-mdc-row {
     &:hover {
@@ -41,6 +53,12 @@
       background: #303d54;
       .mat-mdc-cell {
         color: #fff;
+        .mat-toggle-more {
+          color: #b8bbff;
+          &:hover {
+            color: #b871dc;
+          }
+        }
       }
     }
   }
