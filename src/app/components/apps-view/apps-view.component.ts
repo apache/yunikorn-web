@@ -305,7 +305,6 @@ export class AppsViewComponent implements OnInit {
   }
 
   formatResources(colValue:string):string[]{
-    
     let result:string[]=colValue.split("<br/>")
     return result;
   }
