@@ -43,16 +43,27 @@
         >
           <mat-cell *matCellDef="let element">
             <ng-container *ngIf="columnDef.colFormatter; else showNodeRawData">
-              <div *ngIf="columnDef.colFormatter(element[columnDef.colId]) as colValue">
-                <span [innerHTML]="formatCol(colValue,columnDef.toggleMoreRes)"></span>
-                <span *ngIf="isLong(colValue)">
-                  <a  href="#" 
-                      (click)="$event.preventDefault(); $event.stopPropagation(); columnDef.toggleMoreRes = !columnDef.toggleMoreRes"
-                      class="mat-toggle-more">
-                      {{ columnDef.toggleMoreRes ? 'Less...' : 'More...' }}
-                  </a>
-                </span>
-              </div>
+              <ng-container *ngIf="columnDef.colFormatter(element[columnDef.colId]) as colValue">
+                <ng-container *ngIf="getCellId(element, columnDef.colId) as cellId">
+                  <ul class="mat-res-ul">
+                    <ng-container *ngFor="let resource of formatResources(colValue); let i = index">
+                      <li class="mat-res-li" *ngIf="i<3">
+                        {{resource}}
+                      </li>
+                      <li class="mat-res-li" *ngIf="i>=3 && getToggle(cellId)">
+                        {{resource}}
+                      </li>
+                    </ng-container>
+                  </ul>
+                  <span *ngIf="formatResources(colValue).length>3">
+                    <a  href="#" 
+                        (click)="$event.preventDefault(); $event.stopPropagation(); toggle(cellId);"
+                        class="mat-toggle-more">
+                        {{ getToggle(cellId) ? 'Less...' : 'More...' }}
+                    </a>
+                  </span>
+                </ng-container>
+              </ng-container>
             </ng-container>
             <ng-template #showNodeRawData>
               <span>{{ element[columnDef.colId] }}</span>
@@ -116,8 +127,28 @@
           <ng-container *ngIf="columnDef.colId === 'resource'; else renderNext_2">
             <mat-cell *matCellDef="let element">
               <ng-container *ngIf="columnDef.colFormatter; else showAllocRowData">
-                <span [innerHTML]="columnDef.colFormatter(element[columnDef.colId])"></span>
-              </ng-container>
+                <ng-container *ngIf="columnDef.colFormatter(element[columnDef.colId]) as colValue">
+                  <ng-container *ngIf="getCellId(element, columnDef.colId) as cellId">
+                    <ul class="mat-res-ul">
+                      <ng-container *ngFor="let resource of formatResources(colValue); let i = index">
+                        <li class="mat-res-li" *ngIf="i<3">
+                          {{resource}}
+                        </li>
+                        <li class="mat-res-li" *ngIf="i>=3 && getToggle(cellId)">
+                          {{resource}}
+                        </li>
+                      </ng-container>
+                    </ul>
+                    <span *ngIf="formatResources(colValue).length>3">
+                      <a  href="#" 
+                          (click)="$event.preventDefault(); $event.stopPropagation(); toggle(cellId);"
+                          class="mat-toggle-more">
+                          {{ getToggle(cellId) ? 'Less...' : 'More...' }}
+                      </a>
+                    </span>
+                  </ng-container>
+                </ng-container>
+            </ng-container>
               <ng-template #showAllocRowData>
                 <span>{{ element[columnDef.colId] }}</span>
               </ng-template>
