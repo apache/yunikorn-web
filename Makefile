@@ -24,7 +24,7 @@ ifeq ($(GO),)
 GO := go
 endif
 
-GO_VERSION := $(shell "$(GO)" version | awk '{print substr($$3, 3, 10)}')
+GO_VERSION := $(shell "$(GO)" version | awk '{print substr($$3, 3, 4)}')
 MOD_VERSION := $(shell cat .go_version)
 
 GM := $(word 1,$(subst ., ,$(GO_VERSION)))
@@ -169,6 +169,7 @@ test_js: build
 # Run Go unit tests
 .PHONY: test_go
 test_go:
+	@mkdir -p "$(OUTPUT)"
 	"$(GO)" clean -testcache
 	"$(GO)" test ./pkg/... -cover -race -tags deadlock -coverprofile=build/coverage.txt -covermode=atomic
 	"$(GO)" vet $(REPO)...
@@ -209,7 +210,7 @@ image: $(RELEASE_BIN_DIR)/$(SERVER_BINARY)
 .PHONY: build_server_dev
 build_server_dev: $(DEV_BIN_DIR)/$(SERVER_BINARY)
 
-$(DEV_BIN_DIR)/$(SERVER_BINARY): go.mod go.sum pkg
+$(DEV_BIN_DIR)/$(SERVER_BINARY): go.mod go.sum $(shell find pkg)
 	@echo "building local web server binary"
 	@mkdir -p "${DEV_BIN_DIR}"
 	"$(GO)" build -o=${DEV_BIN_DIR}/${SERVER_BINARY} -race -ldflags \
@@ -219,7 +220,7 @@ $(DEV_BIN_DIR)/$(SERVER_BINARY): go.mod go.sum pkg
 .PHONY: build_server_prod
 build_server_prod: $(RELEASE_BIN_DIR)/$(SERVER_BINARY)
 
-$(RELEASE_BIN_DIR)/$(SERVER_BINARY): go.mod go.sum pkg
+$(RELEASE_BIN_DIR)/$(SERVER_BINARY): go.mod go.sum $(shell find pkg ! -name .DS_Store)
 	@echo "building web server binary"
 	@mkdir -p ${RELEASE_BIN_DIR}
 	CGO_ENABLED=0 GOOS=linux GOARCH="${EXEC_ARCH}" \
