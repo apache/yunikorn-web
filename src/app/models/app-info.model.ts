@@ -31,6 +31,7 @@ export class AppInfo {
     public queueName: string,
     public submissionTime: number,
     public finishedTime: null | number,
+    public stateLog: Array<StateLog>,
     public lastStateChangeTime: null | number,
     public applicationState: string,
     public allocations: AllocationInfo[] | null
@@ -38,6 +39,14 @@ export class AppInfo {
 
   get formattedSubmissionTime() {
     const millisecs = Math.round(this.submissionTime / (1000 * 1000));
+    return moment(millisecs).format('YYYY/MM/DD HH:mm:ss');
+  }
+
+  get formattedlastStateChangeTime() {
+    if(this.lastStateChangeTime==null){
+      return 'n/a'
+    }
+    const millisecs = Math.round(this.lastStateChangeTime! / (1000 * 1000));
     return moment(millisecs).format('YYYY/MM/DD HH:mm:ss');
   }
 
@@ -53,4 +62,21 @@ export class AppInfo {
   setAllocations(allocs: AllocationInfo[]) {
     this.allocations = allocs;
   }
+
+  setLastStateChangeTime() {
+    let time=0
+    this.stateLog.forEach(log => {
+      if (log.time>time){
+        time=log.time
+      }
+    });
+    this.lastStateChangeTime=time
+  }
+}
+
+export class StateLog{
+  constructor(
+    public time: number,
+    public applicationState: string
+  ) {}
 }
