@@ -96,10 +96,13 @@ export class SchedulerService {
               app['queueName'],
               app['submissionTime'],
               app['lastStateChangeTime'],
+              app['stateLog'],
               app['finishedTime'],
               app['applicationState'],
               []
             );
+            appInfo.setLastStateChangeTime()
+            
             const allocations = app['allocations'];
             if (allocations && allocations.length > 0) {
               const appAllocations: AllocationInfo[] = [];

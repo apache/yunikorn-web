@@ -70,6 +70,10 @@
           <mat-cell *matCellDef="let element">{{ element['formattedSubmissionTime'] }}</mat-cell>
         </ng-container>
 
+        <ng-container *ngIf="columnDef.colId === 'lastStateChangeTime'; else renderNext_1">
+          <mat-cell *matCellDef="let element">{{ element['formattedlastStateChangeTime'] }}</mat-cell>
+        </ng-container>
+
         <ng-template #renderNext_1>
           <ng-container *ngIf="columnDef.colId === 'usedResource'; else renderNext_1">
             <mat-cell *matCellDef="let element">
