@@ -31,10 +31,10 @@ export class CommonUtil {
   }
 
   static formatBytes(value: number | string): string {
-    const units: readonly string[] = ['KB', 'MB', 'GB', 'TB', 'PB'];
-    var unit: string = 'bytes';
+    const units: readonly string[] = ['kB', 'MB', 'GB', 'TB', 'PB'];
+    let unit: string = 'bytes';
     let toValue = +value
-    for (var i: number = 0, unitslen = units.length; toValue / 1000 >= 1 && i < unitslen;i = i + 1) {
+    for (let i = 0, unitslen = units.length; toValue / 1000 >= 1 && i < unitslen;i = i + 1) {
       toValue = toValue / 1000;
       unit = units[i];
     }
