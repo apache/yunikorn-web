@@ -288,10 +288,12 @@ export class SchedulerService {
     const maxResource = data['maxResource'] as SchedulerResourceInfo;
     const guaranteedResource = data['guaranteedResource'] as SchedulerResourceInfo;
     const allocatedResource = data['allocatedResource'] as SchedulerResourceInfo;
+    const pendingResource = data['pendingResource'] as SchedulerResourceInfo;
     const absUsedCapacity = data['absUsedCapacity'] as SchedulerResourceInfo;
     queue.maxResource = this.formatResource(maxResource);
     queue.guaranteedResource = this.formatResource(guaranteedResource);
     queue.allocatedResource = this.formatResource(allocatedResource);
+    queue.pendingResource = this.formatResource(pendingResource);
     queue.absoluteUsedCapacity = this.formatPercent(absUsedCapacity);
     queue.absoluteUsedPercent = this.absUsagePercent(absUsedCapacity);
   }

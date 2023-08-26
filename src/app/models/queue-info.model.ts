@@ -23,6 +23,7 @@ export class QueueInfo {
   maxResource: string = '';
   guaranteedResource: string = '';
   allocatedResource: string = '';
+  pendingResource: string='';
   absoluteUsedCapacity: string = '';
   absoluteUsedPercent: number = 0;
   parentQueue: null | QueueInfo = null;

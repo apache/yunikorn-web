@@ -71,6 +71,13 @@
               ></div>
             </div>
             <div class="flex-grid item-wrapper">
+              <div class="left-item">Pending:</div>
+              <div
+                class="right-item"
+                [innerHTML]="resourceValueFormatter(selectedQueue.pendingResource)"
+              ></div>
+            </div>
+            <div class="flex-grid item-wrapper">
               <div class="left-item">Max:</div>
               <div
                 class="right-item"

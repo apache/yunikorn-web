@@ -19,9 +19,9 @@
     "status": "Active",
     "partition": "default",
     "pendingResource": {
-      "memory": 0,
-      "pods": 0,
-      "vcore": 0
+      "memory": 2147483648,
+      "pods": 10,
+      "vcore": 4000
     },
     "maxResource": {
       "ephemeral-storage": 99833802265,
@@ -130,9 +130,9 @@
         "status": "Active",
         "partition": "",
         "pendingResource": {
-          "memory": 0,
-          "pods": 0,
-          "vcore": 0
+          "memory": 2147483648,
+          "pods": 10,
+          "vcore": 4000
         },
         "maxResource": {
           "memory": 500000000,
