@@ -43,11 +43,11 @@
   <div class="btn-wrapper">
     <button mat-button color="primary" class="mdc-button"
       (click)="toggle()">
-      <ng-container class="mdc-button__label" *ngIf="!detailToggle">
+      <ng-container class="mdc-button__label" *ngIf="detailToggle">
         <i class="material-icons mdc-button__icon" aria-hidden="true">visibility</i>
         <span class="mdc-button__label">Resource oriented view</span>
       </ng-container>
-      <ng-container class="mdc-button__label" *ngIf="detailToggle">
+      <ng-container class="mdc-button__label" *ngIf="!detailToggle">
         <i class="material-icons mdc-button__icon" aria-hidden="true">visibility_off</i>
         <span class="mdc-button__label">Hide resource detail</span>
       </ng-container>
