@@ -16,7 +16,7 @@
  * limitations under the License.
  */
 
-import { Component, OnInit, ViewChild, ElementRef} from '@angular/core';
+import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatTableDataSource } from '@angular/material/table';
@@ -62,7 +62,7 @@ export class AppsViewComponent implements OnInit {
   leafQueueList: DropdownItem[] = [];
   leafQueueSelected = '';
   
-  cellToggle = new Map<string,boolean>();
+  detailToggle: boolean = false;
 
   constructor(
     private scheduler: SchedulerService,
@@ -305,20 +305,11 @@ export class AppsViewComponent implements OnInit {
   }
 
   formatResources(colValue:string):string[]{
-    let result:string[]=colValue.split("<br/>")
+    const result:string[]=colValue.split("<br/>")
     return result;
   }
 
-  getToggle(cellId: string):boolean{
-    return this.cellToggle.get(cellId)!
-  }
-
-  toggle(cellId: string){
-    this.cellToggle.set(cellId, !this.getToggle(cellId))
-  }
-
-  getCellId(element: any, colId: any):string{
-    let cellId =`${element.applicationId}-${colId}`
-    return cellId
+  toggle(){
+    this.detailToggle = !this.detailToggle;
   }
 }

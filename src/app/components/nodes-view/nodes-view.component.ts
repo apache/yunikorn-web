@@ -53,7 +53,7 @@ export class NodesViewComponent implements OnInit {
   partitionList: PartitionInfo[] = [];
   partitionSelected = '';
 
-  cellToggle = new Map<string,boolean>();
+  detailToggle: boolean = false;
 
   constructor(private scheduler: SchedulerService, private spinner: NgxSpinnerService) {}
 
@@ -194,20 +194,11 @@ export class NodesViewComponent implements OnInit {
   }
 
   formatResources(colValue:string):string[]{
-    let result:string[]=colValue.split("<br/>")
+    const result:string[]=colValue.split("<br/>")
     return result;
   }
 
-  getToggle(cellId: string):boolean{
-    return this.cellToggle.get(cellId)!
-  }
-
-  toggle(cellId: string){
-    this.cellToggle.set(cellId, !this.getToggle(cellId))
-  }
-
-  getCellId(element: any, colId: any):string{
-    let cellId =`${element.applicationId}-${colId}`
-    return cellId
+  toggle(){
+    this.detailToggle = !this.detailToggle;
   }
 }

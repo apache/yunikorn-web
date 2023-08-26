@@ -40,6 +40,20 @@
       </mat-select>
     </mat-form-field>
   </div>
+  <div class="btn-wrapper">
+    <button mat-button color="primary" class="mdc-button"
+      (click)="toggle()">
+      <ng-container class="mdc-button__label" *ngIf="!detailToggle">
+        <i class="material-icons mdc-button__icon" aria-hidden="true">visibility</i>
+        <span class="mdc-button__label">Resource oriented view</span>
+      </ng-container>
+      <ng-container class="mdc-button__label" *ngIf="detailToggle">
+        <i class="material-icons mdc-button__icon" aria-hidden="true">visibility_off</i>
+        <span class="mdc-button__label">Hide resource detail</span>
+      </ng-container>
+    </button>
+  </div>
+  
   <mat-form-field class="search-wrapper white-mat-form-field">
     <input
       matInput
@@ -75,25 +89,23 @@
             <mat-cell *matCellDef="let element">
               <ng-container *ngIf="columnDef.colFormatter; else showAppRawData">
                 <ng-container *ngIf="columnDef.colFormatter(element[columnDef.colId]) as colValue">
-                  <ng-container *ngIf="getCellId(element, columnDef.colId) as cellId">
-                    <ul class="mat-res-ul">
-                      <ng-container *ngFor="let resource of formatResources(colValue); let i = index">
-                        <li class="mat-res-li" *ngIf="i<3">
-                          {{resource}}
-                        </li>
-                        <li class="mat-res-li" *ngIf="i>=3 && getToggle(cellId)">
-                          {{resource}}
-                        </li>
-                      </ng-container>
-                    </ul>
-                    <span *ngIf="formatResources(colValue).length>3">
-                      <a  href="#" 
-                          (click)="$event.preventDefault(); $event.stopPropagation(); toggle(cellId);"
-                          class="mat-toggle-more">
-                          {{ getToggle(cellId) ? 'Less...' : 'More...' }}
-                      </a>
-                    </span>
-                  </ng-container>
+                  <ul class="mat-res-ul">
+                    <ng-container *ngFor="let resource of formatResources(colValue); let i = index">
+                      <li class="mat-res-li" *ngIf="i<3">
+                        {{resource}}
+                      </li>
+                      <li class="mat-res-li" *ngIf="i>=3 && detailToggle">
+                        {{resource}}
+                      </li>
+                    </ng-container>
+                  </ul>
+                  <span *ngIf="formatResources(colValue).length>3">
+                    <a  href="#" 
+                        (click)="$event.preventDefault(); $event.stopPropagation(); toggle();"
+                        class="mat-toggle-more">
+                        {{ detailToggle ? 'Less...' : '....' }}
+                    </a>
+                  </span>
                 </ng-container>
               </ng-container>
               <ng-template #showAppRawData>
@@ -168,25 +180,23 @@
             <mat-cell *matCellDef="let element">
               <ng-container *ngIf="columnDef.colFormatter; else showAllocRowData;">
                 <ng-container *ngIf="columnDef.colFormatter(element[columnDef.colId]) as colValue">
-                  <ng-container *ngIf="getCellId(element, columnDef.colId) as cellId">
                     <ul class="mat-res-ul">
                       <ng-container *ngFor="let resource of formatResources(colValue); let i = index">
                         <li class="mat-res-li" *ngIf="i<3">
                           {{resource}}
                         </li>
-                        <li class="mat-res-li" *ngIf="i>=3 && getToggle(cellId)">
+                        <li class="mat-res-li" *ngIf="i>=3 && detailToggle">
                           {{resource}}
                         </li>
                       </ng-container>
                     </ul>
                     <span *ngIf="formatResources(colValue).length>3">
                       <a  href="#" 
-                          (click)="$event.preventDefault(); $event.stopPropagation(); toggle(cellId);"
+                          (click)="$event.preventDefault(); $event.stopPropagation(); toggle();"
                           class="mat-toggle-more">
-                          {{ getToggle(cellId) ? 'Less...' : 'More...' }}
+                          {{ detailToggle ? 'Less...' : '....' }}
                       </a>
                     </span>
-                  </ng-container>
                 </ng-container>
               </ng-container>
               <ng-template #showAllocRowData>

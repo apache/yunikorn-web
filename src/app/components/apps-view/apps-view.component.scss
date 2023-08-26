@@ -15,11 +15,14 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
+@import "https://fonts.googleapis.com/icon?family=Material+Icons";
 
-.top-section {
+ .top-section {
   width: 100%;
   height: 100%;
   display: flex;
+  flex-direction: row;
+  align-items: center;
   .search-wrapper {
     width: 300px;
     position: absolute;
@@ -54,6 +57,18 @@
       margin-right: 10px;
     }
   }
+  .btn-wrapper{
+    ::ng-deep .mdc-button__label{
+      display: flex;
+      flex-direction: row;
+      align-items: center;
+    }
+  }
+}
+
+.mdc-button .mdc-button__label{
+  display: flex;
+  align-items: center;
 }
 
 .apps-view {
@@ -79,8 +94,7 @@
     .mat-toggle-more {
       display: block;
       color: #a1a3b7;
-      margin: 2px 0 0 0;
-      padding: 5px 0 0 0;
+      padding: 5px 45px 0 0;
       &:hover {
         color: #8d00d4;
       }
