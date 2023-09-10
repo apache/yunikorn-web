@@ -16,33 +16,29 @@
  * limitations under the License.
  */
 
-import { of } from 'rxjs';
-
-export const noopFn = () => {};
-
-export const MockSchedulerService = {
-  fetchClusterByName: () => of({}),
-  fetchClusterList: () => of([]),
-  fetchPartitionList: () => of([]),
-  fetchSchedulerQueues: () => of({}),
-  fetchAppList: () => of([]),
-  fetchAppHistory: () => of([]),
-  fetchContainerHistory: () => of([]),
-  fetchNodeList: () => of([]),
-  fetchNodeUtilization: () => of([]),
-  fecthHealthchecks: () => of([]),
-};
-
-export const MockNgxSpinnerService = {
-  show: noopFn,
-  hide: noopFn,
-};
-
-export const MockEnvconfigService = {
-  getSchedulerWebAddress: noopFn,
-};
-
-export const MockEventBusService = {
-  getEvent: () => of<any>(),
-  publish: noopFn,
-};
+ .status-wrapper {
+    align-items: center;
+    height: 220px;
+  }
+  .chart-wrapper {
+    max-width: 220px;
+    z-index: 1;
+  }
+  .chart-legend {
+    max-width: 200px;
+    margin: 0 auto;
+    font-size: 0.8em;
+    font-weight: bold;
+    color: #666;
+    > div {
+      margin: 12px 0;
+    }
+    .legend-label {
+      padding-left: 10px;
+    }
+    .legend-value {
+      float: right;
+      padding-right: 20px;
+    }
+  }
+  

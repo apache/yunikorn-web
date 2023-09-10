@@ -40,24 +40,25 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatExpansionModule } from '@angular/material/expansion';
 import {MatIconModule} from '@angular/material/icon';
 
-import { AppRoutingModule } from './app-routing.module';
-import { envConfigFactory, EnvconfigService } from './services/envconfig/envconfig.service';
-import { ApiErrorInterceptor } from './interceptors/api-error/api-error.interceptor';
-import { AppComponent } from './app.component';
-import { DashboardComponent } from './components/dashboard/dashboard.component';
-import { QueuesViewComponent } from './components/queues-view/queues-view.component';
-import { DonutChartComponent } from './components/donut-chart/donut-chart.component';
-import { AreaChartComponent } from './components/area-chart/area-chart.component';
-import { AppStatusComponent } from './components/app-status/app-status.component';
-import { AppHistoryComponent } from './components/app-history/app-history.component';
-import { ContainerStatusComponent } from './components/container-status/container-status.component';
-import { ContainerHistoryComponent } from './components/container-history/container-history.component';
-import { QueueRackComponent } from './components/queue-rack/queue-rack.component';
-import { AppsViewComponent } from './components/apps-view/apps-view.component';
-import { NodesViewComponent } from './components/nodes-view/nodes-view.component';
-import { ErrorViewComponent } from './components/error-view/error-view.component';
-import { StatusViewComponent } from './components/status-view/status-view.component';
-import { HealthchecksComponent } from './components/healthchecks/healthchecks.component';
+import { AppRoutingModule } from '@app/app-routing.module';
+import { envConfigFactory, EnvconfigService } from '@app/services/envconfig/envconfig.service';
+import { ApiErrorInterceptor } from '@app/interceptors/api-error/api-error.interceptor';
+import { AppComponent } from '@app/app.component';
+import { DashboardComponent } from '@app/components/dashboard/dashboard.component';
+import { QueuesViewComponent } from '@app/components/queues-view/queues-view.component';
+import { DonutChartComponent } from '@app/components/donut-chart/donut-chart.component';
+import { AreaChartComponent } from '@app/components/area-chart/area-chart.component';
+import { AppStatusComponent } from '@app/components/app-status/app-status.component';
+import { AppHistoryComponent } from '@app/components/app-history/app-history.component';
+import { ContainerStatusComponent } from '@app/components/container-status/container-status.component';
+import { ContainerHistoryComponent } from '@app/components/container-history/container-history.component';
+import { QueueRackComponent } from '@app/components/queue-rack/queue-rack.component';
+import { AppsViewComponent } from '@app/components/apps-view/apps-view.component';
+import { NodesViewComponent } from '@app/components/nodes-view/nodes-view.component';
+import { ErrorViewComponent } from '@app/components/error-view/error-view.component';
+import { StatusViewComponent } from '@app/components/status-view/status-view.component';
+import { HealthchecksComponent } from '@app/components/healthchecks/healthchecks.component';
+import { AppNodeUtilizationComponent } from '@app/components/app-node-utilization/app-node-utilization.component';
 
 @NgModule({
   declarations: [
@@ -76,6 +77,7 @@ import { HealthchecksComponent } from './components/healthchecks/healthchecks.co
     ErrorViewComponent,
     StatusViewComponent,
     HealthchecksComponent,
+    AppNodeUtilizationComponent,
   ],
   imports: [
     BrowserModule,

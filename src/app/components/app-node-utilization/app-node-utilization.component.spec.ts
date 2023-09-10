@@ -16,33 +16,23 @@
  * limitations under the License.
  */
 
-import { of } from 'rxjs';
+import { ComponentFixture, TestBed } from '@angular/core/testing';
+import { AppNodeUtilizationComponent } from '@app/components/app-node-utilization/app-node-utilization.component';
 
-export const noopFn = () => {};
+describe('AppNodeUtilizationComponent', () => {
+  let component: AppNodeUtilizationComponent;
+  let fixture: ComponentFixture<AppNodeUtilizationComponent>;
 
-export const MockSchedulerService = {
-  fetchClusterByName: () => of({}),
-  fetchClusterList: () => of([]),
-  fetchPartitionList: () => of([]),
-  fetchSchedulerQueues: () => of({}),
-  fetchAppList: () => of([]),
-  fetchAppHistory: () => of([]),
-  fetchContainerHistory: () => of([]),
-  fetchNodeList: () => of([]),
-  fetchNodeUtilization: () => of([]),
-  fecthHealthchecks: () => of([]),
-};
+  beforeEach(() => {
+    TestBed.configureTestingModule({
+      declarations: [AppNodeUtilizationComponent]
+    });
+    fixture = TestBed.createComponent(AppNodeUtilizationComponent);
+    component = fixture.componentInstance;
+    fixture.detectChanges();
+  });
 
-export const MockNgxSpinnerService = {
-  show: noopFn,
-  hide: noopFn,
-};
-
-export const MockEnvconfigService = {
-  getSchedulerWebAddress: noopFn,
-};
-
-export const MockEventBusService = {
-  getEvent: () => of<any>(),
-  publish: noopFn,
-};
+  it('should create', () => {
+    expect(component).toBeTruthy();
+  });
+});

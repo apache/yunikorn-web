@@ -16,33 +16,13 @@
  * limitations under the License.
  */
 
-import { of } from 'rxjs';
-
-export const noopFn = () => {};
-
-export const MockSchedulerService = {
-  fetchClusterByName: () => of({}),
-  fetchClusterList: () => of([]),
-  fetchPartitionList: () => of([]),
-  fetchSchedulerQueues: () => of({}),
-  fetchAppList: () => of([]),
-  fetchAppHistory: () => of([]),
-  fetchContainerHistory: () => of([]),
-  fetchNodeList: () => of([]),
-  fetchNodeUtilization: () => of([]),
-  fecthHealthchecks: () => of([]),
-};
-
-export const MockNgxSpinnerService = {
-  show: noopFn,
-  hide: noopFn,
-};
-
-export const MockEnvconfigService = {
-  getSchedulerWebAddress: noopFn,
-};
-
-export const MockEventBusService = {
-  getEvent: () => of<any>(),
-  publish: noopFn,
-};
+export class NodeUtilization {
+  constructor(
+    public type: string,
+    public utilization: {
+      bucketName: string;
+      numOfNodes: number;
+      nodeNames: null | string[];
+    }[],
+  ) {}
+}

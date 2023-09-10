@@ -28,6 +28,8 @@ import { Applications, Partition } from '@app/models/partition-info.model';
 import { EventBusService, EventMap } from '@app/services/event-bus/event-bus.service';
 import { NOT_AVAILABLE } from '@app/utils/constants';
 
+const CHART_COLORS = ['#4285f4', '#db4437', '#f4b400', '#0f9d58', '#ff6d00', '#3949ab', '#facc54', '#26bbf0', '#cc6164', '#60cea5'];
+
 @Component({
   selector: 'app-dashboard',
   templateUrl: './dashboard.component.html',
@@ -43,6 +45,7 @@ export class DashboardComponent implements OnInit {
   totalContainers = '';
   appStatusData: DonutDataItem[] = [];
   containerStatusData: DonutDataItem[] = [];
+  nodeUtilizationData: DonutDataItem[] = [];
   appHistoryData: AreaDataItem[] = [];
   containerHistoryData: AreaDataItem[] = [];
   clusterInfo: ClusterInfo = this.getEmptyClusterInfo();
@@ -54,7 +57,7 @@ export class DashboardComponent implements OnInit {
     private scheduler: SchedulerService,
     private spinner: NgxSpinnerService,
     private eventBus: EventBusService
-  ) {}
+  ) { }
 
   ngOnInit() {
     this.spinner.show();
@@ -105,6 +108,29 @@ export class DashboardComponent implements OnInit {
     this.scheduler.fetchAppHistory().subscribe((data) => {
       this.initialAppHistory = data;
       this.appHistoryData = this.getAreaChartData(data);
+    });
+
+    this.scheduler.fetchNodeUtilization().subscribe((data) => {
+      const utilizationData: Record<string, number> = {};
+      data.forEach((utilizationInfo) => {
+        utilizationInfo.utilization.forEach(({ bucketName, numOfNodes }) => {
+          const numOfNodesValue = numOfNodes === -1 ? 0 : numOfNodes;
+          if (utilizationData[bucketName]) {
+            utilizationData[bucketName] += numOfNodesValue;
+          } else {
+            utilizationData[bucketName] = numOfNodesValue;
+          }
+        });
+      });
+
+      this.nodeUtilizationData = [];
+      Object.keys(utilizationData).forEach((name, index) => {
+        this.nodeUtilizationData.push(new DonutDataItem(
+          name,
+          utilizationData[name],
+          CHART_COLORS[index],
+        ));
+      });
     });
 
     this.scheduler.fetchContainerHistory().subscribe((data) => {

@@ -18,7 +18,7 @@
 
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { Observable, queueScheduler } from 'rxjs';
+import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 
 import { QueueInfo, QueuePropertyItem } from '@app/models/queue-info.model';
@@ -33,6 +33,7 @@ import { NodeInfo } from '@app/models/node-info.model';
 import { NOT_AVAILABLE } from '@app/utils/constants';
 import { Partition } from '@app/models/partition-info.model';
 import { SchedulerHealthInfo } from "@app/models/scheduler-health-info.model";
+import { NodeUtilization } from '@app/models/node-utilization.model';
 
 @Injectable({
   providedIn: 'root',
@@ -252,6 +253,11 @@ export class SchedulerService {
         return result;
       })
     );
+  }
+
+  fetchNodeUtilization(): Observable<NodeUtilization[]>{
+    const nodeUtilizationUrl = `${this.envConfig.getSchedulerWebAddress()}/ws/v1/nodes/utilization`;
+    return this.httpClient.get(nodeUtilizationUrl).pipe(map((data: any) => data as NodeUtilization[]));
   }
 
   fecthHealthchecks(): Observable<SchedulerHealthInfo> {

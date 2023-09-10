@@ -16,33 +16,14 @@
  * limitations under the License.
  */
 
-import { of } from 'rxjs';
+import { Component, Input } from '@angular/core';
+import { DonutDataItem } from '@app/models/donut-data.model';
 
-export const noopFn = () => {};
-
-export const MockSchedulerService = {
-  fetchClusterByName: () => of({}),
-  fetchClusterList: () => of([]),
-  fetchPartitionList: () => of([]),
-  fetchSchedulerQueues: () => of({}),
-  fetchAppList: () => of([]),
-  fetchAppHistory: () => of([]),
-  fetchContainerHistory: () => of([]),
-  fetchNodeList: () => of([]),
-  fetchNodeUtilization: () => of([]),
-  fecthHealthchecks: () => of([]),
-};
-
-export const MockNgxSpinnerService = {
-  show: noopFn,
-  hide: noopFn,
-};
-
-export const MockEnvconfigService = {
-  getSchedulerWebAddress: noopFn,
-};
-
-export const MockEventBusService = {
-  getEvent: () => of<any>(),
-  publish: noopFn,
-};
+@Component({
+  selector: 'app-node-utilization',
+  templateUrl: './app-node-utilization.component.html',
+  styleUrls: ['./app-node-utilization.component.scss']
+})
+export class AppNodeUtilizationComponent {
+  @Input() chartData: DonutDataItem[] = [];
+}
