@@ -305,7 +305,22 @@ export class AppsViewComponent implements OnInit {
   }
 
   formatResources(colValue:string):string[]{
-    const result:string[]=colValue.split("<br/>")
+    const arr:string[]=colValue.split("<br/>")
+    // Check if there are "cpu" or "Memory" elements in the array
+    const hasCpu = arr.some((item) => item.toLowerCase().includes("cpu"));
+    const hasMemory = arr.some((item) => item.toLowerCase().includes("memory"));
+    if (!hasCpu) {
+      arr.unshift("CPU: n/a");
+    }
+    if (!hasMemory) {
+      arr.unshift("Memory: n/a");
+    }
+
+    // Concatenate the two arrays, with "cpu" and "Memory" elements first
+    const cpuAndMemoryElements = arr.filter((item) => item.toLowerCase().includes("CPU") || item.toLowerCase().includes("Memory"));
+    const otherElements = arr.filter((item) => !item.toLowerCase().includes("CPU") && !item.toLowerCase().includes("Memory"));
+    const result = cpuAndMemoryElements.concat(otherElements);
+
     return result;
   }
 

@@ -31,16 +31,8 @@
     </mat-form-field>
   </div>
   <div class="btn-wrapper">
-    <button mat-button color="primary" class="mdc-button"
-      (click)="toggle()">
-      <ng-container class="mdc-button__label" *ngIf="detailToggle">
-        <i class="material-icons mdc-button__icon" aria-hidden="true">visibility</i>
-        <span class="mdc-button__label">Resource oriented view</span>
-      </ng-container>
-      <ng-container class="mdc-button__label" *ngIf="!detailToggle">
-        <i class="material-icons mdc-button__icon" aria-hidden="true">visibility_off</i>
-        <span class="mdc-button__label">Hide resource detail</span>
-      </ng-container>
+    <button class="btn" (click)="toggle()" [style.background-color]="detailToggle ? '#313d54' : '#f5f5f5'">
+      <i class="material-icons __icon" [style.color]="detailToggle ? '#f5f5f5' : '#313d54' ">more_horiz</i>
     </button>
   </div>
 </div>
@@ -61,21 +53,14 @@
               <ng-container *ngIf="columnDef.colFormatter(element[columnDef.colId]) as colValue">
                   <ul class="mat-res-ul">
                     <ng-container *ngFor="let resource of formatResources(colValue); let i = index">
-                      <li class="mat-res-li" *ngIf="i<3">
+                      <li class="mat-res-li" *ngIf="i<2">
                         {{resource}}
                       </li>
-                      <li class="mat-res-li" *ngIf="i>=3 && detailToggle">
+                      <li class="mat-res-li" *ngIf="i>=2 && detailToggle">
                         {{resource}}
                       </li>
                     </ng-container>
                   </ul>
-                  <span *ngIf="formatResources(colValue).length>3">
-                    <a  href="#" 
-                        (click)="$event.preventDefault(); $event.stopPropagation(); toggle();"
-                        class="mat-toggle-more">
-                        {{ detailToggle ? 'Less...' : '....' }}
-                    </a>
-                  </span>
               </ng-container>
             </ng-container>
             <ng-template #showNodeRawData>
@@ -143,21 +128,14 @@
                 <ng-container *ngIf="columnDef.colFormatter(element[columnDef.colId]) as colValue">
                     <ul class="mat-res-ul">
                       <ng-container *ngFor="let resource of formatResources(colValue); let i = index">
-                        <li class="mat-res-li" *ngIf="i<3">
+                        <li class="mat-res-li" *ngIf="i<2">
                           {{resource}}
                         </li>
-                        <li class="mat-res-li" *ngIf="i>=3 && detailToggle">
+                        <li class="mat-res-li" *ngIf="i>=2 && detailToggle">
                           {{resource}}
                         </li>
                       </ng-container>
                     </ul>
-                    <span *ngIf="formatResources(colValue).length>3">
-                      <a  href="#" 
-                          (click)="$event.preventDefault(); $event.stopPropagation(); toggle();"
-                          class="mat-toggle-more">
-                          {{ detailToggle ? 'Less...' : '....' }}
-                      </a>
-                    </span>
                 </ng-container>
             </ng-container>
               <ng-template #showAllocRowData>
