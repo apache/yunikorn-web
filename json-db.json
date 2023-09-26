@@ -263,7 +263,8 @@
       "usedResource": {
         "memory": 50000000,
         "pods": 1,
-        "vcore": 10
+        "vcore": 10,
+        "nvidia.com/gpu": 5
       },
       "maxUsedResource": {
         "memory": 50000000,
@@ -297,7 +298,8 @@
           "resource": {
             "memory": 50000000,
             "pods": 1,
-            "vcore": 10
+            "vcore": 10,
+            "nvidia.com/gpu": 5
           },
           "priority": "0",
           "nodeId": "lima-rancher-desktop",
@@ -545,17 +547,22 @@
         "hugepages-64Ki": 0,
         "memory": 4110970880,
         "pods": 110,
-        "vcore": 2000
+        "vcore": 2000,
+        "nvidia.com/gpu": 10,
+        "amd.com/gpu": 10,
+        "gpu.intel.com/i915": 10
       },
       "allocated": {
         "memory": 200000000,
         "pods": 4,
-        "vcore": 40
+        "vcore": 40,
+        "nvidia.com/gpu": 5
       },
       "occupied": {
         "memory": 1325400064,
         "pods": 4,
-        "vcore": 500
+        "vcore": 500,
+        "nvidia.com/gpu": 5
       },
       "available": {
         "ephemeral-storage": 99833802265,
@@ -565,7 +572,8 @@
         "hugepages-64Ki": 0,
         "memory": 2585570816,
         "pods": 102,
-        "vcore": 1460
+        "vcore": 1460,
+        "nvidia.com/gpu": 5
       },
       "utilized": {
         "memory": 4,
@@ -645,7 +653,8 @@
           "resource": {
             "memory": 50000000,
             "pods": 1,
-            "vcore": 10
+            "vcore": 10,
+            "nvidia.com/gpu": 5
           },
           "priority": "0",
           "nodeId": "lima-rancher-desktop",

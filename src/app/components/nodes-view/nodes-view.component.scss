@@ -15,12 +15,42 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
+@import "https://fonts.googleapis.com/icon?family=Material+Icons";
 
-.part-label {
-  color: #333;
-  font-size: 1.2em;
-  margin-right: 10px;
+.top-part{
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  .dropdown-wrapper{
+    padding-right: 40px;
+    .part-label {
+      color: #333;
+      font-size: 1.2em;
+      margin-right: 10px;
+    }
+  }
+  .btn-wrapper {
+    filter: drop-shadow(0px 2px 1px rgba(90, 90, 90, 0.5));
+    &:hover{
+      filter: drop-shadow(0px 3px 3px rgba(90, 90, 90, 0.5));
+    }
+    :hover{
+      cursor: pointer;
+    }
+    .btn{
+      display: block;
+      border: none;
+      padding: 13px 24px;
+      border-radius: 5px;
+      font-size: 24px;
+      transform: translateY(-13px);
+    }
+    .material-icons{
+      transform: translateY(2px);
+    }
+  }
 }
+
 .nodes-view {
   width: 100%;
   height: 100%;
@@ -31,6 +61,24 @@
   }
   .mat-mdc-cell {
     color: #333;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    .mat-res-ul{
+      padding: 0;
+      margin: 0;
+      .mat-res-li{
+        list-style-type: none;
+      }
+    }
+    .mat-toggle-more {
+      display: block;
+      color: #a1a3b7;
+      padding: 5px 45px 0 0;
+      &:hover {
+        color: #8d00d4;
+      }
+    }
   }
   .mat-mdc-row {
     &:hover {
@@ -41,6 +89,12 @@
       background: #303d54;
       .mat-mdc-cell {
         color: #fff;
+        .mat-toggle-more {
+          color: #b8bbff;
+          &:hover {
+            color: #b871dc;
+          }
+        }
       }
     }
   }
