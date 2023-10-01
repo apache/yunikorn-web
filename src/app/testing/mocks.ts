@@ -17,6 +17,8 @@
  */
 
 import { of } from 'rxjs';
+import { AppInfo } from '@app/models/app-info.model';
+import { CommonUtil } from '@app/utils/common.util';
 
 export const noopFn = () => {};
 

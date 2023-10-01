@@ -21,10 +21,7 @@
     <div class="dropdown-wrapper">
       <label class="dropdown-label">Partition: </label>
       <mat-form-field>
-        <mat-select
-          [(value)]="partitionSelected"
-          (selectionChange)="onPartitionSelectionChanged($event)"
-        >
+        <mat-select [(value)]="partitionSelected" (selectionChange)="onPartitionSelectionChanged($event)">
           <mat-option *ngFor="let part of partitionList" [value]="part.value">
             {{ part.name }}
           </mat-option>
@@ -44,20 +41,9 @@
   </div>
   <div class="right-side">
     <mat-form-field class="search-wrapper white-mat-form-field">
-      <input
-        matInput
-        type="text"
-        [(ngModel)]="searchText"
-        placeholder="Search By Application ID"
-        #searchInput
-      />
-      <button
-        class="clear-btn"
-        *ngIf="searchText"
-        (click)="onClearSearch()"
-        matTooltip="Clear Search"
-        matTooltipShowDelay="500"
-      >
+      <input matInput type="text" [(ngModel)]="searchText" placeholder="Search By Application ID" #searchInput />
+      <button class="clear-btn" *ngIf="searchText" (click)="onClearSearch()" matTooltip="Clear Search"
+        matTooltipShowDelay="500">
         <i class="far fa-times-circle"></i>
       </button>
       <i *ngIf="!searchText" class="fas fa-search search-icon"></i>
@@ -84,7 +70,8 @@
         </ng-container>
 
         <ng-template #renderNext_1>
-          <ng-container *ngIf="columnDef.colId === 'usedResource'; else renderNext_1">
+          <ng-container
+            *ngIf="columnDef.colId === 'usedResource' || columnDef.colId === 'pendingResource'; else renderNext_1">
             <mat-cell *matCellDef="let element">
               <ng-container *ngIf="columnDef.colFormatter; else showAppRawData">
                 <ng-container *ngIf="columnDef.colFormatter(element[columnDef.colId]) as colValue">
@@ -138,25 +125,16 @@
 
       <mat-header-row *matHeaderRowDef="appColumnIds"></mat-header-row>
 
-      <mat-row
-        *matRowDef="let row; columns: appColumnIds"
-        [class.selected-row]="selectedRow === row"
-        (click)="toggleRowSelection(row)"
-      ></mat-row>
+      <mat-row *matRowDef="let row; columns: appColumnIds" [class.selected-row]="selectedRow === row"
+        (click)="toggleRowSelection(row)"></mat-row>
 
-      <mat-footer-row
-        *matFooterRowDef="['noRecord']"
-        [ngStyle]="{ display: isAppDataSourceEmpty() ? '' : 'none' }"
-      ></mat-footer-row>
+      <mat-footer-row *matFooterRowDef="['noRecord']"
+        [ngStyle]="{ display: isAppDataSourceEmpty() ? '' : 'none' }"></mat-footer-row>
     </mat-table>
 
-    <mat-paginator
-      #appsViewMatPaginator
-      [pageSizeOptions]="[10, 20, 50, 100]"
-      [ngStyle]="{ display: isAppDataSourceEmpty() ? 'none' : '' }"
-      (page)="onPaginatorChanged()"
-      showFirstLastButtons
-    ></mat-paginator>
+    <mat-paginator #appsViewMatPaginator [pageSizeOptions]="[10, 20, 50, 100]"
+      [ngStyle]="{ display: isAppDataSourceEmpty() ? 'none' : '' }" (page)="onPaginatorChanged()"
+      showFirstLastButtons></mat-paginator>
   </div>
 
   <div class="app-allocations" [ngStyle]="{ display: selectedRow ? '' : 'none' }">
@@ -172,16 +150,16 @@
             <mat-cell *matCellDef="let element">
               <ng-container *ngIf="columnDef.colFormatter; else showAllocRowData;">
                 <ng-container *ngIf="columnDef.colFormatter(element[columnDef.colId]) as colValue">
-                    <ul class="mat-res-ul">
-                      <ng-container *ngFor="let resource of formatResources(colValue); let i = index">
-                        <li class="mat-res-li" *ngIf="i<2">
-                          {{resource}}
-                        </li>
-                        <li class="mat-res-li" *ngIf="i>=2 && detailToggle">
-                          {{resource}}
-                        </li>
-                      </ng-container>
-                    </ul>
+                  <ul class="mat-res-ul">
+                    <ng-container *ngFor="let resource of formatResources(colValue); let i = index">
+                      <li class="mat-res-li" *ngIf="i<2">
+                        {{resource}}
+                      </li>
+                      <li class="mat-res-li" *ngIf="i>=2 && detailToggle">
+                        {{resource}}
+                      </li>
+                    </ng-container>
+                  </ul>
                 </ng-container>
               </ng-container>
               <ng-template #showAllocRowData>
@@ -205,18 +183,12 @@
 
         <mat-row *matRowDef="let row; columns: allocColumnIds"></mat-row>
 
-        <mat-footer-row
-          *matFooterRowDef="['noRecord']"
-          [ngStyle]="{ display: isAllocDataSourceEmpty() ? '' : 'none' }"
-        ></mat-footer-row>
+        <mat-footer-row *matFooterRowDef="['noRecord']"
+          [ngStyle]="{ display: isAllocDataSourceEmpty() ? '' : 'none' }"></mat-footer-row>
       </mat-table>
 
-      <mat-paginator
-        #allocationMatPaginator
-        [pageSizeOptions]="[10, 20, 50, 100]"
-        [ngStyle]="{ display: isAllocDataSourceEmpty() ? 'none' : '' }"
-        showFirstLastButtons
-      ></mat-paginator>
+      <mat-paginator #allocationMatPaginator [pageSizeOptions]="[10, 20, 50, 100]"
+        [ngStyle]="{ display: isAllocDataSourceEmpty() ? 'none' : '' }" showFirstLastButtons></mat-paginator>
     </div>
   </div>
 </div>

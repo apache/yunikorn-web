@@ -512,6 +512,46 @@
       "hasReserved": false,
       "reservations": [],
       "maxRequestPriority": -2147483648
+    },
+    {
+      "applicationID": "application-sleep-0006",
+      "usedResource": {
+        "memory": 0,
+        "pods": 0,
+        "vcore": 0
+      },
+      "maxUsedResource": {
+        "memory": 150000000,
+        "pods": 3,
+        "vcore": 30
+      },
+      "pendingResource": {
+        "memory": 150000000,
+        "pods": 3,
+        "vcore": 30
+      },
+      "partition": "default",
+      "queueName": "root.default",
+      "submissionTime": 1683692669425545686,
+      "finishedTime": null,
+      "requests": [],
+      "allocations": [],
+      "applicationState": "Accepted",
+      "user": "nobody",
+      "groups": [
+        "nobody"
+      ],
+      "rejectedMessage": "",
+      "stateLog": [
+        {
+          "time": 1683692671425545686,
+          "applicationState": "Accepted"
+        }
+      ],
+      "placeholderData": [],
+      "hasReserved": false,
+      "reservations": [],
+      "maxRequestPriority": -2147483648
     }
   ],
   "appHistory": [

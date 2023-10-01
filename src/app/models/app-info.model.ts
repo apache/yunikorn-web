@@ -26,9 +26,8 @@ export class AppInfo {
   constructor(
     public applicationId: string,
     public usedResource: string,
+    public pendingResource: string,
     public maxUsedResource: string,
-    public partition: string,
-    public queueName: string,
     public submissionTime: number,
     public finishedTime: null | number,
     public stateLog: Array<StateLog>,

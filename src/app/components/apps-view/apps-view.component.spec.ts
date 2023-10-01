@@ -16,12 +16,13 @@
  * limitations under the License.
  */
 
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import { DebugElement } from '@angular/core';
+import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
+import { By } from '@angular/platform-browser';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { RouterTestingModule } from '@angular/router/testing';
 import { HAMMER_LOADER } from '@angular/platform-browser';
 import { NgxSpinnerService } from 'ngx-spinner';
-import { configureTestSuite } from 'ng-bullet';
 import { FormsModule } from '@angular/forms';
 import { MatTableModule } from '@angular/material/table';
 import { MatPaginatorModule } from '@angular/material/paginator';
@@ -30,8 +31,11 @@ import { MatSortModule } from '@angular/material/sort';
 import { MatInputModule } from '@angular/material/input';
 import { MatTooltipModule } from '@angular/material/tooltip';
 import { MatSelectModule } from '@angular/material/select';
+import { of } from 'rxjs';
 
 import { AppsViewComponent } from './apps-view.component';
+import { AppInfo } from '@app/models/app-info.model';
+import { AllocationInfo } from '@app/models/alloc-info.model';
 import { SchedulerService } from '@app/services/scheduler/scheduler.service';
 import { MockSchedulerService, MockNgxSpinnerService } from '@app/testing/mocks';
 
@@ -39,7 +43,7 @@ describe('AppsViewComponent', () => {
   let component: AppsViewComponent;
   let fixture: ComponentFixture<AppsViewComponent>;
 
-  configureTestSuite(() => {
+  beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
       declarations: [AppsViewComponent],
       imports: [
@@ -59,8 +63,8 @@ describe('AppsViewComponent', () => {
         { provide: NgxSpinnerService, useValue: MockNgxSpinnerService },
         { provide: HAMMER_LOADER, useValue: () => new Promise(() => {}) },
       ],
-    });
-  });
+    }).compileComponents();
+  }));
 
   beforeEach(() => {
     fixture = TestBed.createComponent(AppsViewComponent);
@@ -70,5 +74,29 @@ describe('AppsViewComponent', () => {
 
   it('should create the component', () => {
     expect(component).toBeTruthy();
+  });
+
+  it('should have usedResource and pendingResource column', () => {
+    let service: SchedulerService;
+    service = TestBed.inject(SchedulerService);
+    let appInfo = new AppInfo(
+        'app1',
+        "Memory: 500.0 KB, CPU: 10, pods: 1",
+        "Memory: 0.0 bytes, CPU: 0, pods: n/a",
+        '',
+        1,
+        2,
+        [],
+        2,
+        'RUNNING',
+        []
+    );
+    spyOn(service, 'fetchAppList').and.returnValue(of([appInfo]));
+    component.fetchAppListForPartitionAndQueue("default", "root");
+    component.toggle();
+    fixture.detectChanges();
+    const debugEl: DebugElement = fixture.debugElement;
+    expect(debugEl.query(By.css('mat-cell.mat-column-usedResource')).nativeElement.innerText).toContain('Memory: 500.0 KB\nCPU: 10\npods: 1');
+    expect(debugEl.query(By.css('mat-cell.mat-column-pendingResource')).nativeElement.innerText).toContain('Memory: 0.0 bytes\nCPU: 0\npods: n/a');
   });
 });
