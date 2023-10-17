@@ -91,9 +91,8 @@ export class SchedulerService {
             const appInfo = new AppInfo(
               app['applicationID'],
               this.formatResource(app['usedResource'] as SchedulerResourceInfo),
+              this.formatResource(app['pendingResource'] as SchedulerResourceInfo),
               this.formatResource(app['maxUsedResource'] as SchedulerResourceInfo),
-              app['partition'],
-              app['queueName'],
               app['submissionTime'],
               app['lastStateChangeTime'],
               app['stateLog'],
