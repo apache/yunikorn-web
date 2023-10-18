@@ -1,4 +1,4 @@
-/**
+<!--
  * Licensed to the Apache Software Foundation (ASF) under one
  * or more contributor license agreements.  See the NOTICE file
  * distributed with this work for additional information
@@ -14,16 +14,8 @@
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
  * See the License for the specific language governing permissions and
  * limitations under the License.
- */
+ -->
 
-import { Component, Input } from '@angular/core';
-import { ChartDataItem } from '@app/models/chart-data.model';
-
-@Component({
-  selector: 'app-node-utilization',
-  templateUrl: './app-node-utilization.component.html',
-  styleUrls: ['./app-node-utilization.component.scss']
-})
-export class AppNodeUtilizationComponent {
-  @Input() chartData: ChartDataItem[] = [];
-}
+<div style="width: 100%; height: 100%">
+  <canvas class="bar-chart" id="{{ chartContainerId }}"></canvas>
+</div>

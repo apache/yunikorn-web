@@ -21,7 +21,7 @@ import { NgxSpinnerService } from 'ngx-spinner';
 import { finalize } from 'rxjs/operators';
 import { SchedulerService } from '@app/services/scheduler/scheduler.service';
 import { BuildInfo, ClusterInfo } from '@app/models/cluster-info.model';
-import { DonutDataItem } from '@app/models/donut-data.model';
+import { ChartDataItem } from '@app/models/chart-data.model';
 import { AreaDataItem } from '@app/models/area-data.model';
 import { HistoryInfo } from '@app/models/history-info.model';
 import { Applications, Partition } from '@app/models/partition-info.model';
@@ -43,9 +43,9 @@ export class DashboardComponent implements OnInit {
   totalNodes = '';
   totalApplications = '';
   totalContainers = '';
-  appStatusData: DonutDataItem[] = [];
-  containerStatusData: DonutDataItem[] = [];
-  nodeUtilizationData: DonutDataItem[] = [];
+  appStatusData: ChartDataItem[] = [];
+  containerStatusData: ChartDataItem[] = [];
+  nodeUtilizationData: ChartDataItem[] = [];
   appHistoryData: AreaDataItem[] = [];
   containerHistoryData: AreaDataItem[] = [];
   clusterInfo: ClusterInfo = this.getEmptyClusterInfo();
@@ -125,7 +125,7 @@ export class DashboardComponent implements OnInit {
 
       this.nodeUtilizationData = [];
       Object.keys(utilizationData).forEach((name, index) => {
-        this.nodeUtilizationData.push(new DonutDataItem(
+        this.nodeUtilizationData.push(new ChartDataItem(
           name,
           utilizationData[name],
           CHART_COLORS[index],
@@ -148,22 +148,22 @@ export class DashboardComponent implements OnInit {
 
   updateAppStatusData(applications: Applications) {
     this.appStatusData = []
-    if (applications.New) this.appStatusData.push(new DonutDataItem('New', applications.New, '#facc54'))
-    if (applications.Accepted) this.appStatusData.push(new DonutDataItem('Accepted', applications.Accepted, '#facc54'))
-    if (applications.Starting) this.appStatusData.push(new DonutDataItem('Starting', applications.Starting, '#26bbf0'))
-    if (applications.Running) this.appStatusData.push(new DonutDataItem('Running', applications.Running, '#26bbf0'))
-    if (applications.Rejected) this.appStatusData.push(new DonutDataItem('Rejected', applications.Rejected, '#cc6164'))
-    if (applications.Completing) this.appStatusData.push(new DonutDataItem('Completing', applications.Completing, '#60cea5'))
-    if (applications.Completed) this.appStatusData.push(new DonutDataItem('Completed', applications.Completed, '#60cea5'))
-    if (applications.Failing) this.appStatusData.push(new DonutDataItem('Failing', applications.Failing, '#cc6164'))
-    if (applications.Failed) this.appStatusData.push(new DonutDataItem('Failed', applications.Failed, '#cc6164'))
-    if (applications.Expired) this.appStatusData.push(new DonutDataItem('Expired', applications.Expired, '#cc6164'))
-    if (applications.Resuming) this.appStatusData.push(new DonutDataItem('Resuming', applications.Resuming, '#facc54'))
+    if (applications.New) this.appStatusData.push(new ChartDataItem('New', applications.New, '#facc54'))
+    if (applications.Accepted) this.appStatusData.push(new ChartDataItem('Accepted', applications.Accepted, '#facc54'))
+    if (applications.Starting) this.appStatusData.push(new ChartDataItem('Starting', applications.Starting, '#26bbf0'))
+    if (applications.Running) this.appStatusData.push(new ChartDataItem('Running', applications.Running, '#26bbf0'))
+    if (applications.Rejected) this.appStatusData.push(new ChartDataItem('Rejected', applications.Rejected, '#cc6164'))
+    if (applications.Completing) this.appStatusData.push(new ChartDataItem('Completing', applications.Completing, '#60cea5'))
+    if (applications.Completed) this.appStatusData.push(new ChartDataItem('Completed', applications.Completed, '#60cea5'))
+    if (applications.Failing) this.appStatusData.push(new ChartDataItem('Failing', applications.Failing, '#cc6164'))
+    if (applications.Failed) this.appStatusData.push(new ChartDataItem('Failed', applications.Failed, '#cc6164'))
+    if (applications.Expired) this.appStatusData.push(new ChartDataItem('Expired', applications.Expired, '#cc6164'))
+    if (applications.Resuming) this.appStatusData.push(new ChartDataItem('Resuming', applications.Resuming, '#facc54'))
   }
 
   updateContainerStatusData(info: Partition) {
     this.containerStatusData = [
-      new DonutDataItem('Running', +info.totalContainers, '#26bbf0'),
+      new ChartDataItem('Running', +info.totalContainers, '#26bbf0'),
     ];
   }
 

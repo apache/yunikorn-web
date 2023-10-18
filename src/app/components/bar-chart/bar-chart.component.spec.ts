@@ -16,14 +16,24 @@
  * limitations under the License.
  */
 
-export class DonutDataItem {
-  name: string;
-  value: number;
-  color: string;
+import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-  constructor(name: string, value: number, color: string) {
-    this.name = name;
-    this.value = value;
-    this.color = color;
-  }
-}
+import { BarChartComponent } from './bar-chart.component';
+
+describe('BarChartComponent', () => {
+  let component: BarChartComponent;
+  let fixture: ComponentFixture<BarChartComponent>;
+
+  beforeEach(() => {
+    TestBed.configureTestingModule({
+      declarations: [BarChartComponent]
+    });
+    fixture = TestBed.createComponent(BarChartComponent);
+    component = fixture.componentInstance;
+    fixture.detectChanges();
+  });
+
+  it('should create', () => {
+    expect(component).toBeTruthy();
+  });
+});

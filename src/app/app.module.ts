@@ -59,6 +59,7 @@ import { ErrorViewComponent } from '@app/components/error-view/error-view.compon
 import { StatusViewComponent } from '@app/components/status-view/status-view.component';
 import { HealthchecksComponent } from '@app/components/healthchecks/healthchecks.component';
 import { AppNodeUtilizationComponent } from '@app/components/app-node-utilization/app-node-utilization.component';
+import { BarChartComponent } from '@app/components/bar-chart/bar-chart.component';
 
 @NgModule({
   declarations: [
@@ -78,6 +79,7 @@ import { AppNodeUtilizationComponent } from '@app/components/app-node-utilizatio
     StatusViewComponent,
     HealthchecksComponent,
     AppNodeUtilizationComponent,
+    BarChartComponent,
   ],
   imports: [
     BrowserModule,

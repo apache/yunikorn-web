@@ -16,14 +16,7 @@
  * limitations under the License.
  */
 
-import { Component, Input } from '@angular/core';
-import { ChartDataItem } from '@app/models/chart-data.model';
-
-@Component({
-  selector: 'app-node-utilization',
-  templateUrl: './app-node-utilization.component.html',
-  styleUrls: ['./app-node-utilization.component.scss']
-})
-export class AppNodeUtilizationComponent {
-  @Input() chartData: ChartDataItem[] = [];
+.bar-chart {
+  width: 100%;
+  height: 100%;
 }

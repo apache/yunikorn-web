@@ -16,29 +16,8 @@
  * limitations under the License.
  */
 
- .status-wrapper {
-    align-items: center;
-    height: 220px;
-  }
-  .chart-wrapper {
-    max-width: 220px;
-    z-index: 1;
-  }
-  .chart-legend {
-    max-width: 200px;
-    margin: 0 auto;
-    font-size: 0.8em;
-    font-weight: bold;
-    color: #666;
-    > div {
-      margin: 12px 0;
-    }
-    .legend-label {
-      padding-left: 10px;
-    }
-    .legend-value {
-      float: right;
-      padding-right: 20px;
-    }
-  }
-  
+.status-wrapper {
+  width: 100%;
+  height: 100%;
+  align-items: center;
+}

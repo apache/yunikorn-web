@@ -16,14 +16,14 @@
  * limitations under the License.
  */
 
-import { Component, Input } from '@angular/core';
-import { ChartDataItem } from '@app/models/chart-data.model';
+export class ChartDataItem {
+  name: string;
+  value: number;
+  color: string;
 
-@Component({
-  selector: 'app-node-utilization',
-  templateUrl: './app-node-utilization.component.html',
-  styleUrls: ['./app-node-utilization.component.scss']
-})
-export class AppNodeUtilizationComponent {
-  @Input() chartData: ChartDataItem[] = [];
+  constructor(name: string, value: number, color: string) {
+    this.name = name;
+    this.value = value;
+    this.color = color;
+  }
 }
