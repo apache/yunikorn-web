@@ -123,16 +123,16 @@ export class DashboardComponent implements OnInit {
   updateAppStatusData(applications: Applications) {
     this.appStatusData = []
     if (applications.New) this.appStatusData.push(new DonutDataItem('New', applications.New, '#facc54'))
-    if (applications.Accepted) this.appStatusData.push(new DonutDataItem('Accepted', applications.Accepted, '#facc54'))
-    if (applications.Starting) this.appStatusData.push(new DonutDataItem('Starting', applications.Starting, '#26bbf0'))
+    if (applications.Accepted) this.appStatusData.push(new DonutDataItem('Accepted', applications.Accepted, '#faa854'))
+    if (applications.Starting) this.appStatusData.push(new DonutDataItem('Starting', applications.Starting, '#75e7ec'))
     if (applications.Running) this.appStatusData.push(new DonutDataItem('Running', applications.Running, '#26bbf0'))
-    if (applications.Rejected) this.appStatusData.push(new DonutDataItem('Rejected', applications.Rejected, '#cc6164'))
+    if (applications.Rejected) this.appStatusData.push(new DonutDataItem('Rejected', applications.Rejected, '#ffacac'))
     if (applications.Completing) this.appStatusData.push(new DonutDataItem('Completing', applications.Completing, '#60cea5'))
-    if (applications.Completed) this.appStatusData.push(new DonutDataItem('Completed', applications.Completed, '#60cea5'))
+    if (applications.Completed) this.appStatusData.push(new DonutDataItem('Completed', applications.Completed, '#44aa83'))
     if (applications.Failing) this.appStatusData.push(new DonutDataItem('Failing', applications.Failing, '#cc6164'))
-    if (applications.Failed) this.appStatusData.push(new DonutDataItem('Failed', applications.Failed, '#cc6164'))
-    if (applications.Expired) this.appStatusData.push(new DonutDataItem('Expired', applications.Expired, '#cc6164'))
-    if (applications.Resuming) this.appStatusData.push(new DonutDataItem('Resuming', applications.Resuming, '#facc54'))
+    if (applications.Failed) this.appStatusData.push(new DonutDataItem('Failed', applications.Failed, '#9a393c'))
+    if (applications.Expired) this.appStatusData.push(new DonutDataItem('Expired', applications.Expired, '#9a7772'))
+    if (applications.Resuming) this.appStatusData.push(new DonutDataItem('Resuming', applications.Resuming, '#b2aeb4'))
   }
 
   updateContainerStatusData(info: Partition) {
