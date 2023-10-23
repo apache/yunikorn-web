@@ -562,6 +562,18 @@
     {
       "timestamp": 1683692783389687867,
       "totalApplications": "5"
+    },
+    {
+      "timestamp": 1683692843389687867,
+      "totalApplications": "-1"
+    },
+    {
+      "timestamp": 1683692903389687867,
+      "totalApplications": "3"
+    },
+    {
+      "timestamp": 1683692963389687867,
+      "totalApplications": "5"
     }
   ],
   "containerHistory": [
