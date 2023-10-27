@@ -16,13 +16,13 @@
  * limitations under the License.
  */
 
-import { TestBed, inject } from '@angular/core/testing';
-import { HttpClientTestingModule } from '@angular/common/http/testing';
-import { configureTestSuite } from 'ng-bullet';
+import {HttpClientTestingModule} from '@angular/common/http/testing';
+import {TestBed} from '@angular/core/testing';
+import {EnvconfigService} from '@app/services/envconfig/envconfig.service';
+import {MockEnvconfigService} from '@app/testing/mocks';
+import {configureTestSuite} from 'ng-bullet';
 
-import { SchedulerService } from './scheduler.service';
-import { EnvconfigService } from '@app/services/envconfig/envconfig.service';
-import { MockEnvconfigService } from '@app/testing/mocks';
+import {SchedulerService} from './scheduler.service';
 
 describe('SchedulerService', () => {
   let service: SchedulerService;
@@ -35,7 +35,7 @@ describe('SchedulerService', () => {
   });
 
   beforeEach(() => {
-    service = TestBed.get(SchedulerService);
+    service = TestBed.inject(SchedulerService);
   });
 
   it('should create the service', () => {

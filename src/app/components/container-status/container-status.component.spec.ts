@@ -16,13 +16,13 @@
  * limitations under the License.
  */
 
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
-import { configureTestSuite } from 'ng-bullet';
-import { MockComponent } from 'ng-mocks';
+import {ComponentFixture, TestBed} from '@angular/core/testing';
+import {MatCardModule} from '@angular/material/card';
+import {DonutChartComponent} from '@app/components/donut-chart/donut-chart.component';
+import {configureTestSuite} from 'ng-bullet';
+import {MockComponent} from 'ng-mocks';
 
-import { ContainerStatusComponent } from './container-status.component';
-import { DonutChartComponent } from '@app/components/donut-chart/donut-chart.component';
-import { MatCardModule } from '@angular/material/card';
+import {ContainerStatusComponent} from './container-status.component';
 
 describe('ContainerStatusComponent', () => {
   let component: ContainerStatusComponent;

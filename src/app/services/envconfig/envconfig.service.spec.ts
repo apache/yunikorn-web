@@ -16,11 +16,11 @@
  * limitations under the License.
  */
 
-import { TestBed } from '@angular/core/testing';
-import { HttpClientTestingModule } from '@angular/common/http/testing';
-import { configureTestSuite } from 'ng-bullet';
+import {HttpClientTestingModule} from '@angular/common/http/testing';
+import {TestBed} from '@angular/core/testing';
+import {configureTestSuite} from 'ng-bullet';
 
-import { EnvconfigService } from './envconfig.service';
+import {EnvconfigService} from './envconfig.service';
 
 describe('EnvconfigService', () => {
   let service: EnvconfigService;
@@ -33,7 +33,7 @@ describe('EnvconfigService', () => {
   });
 
   beforeEach(() => {
-    service = TestBed.get(EnvconfigService);
+    service = TestBed.inject(EnvconfigService);
   });
 
   it('should create the service', () => {

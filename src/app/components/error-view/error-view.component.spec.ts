@@ -16,12 +16,12 @@
  * limitations under the License.
  */
 
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
-import { configureTestSuite } from 'ng-bullet';
-import { MatCardModule } from '@angular/material/card';
-import { RouterTestingModule } from '@angular/router/testing';
+import {ComponentFixture, TestBed} from '@angular/core/testing';
+import {MatCardModule} from '@angular/material/card';
+import {RouterTestingModule} from '@angular/router/testing';
+import {configureTestSuite} from 'ng-bullet';
 
-import { ErrorViewComponent } from './error-view.component';
+import {ErrorViewComponent} from './error-view.component';
 
 describe('ErrorViewComponent', () => {
   let component: ErrorViewComponent;

@@ -164,7 +164,7 @@ build:
 # Run JS unit tests
 .PHONY: test_js
 test_js: build
-	yarn test:singleRun
+	PUPPETEER_SKIP_CHROMIUM_DOWNLOAD=1 && yarn test:singleRun
 
 # Run Go unit tests
 .PHONY: test_go
