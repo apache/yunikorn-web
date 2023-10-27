@@ -16,41 +16,31 @@
  * limitations under the License.
  */
 
-import {
-  Component,
-  OnInit,
-  AfterViewInit,
-  Input,
-  OnChanges,
-  SimpleChanges,
-  OnDestroy,
-} from '@angular/core';
-import { Subject } from 'rxjs';
-import { takeUntil } from 'rxjs/operators';
-import { Chart, ArcElement, DoughnutController } from 'chart.js';
-import { CommonUtil } from '@app/utils/common.util';
+import { AfterViewInit, Component, Input, OnChanges, OnDestroy, OnInit, SimpleChanges } from '@angular/core';
 import { ChartDataItem } from '@app/models/chart-data.model';
 import { EventBusService, EventMap } from '@app/services/event-bus/event-bus.service';
+import { CommonUtil } from '@app/utils/common.util';
+import { Chart, BarController, CategoryScale, BarElement } from 'chart.js';
+import { Subject, takeUntil } from 'rxjs';
 
-Chart.register(ArcElement, DoughnutController);
+Chart.register(BarElement, CategoryScale, BarController);
 
 @Component({
-  selector: 'app-donut-chart',
-  templateUrl: './donut-chart.component.html',
-  styleUrls: ['./donut-chart.component.scss'],
+  selector: 'app-bar-chart',
+  templateUrl: './bar-chart.component.html',
+  styleUrls: ['./bar-chart.component.scss']
 })
-export class DonutChartComponent implements OnInit, AfterViewInit, OnChanges, OnDestroy {
+export class BarChartComponent implements OnInit, AfterViewInit, OnChanges, OnDestroy {
   destroy$ = new Subject<boolean>();
   chartContainerId = '';
   donutChartData: ChartDataItem[] = [];
-  donutChart: Chart<'doughnut', number[], string> | undefined;
+  donutChart: Chart<'bar', number[], string> | undefined;
 
   @Input() data: ChartDataItem[] = [];
-
-  constructor(private eventBus: EventBusService) {}
+  constructor(private eventBus: EventBusService) { }
 
   ngOnInit() {
-    this.chartContainerId = CommonUtil.createUniqId('donut_chart_');
+    this.chartContainerId = CommonUtil.createUniqId('bar_chart_');
 
     this.eventBus
       .getEvent(EventMap.WindowResizedEvent)
@@ -97,22 +87,20 @@ export class DonutChartComponent implements OnInit, AfterViewInit, OnChanges, On
     }
 
     this.donutChart = new Chart(ctx!, {
-      type: 'doughnut',
+      type: 'bar',
       data: {
         labels: chartLabels,
         datasets: [
           {
+            label: 'My First Dataset',
             data: dataValues,
             backgroundColor: colors,
-          },
+            borderWidth: 1
+          }
         ],
       },
       options: {
         responsive: true,
-        animation: {
-          animateScale: true,
-          animateRotate: true,
-        },
         plugins: {
           legend: {
             display: false,

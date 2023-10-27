@@ -16,35 +16,24 @@
  * limitations under the License.
  */
 
-import { of } from 'rxjs';
-import { AppInfo } from '@app/models/app-info.model';
-import { CommonUtil } from '@app/utils/common.util';
+import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-export const noopFn = () => {};
+import { BarChartComponent } from './bar-chart.component';
 
-export const MockSchedulerService = {
-  fetchClusterByName: () => of({}),
-  fetchClusterList: () => of([]),
-  fetchPartitionList: () => of([]),
-  fetchSchedulerQueues: () => of({}),
-  fetchAppList: () => of([]),
-  fetchAppHistory: () => of([]),
-  fetchContainerHistory: () => of([]),
-  fetchNodeList: () => of([]),
-  fetchNodeUtilization: () => of([]),
-  fecthHealthchecks: () => of([]),
-};
+describe('BarChartComponent', () => {
+  let component: BarChartComponent;
+  let fixture: ComponentFixture<BarChartComponent>;
 
-export const MockNgxSpinnerService = {
-  show: noopFn,
-  hide: noopFn,
-};
+  beforeEach(() => {
+    TestBed.configureTestingModule({
+      declarations: [BarChartComponent]
+    });
+    fixture = TestBed.createComponent(BarChartComponent);
+    component = fixture.componentInstance;
+    fixture.detectChanges();
+  });
 
-export const MockEnvconfigService = {
-  getSchedulerWebAddress: noopFn,
-};
-
-export const MockEventBusService = {
-  getEvent: () => of<any>(),
-  publish: noopFn,
-};
+  it('should create', () => {
+    expect(component).toBeTruthy();
+  });
+});

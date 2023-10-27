@@ -21,12 +21,14 @@ import { NgxSpinnerService } from 'ngx-spinner';
 import { finalize } from 'rxjs/operators';
 import { SchedulerService } from '@app/services/scheduler/scheduler.service';
 import { BuildInfo, ClusterInfo } from '@app/models/cluster-info.model';
-import { DonutDataItem } from '@app/models/donut-data.model';
+import { ChartDataItem } from '@app/models/chart-data.model';
 import { AreaDataItem } from '@app/models/area-data.model';
 import { HistoryInfo } from '@app/models/history-info.model';
 import { Applications, Partition } from '@app/models/partition-info.model';
 import { EventBusService, EventMap } from '@app/services/event-bus/event-bus.service';
 import { NOT_AVAILABLE } from '@app/utils/constants';
+
+const CHART_COLORS = ['#4285f4', '#db4437', '#f4b400', '#0f9d58', '#ff6d00', '#3949ab', '#facc54', '#26bbf0', '#cc6164', '#60cea5'];
 
 @Component({
   selector: 'app-dashboard',
@@ -41,8 +43,9 @@ export class DashboardComponent implements OnInit {
   totalNodes = '';
   totalApplications = '';
   totalContainers = '';
-  appStatusData: DonutDataItem[] = [];
-  containerStatusData: DonutDataItem[] = [];
+  appStatusData: ChartDataItem[] = [];
+  containerStatusData: ChartDataItem[] = [];
+  nodeUtilizationData: ChartDataItem[] = [];
   appHistoryData: AreaDataItem[] = [];
   containerHistoryData: AreaDataItem[] = [];
   clusterInfo: ClusterInfo = this.getEmptyClusterInfo();
@@ -54,7 +57,7 @@ export class DashboardComponent implements OnInit {
     private scheduler: SchedulerService,
     private spinner: NgxSpinnerService,
     private eventBus: EventBusService
-  ) {}
+  ) { }
 
   ngOnInit() {
     this.spinner.show();
@@ -107,6 +110,29 @@ export class DashboardComponent implements OnInit {
       this.appHistoryData = this.getAreaChartData(data);
     });
 
+    this.scheduler.fetchNodeUtilization().subscribe((data) => {
+      const utilizationData: Record<string, number> = {};
+      data.forEach((utilizationInfo) => {
+        utilizationInfo.utilization.forEach(({ bucketName, numOfNodes }) => {
+          const numOfNodesValue = numOfNodes === -1 ? 0 : numOfNodes;
+          if (utilizationData[bucketName]) {
+            utilizationData[bucketName] += numOfNodesValue;
+          } else {
+            utilizationData[bucketName] = numOfNodesValue;
+          }
+        });
+      });
+
+      this.nodeUtilizationData = [];
+      Object.keys(utilizationData).forEach((name, index) => {
+        this.nodeUtilizationData.push(new ChartDataItem(
+          name,
+          utilizationData[name],
+          CHART_COLORS[index],
+        ));
+      });
+    });
+
     this.scheduler.fetchContainerHistory().subscribe((data) => {
       this.initialContainerHistory = data;
       this.containerHistoryData = this.getAreaChartData(data);
@@ -122,22 +148,22 @@ export class DashboardComponent implements OnInit {
 
   updateAppStatusData(applications: Applications) {
     this.appStatusData = []
-    if (applications.New) this.appStatusData.push(new DonutDataItem('New', applications.New, '#facc54'))
-    if (applications.Accepted) this.appStatusData.push(new DonutDataItem('Accepted', applications.Accepted, '#facc54'))
-    if (applications.Starting) this.appStatusData.push(new DonutDataItem('Starting', applications.Starting, '#26bbf0'))
-    if (applications.Running) this.appStatusData.push(new DonutDataItem('Running', applications.Running, '#26bbf0'))
-    if (applications.Rejected) this.appStatusData.push(new DonutDataItem('Rejected', applications.Rejected, '#cc6164'))
-    if (applications.Completing) this.appStatusData.push(new DonutDataItem('Completing', applications.Completing, '#60cea5'))
-    if (applications.Completed) this.appStatusData.push(new DonutDataItem('Completed', applications.Completed, '#60cea5'))
-    if (applications.Failing) this.appStatusData.push(new DonutDataItem('Failing', applications.Failing, '#cc6164'))
-    if (applications.Failed) this.appStatusData.push(new DonutDataItem('Failed', applications.Failed, '#cc6164'))
-    if (applications.Expired) this.appStatusData.push(new DonutDataItem('Expired', applications.Expired, '#cc6164'))
-    if (applications.Resuming) this.appStatusData.push(new DonutDataItem('Resuming', applications.Resuming, '#facc54'))
+    if (applications.New) this.appStatusData.push(new ChartDataItem('New', applications.New, '#facc54'))
+    if (applications.Accepted) this.appStatusData.push(new ChartDataItem('Accepted', applications.Accepted, '#facc54'))
+    if (applications.Starting) this.appStatusData.push(new ChartDataItem('Starting', applications.Starting, '#26bbf0'))
+    if (applications.Running) this.appStatusData.push(new ChartDataItem('Running', applications.Running, '#26bbf0'))
+    if (applications.Rejected) this.appStatusData.push(new ChartDataItem('Rejected', applications.Rejected, '#cc6164'))
+    if (applications.Completing) this.appStatusData.push(new ChartDataItem('Completing', applications.Completing, '#60cea5'))
+    if (applications.Completed) this.appStatusData.push(new ChartDataItem('Completed', applications.Completed, '#60cea5'))
+    if (applications.Failing) this.appStatusData.push(new ChartDataItem('Failing', applications.Failing, '#cc6164'))
+    if (applications.Failed) this.appStatusData.push(new ChartDataItem('Failed', applications.Failed, '#cc6164'))
+    if (applications.Expired) this.appStatusData.push(new ChartDataItem('Expired', applications.Expired, '#cc6164'))
+    if (applications.Resuming) this.appStatusData.push(new ChartDataItem('Resuming', applications.Resuming, '#facc54'))
   }
 
   updateContainerStatusData(info: Partition) {
     this.containerStatusData = [
-      new DonutDataItem('Running', +info.totalContainers, '#26bbf0'),
+      new ChartDataItem('Running', +info.totalContainers, '#26bbf0'),
     ];
   }
 
