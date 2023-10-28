@@ -16,14 +16,23 @@
  * limitations under the License.
  */
 
-export class DonutDataItem {
-  name: string;
-  value: number;
-  color: string;
+import { ComponentFixture, TestBed } from '@angular/core/testing';
+import { AppNodeUtilizationComponent } from '@app/components/app-node-utilization/app-node-utilization.component';
 
-  constructor(name: string, value: number, color: string) {
-    this.name = name;
-    this.value = value;
-    this.color = color;
-  }
-}
+describe('AppNodeUtilizationComponent', () => {
+  let component: AppNodeUtilizationComponent;
+  let fixture: ComponentFixture<AppNodeUtilizationComponent>;
+
+  beforeEach(() => {
+    TestBed.configureTestingModule({
+      declarations: [AppNodeUtilizationComponent]
+    });
+    fixture = TestBed.createComponent(AppNodeUtilizationComponent);
+    component = fixture.componentInstance;
+    fixture.detectChanges();
+  });
+
+  it('should create', () => {
+    expect(component).toBeTruthy();
+  });
+});

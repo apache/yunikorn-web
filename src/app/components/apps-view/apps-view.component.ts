@@ -79,7 +79,6 @@ export class AppsViewComponent implements OnInit {
 
     this.appColumnDef = [
       { colId: 'applicationId', colName: 'Application ID' },
-      { colId: 'queueName', colName: 'Queue Name' },
       { colId: 'applicationState', colName: 'Application State' },
       {
         colId: 'lastStateChangeTime',
@@ -91,7 +90,11 @@ export class AppsViewComponent implements OnInit {
         colName: 'Used Resource',
         colFormatter: CommonUtil.resourceColumnFormatter,
       },
-      { colId: 'partition', colName: 'Partition' },
+      {
+        colId: 'pendingResource',
+        colName: 'Pending Resource',
+        colFormatter: CommonUtil.resourceColumnFormatter,
+      },
       {
         colId: 'submissionTime',
         colName: 'Submission Time',

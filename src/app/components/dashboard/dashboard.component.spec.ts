@@ -31,6 +31,7 @@ import { ContainerStatusComponent } from '@app/components/container-status/conta
 import { ContainerHistoryComponent } from '@app/components/container-history/container-history.component';
 import { SchedulerService } from '@app/services/scheduler/scheduler.service';
 import { EventBusService } from '@app/services/event-bus/event-bus.service';
+import { AppNodeUtilizationComponent } from '@app/components/app-node-utilization/app-node-utilization.component';
 import {
   MockSchedulerService,
   MockNgxSpinnerService,
@@ -49,6 +50,7 @@ describe('DashboardComponent', () => {
         MockComponent(AppHistoryComponent),
         MockComponent(ContainerStatusComponent),
         MockComponent(ContainerHistoryComponent),
+        MockComponent(AppNodeUtilizationComponent),
       ],
       imports: [MatCardModule, MatMenuModule, RouterTestingModule],
       providers: [

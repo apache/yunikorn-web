@@ -17,8 +17,7 @@
  */
 
 import { Component, OnInit, Input } from '@angular/core';
-
-import { DonutDataItem } from '@app/models/donut-data.model';
+import { ChartDataItem } from '@app/models/chart-data.model';
 
 @Component({
   selector: 'app-application-status',
@@ -26,7 +25,7 @@ import { DonutDataItem } from '@app/models/donut-data.model';
   styleUrls: ['./app-status.component.scss'],
 })
 export class AppStatusComponent implements OnInit {
-  @Input() chartData: DonutDataItem[] = [];
+  @Input() chartData: ChartDataItem[] = [];
 
   constructor() {}
 

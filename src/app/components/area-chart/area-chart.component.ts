@@ -117,6 +117,9 @@ export class AreaChartComponent implements OnInit, AfterViewInit, OnChanges, OnD
       this.areaChart.destroy();
     }
 
+    // Filter out negative values from chartData
+    chartData = chartData.filter(item => item.y >= 0);
+
     this.areaChart = new Chart(ctx!, {
       type: 'line',
       data: {

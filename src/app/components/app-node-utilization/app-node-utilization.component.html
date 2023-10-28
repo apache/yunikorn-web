@@ -1,4 +1,4 @@
-/**
+<!--
  * Licensed to the Apache Software Foundation (ASF) under one
  * or more contributor license agreements.  See the NOTICE file
  * distributed with this work for additional information
@@ -14,20 +14,17 @@
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
  * See the License for the specific language governing permissions and
  * limitations under the License.
- */
+ -->
 
-import { Component, OnInit, Input } from '@angular/core';
-import { ChartDataItem } from '@app/models/chart-data.model';
-
-@Component({
-  selector: 'app-container-status',
-  templateUrl: './container-status.component.html',
-  styleUrls: ['./container-status.component.scss'],
-})
-export class ContainerStatusComponent implements OnInit {
-  @Input() chartData: ChartDataItem[] = [];
-
-  constructor() {}
-
-  ngOnInit() {}
-}
+<mat-card appearance="outlined" class="box-card">
+  <mat-card-header>
+    <mat-card-title>Nodes Resource Utilization</mat-card-title>
+  </mat-card-header>
+  <mat-card-content>
+    <div class="status-wrapper flex-grid">
+      <div class="chart-wrapper flex-primary">
+        <app-bar-chart [data]="chartData" />
+      </div>
+    </div>
+  </mat-card-content>
+</mat-card>
