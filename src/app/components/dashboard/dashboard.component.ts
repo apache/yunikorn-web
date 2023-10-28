@@ -149,16 +149,16 @@ export class DashboardComponent implements OnInit {
   updateAppStatusData(applications: Applications) {
     this.appStatusData = []
     if (applications.New) this.appStatusData.push(new ChartDataItem('New', applications.New, '#facc54'))
-    if (applications.Accepted) this.appStatusData.push(new ChartDataItem('Accepted', applications.Accepted, '#facc54'))
+    if (applications.Accepted) this.appStatusData.push(new ChartDataItem('Accepted', applications.Accepted, '#f4b400'))
     if (applications.Starting) this.appStatusData.push(new ChartDataItem('Starting', applications.Starting, '#26bbf0'))
-    if (applications.Running) this.appStatusData.push(new ChartDataItem('Running', applications.Running, '#26bbf0'))
-    if (applications.Rejected) this.appStatusData.push(new ChartDataItem('Rejected', applications.Rejected, '#cc6164'))
+    if (applications.Running) this.appStatusData.push(new ChartDataItem('Running', applications.Running, '#4285f4'))
     if (applications.Completing) this.appStatusData.push(new ChartDataItem('Completing', applications.Completing, '#60cea5'))
-    if (applications.Completed) this.appStatusData.push(new ChartDataItem('Completed', applications.Completed, '#60cea5'))
+    if (applications.Completed) this.appStatusData.push(new ChartDataItem('Completed', applications.Completed, '#0f9d58'))
+    if (applications.Rejected) this.appStatusData.push(new ChartDataItem('Rejected', applications.Rejected, '#ff6d00'))
     if (applications.Failing) this.appStatusData.push(new ChartDataItem('Failing', applications.Failing, '#cc6164'))
-    if (applications.Failed) this.appStatusData.push(new ChartDataItem('Failed', applications.Failed, '#cc6164'))
-    if (applications.Expired) this.appStatusData.push(new ChartDataItem('Expired', applications.Expired, '#cc6164'))
-    if (applications.Resuming) this.appStatusData.push(new ChartDataItem('Resuming', applications.Resuming, '#facc54'))
+    if (applications.Failed) this.appStatusData.push(new ChartDataItem('Failed', applications.Failed, '#db4437'))
+    if (applications.Expired) this.appStatusData.push(new ChartDataItem('Expired', applications.Expired, '#3949ab'))
+    if (applications.Resuming) this.appStatusData.push(new ChartDataItem('Resuming', applications.Resuming, '#694cb5'))
   }
 
   updateContainerStatusData(info: Partition) {
