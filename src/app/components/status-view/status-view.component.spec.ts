@@ -16,22 +16,22 @@
  * limitations under the License.
  */
 
-import { ComponentFixture, TestBed } from '@angular/core/testing';
-import { MockComponent } from 'ng-mocks';
-import { NgxSpinnerService } from 'ngx-spinner';
+import {ComponentFixture, TestBed} from '@angular/core/testing';
 
-import { StatusViewComponent } from './status-view.component';
+import {SchedulerService} from '@app/services/scheduler/scheduler.service';
+import {MockNgxSpinnerService, MockSchedulerService} from '@app/testing/mocks';
+import {MockComponent} from 'ng-mocks';
+import {NgxSpinnerService} from 'ngx-spinner';
 
-import { SchedulerService } from '@app/services/scheduler/scheduler.service';
-import { MockSchedulerService, MockNgxSpinnerService } from '@app/testing/mocks';
+import {StatusViewComponent} from './status-view.component';
 
 describe('StatusViewComponent', () => {
   let component: StatusViewComponent;
   let fixture: ComponentFixture<StatusViewComponent>;
 
 
-  beforeEach(async () => {
-    await TestBed.configureTestingModule({
+  beforeEach( () => {
+    TestBed.configureTestingModule({
       declarations: [ StatusViewComponent, MockComponent(StatusViewComponent) ],
       providers: [
         { provide: SchedulerService, useValue: MockSchedulerService },

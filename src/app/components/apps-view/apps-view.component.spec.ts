@@ -16,34 +16,32 @@
  * limitations under the License.
  */
 
-import { DebugElement } from '@angular/core';
-import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
-import { By } from '@angular/platform-browser';
-import { NoopAnimationsModule } from '@angular/platform-browser/animations';
-import { RouterTestingModule } from '@angular/router/testing';
-import { HAMMER_LOADER } from '@angular/platform-browser';
-import { NgxSpinnerService } from 'ngx-spinner';
-import { FormsModule } from '@angular/forms';
-import { MatTableModule } from '@angular/material/table';
-import { MatPaginatorModule } from '@angular/material/paginator';
-import { MatDividerModule } from '@angular/material/divider';
-import { MatSortModule } from '@angular/material/sort';
-import { MatInputModule } from '@angular/material/input';
-import { MatTooltipModule } from '@angular/material/tooltip';
-import { MatSelectModule } from '@angular/material/select';
-import { of } from 'rxjs';
+import {DebugElement} from '@angular/core';
+import {ComponentFixture, TestBed} from '@angular/core/testing';
+import {FormsModule} from '@angular/forms';
+import {MatDividerModule} from '@angular/material/divider';
+import {MatInputModule} from '@angular/material/input';
+import {MatPaginatorModule} from '@angular/material/paginator';
+import {MatSelectModule} from '@angular/material/select';
+import {MatSortModule} from '@angular/material/sort';
+import {MatTableModule} from '@angular/material/table';
+import {MatTooltipModule} from '@angular/material/tooltip';
+import {By, HAMMER_LOADER} from '@angular/platform-browser';
+import {NoopAnimationsModule} from '@angular/platform-browser/animations';
+import {RouterTestingModule} from '@angular/router/testing';
+import {AppInfo} from '@app/models/app-info.model';
+import {SchedulerService} from '@app/services/scheduler/scheduler.service';
+import {MockNgxSpinnerService, MockSchedulerService} from '@app/testing/mocks';
+import {NgxSpinnerService} from 'ngx-spinner';
+import {of} from 'rxjs';
 
-import { AppsViewComponent } from './apps-view.component';
-import { AppInfo } from '@app/models/app-info.model';
-import { AllocationInfo } from '@app/models/alloc-info.model';
-import { SchedulerService } from '@app/services/scheduler/scheduler.service';
-import { MockSchedulerService, MockNgxSpinnerService } from '@app/testing/mocks';
+import {AppsViewComponent} from './apps-view.component';
 
 describe('AppsViewComponent', () => {
   let component: AppsViewComponent;
   let fixture: ComponentFixture<AppsViewComponent>;
 
-  beforeEach(waitForAsync(() => {
+  beforeEach(() => {
     TestBed.configureTestingModule({
       declarations: [AppsViewComponent],
       imports: [
@@ -64,9 +62,6 @@ describe('AppsViewComponent', () => {
         { provide: HAMMER_LOADER, useValue: () => new Promise(() => {}) },
       ],
     }).compileComponents();
-  }));
-
-  beforeEach(() => {
     fixture = TestBed.createComponent(AppsViewComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();

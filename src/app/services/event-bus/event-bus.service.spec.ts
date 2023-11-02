@@ -16,10 +16,10 @@
  * limitations under the License.
  */
 
-import { TestBed } from '@angular/core/testing';
-import { configureTestSuite } from 'ng-bullet';
+import {TestBed} from '@angular/core/testing';
+import {configureTestSuite} from 'ng-bullet';
 
-import { EventBusService } from './event-bus.service';
+import {EventBusService} from './event-bus.service';
 
 describe('EventBusService', () => {
   let service: EventBusService;
@@ -31,7 +31,7 @@ describe('EventBusService', () => {
   });
 
   beforeEach(() => {
-    service = TestBed.get(EventBusService);
+    service = TestBed.inject(EventBusService);
   });
 
   it('should create the service', () => {

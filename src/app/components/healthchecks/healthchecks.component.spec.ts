@@ -16,22 +16,29 @@
  * limitations under the License.
  */
 
-import { ComponentFixture, TestBed } from '@angular/core/testing';
+import {ComponentFixture, TestBed} from '@angular/core/testing';
+import {MatExpansionModule} from "@angular/material/expansion";
+import {MatIconModule} from "@angular/material/icon";
+import {NoopAnimationsModule} from "@angular/platform-browser/animations";
+import {RouterTestingModule} from "@angular/router/testing";
 
-import { HealthchecksComponent } from './healthchecks.component';
+import {HealthchecksComponent} from './healthchecks.component';
 
 describe('HealthchecksComponent', () => {
   let component: HealthchecksComponent;
   let fixture: ComponentFixture<HealthchecksComponent>;
 
-  beforeEach(async () => {
-    await TestBed.configureTestingModule({
-      declarations: [ HealthchecksComponent ]
+  beforeEach(() => {
+    TestBed.configureTestingModule({
+        declarations: [ HealthchecksComponent ],
+        imports: [
+            NoopAnimationsModule,
+            RouterTestingModule,
+            MatIconModule,
+            MatExpansionModule,
+        ],
     })
     .compileComponents();
-  });
-
-  beforeEach(() => {
     fixture = TestBed.createComponent(HealthchecksComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();

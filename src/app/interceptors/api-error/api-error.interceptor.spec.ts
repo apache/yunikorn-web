@@ -16,11 +16,11 @@
  * limitations under the License.
  */
 
-import { TestBed } from '@angular/core/testing';
-import { configureTestSuite } from 'ng-bullet';
-import { RouterTestingModule } from '@angular/router/testing';
+import {TestBed} from '@angular/core/testing';
+import {RouterTestingModule} from '@angular/router/testing';
+import {configureTestSuite} from 'ng-bullet';
 
-import { ApiErrorInterceptor } from './api-error.interceptor';
+import {ApiErrorInterceptor} from './api-error.interceptor';
 
 describe('ApiErrorInterceptor', () => {
   let interceptor: ApiErrorInterceptor;
@@ -33,7 +33,7 @@ describe('ApiErrorInterceptor', () => {
   });
 
   beforeEach(() => {
-    interceptor = TestBed.get(ApiErrorInterceptor);
+    interceptor = TestBed.inject(ApiErrorInterceptor);
   });
 
   it('should create the interceptor', () => {

@@ -16,10 +16,10 @@
  * limitations under the License.
  */
 
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
-import { configureTestSuite } from 'ng-bullet';
+import {ComponentFixture, TestBed} from '@angular/core/testing';
+import {configureTestSuite} from 'ng-bullet';
 
-import { AreaChartComponent } from './area-chart.component';
+import {AreaChartComponent} from './area-chart.component';
 
 describe('AreaChartComponent', () => {
   let component: AreaChartComponent;
