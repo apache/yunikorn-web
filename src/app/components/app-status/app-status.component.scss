@@ -26,6 +26,8 @@
 }
 .chart-legend {
   max-width: 200px;
+  max-height: 220px;
+  overflow: scroll;
   margin: 0 auto;
   font-size: 0.8em;
   font-weight: bold;
