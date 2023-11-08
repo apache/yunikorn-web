@@ -16,24 +16,24 @@
  * limitations under the License.
  */
 
-import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
-import { Observable } from 'rxjs';
-import { map } from 'rxjs/operators';
+import {HttpClient} from '@angular/common/http';
+import {Injectable} from '@angular/core';
+import {AllocationInfo} from '@app/models/alloc-info.model';
+import {AppInfo} from '@app/models/app-info.model';
+import {ClusterInfo} from '@app/models/cluster-info.model';
+import {HistoryInfo} from '@app/models/history-info.model';
+import {NodeInfo} from '@app/models/node-info.model';
+import {NodeUtilization} from '@app/models/node-utilization.model';
+import {Partition} from '@app/models/partition-info.model';
 
-import { QueueInfo, QueuePropertyItem } from '@app/models/queue-info.model';
-import { EnvconfigService } from '../envconfig/envconfig.service';
-import { ClusterInfo } from '@app/models/cluster-info.model';
-import { CommonUtil } from '@app/utils/common.util';
-import { SchedulerResourceInfo } from '@app/models/resource-info.model';
-import { AppInfo } from '@app/models/app-info.model';
-import { AllocationInfo } from '@app/models/alloc-info.model';
-import { HistoryInfo } from '@app/models/history-info.model';
-import { NodeInfo } from '@app/models/node-info.model';
-import { NOT_AVAILABLE } from '@app/utils/constants';
-import { Partition } from '@app/models/partition-info.model';
-import { SchedulerHealthInfo } from "@app/models/scheduler-health-info.model";
-import { NodeUtilization } from '@app/models/node-utilization.model';
+import {QueueInfo, QueuePropertyItem} from '@app/models/queue-info.model';
+import {SchedulerResourceInfo} from '@app/models/resource-info.model';
+import {SchedulerHealthInfo} from "@app/models/scheduler-health-info.model";
+import {CommonUtil} from '@app/utils/common.util';
+import {NOT_AVAILABLE} from '@app/utils/constants';
+import {Observable} from 'rxjs';
+import {map} from 'rxjs/operators';
+import {EnvconfigService} from '../envconfig/envconfig.service';
 
 @Injectable({
   providedIn: 'root',
@@ -255,7 +255,7 @@ export class SchedulerService {
   }
 
   fetchNodeUtilization(): Observable<NodeUtilization[]>{
-    const nodeUtilizationUrl = `${this.envConfig.getSchedulerWebAddress()}/ws/v1/nodes/utilization`;
+    const nodeUtilizationUrl = `${this.envConfig.getSchedulerWebAddress()}/ws/v1/scheduler/node-utilization`;
     return this.httpClient.get(nodeUtilizationUrl).pipe(map((data: any) => data as NodeUtilization[]));
   }
 
