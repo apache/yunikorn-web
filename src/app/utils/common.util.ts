@@ -31,28 +31,32 @@ export class CommonUtil {
   }
 
   static formatBytes(value: number | string): string {
-    const units: readonly string[] = ['kB', 'MB', 'GB', 'TB', 'PB'];
+    const units: readonly string[] = ['Ki', 'Mi', 'Gi', 'Ti', 'Pi'];
     let unit: string = 'bytes';
     let toValue = +value
-    for (let i = 0, unitslen = units.length; toValue / 1000 >= 1 && i < unitslen;i = i + 1) {
-      toValue = toValue / 1000;
+    for (let i = 0, unitslen = units.length; toValue / 1024 >= 1 && i < unitslen;i = i + 1) {
+      toValue = toValue / 1024;
       unit = units[i];
     }
-    return `${toValue.toFixed(1)} ${unit}`;
+    return `${toValue.toLocaleString(undefined, { maximumFractionDigits: 2 })} ${unit}`;
   }
 
   static isEmpty(arg: object | any[]): boolean {
     return Object.keys(arg).length === 0;
   }
 
-  static formatCount(value: number | string): string {
-    const unit = 'K';
+  static formatCpuCore(value: number | string): string {
     const toValue = +value;
-    if (toValue >= 10000) {
-      return `${(toValue / 1000).toLocaleString(undefined, { maximumFractionDigits: 1 })} ${unit}`;
+
+    if (toValue == 0) {
+      return `${toValue}`;
     }
 
-    return toValue.toLocaleString();
+    if (toValue >= 1000) {
+      return `${(toValue / 1000).toLocaleString(undefined, { maximumFractionDigits: 2 })}`;
+    }
+
+    return `${toValue}m`;
   }
 
   static formatOtherResource(value: number | string): string {

@@ -28,11 +28,21 @@ describe('CommonUtil', () => {
   });
 
   it('checking formatBytes method result', () => {
-    const inputs: number[] = [100, 1100, 1200000, 1300000000, 1400000000000, 1500000000000000];
-    const expected: string[] = ['100.0 bytes', '1.1 kB', '1.2 MB', '1.3 GB', '1.4 TB', '1.5 PB'];
+    const inputs: number[] = [0, 100, 1100, 1200000, 1048576000, 1300000000, 1400000000000, 1500000000000000];
+    const expected: string[] = ['0 bytes', '100 bytes', '1.07 Ki', '1.14 Mi', '1,000 Mi', '1.21 Gi', '1.27 Ti', '1.33 Pi'];
     for (let index = 0; index < inputs.length; index = index + 1) {
       expect(CommonUtil.formatBytes(inputs[index])).toEqual(expected[index]);
       expect(CommonUtil.formatBytes(inputs[index].toString())).toEqual(expected[index]);
     }
   });
+
+  it('checking formatCpuCore method result', () => {
+    const inputs: number[] = [0, 100, 1000, 5555, 10000, 10555, 10999, 10000000];
+    const expected: string[] = ['0','100m', '1', '5.56', '10', '10.56', '11', '10,000'];
+    for (let index = 0; index < inputs.length; index = index + 1) {
+      expect(CommonUtil.formatCpuCore(inputs[index])).toEqual(expected[index]);
+      expect(CommonUtil.formatCpuCore(inputs[index].toString())).toEqual(expected[index]);
+    }
+  });
+
 });

@@ -334,7 +334,7 @@ export class SchedulerService {
     }
 
     if (resource && resource.vcore !== undefined) {
-      formatted.push(`CPU: ${CommonUtil.formatCount(resource.vcore)}`);
+      formatted.push(`CPU: ${CommonUtil.formatCpuCore(resource.vcore)}`);
     } else {
       formatted.push(`CPU: ${NOT_AVAILABLE}`);
     }
