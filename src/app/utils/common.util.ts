@@ -30,12 +30,23 @@ export class CommonUtil {
     return uniqid;
   }
 
-  static formatBytes(value: number | string): string {
-    const units: readonly string[] = ['Ki', 'Mi', 'Gi', 'Ti', 'Pi'];
+  static formatMemoryBytes(value: number | string): string {
+    const units: readonly string[] = ['KiB', 'MiB', 'GiB', 'TiB', 'PiB', 'EiB'];
     let unit: string = 'bytes';
-    let toValue = +value
+    let toValue = +value;
     for (let i = 0, unitslen = units.length; toValue / 1024 >= 1 && i < unitslen;i = i + 1) {
       toValue = toValue / 1024;
+      unit = units[i];
+    }
+    return `${toValue.toLocaleString(undefined, { maximumFractionDigits: 2 })} ${unit}`;
+  }
+
+  static formatEphemeralStorageBytes(value: number | string): string {
+    const units: readonly string[] = ['KB', 'MB', 'GB', 'TB', 'PB', 'EB'];
+    let unit: string = 'bytes';
+    let toValue = +value;
+    for (let i = 0, unitslen = units.length; toValue / 1000 >= 1 && i < unitslen;i = i + 1) {
+      toValue = toValue / 1000;
       unit = units[i];
     }
     return `${toValue.toLocaleString(undefined, { maximumFractionDigits: 2 })} ${unit}`;
@@ -46,22 +57,28 @@ export class CommonUtil {
   }
 
   static formatCpuCore(value: number | string): string {
-    const toValue = +value;
-
-    if (toValue == 0) {
-      return `${toValue}`;
+    const units: readonly string[] = ['m', '', 'k', 'M', 'G', 'T', 'P', 'E'];
+    let unit: string = '';
+    let toValue = +value;
+    if (toValue > 0) {
+      unit = units[0];
     }
-
-    if (toValue >= 1000) {
-      return `${(toValue / 1000).toLocaleString(undefined, { maximumFractionDigits: 2 })}`;
+    for (let i = 1, unitslen = units.length; toValue / 1000 >= 1 && i < unitslen;i = i + 1) {
+      toValue = toValue / 1000;
+      unit = units[i];
     }
-
-    return `${toValue}m`;
+    return `${toValue.toLocaleString(undefined, { maximumFractionDigits: 2 })}${unit}`;
   }
 
   static formatOtherResource(value: number | string): string {
-    const toValue = +value;
-    return toValue.toLocaleString();
+    const units: readonly string[] = ['k', 'M', 'G', 'T', 'P', 'E'];
+    let unit: string = '';
+    let toValue = +value;
+    for (let i = 0, unitslen = units.length; toValue / 1000 >= 1 && i < unitslen;i = i + 1) {
+      toValue = toValue / 1000;
+      unit = units[i];
+    }
+    return `${toValue.toLocaleString(undefined, { maximumFractionDigits: 2 })}${unit}`;
   }
 
   static resourceColumnFormatter(value: string): string {

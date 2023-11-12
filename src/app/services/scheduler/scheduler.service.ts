@@ -328,7 +328,7 @@ export class SchedulerService {
     const formatted = [];
 
     if (resource && resource.memory !== undefined) {
-      formatted.push(`Memory: ${CommonUtil.formatBytes(resource.memory)}`);
+      formatted.push(`Memory: ${CommonUtil.formatMemoryBytes(resource.memory)}`);
     } else {
       formatted.push(`Memory: ${NOT_AVAILABLE}`);
     }
@@ -350,7 +350,7 @@ export class SchedulerService {
             if (resource[`ephemeral-storage`] == 0) {
               formatted.push(`ephemeral-storage: ${NOT_AVAILABLE}`);
             }else{
-              formatted.push(`ephemeral-storage: ${CommonUtil.formatBytes(resource[key])}`);
+              formatted.push(`ephemeral-storage: ${CommonUtil.formatEphemeralStorageBytes(resource[key])}`);
             }
             break;
           }
