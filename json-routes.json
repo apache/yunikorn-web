@@ -1,5 +1,5 @@
 {
-  "/ws/v1/scheduler/node-utilization": "/utilization",
+  "/ws/v1/scheduler/node-utilization": "/node-utilization",
   "/ws/v1/*": "/$1",
   "/history/apps": "/appHistory",
   "/history/containers": "/containerHistory",
