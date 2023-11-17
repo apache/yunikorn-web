@@ -137,7 +137,7 @@ export class NodesViewComponent implements OnInit {
       )
       .subscribe((data) => {
         this.nodeDataSource.data = data;
-        console.log(data);
+        this.formatColumn()
       });
   }
 
@@ -186,6 +186,20 @@ export class NodesViewComponent implements OnInit {
 
   isAllocDataSourceEmpty() {
     return this.allocDataSource.data && this.allocDataSource.data.length === 0;
+  }
+
+  formatColumn(){
+    if(this.nodeDataSource.data.length==0){
+      return
+    }
+    this.nodeColumnIds.forEach((colId)=>{
+      let emptyCell=this.nodeDataSource.data.filter((node)=>{
+        return (node as any)[colId]=="" || (node as any)[colId]=="n/a"
+      })
+      if (emptyCell.length==this.nodeDataSource.data.length){
+        this.nodeColumnIds = this.nodeColumnIds.filter(el => el!==colId)
+      }
+    })
   }
 
   onPartitionSelectionChanged(selected: MatSelectChange) {
