@@ -136,7 +136,6 @@ export class NodesViewComponent implements OnInit {
       )
       .subscribe((data) => {
         this.nodeDataSource.data = data;
-        console.log(data);
       });
   }
 
