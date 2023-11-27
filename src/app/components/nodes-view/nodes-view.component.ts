@@ -189,14 +189,18 @@ export class NodesViewComponent implements OnInit {
   }
 
   formatColumn(){
-    if(this.nodeDataSource.data.length==0){
+    if(this.nodeDataSource.data.length===0){
       return
     }
     this.nodeColumnIds.forEach((colId)=>{
       let emptyCell=this.nodeDataSource.data.filter((node)=>{
+        if (!(colId in node)) {
+          console.error(`Property '${colId}' does not exist on Node.`);
+          return false;
+        }
         return (node as any)[colId]==="" || (node as any)[colId]==="n/a"
       })
-      if (emptyCell.length==this.nodeDataSource.data.length){
+      if (emptyCell.length===this.nodeDataSource.data.length){
         this.nodeColumnIds = this.nodeColumnIds.filter(el => el!==colId)
       }
     })
