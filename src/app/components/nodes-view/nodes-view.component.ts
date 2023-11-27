@@ -66,7 +66,6 @@ export class NodesViewComponent implements OnInit {
       { colId: 'nodeId', colName: 'Node ID' },
       { colId: 'rackName', colName: 'Rack Name' },
       { colId: 'hostName', colName: 'Host Name' },
-      { colId: 'partitionName', colName: 'Partition' },
       { colId: 'capacity', colName: 'Capacity', colFormatter: CommonUtil.resourceColumnFormatter },
       { colId: 'occupied', colName: 'Used', colFormatter: CommonUtil.resourceColumnFormatter },
       {
