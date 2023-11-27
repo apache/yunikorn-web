@@ -44,7 +44,7 @@
 
         <ng-container
           *ngIf="
-            ['capacity', 'occupied', 'allocated', 'available'].includes(columnDef.colId);
+            ['capacity', 'occupied', 'allocated', 'available', 'utilized'].includes(columnDef.colId);
             else renderNext_1
           "
         >
