@@ -195,7 +195,7 @@ export class NodesViewComponent implements OnInit {
     this.nodeColumnIds.forEach((colId)=>{
       let emptyCell=this.nodeDataSource.data.filter((node)=>{
         if (!(colId in node)) {
-          console.error(`Property '${colId}' does not exist on Node.`);
+          console.error(`Property '${colId}' does not exist on NodeInfo.`);
           return false;
         }
         return (node as any)[colId]==="" || (node as any)[colId]==="n/a"
