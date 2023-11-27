@@ -33,6 +33,8 @@ The project requires a number of external tools to be installed before the build
 - [yarn](https://www.npmjs.com/package/yarn)
 - [json-server](https://www.npmjs.com/package/json-server)
 
+To manage our node packages, we've chosen Yarn. Simply execute the command `yarn install` to set up all necessary dependencies. This single step ensures that your environment is fully prepared with all the required packages.
+
 ### Development server
 
 Run `make start-dev` for a development server. Navigate to `http://localhost:4200/`. The application will automatically reload if you change any of the source files.
