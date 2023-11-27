@@ -137,7 +137,7 @@ export class NodesViewComponent implements OnInit {
       )
       .subscribe((data) => {
         this.nodeDataSource.data = data;
-        this.formatColumn()
+        this.formatColumn();
       });
   }
 
@@ -194,7 +194,7 @@ export class NodesViewComponent implements OnInit {
     }
     this.nodeColumnIds.forEach((colId)=>{
       let emptyCell=this.nodeDataSource.data.filter((node)=>{
-        return (node as any)[colId]=="" || (node as any)[colId]=="n/a"
+        return (node as any)[colId]==="" || (node as any)[colId]==="n/a"
       })
       if (emptyCell.length==this.nodeDataSource.data.length){
         this.nodeColumnIds = this.nodeColumnIds.filter(el => el!==colId)
