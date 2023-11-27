@@ -30,10 +30,15 @@ export class NodeInfo {
     public occupied: string,
     public available: string,
     public utilized: string,
-    public allocations: AllocationInfo[] | null
+    public allocations: AllocationInfo[] | null,
+    public attributes: Attributes,
   ) {}
 
   setAllocations(allocs: AllocationInfo[]) {
     this.allocations = allocs;
   }
+}
+
+export interface Attributes{
+  [key: string]: string;
 }

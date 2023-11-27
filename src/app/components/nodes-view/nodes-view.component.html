@@ -30,11 +30,22 @@
       </mat-select>
     </mat-form-field>
   </div>
-  <div class="btn-wrapper">
-    <button class="btn" (click)="toggle()" [style.background-color]="detailToggle ? '#313d54' : '#f5f5f5'">
-      <i class="material-icons __icon" [style.color]="detailToggle ? '#f5f5f5' : '#313d54' ">more_horiz</i>
-    </button>
+
+  <div class="right-wrapper">
+    <div class="filter">
+      <mat-form-field>
+        <mat-label>Filter</mat-label>
+        <input matInput (keyup)="applyFilter($event)" placeholder="Ex. amd64" #input>
+      </mat-form-field>
+    </div>
+    
+    <div class="btn-wrapper">
+      <button class="btn" (click)="toggle()" [style.background-color]="detailToggle ? '#313d54' : '#f5f5f5'">
+        <i class="material-icons __icon" [style.color]="detailToggle ? '#f5f5f5' : '#313d54' ">more_horiz</i>
+      </button>
+    </div>
   </div>
+  
 </div>
 <div class="nodes-view">
   <div class="mat-elevation-z8">
@@ -70,7 +81,22 @@
         </ng-container>
 
         <ng-template #renderNext_1>
-          <mat-cell *matCellDef="let element">{{ element[columnDef.colId] || 'n/a' }}</mat-cell>
+            
+            <ng-container *ngIf="columnDef.colId!=='attributes'">
+              <mat-cell *matCellDef="let element">{{ element[columnDef.colId] || 'n/a' }}</mat-cell>
+            </ng-container>
+            
+            <ng-container *ngIf="columnDef.colId=='attributes'">
+              <mat-cell *matCellDef="let element" class="mat-attr">
+                <ul class="mat-attr-ul">
+                  <ng-container *ngFor="let attribute of formatAttribute(element[columnDef.colId]); let i = index">
+                    <li class="mat-attr-li">
+                      {{ attribute }}
+                    </li>
+                  </ng-container>      
+                </ul>
+              </mat-cell>
+            </ng-container>
         </ng-template>
       </ng-container>
 

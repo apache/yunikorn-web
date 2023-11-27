@@ -16,7 +16,7 @@
  * limitations under the License.
  */
 
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { Attribute, Component, OnInit, ViewChild } from '@angular/core';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatSelectChange } from '@angular/material/select';
 import { MatSort } from '@angular/material/sort';
@@ -67,6 +67,7 @@ export class NodesViewComponent implements OnInit {
       { colId: 'rackName', colName: 'Rack Name' },
       { colId: 'hostName', colName: 'Host Name' },
       { colId: 'partitionName', colName: 'Partition' },
+      { colId: 'attributes', colName: 'Attributes' },
       { colId: 'capacity', colName: 'Capacity', colFormatter: CommonUtil.resourceColumnFormatter },
       { colId: 'occupied', colName: 'Used', colFormatter: CommonUtil.resourceColumnFormatter },
       {
@@ -137,7 +138,7 @@ export class NodesViewComponent implements OnInit {
       )
       .subscribe((data) => {
         this.nodeDataSource.data = data;
-        console.log(data);
+        this.formatColumn();
       });
   }
 
@@ -188,6 +189,25 @@ export class NodesViewComponent implements OnInit {
     return this.allocDataSource.data && this.allocDataSource.data.length === 0;
   }
 
+  formatColumn(){
+    if(this.nodeDataSource.data.length==0){
+      return
+    }
+    this.nodeColumnIds.forEach((colId)=>{
+      let emptyCell=this.nodeDataSource.data.filter((node: NodeInfo)=>{
+        if (!(colId in node)) {
+          console.error(`Property '${colId}' does not exist on Node.`);
+          return false;
+        }
+        return (node as any)[colId]==="" || (node as any)[colId]==="n/a"
+      })
+      if (emptyCell.length==this.nodeDataSource.data.length){
+        this.nodeColumnIds = this.nodeColumnIds.filter(el => el!==colId)
+        this.nodeColumnIds = this.nodeColumnIds.filter(colId => colId!=="attributes");
+      }
+    })
+  }
+
   onPartitionSelectionChanged(selected: MatSelectChange) {
     this.partitionSelected = selected.value;
     this.clearRowSelection();
@@ -214,7 +234,43 @@ export class NodesViewComponent implements OnInit {
     return result;
   }
 
+  formatAttribute(attributes:any):string[]{
+    let result:string[]=[]
+    Object.entries(attributes).forEach(entry=>{
+      const [key, value] = entry;
+      if (value==="" || key.includes("si")){
+        return
+      }
+      result.push(key+':'+value)
+    })
+    return result
+  }
+
   toggle(){
     this.detailToggle = !this.detailToggle;
+    this.displayAttribute(this.detailToggle)
+  }
+
+  displayAttribute(toggle:boolean) {
+    if (toggle){
+      this.nodeColumnIds = [
+        ...this.nodeColumnIds.slice(0, 1),
+        "attributes",
+        ...this.nodeColumnIds.slice(1)
+    ];
+    }else{
+      this.nodeColumnIds=this.nodeColumnIds.filter(colId => colId!=="attributes");
+    }
+  }
+
+  filterPredicate: ((data: NodeInfo, filter: string) => boolean) = (data: NodeInfo, filter: string): boolean => {
+    const objectString = JSON.stringify(data).toLowerCase();
+    return objectString.includes(filter);
+  };
+
+  applyFilter(event: Event): void {
+    const filterValue = (event.target as HTMLInputElement).value.trim().toLowerCase();
+    this.nodeDataSource.filter = filterValue;
+    this.nodeDataSource.filterPredicate = this.filterPredicate;
   }
 }
