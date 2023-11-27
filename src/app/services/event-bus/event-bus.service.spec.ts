@@ -17,17 +17,16 @@
  */
 
 import {TestBed} from '@angular/core/testing';
-import {configureTestSuite} from 'ng-bullet';
 
 import {EventBusService} from './event-bus.service';
 
 describe('EventBusService', () => {
   let service: EventBusService;
 
-  configureTestSuite(() => {
+  beforeAll(() => {
     TestBed.configureTestingModule({
       providers: [EventBusService],
-    });
+    }).compileComponents();
   });
 
   beforeEach(() => {

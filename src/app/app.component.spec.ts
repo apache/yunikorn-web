@@ -19,7 +19,6 @@
 import { TestBed, ComponentFixture } from '@angular/core/testing';
 import { RouterTestingModule } from '@angular/router/testing';
 import { NgxSpinnerModule } from 'ngx-spinner';
-import { configureTestSuite } from 'ng-bullet';
 import { MatMenuModule } from '@angular/material/menu';
 import { MatTooltipModule } from '@angular/material/tooltip';
 import { HAMMER_LOADER } from '@angular/platform-browser';
@@ -32,7 +31,7 @@ describe('AppComponent', () => {
   let component: AppComponent;
   let fixture: ComponentFixture<AppComponent>;
 
-  configureTestSuite(() => {
+  beforeAll(() => {
     TestBed.configureTestingModule({
       declarations: [AppComponent],
       imports: [RouterTestingModule, NgxSpinnerModule, MatMenuModule, MatTooltipModule],
@@ -40,7 +39,7 @@ describe('AppComponent', () => {
         { provide: EventBusService, useValue: MockEventBusService },
         { provide: HAMMER_LOADER, useValue: () => new Promise(() => {}) },
       ],
-    });
+    }).compileComponents();
   });
 
   beforeEach(() => {

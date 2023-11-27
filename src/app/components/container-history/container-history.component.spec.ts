@@ -19,7 +19,6 @@
 import {ComponentFixture, TestBed} from '@angular/core/testing';
 import {MatCardModule} from '@angular/material/card';
 import {AreaChartComponent} from '@app/components/area-chart/area-chart.component';
-import {configureTestSuite} from 'ng-bullet';
 import {MockComponent} from 'ng-mocks';
 
 import {ContainerHistoryComponent} from './container-history.component';
@@ -28,11 +27,11 @@ describe('ContainerHistoryComponent', () => {
   let component: ContainerHistoryComponent;
   let fixture: ComponentFixture<ContainerHistoryComponent>;
 
-  configureTestSuite(() => {
+  beforeAll(() => {
     TestBed.configureTestingModule({
       declarations: [ContainerHistoryComponent, MockComponent(AreaChartComponent)],
       imports: [MatCardModule],
-    });
+    }).compileComponents();
   });
 
   beforeEach(() => {

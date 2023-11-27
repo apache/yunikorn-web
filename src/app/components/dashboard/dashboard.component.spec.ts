@@ -18,7 +18,6 @@
 
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { RouterTestingModule } from '@angular/router/testing';
-import { configureTestSuite } from 'ng-bullet';
 import { MatCardModule } from '@angular/material/card';
 import { MatMenuModule } from '@angular/material/menu';
 import { NgxSpinnerService } from 'ngx-spinner';
@@ -42,7 +41,7 @@ describe('DashboardComponent', () => {
   let component: DashboardComponent;
   let fixture: ComponentFixture<DashboardComponent>;
 
-  configureTestSuite(() => {
+  beforeAll(() => {
     TestBed.configureTestingModule({
       declarations: [
         DashboardComponent,
@@ -58,7 +57,7 @@ describe('DashboardComponent', () => {
         { provide: NgxSpinnerService, useValue: MockNgxSpinnerService },
         { provide: EventBusService, useValue: MockEventBusService },
       ],
-    });
+    }).compileComponents();
   });
 
   beforeEach(() => {

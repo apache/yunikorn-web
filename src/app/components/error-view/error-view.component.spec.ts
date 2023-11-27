@@ -19,7 +19,6 @@
 import {ComponentFixture, TestBed} from '@angular/core/testing';
 import {MatCardModule} from '@angular/material/card';
 import {RouterTestingModule} from '@angular/router/testing';
-import {configureTestSuite} from 'ng-bullet';
 
 import {ErrorViewComponent} from './error-view.component';
 
@@ -27,11 +26,11 @@ describe('ErrorViewComponent', () => {
   let component: ErrorViewComponent;
   let fixture: ComponentFixture<ErrorViewComponent>;
 
-  configureTestSuite(() => {
+  beforeAll(() => {
     TestBed.configureTestingModule({
       imports: [MatCardModule, RouterTestingModule],
       declarations: [ErrorViewComponent],
-    });
+    }).compileComponents();
   });
 
   beforeEach(() => {

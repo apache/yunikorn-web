@@ -19,7 +19,6 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { MatCardModule } from '@angular/material/card';
 import { MatProgressBarModule } from '@angular/material/progress-bar';
-import { configureTestSuite } from 'ng-bullet';
 
 import { QueueRackComponent } from './queue-rack.component';
 
@@ -27,11 +26,11 @@ describe('QueueRackComponent', () => {
   let component: QueueRackComponent;
   let fixture: ComponentFixture<QueueRackComponent>;
 
-  configureTestSuite(() => {
+  beforeAll(() => {
     TestBed.configureTestingModule({
       declarations: [QueueRackComponent],
       imports: [MatCardModule, MatProgressBarModule],
-    });
+    }).compileComponents();
   });
 
   beforeEach(() => {
