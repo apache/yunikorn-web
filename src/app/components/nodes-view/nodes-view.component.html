@@ -64,18 +64,16 @@
               <ng-container *ngIf="columnDef.colFormatter(element[columnDef.colId]) as colValue">
                   <ul class="mat-res-ul">
                     <ng-container *ngFor="let resource of formatResources(colValue); let i = index">
-                      <li class="mat-res-li" *ngIf="i<2">
-                        {{resource}}
-                      </li>
-                      <li class="mat-res-li" *ngIf="i>=2 && detailToggle">
-                        {{resource}}
-                      </li>
+                      <li class="mat-res-li" *ngIf="i<2" 
+                          [innerHTML]="resource | highlightSearch: filterValue"></li>
+                      <li class="mat-res-li" *ngIf="i>=2 && detailToggle"
+                          [innerHTML]="resource | highlightSearch: filterValue"></li>
                     </ng-container>
                   </ul>
               </ng-container>
             </ng-container>
             <ng-template #showNodeRawData>
-              <span>{{ element[columnDef.colId] }}</span>
+              <span [innerHTML]="element[columnDef.colId] | highlightSearch: filterValue"></span>
             </ng-template>
           </mat-cell>
         </ng-container>
@@ -83,16 +81,16 @@
         <ng-template #renderNext_1>
             
             <ng-container *ngIf="columnDef.colId!=='attributes'">
-              <mat-cell *matCellDef="let element">{{ element[columnDef.colId] || 'n/a' }}</mat-cell>
+              <mat-cell *matCellDef="let element">
+                <span [innerHTML]="element[columnDef.colId] || 'n/a' | highlightSearch: filterValue"></span>
+              </mat-cell>
             </ng-container>
             
             <ng-container *ngIf="columnDef.colId=='attributes'">
               <mat-cell *matCellDef="let element" class="mat-attr">
                 <ul class="mat-attr-ul">
                   <ng-container *ngFor="let attribute of formatAttribute(element[columnDef.colId]); let i = index">
-                    <li class="mat-attr-li">
-                      {{ attribute }}
-                    </li>
+                    <li class="mat-attr-li" [innerHTML]="attribute | highlightSearch: filterValue"></li>
                   </ng-container>      
                 </ul>
               </mat-cell>

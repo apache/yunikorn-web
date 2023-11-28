@@ -54,6 +54,7 @@ export class NodesViewComponent implements OnInit {
   partitionSelected = '';
 
   detailToggle: boolean = false;
+  filterValue: string = '';
 
   constructor(private scheduler: SchedulerService, private spinner: NgxSpinnerService) {}
 
@@ -195,6 +196,9 @@ export class NodesViewComponent implements OnInit {
     }
     this.nodeColumnIds.forEach((colId)=>{
       let emptyCell=this.nodeDataSource.data.filter((node: NodeInfo)=>{
+        if (colId === 'indicatorIcon'){
+          return false;
+        }
         if (!(colId in node)) {
           console.error(`Property '${colId}' does not exist on Node.`);
           return false;
@@ -264,13 +268,19 @@ export class NodesViewComponent implements OnInit {
   }
 
   filterPredicate: ((data: NodeInfo, filter: string) => boolean) = (data: NodeInfo, filter: string): boolean => {
-    const objectString = JSON.stringify(data).toLowerCase();
+    // a deep copy of the NodeInfo with formatted attributes for filtering
+    const deepCopy = JSON.parse(JSON.stringify(data));
+    Object.entries(deepCopy.attributes).forEach(entry=>{
+      const [key, value] = entry;
+      deepCopy.attributes[key]= `${key}:${value}`
+    })
+    const objectString = JSON.stringify(deepCopy).toLowerCase();
     return objectString.includes(filter);
   };
 
   applyFilter(event: Event): void {
-    const filterValue = (event.target as HTMLInputElement).value.trim().toLowerCase();
-    this.nodeDataSource.filter = filterValue;
+    this.filterValue = (event.target as HTMLInputElement).value.trim().toLowerCase();
+    this.nodeDataSource.filter = this.filterValue;
     this.nodeDataSource.filterPredicate = this.filterPredicate;
   }
 }
