@@ -199,10 +199,10 @@ export class NodesViewComponent implements OnInit {
           console.error(`Property '${colId}' does not exist on Node.`);
           return false;
         }
-        return (node as any)[colId]==="" || (node as any)[colId]==="n/a"
+        return (node as any)[colId]==="" || (node as any)[colId]==="n/a";
       })
       if (emptyCell.length==this.nodeDataSource.data.length){
-        this.nodeColumnIds = this.nodeColumnIds.filter(el => el!==colId)
+        this.nodeColumnIds = this.nodeColumnIds.filter(el => el!==colId);
         this.nodeColumnIds = this.nodeColumnIds.filter(colId => colId!=="attributes");
       }
     })
@@ -215,7 +215,7 @@ export class NodesViewComponent implements OnInit {
   }
 
   formatResources(colValue:string):string[]{
-    const arr:string[]=colValue.split("<br/>")
+    const arr:string[]=colValue.split("<br/>");
     // Check if there are "cpu" or "Memory" elements in the array
     const hasCpu = arr.some((item) => item.toLowerCase().includes("cpu"));
     const hasMemory = arr.some((item) => item.toLowerCase().includes("memory"));
@@ -235,20 +235,20 @@ export class NodesViewComponent implements OnInit {
   }
 
   formatAttribute(attributes:any):string[]{
-    let result:string[]=[]
+    let result:string[]=[];
     Object.entries(attributes).forEach(entry=>{
       const [key, value] = entry;
       if (value==="" || key.includes("si")){
         return
       }
-      result.push(key+':'+value)
+      result.push(key+':'+value);
     })
-    return result
+    return result;
   }
 
   toggle(){
     this.detailToggle = !this.detailToggle;
-    this.displayAttribute(this.detailToggle)
+    this.displayAttribute(this.detailToggle);
   }
 
   displayAttribute(toggle:boolean) {
