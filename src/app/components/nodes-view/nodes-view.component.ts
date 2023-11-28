@@ -16,13 +16,13 @@
  * limitations under the License.
  */
 
-import { Attribute, Component, OnInit, ViewChild } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatSelectChange } from '@angular/material/select';
 import { MatSort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
 import { NgxSpinnerService } from 'ngx-spinner';
-import { finalize, flatMap } from 'rxjs/operators';
+import { finalize } from 'rxjs/operators';
 
 import { SchedulerService } from '@app/services/scheduler/scheduler.service';
 import { NodeInfo } from '@app/models/node-info.model';
