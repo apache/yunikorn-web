@@ -189,18 +189,26 @@ export class NodesViewComponent implements OnInit {
 
   formatColumn(){
     if(this.nodeDataSource.data.length===0){
-      return
+      return;
     }
     this.nodeColumnIds.forEach((colId)=>{
-      let emptyCell=this.nodeDataSource.data.filter((node)=>{
-        if (!(colId in node)) {
-          console.error(`Property '${colId}' does not exist on NodeInfo.`);
-          return false;
-        }
-        return (node as any)[colId]==="" || (node as any)[colId]==="n/a"
-      })
-      if (emptyCell.length===this.nodeDataSource.data.length){
-        this.nodeColumnIds = this.nodeColumnIds.filter(el => el!==colId)
+      if (colId==='indicatorIcon'){
+        return;
+      }
+
+      // Verify whether all cells in the column are empty.
+      let isEmpty:Boolean=true;
+      Object.values(this.nodeDataSource.data).forEach((node) => {
+        Object.entries(node).forEach(entry => {
+          const [key, value] = entry;
+          if (key===colId && !(value==='' || value==='n/a')){
+            isEmpty=false;
+          }
+        });
+      });
+      
+      if (isEmpty){
+        this.nodeColumnIds = this.nodeColumnIds.filter(el => el!==colId);
       }
     })
   }
