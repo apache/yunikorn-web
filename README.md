@@ -58,9 +58,6 @@ This command will build binary with version `web-latest` and the docker full ima
 
 The Makefile is smart enough to detect your host architecture but it will tag the image name.
 
-Run `make deploy-prod` to build and deploy the scheduler webapp using docker-compose.
-The project uses [multi-stage build](https://docs.docker.com/develop/develop-images/multistage-build/) feature of the docker and requires Docker 17.05 or higher.
-
 ### Running tests
 
 All tests can be executed via `make test`. It will first build the project and then execute the unit tests followed by the end to end tests.  
