@@ -197,7 +197,7 @@ export class NodesViewComponent implements OnInit {
       }
 
       // Verify whether all cells in the column are empty.
-      let isEmpty:Boolean = true;
+      let isEmpty:boolean = true;
       Object.values(this.nodeDataSource.data).forEach((node) => {
         Object.entries(node).forEach(entry => {
           const [key, value] = entry;
