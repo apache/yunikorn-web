@@ -38,7 +38,7 @@
 </div>
 <div class="nodes-view">
   <div class="mat-elevation-z8">
-    <mat-table [dataSource]="nodeDataSource" matSort>
+    <mat-table [dataSource]="nodeDataSource" matSort #nodeSort="matSort">
       <ng-container [matColumnDef]="columnDef.colId" *ngFor="let columnDef of nodeColumnDef">
         <mat-header-cell *matHeaderCellDef mat-sort-header>{{ columnDef.colName }}</mat-header-cell>
 
@@ -118,9 +118,9 @@
     <mat-divider></mat-divider>
 
     <div class="mat-elevation-z8">
-      <mat-table [dataSource]="allocDataSource">
+      <mat-table [dataSource]="allocDataSource" matSort #allocSort="matSort">
         <ng-container [matColumnDef]="columnDef.colId" *ngFor="let columnDef of allocColumnDef">
-          <mat-header-cell *matHeaderCellDef>{{ columnDef.colName }}</mat-header-cell>
+          <mat-header-cell *matHeaderCellDef mat-sort-header>{{ columnDef.colName }}</mat-header-cell>
 
           <ng-container *ngIf="columnDef.colId === 'resource'; else renderNext_2">
             <mat-cell *matCellDef="let element">
