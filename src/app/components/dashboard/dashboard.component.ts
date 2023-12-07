@@ -112,15 +112,13 @@ export class DashboardComponent implements OnInit {
 
     this.scheduler.fetchNodeUtilization().subscribe((data) => {
       const utilizationData: Record<string, number> = {};
-      data.forEach((utilizationInfo) => {
-        utilizationInfo.utilization.forEach(({ bucketName, numOfNodes }) => {
-          const numOfNodesValue = numOfNodes === -1 ? 0 : numOfNodes;
-          if (utilizationData[bucketName]) {
-            utilizationData[bucketName] += numOfNodesValue;
-          } else {
-            utilizationData[bucketName] = numOfNodesValue;
-          }
-        });
+      data.utilization.forEach(({ bucketName, numOfNodes }) => {
+        const numOfNodesValue = numOfNodes === -1 ? 0 : numOfNodes;
+        if (utilizationData[bucketName]) {
+          utilizationData[bucketName] += numOfNodesValue;
+        } else {
+          utilizationData[bucketName] = numOfNodesValue;
+        }
       });
 
       this.nodeUtilizationData = [];

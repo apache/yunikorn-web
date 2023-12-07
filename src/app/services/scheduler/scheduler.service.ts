@@ -254,9 +254,9 @@ export class SchedulerService {
     );
   }
 
-  fetchNodeUtilization(): Observable<NodeUtilization[]>{
+  fetchNodeUtilization(): Observable<NodeUtilization>{
     const nodeUtilizationUrl = `${this.envConfig.getSchedulerWebAddress()}/ws/v1/scheduler/node-utilization`;
-    return this.httpClient.get(nodeUtilizationUrl).pipe(map((data: any) => data as NodeUtilization[]));
+    return this.httpClient.get(nodeUtilizationUrl).pipe(map((data: any) => data as NodeUtilization));
   }
 
   fecthHealthchecks(): Observable<SchedulerHealthInfo> {
