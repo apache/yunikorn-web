@@ -21,7 +21,7 @@ export class AllocationInfo {
     public displayName: string,
     public allocationKey: string,
     public allocationTags: null | string,
-    public uuid: string,
+    public allocationID: string,
     public resource: string,
     public priority: string,
     public queueName: string,
