@@ -325,48 +325,66 @@ export class SchedulerService {
   }
 
   private formatResource(resource: SchedulerResourceInfo): string {
-    const formatted = [];
+    const formatted: string[] = [];
+    if (resource) {
+      // Object.keys() didn't guarantee the order of keys, sort it before iterate.
+      Object.keys(resource).sort(this.resourcesCompareFn).forEach((key) => {
+        let value = resource[key];
+        let formattedKey = key;
+        let formattedValue = NOT_AVAILABLE;
 
-    if (resource && resource.memory !== undefined) {
-      formatted.push(`Memory: ${CommonUtil.formatMemoryBytes(resource.memory)}`);
-    } else {
-      formatted.push(`Memory: ${NOT_AVAILABLE}`);
-    }
-
-    if (resource && resource.vcore !== undefined) {
-      formatted.push(`CPU: ${CommonUtil.formatCpuCore(resource.vcore)}`);
-    } else {
-      formatted.push(`CPU: ${NOT_AVAILABLE}`);
-    }
-
-    if (resource){
-      Object.keys(resource).forEach((key) => {
         switch(key){
           case "memory":
-          case "vcore":{
+            formattedKey = "Memory";
+            formattedValue = CommonUtil.formatMemoryBytes(value);
             break;
-          }
-          case "ephemeral-storage":{
-            if (resource[`ephemeral-storage`] == 0) {
-              formatted.push(`ephemeral-storage: ${NOT_AVAILABLE}`);
-            }else{
-              formatted.push(`ephemeral-storage: ${CommonUtil.formatEphemeralStorageBytes(resource[key])}`);
+          case "vcore":
+            formattedKey = "CPU";
+            formattedValue = CommonUtil.formatCpuCore(value);
+            break;
+          case "ephemeral-storage":
+            if (value !== 0){  // if value is 0, show NOT_AVAILABLE
+              formattedValue = CommonUtil.formatEphemeralStorageBytes(value);
             }
             break;
-          }
-          default:{
-            if (resource[key] == 0) {
-              formatted.push(`${key}: ${NOT_AVAILABLE}`);
-            }else{
-              formatted.push(`${key}: ${CommonUtil.formatOtherResource(resource[key])}`);
+          default:
+            if (value !== 0){ // if value is 0, show NOT_AVAILABLE
+              if (key.startsWith('hugepages-')) {
+                formattedValue = CommonUtil.formatMemoryBytes(value);
+              } else{
+                formattedValue = CommonUtil.formatOtherResource(value);
+              }
             }
             break;
-          }
-        }
+         }
+        // }
+        formatted.push(`${formattedKey}: ${formattedValue}`);
       });
     }
-    
+
+    // Set CPU/Memory as NOT_AVAILABLE if it was not in Object.keys(), for example: when guaranteed resource/queue limit were not set in queue 
+    if (!resource || resource.vcore === undefined)
+      formatted.unshift(`CPU: ${NOT_AVAILABLE}`);
+    if (!resource || resource.memory === undefined)
+      formatted.unshift(`Memory: ${NOT_AVAILABLE}`);
     return formatted.join(', ');
+  } 
+
+  private resourcesCompareFn(a: string, b: string): number {
+    // define the order of resources
+    const resourceOrder: { [key: string]: number } = {
+      "memory": 1,
+      "vcore": 2,
+      "ephemeral-storage": 3
+    };
+    const orderA = a in resourceOrder ? resourceOrder[a] : Number.MAX_SAFE_INTEGER;
+    const orderB = b in resourceOrder ? resourceOrder[b] : Number.MAX_SAFE_INTEGER;
+  
+    if (orderA !== orderB) {
+      return orderA - orderB;  // Resources in the order defined above
+    } else {
+      return a.localeCompare(b);  // Other resources will be in lexicographic order
+    }
   }
 
   private formatPercent(resource: SchedulerResourceInfo): string {
