@@ -362,7 +362,7 @@ export class SchedulerService {
       });
     }
 
-    // Set CPU/Memory as NOT_AVAILABLE if it was not in Object.keys(), for example: when guaranteed resource/queue limit were not set in queue 
+    // Set CPU/Memory as NOT_AVAILABLE if it was not in Object.keys() or resource is undefined.
     if (!resource || resource.vcore === undefined)
       formatted.unshift(`CPU: ${NOT_AVAILABLE}`);
     if (!resource || resource.memory === undefined)
