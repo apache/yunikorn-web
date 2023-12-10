@@ -19,11 +19,13 @@
 export class ChartDataItem {
   name: string;
   value: number;
-  color: string;
+  color?: string;
+  description?: string;
 
-  constructor(name: string, value: number, color: string) {
+  constructor(name: string, value: number, color?: string, description?: string) {
     this.name = name;
     this.value = value;
     this.color = color;
+    this.description = description;
   }
 }

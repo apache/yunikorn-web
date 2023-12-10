@@ -27,8 +27,7 @@ import { HistoryInfo } from '@app/models/history-info.model';
 import { Applications, Partition } from '@app/models/partition-info.model';
 import { EventBusService, EventMap } from '@app/services/event-bus/event-bus.service';
 import { NOT_AVAILABLE } from '@app/utils/constants';
-
-const CHART_COLORS = ['#4285f4', '#db4437', '#f4b400', '#0f9d58', '#ff6d00', '#3949ab', '#facc54', '#26bbf0', '#cc6164', '#60cea5'];
+import { NodeUtilization, NodeUtilizationChartData } from '@app/models/node-utilization.model';
 
 @Component({
   selector: 'app-dashboard',
@@ -45,13 +44,13 @@ export class DashboardComponent implements OnInit {
   totalContainers = '';
   appStatusData: ChartDataItem[] = [];
   containerStatusData: ChartDataItem[] = [];
-  nodeUtilizationData: ChartDataItem[] = [];
   appHistoryData: AreaDataItem[] = [];
   containerHistoryData: AreaDataItem[] = [];
   clusterInfo: ClusterInfo = this.getEmptyClusterInfo();
   buildInfo: BuildInfo = this.getEmptyBuildInfo();
   initialAppHistory: HistoryInfo[] = [];
   initialContainerHistory: HistoryInfo[] = [];
+  nodeUtilizationChartData: NodeUtilizationChartData = new NodeUtilizationChartData("NA", []);
 
   constructor(
     private scheduler: SchedulerService,
@@ -109,26 +108,10 @@ export class DashboardComponent implements OnInit {
       this.initialAppHistory = data;
       this.appHistoryData = this.getAreaChartData(data);
     });
-
-    this.scheduler.fetchNodeUtilization().subscribe((data) => {
-      const utilizationData: Record<string, number> = {};
-      data.utilization.forEach(({ bucketName, numOfNodes }) => {
-        const numOfNodesValue = numOfNodes === -1 ? 0 : numOfNodes;
-        if (utilizationData[bucketName]) {
-          utilizationData[bucketName] += numOfNodesValue;
-        } else {
-          utilizationData[bucketName] = numOfNodesValue;
-        }
-      });
-
-      this.nodeUtilizationData = [];
-      Object.keys(utilizationData).forEach((name, index) => {
-        this.nodeUtilizationData.push(new ChartDataItem(
-          name,
-          utilizationData[name],
-          CHART_COLORS[index],
-        ));
-      });
+    
+    this.scheduler.fetchClusterNodeUtilization().subscribe((data) => {
+      let nodeUtilization = new NodeUtilization(data.type, data.utilization);
+      this.nodeUtilizationChartData = nodeUtilization.toNodeUtilizationChartData();
     });
 
     this.scheduler.fetchContainerHistory().subscribe((data) => {

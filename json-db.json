@@ -758,18 +758,43 @@
         "bucketName": "0-10%",
         "numOfNodes": 1,
         "nodeNames": [
-          "aethergpu"
+          "node-01"
         ]
       },
       {
         "bucketName": "10-20%",
         "numOfNodes": 3,
-        "nodeNames": null
+        "nodeNames": [
+          "node-02",
+          "node-03",
+          "node-04"
+        ]
       },
       {
         "bucketName": "20-30%",
-        "numOfNodes": 0,
-        "nodeNames": null
+        "numOfNodes": 20,
+        "nodeNames": [
+          "node-05",
+          "node-06",
+          "node-07",
+          "node-08",
+          "node-09",
+          "node-10",
+          "node-11",
+          "node-12",
+          "node-13",
+          "node-14",
+          "node-15",
+          "node-16",
+          "node-17",
+          "node-18",
+          "node-19",
+          "node-20",
+          "node-21",
+          "node-22",
+          "node-23",
+          "node-24"
+        ]
       },
       {
         "bucketName": "30-40%",

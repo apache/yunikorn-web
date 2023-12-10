@@ -20,10 +20,10 @@ import { AfterViewInit, Component, Input, OnChanges, OnDestroy, OnInit, SimpleCh
 import { ChartDataItem } from '@app/models/chart-data.model';
 import { EventBusService, EventMap } from '@app/services/event-bus/event-bus.service';
 import { CommonUtil } from '@app/utils/common.util';
-import { Chart, BarController, CategoryScale, BarElement } from 'chart.js';
+import { Chart, BarController, CategoryScale, BarElement, Tooltip} from 'chart.js';
 import { Subject, takeUntil } from 'rxjs';
 
-Chart.register(BarElement, CategoryScale, BarController);
+Chart.register(BarElement, CategoryScale, BarController, Tooltip);
 
 @Component({
   selector: 'app-bar-chart',
@@ -33,8 +33,8 @@ Chart.register(BarElement, CategoryScale, BarController);
 export class BarChartComponent implements OnInit, AfterViewInit, OnChanges, OnDestroy {
   destroy$ = new Subject<boolean>();
   chartContainerId = '';
-  donutChartData: ChartDataItem[] = [];
-  donutChart: Chart<'bar', number[], string> | undefined;
+  barChartData: ChartDataItem[] = [];
+  barChart: Chart<'bar', number[], string> | undefined;
 
   @Input() data: ChartDataItem[] = [];
   constructor(private eventBus: EventBusService) { }
@@ -45,7 +45,7 @@ export class BarChartComponent implements OnInit, AfterViewInit, OnChanges, OnDe
     this.eventBus
       .getEvent(EventMap.WindowResizedEvent)
       .pipe(takeUntil(this.destroy$))
-      .subscribe(() => this.renderChart(this.donutChartData));
+      .subscribe(() => this.renderChart(this.barChartData));
   }
 
   ngOnDestroy() {
@@ -65,8 +65,8 @@ export class BarChartComponent implements OnInit, AfterViewInit, OnChanges, OnDe
       changes['data'].currentValue &&
       changes['data'].currentValue.length > 0
     ) {
-      this.donutChartData = changes['data'].currentValue;
-      this.renderChart(this.donutChartData);
+      this.barChartData = changes['data'].currentValue;
+      this.renderChart(this.barChartData);
     }
   }
 
@@ -81,18 +81,18 @@ export class BarChartComponent implements OnInit, AfterViewInit, OnChanges, OnDe
     const dataValues = chartData.map((d) => d.value);
     const chartLabels = chartData.map((d) => d.name);
     const colors = chartData.map((d) => d.color);
+    const descriptions = chartData.map((d) => d.description);
 
-    if (this.donutChart) {
-      this.donutChart.destroy();
+    if (this.barChart) {
+      this.barChart.destroy();
     }
 
-    this.donutChart = new Chart(ctx!, {
+    this.barChart = new Chart(ctx!, {
       type: 'bar',
       data: {
         labels: chartLabels,
         datasets: [
           {
-            label: 'My First Dataset',
             data: dataValues,
             backgroundColor: colors,
             borderWidth: 1
@@ -109,12 +109,22 @@ export class BarChartComponent implements OnInit, AfterViewInit, OnChanges, OnDe
             display: false,
           },
           tooltip: {
+            enabled: true,
             position: 'nearest',
+            callbacks: {
+              label: function(context) {
+                let unit = context.parsed.y > 1 ? 'nodes' : 'node';
+                return 'Total: ' + context.parsed.y + ' ' + unit;
+              },
+              footer: function(context) {
+                return descriptions[context[0].dataIndex]
+              }
+            }
           },
         },
       },
     });
 
-    this.donutChart.update();
+    this.barChart.update();
   }
 }
