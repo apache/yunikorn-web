@@ -384,18 +384,17 @@ export class SchedulerService {
   private formatPercent(resource: SchedulerResourceInfo): string {
     const formatted = [];
 
-    if (resource && resource.memory !== undefined) {
-      formatted.push(`Memory: ${CommonUtil.formatPercent(resource.memory)}`);
-    } else {
-      formatted.push(`Memory: ${NOT_AVAILABLE}`);
+    if (resource) {
+      if (resource.memory !== undefined){
+        formatted.push(`Memory: ${CommonUtil.formatPercent(resource.memory)}`);
+      }
+      if (resource.vcore !== undefined){
+        formatted.push(`CPU: ${CommonUtil.formatPercent(resource.vcore)}`);
+      }
     }
-
-    if (resource && resource.vcore !== undefined) {
-      formatted.push(`CPU: ${CommonUtil.formatPercent(resource.vcore)}`);
-    } else {
-      formatted.push(`CPU: ${NOT_AVAILABLE}`);
+    if (formatted.length === 0) {
+      return NOT_AVAILABLE;
     }
-
     return formatted.join(', ');
   }
 

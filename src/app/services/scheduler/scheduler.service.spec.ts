@@ -100,4 +100,49 @@ describe('SchedulerService', () => {
       expect(result).toEqual(testCase.expected);
     });
   });
+
+
+  it('should format SchedulerResourceInfo percentage correctly', () => {
+    type TestCase = {
+      description: string;
+      schedulerResourceInfo: SchedulerResourceInfo;
+      expected: string;
+    };
+  
+    const testCases: TestCase[] = [
+      {
+        description: 'test simple resourceInfo',
+        schedulerResourceInfo: {
+          'memory': 10,
+          'vcore': 50,
+        },
+        expected: 'Memory: 10%, CPU: 50%'
+      },
+      {
+        description: 'test undefined resourceInfo',
+        schedulerResourceInfo : undefined as any,
+        expected: `${NOT_AVAILABLE}`
+      },
+      {
+        description: 'test empty resourceInfo',
+        schedulerResourceInfo : {} as any,
+        expected: `${NOT_AVAILABLE}`
+      },
+      {
+        description: 'Test zero values and will only show memory and cpu',
+        schedulerResourceInfo: {
+          'memory': 0,
+          'vcore': 0,
+          'pods': 0,
+          'ephemeral-storage': 0,
+        },
+        expected: 'Memory: 0%, CPU: 0%'
+      }
+    ];
+
+    testCases.forEach((testCase: TestCase) => {
+      const result = (service as any).formatPercent(testCase.schedulerResourceInfo); // ignore type typecheck to access private method
+      expect(result).toEqual(testCase.expected);
+    });
+  });
 });
