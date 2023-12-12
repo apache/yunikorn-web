@@ -77,7 +77,7 @@ describe('SchedulerService', () => {
           'hugepages-1Gi': 0,
           'pods': 0
         },
-        expected: 'Memory: 0 bytes, CPU: 0, ephemeral-storage: n/a, hugepages-1Gi: n/a, hugepages-2Mi: n/a, pods: n/a'
+        expected: 'Memory: 0 bytes, CPU: 0, pods: n/a, ephemeral-storage: n/a, hugepages-1Gi: n/a, hugepages-2Mi: n/a'
       },
       {
         description: 'Test resource ordering',
@@ -91,7 +91,7 @@ describe('SchedulerService', () => {
           'hugepages-1Gi':1073741824,
           'pods': 10000
         },
-        expected: 'Memory: 1 KiB, CPU: 2m, ephemeral-storage: 2.05 KB, GPU: 40k, hugepages-1Gi: 1 GiB, hugepages-2Mi: 2 MiB, pods: 10k, TPU: 30k'
+        expected: 'Memory: 1 KiB, CPU: 2m, pods: 10k, ephemeral-storage: 2.05 KB, GPU: 40k, hugepages-1Gi: 1 GiB, hugepages-2Mi: 2 MiB, TPU: 30k'
       }
     ];
 

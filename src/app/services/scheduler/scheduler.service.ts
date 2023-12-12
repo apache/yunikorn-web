@@ -373,7 +373,8 @@ export class SchedulerService {
     const resourceOrder: { [key: string]: number } = {
       "memory": 1,
       "vcore": 2,
-      "ephemeral-storage": 3
+      "pods": 3,
+      "ephemeral-storage": 4
     };
     const orderA = a in resourceOrder ? resourceOrder[a] : Number.MAX_SAFE_INTEGER;
     const orderB = b in resourceOrder ? resourceOrder[b] : Number.MAX_SAFE_INTEGER;
