@@ -52,8 +52,8 @@ describe('SchedulerService', () => {
       {
         description: 'test simple resourceInfo',
         schedulerResourceInfo: {
-          memory: 1024,
-          vcore: 2,
+          'memory': 1024,
+          'vcore': 2,
         },
         expected: 'Memory: 1 KiB, CPU: 2m'
       },
@@ -70,8 +70,8 @@ describe('SchedulerService', () => {
       {
         description: 'Test zero values',
         schedulerResourceInfo: {
-          memory: 0,
-          vcore: 0,
+          'memory': 0,
+          'vcore': 0,
           'ephemeral-storage': 0,
           'hugepages-2Mi': 0,
           'hugepages-1Gi': 0,
@@ -83,8 +83,8 @@ describe('SchedulerService', () => {
         description: 'Test resource ordering',
         schedulerResourceInfo: {
           'ephemeral-storage': 2048,
-          memory: 1024,
-          vcore: 2,
+          'memory': 1024,
+          'vcore': 2,
           'TPU': 30000,
           'GPU': 40000,
           'hugepages-2Mi':2097152,
