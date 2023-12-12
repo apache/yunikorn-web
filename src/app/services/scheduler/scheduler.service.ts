@@ -16,7 +16,7 @@
  * limitations under the License.
  */
 
-import {HttpClient} from '@angular/common/http';
+import {HttpClient, HttpHeaders} from '@angular/common/http';
 import {Injectable} from '@angular/core';
 import {AllocationInfo} from '@app/models/alloc-info.model';
 import {AppInfo} from '@app/models/app-info.model';
@@ -82,8 +82,10 @@ export class SchedulerService {
 
   fetchAppList(partitionName: string, queueName: string): Observable<AppInfo[]> {
     const appsUrl = `${this.envConfig.getSchedulerWebAddress()}/ws/v1/partition/${partitionName}/queue/${queueName}/applications`;
+    const headers = new HttpHeaders();
+    headers.set('Accept-Encoding', 'gzip')
 
-    return this.httpClient.get(appsUrl).pipe(
+    return this.httpClient.get(appsUrl, {headers}).pipe(
       map((data: any) => {
         const result: AppInfo[] = [];
 
