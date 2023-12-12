@@ -32,7 +32,7 @@ export class CommonUtil {
 
   static formatMemoryBytes(value: number | string): string {
     const units: readonly string[] = ['KiB', 'MiB', 'GiB', 'TiB', 'PiB', 'EiB'];
-    let unit: string = 'bytes';
+    let unit: string = 'B';
     let toValue = +value;
     for (let i = 0, unitslen = units.length; toValue / 1024 >= 1 && i < unitslen;i = i + 1) {
       toValue = toValue / 1024;
@@ -42,8 +42,8 @@ export class CommonUtil {
   }
 
   static formatEphemeralStorageBytes(value: number | string): string {
-    const units: readonly string[] = ['KB', 'MB', 'GB', 'TB', 'PB', 'EB'];
-    let unit: string = 'bytes';
+    const units: readonly string[] = ['kB', 'MB', 'GB', 'TB', 'PB', 'EB'];
+    let unit: string = 'B';
     let toValue = +value;
     for (let i = 0, unitslen = units.length; toValue / 1000 >= 1 && i < unitslen;i = i + 1) {
       toValue = toValue / 1000;

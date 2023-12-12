@@ -331,7 +331,7 @@ export class SchedulerService {
       Object.keys(resource).sort(this.resourcesCompareFn).forEach((key) => {
         let value = resource[key];
         let formattedKey = key;
-        let formattedValue = NOT_AVAILABLE;
+        let formattedValue : string;
 
         switch(key){
           case "memory":
@@ -343,21 +343,16 @@ export class SchedulerService {
             formattedValue = CommonUtil.formatCpuCore(value);
             break;
           case "ephemeral-storage":
-            if (value !== 0){  // if value is 0, show NOT_AVAILABLE
-              formattedValue = CommonUtil.formatEphemeralStorageBytes(value);
-            }
+            formattedValue = CommonUtil.formatEphemeralStorageBytes(value);
             break;
           default:
-            if (value !== 0){ // if value is 0, show NOT_AVAILABLE
-              if (key.startsWith('hugepages-')) {
-                formattedValue = CommonUtil.formatMemoryBytes(value);
-              } else{
-                formattedValue = CommonUtil.formatOtherResource(value);
-              }
+            if (key.startsWith('hugepages-')) {
+              formattedValue = CommonUtil.formatMemoryBytes(value);
+            } else{
+              formattedValue = CommonUtil.formatOtherResource(value);
             }
             break;
          }
-        // }
         formatted.push(`${formattedKey}: ${formattedValue}`);
       });
     }

@@ -25,7 +25,7 @@ describe('CommonUtil', () => {
 
   it('checking formatMemoryBytes method result', () => {
     const inputs: number[] = [0, 100, 1100, 1200000, 1048576000, 1300000000, 1400000000000, 1500000000000000, 1500000000000000000];
-    const expected: string[] = ['0 bytes', '100 bytes', '1.07 KiB', '1.14 MiB', '1,000 MiB', '1.21 GiB', '1.27 TiB', '1.33 PiB', '1.3 EiB'];
+    const expected: string[] = ['0 B', '100 B', '1.07 KiB', '1.14 MiB', '1,000 MiB', '1.21 GiB', '1.27 TiB', '1.33 PiB', '1.3 EiB'];
     for (let index = 0; index < inputs.length; index = index + 1) {
       expect(CommonUtil.formatMemoryBytes(inputs[index])).toEqual(expected[index]);
       expect(CommonUtil.formatMemoryBytes(inputs[index].toString())).toEqual(expected[index]);
@@ -34,7 +34,7 @@ describe('CommonUtil', () => {
 
   it('checking formatEphemeralStorageBytes method result', () => {
     const inputs: number[] = [0, 100, 1100, 1200000, 1048576000, 1300000000, 1400000000000, 1500000000000000, 1500000000000000000];
-    const expected: string[] = ['0 bytes', '100 bytes', '1.1 KB', '1.2 MB', '1.05 GB', '1.3 GB', '1.4 TB', '1.5 PB', '1.5 EB'];
+    const expected: string[] = ['0 B', '100 B', '1.1 kB', '1.2 MB', '1.05 GB', '1.3 GB', '1.4 TB', '1.5 PB', '1.5 EB'];
     for (let index = 0; index < inputs.length; index = index + 1) {
       expect(CommonUtil.formatEphemeralStorageBytes(inputs[index])).toEqual(expected[index]);
       expect(CommonUtil.formatEphemeralStorageBytes(inputs[index].toString())).toEqual(expected[index]);
