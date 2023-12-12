@@ -362,11 +362,9 @@ export class SchedulerService {
       });
     }
 
-    // Set CPU/Memory as NOT_AVAILABLE if it was not in Object.keys() or resource is undefined.
-    if (!resource || resource.vcore === undefined)
-      formatted.unshift(`CPU: ${NOT_AVAILABLE}`);
-    if (!resource || resource.memory === undefined)
-      formatted.unshift(`Memory: ${NOT_AVAILABLE}`);
+    if (formatted.length === 0) {
+      return NOT_AVAILABLE;
+    }
     return formatted.join(', ');
   } 
 

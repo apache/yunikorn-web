@@ -60,12 +60,12 @@ describe('SchedulerService', () => {
       {
         description: 'test undefined resourceInfo',
         schedulerResourceInfo : undefined as any,
-        expected: `Memory: ${NOT_AVAILABLE}, CPU: ${NOT_AVAILABLE}`
+        expected: `${NOT_AVAILABLE}`
       },
       {
         description: 'test empty resourceInfo',
         schedulerResourceInfo : {} as any,
-        expected: `Memory: ${NOT_AVAILABLE}, CPU: ${NOT_AVAILABLE}`
+        expected: `${NOT_AVAILABLE}`
       },
       {
         description: 'Test zero values',
