@@ -39,7 +39,9 @@ import { PartitionInfo } from '@app/models/partition-info.model';
 export class NodesViewComponent implements OnInit {
   @ViewChild('nodesViewMatPaginator', { static: true }) nodePaginator!: MatPaginator;
   @ViewChild('allocationMatPaginator', { static: true }) allocPaginator!: MatPaginator;
-  @ViewChild(MatSort, { static: true }) nodeSort!: MatSort;
+  @ViewChild('nodeSort', {static: true }) nodeSort!: MatSort;
+  @ViewChild('allocSort', {static: true }) allocSort!: MatSort;
+
 
   nodeDataSource = new MatTableDataSource<NodeInfo>([]);
   nodeColumnDef: ColumnDef[] = [];
@@ -61,6 +63,7 @@ export class NodesViewComponent implements OnInit {
     this.nodeDataSource.paginator = this.nodePaginator;
     this.allocDataSource.paginator = this.allocPaginator;
     this.nodeDataSource.sort = this.nodeSort;
+    this.allocDataSource.sort = this.allocSort;
 
     this.nodeColumnDef = [
       { colId: 'nodeId', colName: 'Node ID' },
