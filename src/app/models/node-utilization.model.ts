@@ -17,7 +17,7 @@
  */
 
 import { ChartDataItem } from '@app/models/chart-data.model';
-import { CHART_COLORS } from '@app/utils/constants';
+import { DEFAULT_BAR_COLOR } from '@app/utils/constants';
 
 export class NodeUtilization {
   constructor(
@@ -32,12 +32,11 @@ export class NodeUtilization {
   // transform NodeUtilization to NodeUtilizationChartData for NodeUtilization bar chart
   toNodeUtilizationChartData(){
     const MAX_NODES_IN_DESCRIPTION = 15;
-    const backgroundColor = CHART_COLORS[0];
+    const backgroundColor = DEFAULT_BAR_COLOR;
     let type = this.type;
     let utilization = this.utilization;
     // prepare data
     let chartDataItems = new Array<ChartDataItem>();
-    let index = 0;
     utilization.forEach(({ bucketName, numOfNodes, nodeNames }) => {
       const numOfNodesValue = numOfNodes === -1 ? 0 : numOfNodes;
       let description: string | undefined;

@@ -17,7 +17,7 @@
  */
 
 import { ChartDataItem } from '@app/models/chart-data.model';
-import { CHART_COLORS } from '@app/utils/constants';
+import { DEFAULT_BAR_COLOR } from '@app/utils/constants';
 import { NodeUtilization, NodeUtilizationChartData } from '@app/models/node-utilization.model';
 
 describe('NodeUtilization', () => {
@@ -34,9 +34,9 @@ describe('NodeUtilization', () => {
     expect(result).toBeInstanceOf(NodeUtilizationChartData);
     expect(result.type).toBe('vcores');
     expect(result.chartDataItems).toEqual([
-      new ChartDataItem('0-10%', 2, CHART_COLORS[0], 'node1\nnode2'),
-      new ChartDataItem('10-20%', 3, CHART_COLORS[0], 'node3\nnode4\nnode5'),
-      new ChartDataItem('20-30%', 16, CHART_COLORS[0], 'node10\nnode11\nnode12\nnode13\nnode14\nnode15\nnode16\nnode17\nnode18\nnode19\nnode20\nnode6\nnode7\nnode8\nnode9\n...1 more'),
+      new ChartDataItem('0-10%', 2, DEFAULT_BAR_COLOR, 'node1\nnode2'),
+      new ChartDataItem('10-20%', 3, DEFAULT_BAR_COLOR, 'node3\nnode4\nnode5'),
+      new ChartDataItem('20-30%', 16, DEFAULT_BAR_COLOR, 'node10\nnode11\nnode12\nnode13\nnode14\nnode15\nnode16\nnode17\nnode18\nnode19\nnode20\nnode6\nnode7\nnode8\nnode9\n...1 more'),
     ]);
   });
 });
