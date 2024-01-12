@@ -27,12 +27,12 @@ import {
 } from '@angular/core';
 import { Subject } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
-import { Chart, ArcElement, DoughnutController } from 'chart.js';
+import { Chart, ArcElement, DoughnutController, Tooltip } from 'chart.js';
 import { CommonUtil } from '@app/utils/common.util';
 import { ChartDataItem } from '@app/models/chart-data.model';
 import { EventBusService, EventMap } from '@app/services/event-bus/event-bus.service';
 
-Chart.register(ArcElement, DoughnutController);
+Chart.register(ArcElement, DoughnutController, Tooltip);
 
 @Component({
   selector: 'app-donut-chart',
@@ -121,6 +121,7 @@ export class DonutChartComponent implements OnInit, AfterViewInit, OnChanges, On
             display: false,
           },
           tooltip: {
+            enabled: true,
             position: 'nearest',
           },
         },

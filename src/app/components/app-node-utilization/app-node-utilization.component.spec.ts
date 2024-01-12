@@ -16,8 +16,10 @@
  * limitations under the License.
  */
 
+import { MatCardModule } from '@angular/material/card';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { AppNodeUtilizationComponent } from '@app/components/app-node-utilization/app-node-utilization.component';
+import { BarChartComponent } from '@app/components/bar-chart/bar-chart.component';
 
 describe('AppNodeUtilizationComponent', () => {
   let component: AppNodeUtilizationComponent;
@@ -25,7 +27,8 @@ describe('AppNodeUtilizationComponent', () => {
 
   beforeEach(() => {
     TestBed.configureTestingModule({
-      declarations: [AppNodeUtilizationComponent]
+      declarations: [AppNodeUtilizationComponent, BarChartComponent],
+      imports: [MatCardModule],
     });
     fixture = TestBed.createComponent(AppNodeUtilizationComponent);
     component = fixture.componentInstance;
