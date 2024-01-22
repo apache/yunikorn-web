@@ -31,7 +31,7 @@ export const MockSchedulerService = {
   fetchAppHistory: () => of([]),
   fetchContainerHistory: () => of([]),
   fetchNodeList: () => of([]),
-  fetchClusterNodeUtilization: () => of([]),
+  fetchNodeUtilization: () => of([]),
   fecthHealthchecks: () => of([]),
 };
 

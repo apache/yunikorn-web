@@ -963,6 +963,476 @@
       }
     ]
   },
+  "node-utilizations": [
+    {
+      "clusterId": "mycluster",
+      "partition": "default",
+      "utilizations": [
+        {
+          "type": "ephemeral-storagesss",
+          "utilization": [
+            {
+              "bucketName": "0-10%",
+              "numOfNodes": 1,
+              "nodeNames": [
+                "node-01"
+              ]
+            },
+            {
+              "bucketName": "10-20%",
+              "numOfNodes": 2,
+              "nodeNames": [
+                "node-02",
+                "node-03"
+              ]
+            },
+            {
+              "bucketName": "20-30%",
+              "numOfNodes": 3,
+              "nodeNames": [
+                "node-04",
+                "node-05",
+                "node-06"
+              ]
+            },
+            {
+              "bucketName": "30-40%",
+              "numOfNodes": 4,
+              "nodeNames": [
+                "node-07",
+                "node-08",
+                "node-09",
+                "node-10"
+              ]
+            },
+            {
+              "bucketName": "40-50%"
+            },
+            {
+              "bucketName": "50-60%"
+            },
+            {
+              "bucketName": "60-70%"
+            },
+            {
+              "bucketName": "70-80%"
+            },
+            {
+              "bucketName": "80-90%"
+            },
+            {
+              "bucketName": "90-100%"
+            }
+          ]
+        },
+        {
+          "type": "hugepages-1Gi",
+          "utilization": [
+            {
+              "bucketName": "0-10%"
+            },
+            {
+              "bucketName": "10-20%",
+              "numOfNodes": 1,
+              "nodeNames": [
+                "node-01"
+              ]
+            },
+            {
+              "bucketName": "20-30%",
+              "numOfNodes": 2,
+              "nodeNames": [
+                "node-02",
+                "node-03"
+              ]
+            },
+            {
+              "bucketName": "30-40%",
+              "numOfNodes": 3,
+              "nodeNames": [
+                "node-04",
+                "node-05",
+                "node-06"
+              ]
+            },
+            {
+              "bucketName": "40-50%",
+              "numOfNodes": 4,
+              "nodeNames": [
+                "node-07",
+                "node-08",
+                "node-09",
+                "node-10"
+              ]
+            },
+            {
+              "bucketName": "50-60%"
+            },
+            {
+              "bucketName": "60-70%"
+            },
+            {
+              "bucketName": "70-80%"
+            },
+            {
+              "bucketName": "80-90%"
+            },
+            {
+              "bucketName": "90-100%"
+            }
+          ]
+        },
+        {
+          "type": "hugepages-2Mi",
+          "utilization": [
+            {
+              "bucketName": "0-10%"
+            },
+            {
+              "bucketName": "10-20%"
+            },
+            {
+              "bucketName": "20-30%",
+              "numOfNodes": 1,
+              "nodeNames": [
+                "node-01"
+              ]
+            },
+            {
+              "bucketName": "30-40%",
+              "numOfNodes": 2,
+              "nodeNames": [
+                "node-02",
+                "node-03"
+              ]
+            },
+            {
+              "bucketName": "40-50%",
+              "numOfNodes": 3,
+              "nodeNames": [
+                "node-04",
+                "node-05",
+                "node-06"
+              ]
+            },
+            {
+              "bucketName": "50-60%",
+              "numOfNodes": 4,
+              "nodeNames": [
+                "node-07",
+                "node-08",
+                "node-09",
+                "node-10"
+              ]
+            },
+            {
+              "bucketName": "60-70%"
+            },
+            {
+              "bucketName": "70-80%"
+            },
+            {
+              "bucketName": "80-90%"
+            },
+            {
+              "bucketName": "90-100%"
+            }
+          ]
+        },
+        {
+          "type": "memory",
+          "utilization": [
+            {
+              "bucketName": "0-10%"
+            },
+            {
+              "bucketName": "10-20%"
+            },
+            {
+              "bucketName": "20-30%"
+            },
+            {
+              "bucketName": "30-40%",
+              "numOfNodes": 1,
+              "nodeNames": [
+                "node-01"
+              ]
+            },
+            {
+              "bucketName": "40-50%",
+              "numOfNodes": 2,
+              "nodeNames": [
+                "node-02",
+                "node-03"
+              ]
+            },
+            {
+              "bucketName": "50-60%",
+              "numOfNodes": 3,
+              "nodeNames": [
+                "node-04",
+                "node-05",
+                "node-06"
+              ]
+            },
+            {
+              "bucketName": "60-70%",
+              "numOfNodes": 4,
+              "nodeNames": [
+                "node-07",
+                "node-08",
+                "node-09",
+                "node-10"
+              ]
+            },
+            {
+              "bucketName": "70-80%"
+            },
+            {
+              "bucketName": "80-90%"
+            },
+            {
+              "bucketName": "90-100%"
+            }
+          ]
+        },
+        {
+          "type": "pods",
+          "utilization": [
+            {
+              "bucketName": "0-10%"
+            },
+            {
+              "bucketName": "10-20%"
+            },
+            {
+              "bucketName": "20-30%"
+            },
+            {
+              "bucketName": "30-40%"
+            },
+            {
+              "bucketName": "40-50%"
+            },
+            {
+              "bucketName": "50-60%",
+              "numOfNodes": 1,
+              "nodeNames": [
+                "node-01"
+              ]
+            },
+            {
+              "bucketName": "60-70%",
+              "numOfNodes": 2,
+              "nodeNames": [
+                "node-02",
+                "node-03"
+              ]
+            },
+            {
+              "bucketName": "70-80%",
+              "numOfNodes": 3,
+              "nodeNames": [
+                "node-04",
+                "node-05",
+                "node-06"
+              ]
+            },
+            {
+              "bucketName": "80-90%",
+              "numOfNodes": 4,
+              "nodeNames": [
+                "node-07",
+                "node-08",
+                "node-09",
+                "node-10"
+              ]
+            },
+            {
+              "bucketName": "90-100%"
+            }
+          ]
+        },
+        {
+          "type": "vcore",
+          "utilization": [
+            {
+              "bucketName": "0-10%"
+            },
+            {
+              "bucketName": "10-20%"
+            },
+            {
+              "bucketName": "20-30%"
+            },
+            {
+              "bucketName": "30-40%"
+            },
+            {
+              "bucketName": "40-50%"
+            },
+            {
+              "bucketName": "50-60%"
+            },
+            {
+              "bucketName": "60-70%",
+              "numOfNodes": 1,
+              "nodeNames": [
+                "node-01"
+              ]
+            },
+            {
+              "bucketName": "70-80%",
+              "numOfNodes": 2,
+              "nodeNames": [
+                "node-02",
+                "node-03"
+              ]
+            },
+            {
+              "bucketName": "80-90%",
+              "numOfNodes": 3,
+              "nodeNames": [
+                "node-04",
+                "node-05",
+                "node-06"
+              ]
+            },
+            {
+              "bucketName": "90-100%",
+              "numOfNodes": 4,
+              "nodeNames": [
+                "node-07",
+                "node-08",
+                "node-09",
+                "node-10"
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "clusterId": "mycluster",
+      "partition": "cluster-2",
+      "utilizations": [
+        {
+          "type": "memory",
+          "utilization": [
+            {
+              "bucketName": "0-10%"
+            },
+            {
+              "bucketName": "10-20%"
+            },
+            {
+              "bucketName": "20-30%"
+            },
+            {
+              "bucketName": "30-40%",
+              "numOfNodes": 1,
+              "nodeNames": [
+                "node-01"
+              ]
+            },
+            {
+              "bucketName": "40-50%",
+              "numOfNodes": 2,
+              "nodeNames": [
+                "node-02",
+                "node-03"
+              ]
+            },
+            {
+              "bucketName": "50-60%",
+              "numOfNodes": 3,
+              "nodeNames": [
+                "node-04",
+                "node-05",
+                "node-06"
+              ]
+            },
+            {
+              "bucketName": "60-70%",
+              "numOfNodes": 4,
+              "nodeNames": [
+                "node-07",
+                "node-08",
+                "node-09",
+                "node-10"
+              ]
+            },
+            {
+              "bucketName": "70-80%"
+            },
+            {
+              "bucketName": "80-90%"
+            },
+            {
+              "bucketName": "90-100%"
+            }
+          ]
+        },
+        {
+          "type": "pods",
+          "utilization": [
+            {
+              "bucketName": "0-10%"
+            },
+            {
+              "bucketName": "10-20%"
+            },
+            {
+              "bucketName": "20-30%"
+            },
+            {
+              "bucketName": "30-40%"
+            },
+            {
+              "bucketName": "40-50%"
+            },
+            {
+              "bucketName": "50-60%",
+              "numOfNodes": 1,
+              "nodeNames": [
+                "node-01"
+              ]
+            },
+            {
+              "bucketName": "60-70%",
+              "numOfNodes": 2,
+              "nodeNames": [
+                "node-02",
+                "node-03"
+              ]
+            },
+            {
+              "bucketName": "70-80%",
+              "numOfNodes": 3,
+              "nodeNames": [
+                "node-04",
+                "node-05",
+                "node-06"
+              ]
+            },
+            {
+              "bucketName": "80-90%",
+              "numOfNodes": 4,
+              "nodeNames": [
+                "node-07",
+                "node-08",
+                "node-09",
+                "node-10"
+              ]
+            },
+            {
+              "bucketName": "90-100%"
+            }
+          ]
+        }
+      ]
+    }
+  ],
   "partitions": [
     {
       "clusterId": "mycluster",
