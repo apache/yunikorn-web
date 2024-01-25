@@ -589,6 +589,20 @@
   "nodes": [
     {
       "nodeID": "lima-rancher-desktop",
+      "attributes":{
+        "beta.kubernetes.io/arch":"amd64",
+        "beta.kubernetes.io/os":"linux",
+        "kubernetes.io/arch":"amd64",
+        "kubernetes.io/hostname":"lima-rancher-desktop",
+        "kubernetes.io/os":"linux",
+        "node-role.kubernetes.io/control-plane":"",
+        "node.kubernetes.io/exclude-from-external-load-balancers":"",
+        "ready":"true",
+        "si.io/hostname":"lima-rancher-desktop",
+        "si.io/rackname":"/rack-default",
+        "si/instance-type":"",
+        "si/node-partition":"[mycluster]default"
+      },
       "hostName": "",
       "rackName": "",
       "capacity": {
@@ -746,6 +760,122 @@
           "preempted": false
         }
       ],
+      "schedulable": true,
+      "isReserved": false,
+      "reservations": []
+    },
+    {
+      "nodeID": "lima-rancher-desktop2",
+      "attributes":{
+        "beta.kubernetes.io/arch":"arm64",
+        "beta.kubernetes.io/os":"linux",
+        "kubernetes.io/arch":"arm64",
+        "kubernetes.io/hostname":"lima-rancher-desktop2",
+        "kubernetes.io/os":"linux",
+        "node-role.kubernetes.io/control-plane":"",
+        "node.kubernetes.io/exclude-from-external-load-balancers":"",
+        "ready":"true",
+        "si.io/hostname":"lima-rancher-desktop2",
+        "si.io/rackname":"/rack-default",
+        "si/instance-type":"",
+        "si/node-partition":"[mycluster]default"
+      },
+      "hostName": "",
+      "rackName": "",
+      "capacity": {
+        "ephemeral-storage": 99833802265,
+        "hugepages-1Gi": 0,
+        "hugepages-2Mi": 0,
+        "hugepages-32Mi": 0,
+        "hugepages-64Ki": 0,
+        "memory": 4110970880,
+        "pods": 110,
+        "vcore": 2000
+      },
+      "allocated": {
+        "memory": 0,
+        "pods": 0,
+        "vcore": 0
+      },
+      "occupied": {
+        "memory": 0,
+        "pods": 0,
+        "vcore": 0
+      },
+      "available": {
+        "ephemeral-storage": 99833802265,
+        "hugepages-1Gi": 0,
+        "hugepages-2Mi": 0,
+        "hugepages-32Mi": 0,
+        "hugepages-64Ki": 0,
+        "memory": 4110970880,
+        "pods": 110,
+        "vcore": 2000
+      },
+      "utilized": {
+        "memory": 0,
+        "pods": 0,
+        "vcore": 0
+      },
+      "allocations": [],
+      "schedulable": true,
+      "isReserved": false,
+      "reservations": []
+    },
+    {
+      "nodeID": "lima-rancher-desktop3",
+      "attributes":{
+        "beta.kubernetes.io/arch":"arm64",
+        "beta.kubernetes.io/os":"linux",
+        "kubernetes.io/arch":"arm64",
+        "kubernetes.io/hostname":"lima-rancher-desktop3",
+        "kubernetes.io/os":"linux",
+        "node-role.kubernetes.io/control-plane":"",
+        "node.kubernetes.io/exclude-from-external-load-balancers":"",
+        "ready":"true",
+        "si.io/hostname":"lima-rancher-desktop3",
+        "si.io/rackname":"/rack-default",
+        "si/instance-type":"",
+        "si/node-partition":"[mycluster]default"
+      },
+      "hostName": "",
+      "rackName": "",
+      "capacity": {
+        "ephemeral-storage": 99833802265,
+        "hugepages-1Gi": 0,
+        "hugepages-2Mi": 0,
+        "hugepages-32Mi": 0,
+        "hugepages-64Ki": 0,
+        "memory": 4110970880,
+        "pods": 110,
+        "vcore": 2000
+      },
+      "allocated": {
+        "memory": 0,
+        "pods": 0,
+        "vcore": 0
+      },
+      "occupied": {
+        "memory": 0,
+        "pods": 0,
+        "vcore": 0
+      },
+      "available": {
+        "ephemeral-storage": 99833802265,
+        "hugepages-1Gi": 0,
+        "hugepages-2Mi": 0,
+        "hugepages-32Mi": 0,
+        "hugepages-64Ki": 0,
+        "memory": 4110970880,
+        "pods": 110,
+        "vcore": 2000
+      },
+      "utilized": {
+        "memory": 0,
+        "pods": 0,
+        "vcore": 0
+      },
+      "allocations": [],
       "schedulable": true,
       "isReserved": false,
       "reservations": []

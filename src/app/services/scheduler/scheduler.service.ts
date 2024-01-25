@@ -205,7 +205,8 @@ export class SchedulerService {
               this.formatResource(node['occupied'] as SchedulerResourceInfo),
               this.formatResource(node['available'] as SchedulerResourceInfo),
               this.formatPercent(node['utilized'] as SchedulerResourceInfo),
-              []
+              [],
+              node['attributes'],
             );
 
             const allocations = node['allocations'];

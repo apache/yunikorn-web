@@ -29,6 +29,9 @@ import { MatPaginatorModule } from '@angular/material/paginator';
 import { MatDividerModule } from '@angular/material/divider';
 import { MatSortModule } from '@angular/material/sort';
 import { MatSelectModule } from '@angular/material/select';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatInputModule } from '@angular/material/input';
+import { ReactiveFormsModule } from '@angular/forms';
 
 describe('NodesViewComponent', () => {
   let component: NodesViewComponent;
@@ -54,6 +57,11 @@ describe('NodesViewComponent', () => {
   });
 
   beforeEach(() => {
+    TestBed.configureTestingModule({
+      declarations: [NodesViewComponent],
+      imports: [MatFormFieldModule, MatInputModule, ReactiveFormsModule],
+    })
+    .compileComponents();
     fixture = TestBed.createComponent(NodesViewComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
