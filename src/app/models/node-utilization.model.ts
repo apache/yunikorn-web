@@ -16,6 +16,9 @@
  * limitations under the License.
  */
 
+import { ChartDataItem } from '@app/models/chart-data.model';
+import { DEFAULT_BAR_COLOR } from '@app/utils/constants';
+
 export class NodeUtilization {
   constructor(
     public type: string,
@@ -25,4 +28,41 @@ export class NodeUtilization {
       nodeNames: null | string[];
     }[],
   ) {}
+
+  // transform NodeUtilization to NodeUtilizationChartData for NodeUtilization bar chart
+  toNodeUtilizationChartData(){
+    const MAX_NODES_IN_DESCRIPTION = 15;
+    const backgroundColor = DEFAULT_BAR_COLOR;
+    let type = this.type;
+    let utilization = this.utilization;
+    // prepare data
+    let chartDataItems = new Array<ChartDataItem>();
+    utilization.forEach(({ bucketName, numOfNodes, nodeNames }) => {
+      const numOfNodesValue = numOfNodes === -1 ? 0 : numOfNodes;
+      let description: string | undefined;
+      if (nodeNames && nodeNames.length > MAX_NODES_IN_DESCRIPTION) {
+        // only put MAX_NODES_IN_DESCRIPTION nodes in description, others will be replaced by '...N more'
+        description = nodeNames.slice(0, MAX_NODES_IN_DESCRIPTION).sort().join("\n") + "\n..."+ (nodeNames.length-MAX_NODES_IN_DESCRIPTION) +" more";
+      } else {
+        description = nodeNames?nodeNames.sort().join("\n"): undefined;
+      }
+      chartDataItems.push(new ChartDataItem(
+        bucketName,
+        numOfNodesValue,
+        backgroundColor,
+        description
+      ));
+    });
+    return new NodeUtilizationChartData(type, chartDataItems)
+  }
+}
+
+export class NodeUtilizationChartData {
+  type: string;
+  chartDataItems: ChartDataItem[];
+
+  constructor(type: string, chartDataItems: ChartDataItem[]) {
+    this.type = type;
+    this.chartDataItems = chartDataItems;
+  }
 }

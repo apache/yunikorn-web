@@ -17,7 +17,6 @@
  */
 
 import {ComponentFixture, TestBed} from '@angular/core/testing';
-import {configureTestSuite} from 'ng-bullet';
 
 import {AreaChartComponent} from './area-chart.component';
 
@@ -25,10 +24,10 @@ describe('AreaChartComponent', () => {
   let component: AreaChartComponent;
   let fixture: ComponentFixture<AreaChartComponent>;
 
-  configureTestSuite(() => {
+  beforeAll(() => {
     TestBed.configureTestingModule({
       declarations: [AreaChartComponent],
-    });
+    }).compileComponents();
   });
 
   beforeEach(() => {

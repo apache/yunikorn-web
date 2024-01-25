@@ -19,7 +19,6 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { NgxSpinnerService } from 'ngx-spinner';
-import { configureTestSuite } from 'ng-bullet';
 
 import { NodesViewComponent } from './nodes-view.component';
 import { SchedulerService } from '@app/services/scheduler/scheduler.service';
@@ -30,12 +29,15 @@ import { MatPaginatorModule } from '@angular/material/paginator';
 import { MatDividerModule } from '@angular/material/divider';
 import { MatSortModule } from '@angular/material/sort';
 import { MatSelectModule } from '@angular/material/select';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatInputModule } from '@angular/material/input';
+import { ReactiveFormsModule } from '@angular/forms';
 
 describe('NodesViewComponent', () => {
   let component: NodesViewComponent;
   let fixture: ComponentFixture<NodesViewComponent>;
 
-  configureTestSuite(() => {
+  beforeAll(() => {
     TestBed.configureTestingModule({
       declarations: [NodesViewComponent],
       imports: [
@@ -51,10 +53,15 @@ describe('NodesViewComponent', () => {
         { provide: NgxSpinnerService, useValue: MockNgxSpinnerService },
         { provide: HAMMER_LOADER, useValue: () => new Promise(() => {}) },
       ],
-    });
+    }).compileComponents();
   });
 
   beforeEach(() => {
+    TestBed.configureTestingModule({
+      declarations: [NodesViewComponent],
+      imports: [MatFormFieldModule, MatInputModule, ReactiveFormsModule],
+    })
+    .compileComponents();
     fixture = TestBed.createComponent(NodesViewComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();

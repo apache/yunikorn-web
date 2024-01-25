@@ -23,7 +23,7 @@ import {AppInfo} from '@app/models/app-info.model';
 import {ClusterInfo} from '@app/models/cluster-info.model';
 import {HistoryInfo} from '@app/models/history-info.model';
 import {NodeInfo} from '@app/models/node-info.model';
-import {NodeUtilization} from '@app/models/node-utilization.model';
+import {NodeUtilization, NodeUtilizationChartData} from '@app/models/node-utilization.model';
 import {Partition} from '@app/models/partition-info.model';
 
 import {QueueInfo, QueuePropertyItem} from '@app/models/queue-info.model';
@@ -125,7 +125,7 @@ export class SchedulerService {
                     alloc['displayName'],
                     alloc['allocationKey'],
                     alloc['allocationTags'],
-                    alloc['uuid'],
+                    alloc['allocationID'],
                     this.formatResource(alloc['resource'] as SchedulerResourceInfo),
                     alloc['priority'],
                     alloc['queueName'],
@@ -205,7 +205,8 @@ export class SchedulerService {
               this.formatResource(node['occupied'] as SchedulerResourceInfo),
               this.formatResource(node['available'] as SchedulerResourceInfo),
               this.formatPercent(node['utilized'] as SchedulerResourceInfo),
-              []
+              [],
+              node['attributes'],
             );
 
             const allocations = node['allocations'];
@@ -231,7 +232,7 @@ export class SchedulerService {
                     alloc['displayName'],
                     alloc['allocationKey'],
                     alloc['allocationTags'],
-                    alloc['uuid'],
+                    alloc['allocationID'],
                     this.formatResource(alloc['resource'] as SchedulerResourceInfo),
                     alloc['priority'],
                     alloc['queueName'],
@@ -254,7 +255,7 @@ export class SchedulerService {
     );
   }
 
-  fetchNodeUtilization(): Observable<NodeUtilization>{
+  fetchClusterNodeUtilization(): Observable<NodeUtilization>{
     const nodeUtilizationUrl = `${this.envConfig.getSchedulerWebAddress()}/ws/v1/scheduler/node-utilization`;
     return this.httpClient.get(nodeUtilizationUrl).pipe(map((data: any) => data as NodeUtilization));
   }
@@ -325,65 +326,76 @@ export class SchedulerService {
   }
 
   private formatResource(resource: SchedulerResourceInfo): string {
-    const formatted = [];
+    const formatted: string[] = [];
+    if (resource) {
+      // Object.keys() didn't guarantee the order of keys, sort it before iterate.
+      Object.keys(resource).sort(this.resourcesCompareFn).forEach((key) => {
+        let value = resource[key];
+        let formattedKey = key;
+        let formattedValue : string;
 
-    if (resource && resource.memory !== undefined) {
-      formatted.push(`Memory: ${CommonUtil.formatBytes(resource.memory)}`);
-    } else {
-      formatted.push(`Memory: ${NOT_AVAILABLE}`);
-    }
-
-    if (resource && resource.vcore !== undefined) {
-      formatted.push(`CPU: ${CommonUtil.formatCount(resource.vcore)}`);
-    } else {
-      formatted.push(`CPU: ${NOT_AVAILABLE}`);
-    }
-
-    if (resource){
-      Object.keys(resource).forEach((key) => {
         switch(key){
           case "memory":
-          case "vcore":{
+            formattedKey = "Memory";
+            formattedValue = CommonUtil.formatMemoryBytes(value);
             break;
-          }
-          case "ephemeral-storage":{
-            if (resource[`ephemeral-storage`] == 0) {
-              formatted.push(`ephemeral-storage: ${NOT_AVAILABLE}`);
-            }else{
-              formatted.push(`ephemeral-storage: ${CommonUtil.formatBytes(resource[key])}`);
+          case "vcore":
+            formattedKey = "CPU";
+            formattedValue = CommonUtil.formatCpuCore(value);
+            break;
+          case "ephemeral-storage":
+            formattedValue = CommonUtil.formatEphemeralStorageBytes(value);
+            break;
+          default:
+            if (key.startsWith('hugepages-')) {
+              formattedValue = CommonUtil.formatMemoryBytes(value);
+            } else{
+              formattedValue = CommonUtil.formatOtherResource(value);
             }
             break;
-          }
-          default:{
-            if (resource[key] == 0) {
-              formatted.push(`${key}: ${NOT_AVAILABLE}`);
-            }else{
-              formatted.push(`${key}: ${CommonUtil.formatOtherResource(resource[key])}`);
-            }
-            break;
-          }
-        }
+         }
+        formatted.push(`${formattedKey}: ${formattedValue}`);
       });
     }
-    
+
+    if (formatted.length === 0) {
+      return NOT_AVAILABLE;
+    }
     return formatted.join(', ');
+  } 
+
+  private resourcesCompareFn(a: string, b: string): number {
+    // define the order of resources
+    const resourceOrder: { [key: string]: number } = {
+      "memory": 1,
+      "vcore": 2,
+      "pods": 3,
+      "ephemeral-storage": 4
+    };
+    const orderA = a in resourceOrder ? resourceOrder[a] : Number.MAX_SAFE_INTEGER;
+    const orderB = b in resourceOrder ? resourceOrder[b] : Number.MAX_SAFE_INTEGER;
+  
+    if (orderA !== orderB) {
+      return orderA - orderB;  // Resources in the order defined above
+    } else {
+      return a.localeCompare(b);  // Other resources will be in lexicographic order
+    }
   }
 
   private formatPercent(resource: SchedulerResourceInfo): string {
     const formatted = [];
 
-    if (resource && resource.memory !== undefined) {
-      formatted.push(`Memory: ${CommonUtil.formatPercent(resource.memory)}`);
-    } else {
-      formatted.push(`Memory: ${NOT_AVAILABLE}`);
+    if (resource) {
+      if (resource.memory !== undefined){
+        formatted.push(`Memory: ${CommonUtil.formatPercent(resource.memory)}`);
+      }
+      if (resource.vcore !== undefined){
+        formatted.push(`CPU: ${CommonUtil.formatPercent(resource.vcore)}`);
+      }
     }
-
-    if (resource && resource.vcore !== undefined) {
-      formatted.push(`CPU: ${CommonUtil.formatPercent(resource.vcore)}`);
-    } else {
-      formatted.push(`CPU: ${NOT_AVAILABLE}`);
+    if (formatted.length === 0) {
+      return NOT_AVAILABLE;
     }
-
     return formatted.join(', ');
   }
 

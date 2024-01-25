@@ -16,29 +16,21 @@
  * limitations under the License.
  */
 
-import { AllocationInfo } from './alloc-info.model';
+import { Pipe, PipeTransform } from '@angular/core';
 
-export class NodeInfo {
-  isSelected = false;
-  constructor(
-    public nodeId: string,
-    public hostName: string,
-    public rackName: string,
-    public partitionName: string,
-    public capacity: string,
-    public allocated: string,
-    public occupied: string,
-    public available: string,
-    public utilized: string,
-    public allocations: AllocationInfo[] | null,
-    public attributes: Attributes,
-  ) {}
+@Pipe({
+  name: 'highlightSearch'
+})
+export class HighlightSearchPipe implements PipeTransform {
 
-  setAllocations(allocs: AllocationInfo[]) {
-    this.allocations = allocs;
+  transform(value: string, search: string): string {
+    const valueStr = String(value); // Ensure numeric values are converted to strings
+    // (?![^&;]+;) - to ensure that there are no HTML entities (such as &amp; or &lt;) 
+    //               ex. value = "&lt;span&gt;" search = "span", The word 'span' will not be included in the matches
+    // (?!<[^<>]*) - to ensure that there are no HTML tags (<...>)
+    //               ex. value = "<span>" search = "span", The word 'span' will not be included in the matches
+    return valueStr.replace(new RegExp('(?![^&;]+;)(?!<[^<>]*)(' + search + ')(?![^<>]*>)(?![^&;]+;)', 'gi'), '<strong>$1</strong>');
   }
+
 }
 
-export interface Attributes{
-  [key: string]: string;
-}

@@ -22,7 +22,7 @@ import { MatSelectChange } from '@angular/material/select';
 import { MatSort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
 import { NgxSpinnerService } from 'ngx-spinner';
-import { finalize, flatMap } from 'rxjs/operators';
+import { finalize } from 'rxjs/operators';
 
 import { SchedulerService } from '@app/services/scheduler/scheduler.service';
 import { NodeInfo } from '@app/models/node-info.model';
@@ -39,7 +39,9 @@ import { PartitionInfo } from '@app/models/partition-info.model';
 export class NodesViewComponent implements OnInit {
   @ViewChild('nodesViewMatPaginator', { static: true }) nodePaginator!: MatPaginator;
   @ViewChild('allocationMatPaginator', { static: true }) allocPaginator!: MatPaginator;
-  @ViewChild(MatSort, { static: true }) nodeSort!: MatSort;
+  @ViewChild('nodeSort', {static: true }) nodeSort!: MatSort;
+  @ViewChild('allocSort', {static: true }) allocSort!: MatSort;
+
 
   nodeDataSource = new MatTableDataSource<NodeInfo>([]);
   nodeColumnDef: ColumnDef[] = [];
@@ -54,6 +56,7 @@ export class NodesViewComponent implements OnInit {
   partitionSelected = '';
 
   detailToggle: boolean = false;
+  filterValue: string = '';
 
   constructor(private scheduler: SchedulerService, private spinner: NgxSpinnerService) {}
 
@@ -61,11 +64,13 @@ export class NodesViewComponent implements OnInit {
     this.nodeDataSource.paginator = this.nodePaginator;
     this.allocDataSource.paginator = this.allocPaginator;
     this.nodeDataSource.sort = this.nodeSort;
+    this.allocDataSource.sort = this.allocSort;
 
     this.nodeColumnDef = [
       { colId: 'nodeId', colName: 'Node ID' },
       { colId: 'rackName', colName: 'Rack Name' },
       { colId: 'hostName', colName: 'Host Name' },
+      { colId: 'attributes', colName: 'Attributes' },
       { colId: 'capacity', colName: 'Capacity', colFormatter: CommonUtil.resourceColumnFormatter },
       { colId: 'occupied', colName: 'Used', colFormatter: CommonUtil.resourceColumnFormatter },
       {
@@ -209,6 +214,7 @@ export class NodesViewComponent implements OnInit {
       
       if (isEmpty){
         this.nodeColumnIds = this.nodeColumnIds.filter(el => el!==colId);
+        this.nodeColumnIds = this.nodeColumnIds.filter(colId => colId!=="attributes");
       }
     })
   }
@@ -220,7 +226,7 @@ export class NodesViewComponent implements OnInit {
   }
 
   formatResources(colValue:string):string[]{
-    const arr:string[]=colValue.split("<br/>")
+    const arr:string[]=colValue.split("<br/>");
     // Check if there are "cpu" or "Memory" elements in the array
     const hasCpu = arr.some((item) => item.toLowerCase().includes("cpu"));
     const hasMemory = arr.some((item) => item.toLowerCase().includes("memory"));
@@ -239,7 +245,49 @@ export class NodesViewComponent implements OnInit {
     return result;
   }
 
+  formatAttribute(attributes:any):string[]{
+    let result:string[]=[];
+    Object.entries(attributes).forEach(entry=>{
+      const [key, value] = entry;
+      if (value==="" || key.includes("si")){
+        return
+      }
+      result.push(key+':'+value);
+    })
+    return result;
+  }
+
   toggle(){
     this.detailToggle = !this.detailToggle;
+    this.displayAttribute(this.detailToggle);
+  }
+
+  displayAttribute(toggle:boolean) {
+    if (toggle){
+      this.nodeColumnIds = [
+        ...this.nodeColumnIds.slice(0, 1),
+        "attributes",
+        ...this.nodeColumnIds.slice(1)
+    ];
+    }else{
+      this.nodeColumnIds=this.nodeColumnIds.filter(colId => colId!=="attributes");
+    }
+  }
+
+  filterPredicate: ((data: NodeInfo, filter: string) => boolean) = (data: NodeInfo, filter: string): boolean => {
+    // a deep copy of the NodeInfo with formatted attributes for filtering
+    const deepCopy = JSON.parse(JSON.stringify(data));
+    Object.entries(deepCopy.attributes).forEach(entry=>{
+      const [key, value] = entry;
+      deepCopy.attributes[key]= `${key}:${value}`
+    })
+    const objectString = JSON.stringify(deepCopy).toLowerCase();
+    return objectString.includes(filter);
+  };
+
+  applyFilter(event: Event): void {
+    this.filterValue = (event.target as HTMLInputElement).value.trim().toLowerCase();
+    this.nodeDataSource.filter = this.filterValue;
+    this.nodeDataSource.filterPredicate = this.filterPredicate;
   }
 }

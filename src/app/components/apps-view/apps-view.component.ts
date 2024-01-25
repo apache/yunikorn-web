@@ -43,7 +43,8 @@ import { QueueInfo } from '@app/models/queue-info.model';
 export class AppsViewComponent implements OnInit {
   @ViewChild('appsViewMatPaginator', { static: true }) appPaginator!: MatPaginator;
   @ViewChild('allocationMatPaginator', { static: true }) allocPaginator!: MatPaginator;
-  @ViewChild(MatSort, { static: true }) appSort!: MatSort;
+  @ViewChild('appSort', { static: true }) appSort!: MatSort;
+  @ViewChild('allocSort', { static: true }) allocSort!: MatSort;
   @ViewChild('searchInput', { static: true }) searchInput!: ElementRef;
 
   appDataSource = new MatTableDataSource<AppInfo>([]);
@@ -75,6 +76,7 @@ export class AppsViewComponent implements OnInit {
     this.appDataSource.paginator = this.appPaginator;
     this.allocDataSource.paginator = this.allocPaginator;
     this.appDataSource.sort = this.appSort;
+    this.allocDataSource.sort = this.allocSort;
     this.appSort.sort({ id: 'submissionTime', start: 'desc', disableClear: false });
 
     this.appColumnDef = [

@@ -20,3 +20,4 @@ export const DEFAULT_PARTITION_VALUE = '';
 export const DEFAULT_PROTOCOL = 'http:';
 export const NOT_AVAILABLE = 'n/a';
 export const PARTITION_DEFAULT = 'default';
+export const DEFAULT_BAR_COLOR = '#4285f4';

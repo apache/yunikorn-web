@@ -18,18 +18,17 @@
 
 import {TestBed} from '@angular/core/testing';
 import {RouterTestingModule} from '@angular/router/testing';
-import {configureTestSuite} from 'ng-bullet';
 
 import {ApiErrorInterceptor} from './api-error.interceptor';
 
 describe('ApiErrorInterceptor', () => {
   let interceptor: ApiErrorInterceptor;
 
-  configureTestSuite(() => {
+  beforeAll(() => {
     TestBed.configureTestingModule({
       imports: [RouterTestingModule],
       providers: [ApiErrorInterceptor],
-    });
+    }).compileComponents();
   });
 
   beforeEach(() => {

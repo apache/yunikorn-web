@@ -55,6 +55,7 @@ import { ContainerHistoryComponent } from '@app/components/container-history/con
 import { QueueRackComponent } from '@app/components/queue-rack/queue-rack.component';
 import { AppsViewComponent } from '@app/components/apps-view/apps-view.component';
 import { NodesViewComponent } from '@app/components/nodes-view/nodes-view.component';
+import { HighlightSearchPipe } from '@app/components/nodes-view/highlighttable-search.pipe';
 import { ErrorViewComponent } from '@app/components/error-view/error-view.component';
 import { StatusViewComponent } from '@app/components/status-view/status-view.component';
 import { HealthchecksComponent } from '@app/components/healthchecks/healthchecks.component';
@@ -75,6 +76,7 @@ import { BarChartComponent } from '@app/components/bar-chart/bar-chart.component
     QueueRackComponent,
     AppsViewComponent,
     NodesViewComponent,
+    HighlightSearchPipe,
     ErrorViewComponent,
     StatusViewComponent,
     HealthchecksComponent,

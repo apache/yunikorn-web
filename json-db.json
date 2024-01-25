@@ -294,7 +294,7 @@
           "requestTime": 1683692667426734436,
           "allocationTime": 1683692777012541197,
           "allocationDelay": 109585806761,
-          "uuid": "d28274d4-4098-481f-b80a-9cf1afd086a0",
+          "allocationID": "67b34cd1-21b7-4ab4-a992-d3c1b5dc0e20-0",
           "resource": {
             "memory": 50000000,
             "pods": 1,
@@ -368,7 +368,7 @@
           "requestTime": 1683692667425480520,
           "allocationTime": 1683692667426304895,
           "allocationDelay": 824375,
-          "uuid": "da8ab0ec-157e-487f-b607-a77fdcef9a27",
+          "allocationID": "89196eb9-42e8-4480-9bd1-91ca0ce80854-1",
           "resource": {
             "memory": 50000000,
             "pods": 1,
@@ -396,7 +396,7 @@
           "requestTime": 1683692667426251936,
           "allocationTime": 1683692667426598936,
           "allocationDelay": 347000,
-          "uuid": "4ed50457-613c-4037-8f0f-d550ab4a8f13",
+          "allocationID": "20b73321-20e7-472e-af2b-f3a4da95e2d1-2",
           "resource": {
             "memory": 50000000,
             "pods": 1,
@@ -424,7 +424,7 @@
           "requestTime": 1683692667426435311,
           "allocationTime": 1683692667426990103,
           "allocationDelay": 554792,
-          "uuid": "7ffb634c-e4c7-4d18-8785-e08bf23f3d6d",
+          "allocationID": "cdfa6598-dd3b-49b9-805c-ecda2a465c18-1",
           "resource": {
             "memory": 50000000,
             "pods": 1,
@@ -589,6 +589,20 @@
   "nodes": [
     {
       "nodeID": "lima-rancher-desktop",
+      "attributes":{
+        "beta.kubernetes.io/arch":"amd64",
+        "beta.kubernetes.io/os":"linux",
+        "kubernetes.io/arch":"amd64",
+        "kubernetes.io/hostname":"lima-rancher-desktop",
+        "kubernetes.io/os":"linux",
+        "node-role.kubernetes.io/control-plane":"",
+        "node.kubernetes.io/exclude-from-external-load-balancers":"",
+        "ready":"true",
+        "si.io/hostname":"lima-rancher-desktop",
+        "si.io/rackname":"/rack-default",
+        "si/instance-type":"",
+        "si/node-partition":"[mycluster]default"
+      },
       "hostName": "",
       "rackName": "",
       "capacity": {
@@ -646,7 +660,7 @@
           "requestTime": 1683692667425480520,
           "allocationTime": 1683692667426304895,
           "allocationDelay": 824375,
-          "uuid": "da8ab0ec-157e-487f-b607-a77fdcef9a27",
+          "allocationID": "89196eb9-42e8-4480-9bd1-91ca0ce80854-0",
           "resource": {
             "memory": 50000000,
             "pods": 1,
@@ -674,7 +688,7 @@
           "requestTime": 1683692667426251936,
           "allocationTime": 1683692667426598936,
           "allocationDelay": 347000,
-          "uuid": "4ed50457-613c-4037-8f0f-d550ab4a8f13",
+          "allocationID": "20b73321-20e7-472e-af2b-f3a4da95e2d1-3",
           "resource": {
             "memory": 50000000,
             "pods": 1,
@@ -701,7 +715,7 @@
           "requestTime": 1683692667426734436,
           "allocationTime": 1683692777012541197,
           "allocationDelay": 109585806761,
-          "uuid": "d28274d4-4098-481f-b80a-9cf1afd086a0",
+          "allocationID": "67b34cd1-21b7-4ab4-a992-d3c1b5dc0e20-2",
           "resource": {
             "memory": 50000000,
             "pods": 1,
@@ -730,7 +744,7 @@
           "requestTime": 1683692667426435311,
           "allocationTime": 1683692667426990103,
           "allocationDelay": 554792,
-          "uuid": "7ffb634c-e4c7-4d18-8785-e08bf23f3d6d",
+          "allocationID": "cdfa6598-dd3b-49b9-805c-ecda2a465c18-0",
           "resource": {
             "memory": 50000000,
             "pods": 1,
@@ -749,6 +763,122 @@
       "schedulable": true,
       "isReserved": false,
       "reservations": []
+    },
+    {
+      "nodeID": "lima-rancher-desktop2",
+      "attributes":{
+        "beta.kubernetes.io/arch":"arm64",
+        "beta.kubernetes.io/os":"linux",
+        "kubernetes.io/arch":"arm64",
+        "kubernetes.io/hostname":"lima-rancher-desktop2",
+        "kubernetes.io/os":"linux",
+        "node-role.kubernetes.io/control-plane":"",
+        "node.kubernetes.io/exclude-from-external-load-balancers":"",
+        "ready":"true",
+        "si.io/hostname":"lima-rancher-desktop2",
+        "si.io/rackname":"/rack-default",
+        "si/instance-type":"",
+        "si/node-partition":"[mycluster]default"
+      },
+      "hostName": "",
+      "rackName": "",
+      "capacity": {
+        "ephemeral-storage": 99833802265,
+        "hugepages-1Gi": 0,
+        "hugepages-2Mi": 0,
+        "hugepages-32Mi": 0,
+        "hugepages-64Ki": 0,
+        "memory": 4110970880,
+        "pods": 110,
+        "vcore": 2000
+      },
+      "allocated": {
+        "memory": 0,
+        "pods": 0,
+        "vcore": 0
+      },
+      "occupied": {
+        "memory": 0,
+        "pods": 0,
+        "vcore": 0
+      },
+      "available": {
+        "ephemeral-storage": 99833802265,
+        "hugepages-1Gi": 0,
+        "hugepages-2Mi": 0,
+        "hugepages-32Mi": 0,
+        "hugepages-64Ki": 0,
+        "memory": 4110970880,
+        "pods": 110,
+        "vcore": 2000
+      },
+      "utilized": {
+        "memory": 0,
+        "pods": 0,
+        "vcore": 0
+      },
+      "allocations": [],
+      "schedulable": true,
+      "isReserved": false,
+      "reservations": []
+    },
+    {
+      "nodeID": "lima-rancher-desktop3",
+      "attributes":{
+        "beta.kubernetes.io/arch":"arm64",
+        "beta.kubernetes.io/os":"linux",
+        "kubernetes.io/arch":"arm64",
+        "kubernetes.io/hostname":"lima-rancher-desktop3",
+        "kubernetes.io/os":"linux",
+        "node-role.kubernetes.io/control-plane":"",
+        "node.kubernetes.io/exclude-from-external-load-balancers":"",
+        "ready":"true",
+        "si.io/hostname":"lima-rancher-desktop3",
+        "si.io/rackname":"/rack-default",
+        "si/instance-type":"",
+        "si/node-partition":"[mycluster]default"
+      },
+      "hostName": "",
+      "rackName": "",
+      "capacity": {
+        "ephemeral-storage": 99833802265,
+        "hugepages-1Gi": 0,
+        "hugepages-2Mi": 0,
+        "hugepages-32Mi": 0,
+        "hugepages-64Ki": 0,
+        "memory": 4110970880,
+        "pods": 110,
+        "vcore": 2000
+      },
+      "allocated": {
+        "memory": 0,
+        "pods": 0,
+        "vcore": 0
+      },
+      "occupied": {
+        "memory": 0,
+        "pods": 0,
+        "vcore": 0
+      },
+      "available": {
+        "ephemeral-storage": 99833802265,
+        "hugepages-1Gi": 0,
+        "hugepages-2Mi": 0,
+        "hugepages-32Mi": 0,
+        "hugepages-64Ki": 0,
+        "memory": 4110970880,
+        "pods": 110,
+        "vcore": 2000
+      },
+      "utilized": {
+        "memory": 0,
+        "pods": 0,
+        "vcore": 0
+      },
+      "allocations": [],
+      "schedulable": true,
+      "isReserved": false,
+      "reservations": []
     }
   ],
   "node-utilization": {
@@ -758,18 +888,43 @@
         "bucketName": "0-10%",
         "numOfNodes": 1,
         "nodeNames": [
-          "aethergpu"
+          "node-01"
         ]
       },
       {
         "bucketName": "10-20%",
         "numOfNodes": 3,
-        "nodeNames": null
+        "nodeNames": [
+          "node-02",
+          "node-03",
+          "node-04"
+        ]
       },
       {
         "bucketName": "20-30%",
-        "numOfNodes": 0,
-        "nodeNames": null
+        "numOfNodes": 20,
+        "nodeNames": [
+          "node-05",
+          "node-06",
+          "node-07",
+          "node-08",
+          "node-09",
+          "node-10",
+          "node-11",
+          "node-12",
+          "node-13",
+          "node-14",
+          "node-15",
+          "node-16",
+          "node-17",
+          "node-18",
+          "node-19",
+          "node-20",
+          "node-21",
+          "node-22",
+          "node-23",
+          "node-24"
+        ]
       },
       {
         "bucketName": "30-40%",

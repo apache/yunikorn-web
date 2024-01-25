@@ -17,7 +17,6 @@
  */
 
 import {ComponentFixture, TestBed} from '@angular/core/testing';
-import {configureTestSuite} from 'ng-bullet';
 
 import {DonutChartComponent} from './donut-chart.component';
 
@@ -25,10 +24,10 @@ describe('DonutChartComponent', () => {
   let component: DonutChartComponent;
   let fixture: ComponentFixture<DonutChartComponent>;
 
-  configureTestSuite(() => {
+  beforeAll(() => {
     TestBed.configureTestingModule({
       declarations: [DonutChartComponent],
-    });
+    }).compileComponents();
   });
 
   beforeEach(() => {

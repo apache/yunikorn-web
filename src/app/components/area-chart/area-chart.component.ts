@@ -37,6 +37,7 @@ import {
   Filler,
   Legend,
   Title,
+  Tooltip
 } from 'chart.js';
 import 'chartjs-adapter-date-fns';
 
@@ -52,7 +53,8 @@ Chart.register(
   TimeSeriesScale,
   Filler,
   Legend,
-  Title
+  Title,
+  Tooltip
 );
 
 @Component({
@@ -155,6 +157,7 @@ export class AreaChartComponent implements OnInit, AfterViewInit, OnChanges, OnD
             display: false,
           },
           tooltip: {
+            enabled: true,
             position: 'nearest',
           },
         },

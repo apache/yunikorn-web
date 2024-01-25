@@ -25,7 +25,6 @@ import {RouterTestingModule} from '@angular/router/testing';
 import {QueueRackComponent} from '@app/components/queue-rack/queue-rack.component';
 import {SchedulerService} from '@app/services/scheduler/scheduler.service';
 import {MockNgxSpinnerService, MockSchedulerService} from '@app/testing/mocks';
-import {configureTestSuite} from 'ng-bullet';
 import {MockComponent} from 'ng-mocks';
 import {NgxSpinnerService} from 'ngx-spinner';
 
@@ -35,7 +34,7 @@ describe('QueuesViewComponent', () => {
   let component: QueuesViewComponent;
   let fixture: ComponentFixture<QueuesViewComponent>;
 
-  configureTestSuite(() => {
+  beforeAll(() => {
     TestBed.configureTestingModule({
       declarations: [QueuesViewComponent, MockComponent(QueueRackComponent)],
       imports: [
@@ -49,7 +48,7 @@ describe('QueuesViewComponent', () => {
         { provide: SchedulerService, useValue: MockSchedulerService },
         { provide: NgxSpinnerService, useValue: MockNgxSpinnerService },
       ],
-    });
+    }).compileComponents();
   });
 
   beforeEach(() => {
