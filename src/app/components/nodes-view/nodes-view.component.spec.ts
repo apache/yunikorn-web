@@ -19,7 +19,6 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { NgxSpinnerService } from 'ngx-spinner';
-import { configureTestSuite } from 'ng-bullet';
 
 import { NodesViewComponent } from './nodes-view.component';
 import { SchedulerService } from '@app/services/scheduler/scheduler.service';
@@ -35,7 +34,7 @@ describe('NodesViewComponent', () => {
   let component: NodesViewComponent;
   let fixture: ComponentFixture<NodesViewComponent>;
 
-  configureTestSuite(() => {
+  beforeAll(() => {
     TestBed.configureTestingModule({
       declarations: [NodesViewComponent],
       imports: [
@@ -51,7 +50,7 @@ describe('NodesViewComponent', () => {
         { provide: NgxSpinnerService, useValue: MockNgxSpinnerService },
         { provide: HAMMER_LOADER, useValue: () => new Promise(() => {}) },
       ],
-    });
+    }).compileComponents();
   });
 
   beforeEach(() => {

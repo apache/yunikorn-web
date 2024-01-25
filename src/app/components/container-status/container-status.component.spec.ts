@@ -19,7 +19,6 @@
 import {ComponentFixture, TestBed} from '@angular/core/testing';
 import {MatCardModule} from '@angular/material/card';
 import {DonutChartComponent} from '@app/components/donut-chart/donut-chart.component';
-import {configureTestSuite} from 'ng-bullet';
 import {MockComponent} from 'ng-mocks';
 
 import {ContainerStatusComponent} from './container-status.component';
@@ -28,11 +27,11 @@ describe('ContainerStatusComponent', () => {
   let component: ContainerStatusComponent;
   let fixture: ComponentFixture<ContainerStatusComponent>;
 
-  configureTestSuite(() => {
+  beforeAll(() => {
     TestBed.configureTestingModule({
       declarations: [ContainerStatusComponent, MockComponent(DonutChartComponent)],
       imports: [MatCardModule],
-    });
+    }).compileComponents();
   });
 
   beforeEach(() => {
