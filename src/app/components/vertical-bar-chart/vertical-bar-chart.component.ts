@@ -35,6 +35,7 @@ export class VerticalBarChartComponent implements OnInit, AfterViewInit, OnChang
   destroy$ = new Subject<boolean>();
   chartContainerId = '';
   barChart: Chart<'bar' | 'line', number[], string> | undefined;
+  hiddenDatasets: boolean[] = [];  // Record the hidden state of each dataset
 
   @Input() bucketList: string[] = [];                                           // one bucket list for all resource types, length should be exactly 10
   @Input() barChartDataSets: BarChartDataSet[] = new Array<BarChartDataSet>();  // one dataset for each type
@@ -43,11 +44,12 @@ export class VerticalBarChartComponent implements OnInit, AfterViewInit, OnChang
 
   ngOnInit() {
     this.chartContainerId = CommonUtil.createUniqId('vertical_bar_chart_');
-
     this.eventBus
       .getEvent(EventMap.WindowResizedEvent)
       .pipe(takeUntil(this.destroy$))
-      .subscribe(() => this.renderChart(this.bucketList, this.barChartDataSets));
+      .subscribe(() => {
+        this.renderChart(this.bucketList, this.barChartDataSets);
+      });
   }
 
   ngOnDestroy() {
@@ -66,6 +68,7 @@ export class VerticalBarChartComponent implements OnInit, AfterViewInit, OnChang
       changes['barChartDataSets'] &&
       changes['barChartDataSets'].currentValue
     ) {
+      this.cleanLegendCheckBox();
       this.barChartDataSets = changes['barChartDataSets'].currentValue;
       this.renderChart(this.bucketList, this.barChartDataSets);
     }
@@ -83,6 +86,7 @@ export class VerticalBarChartComponent implements OnInit, AfterViewInit, OnChang
       this.barChart.destroy();
     }
 
+    this.handleLegendCheckBox()
     this.barChart = new Chart(ctx!, {
       type: 'bar',
       data: {
@@ -93,8 +97,7 @@ export class VerticalBarChartComponent implements OnInit, AfterViewInit, OnChang
             data: item.data,
             backgroundColor: item.backgroundColor,
             borderWidth: item.borderWidth,
-            // By default, only display the domaint resource type.
-            hidden: index === 0 ? false : true
+            hidden: this.hiddenDatasets[index],
           }
         })
       },
@@ -102,7 +105,7 @@ export class VerticalBarChartComponent implements OnInit, AfterViewInit, OnChang
         responsive: true,
         plugins: {
           legend: {
-            display: true
+            display: false,
           },
           title: {
             display: false,
@@ -125,9 +128,71 @@ export class VerticalBarChartComponent implements OnInit, AfterViewInit, OnChang
             }
           },
         },
+        scales: {
+          y: {
+            ticks: {
+              stepSize: 1,
+              precision: 0
+            }
+          }
+        }
       },
     });
 
     this.barChart.update();
   }
+
+  handleLegendCheckBox() {
+    // create checkbox if no HTMLElement in legend div
+    let chartLegendDiv = document.getElementById('chart-legend-div');
+    if (chartLegendDiv) {
+      if (chartLegendDiv.children.length === 0 && this.barChartDataSets.length > 0) {
+        // Record the hidden state of each dataset, by default, the first dataset is visible
+        this.barChartDataSets.forEach((dataset, i) => {
+          this.hiddenDatasets.push(i === 0 ? false : true);
+        });
+
+        chartLegendDiv.appendChild(document.createTextNode('Resource sorted by load:'));
+        chartLegendDiv.appendChild(document.createElement('br'));
+        chartLegendDiv.appendChild(document.createTextNode('(high to low)'));
+        chartLegendDiv.appendChild(document.createElement('br'));
+        chartLegendDiv.appendChild(document.createElement('br')); 
+        this.barChartDataSets.forEach((dataset, i) => {
+          if (chartLegendDiv) {
+            let checkbox = document.createElement('input');
+            checkbox.id = 'checkbox' + i;
+            checkbox.type = 'checkbox';
+            checkbox.value = dataset.label;
+            checkbox.checked = !this.hiddenDatasets[i];
+            chartLegendDiv.appendChild(checkbox);
+            let label = document.createElement('label');
+            label.htmlFor = 'checkbox' + i;
+            label.appendChild(checkbox);
+            label.appendChild(document.createTextNode(dataset.label));
+            chartLegendDiv.appendChild(label);
+            chartLegendDiv.appendChild(document.createElement('br'));
+            checkbox.onchange = (e) => {
+              const datasetMeta = this.barChart?.getDatasetMeta(i);
+              if (datasetMeta) {
+                this.hiddenDatasets[i] = !checkbox.checked;
+                datasetMeta.hidden = !checkbox.checked
+                this.barChart?.update();
+              }
+            };
+          }
+        });
+      }
+    }
+  }
+
+  cleanLegendCheckBox() {
+    this.hiddenDatasets = [];
+    let chartLegendDiv = document.getElementById('chart-legend-div');
+    if (chartLegendDiv) {
+      while (chartLegendDiv.firstChild) {
+        chartLegendDiv.removeChild(chartLegendDiv.firstChild);
+      }
+    }
+  }
+
 }

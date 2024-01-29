@@ -15,7 +15,10 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  -->
-
-<div style="width: 100%; height: 100%">
-    <canvas class="vertical-bar-chart" id="{{ chartContainerId }}"></canvas>
+<!-- <div class="chart-container"> -->
+<div class="flex-grid">
+    <div id="chart-legend-div" class="legend-div"></div>
+    <div class="canvas-div">
+        <canvas class="vertical-bar-chart" id="{{ chartContainerId }}"></canvas>
+    </div>
 </div>

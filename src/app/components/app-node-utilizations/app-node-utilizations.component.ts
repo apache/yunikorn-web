@@ -30,7 +30,6 @@ import { SchedulerService } from '@app/services/scheduler/scheduler.service';
   styleUrls: ['./app-node-utilizations.component.scss']
 })
 export class AppNodeUtilizationsComponent implements OnInit, OnChanges {
-  domaintResource: String = "";
   nodeUtilizations: NodeUtilization[] = [];
 
   // input data for vertical bar chart, key is resource type
@@ -72,7 +71,6 @@ export class AppNodeUtilizationsComponent implements OnInit, OnChanges {
     let barChartDataSets = new Array<BarChartDataSet>();
     if (nodeUtilizations.length === 0) {
       // clean bar chart data
-      this.domaintResource = "N/A"
       this.barChartDataSets = barChartDataSets;
       return;
     }
@@ -105,7 +103,6 @@ export class AppNodeUtilizationsComponent implements OnInit, OnChanges {
     barChartDataSets = barChartDataSets.slice(0, 5); // only show top 5 resources
 
     // refresh bar chart data
-    this.domaintResource = barChartDataSets[0].label;
     this.barChartDataSets = barChartDataSets;
   }
 
