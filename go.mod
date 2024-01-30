@@ -19,7 +19,7 @@
 
 module github.com/apache/yunikorn-web
 
-go 1.20
+go 1.21
 
 require gotest.tools/v3 v3.4.0
 
