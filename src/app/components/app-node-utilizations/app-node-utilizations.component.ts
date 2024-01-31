@@ -103,7 +103,7 @@ export class AppNodeUtilizationsComponent implements OnInit, OnChanges {
     // sort by resource type first, then sort by avg utilization rate
     barChartDataSets.sort((a, b) => CommonUtil.resourcesCompareFn(a.label, b.label));
     barChartDataSets.sort((a, b) => b.avgUtilizationRate - a.avgUtilizationRate);
-    barChartDataSets = barChartDataSets.slice(0, 5); // only show top 5 resources
+    barChartDataSets = barChartDataSets.slice(0, 10); // only show top 10 resources
 
     // refresh bar chart data
     this.barChartDataSets = barChartDataSets;
