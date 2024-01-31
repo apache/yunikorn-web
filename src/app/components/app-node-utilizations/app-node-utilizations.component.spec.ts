@@ -22,6 +22,7 @@ import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { MatCardModule } from '@angular/material/card';
 import { AppNodeUtilizationsComponent } from '@app/components/app-node-utilizations/app-node-utilizations.component';
 import { VerticalBarChartComponent } from '@app/components/vertical-bar-chart/vertical-bar-chart.component';
+import { CHART_COLORS } from '@app/utils/constants';
 
 describe('AppNodeUtilizationsComponent', () => {
   let component: AppNodeUtilizationsComponent;
@@ -67,6 +68,19 @@ describe('AppNodeUtilizationsComponent', () => {
     });
   });
 
+  it('test AppNodeUtilizationsComponent.generateColorMapping()', () => {
+    const types = [
+      'type03', 'type01', 'type02', 'type04', 'type05',
+      'type06', 'type07', 'type08', 'type09', 'type10', 'type11'
+    ];
+    const colorMapping = component.generateColorMapping(types);
+
+    expect(colorMapping.size).toBe(11);
+    expect(colorMapping.get('type01')).toBe(CHART_COLORS[0]);
+    expect(colorMapping.get('type02')).toBe(CHART_COLORS[1]);
+    expect(colorMapping.get('type03')).toBe(CHART_COLORS[2]);
+    expect(colorMapping.get('type11')).toBe(CHART_COLORS[0]);
+  });
 
   it('test AppNodeUtilizationsComponent.getBarDescription()', () => {
     type TestCase = {

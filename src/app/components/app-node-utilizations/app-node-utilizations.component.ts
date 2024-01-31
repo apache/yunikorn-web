@@ -18,7 +18,7 @@
 
 import { Component, Input, OnChanges, OnInit, SimpleChanges } from '@angular/core';
 import { BarChartDataSet } from '@app/models/chart-data.model';
-import { CHART_COLORS } from '@app/utils/constants';
+import { CHART_COLORS, DEFAULT_BAR_COLOR } from '@app/utils/constants';
 import { CommonUtil } from '@app/utils/common.util';
 import { NodeUtilization, NodeUtilizationsInfo } from '@app/models/node-utilization.model';
 import { SchedulerService } from '@app/services/scheduler/scheduler.service';
@@ -75,10 +75,13 @@ export class AppNodeUtilizationsComponent implements OnInit, OnChanges {
       return;
     }
 
+    let colorMapping = this.generateColorMapping(
+      nodeUtilizations.map((nodeUtilization) => (nodeUtilization.type))
+    );
+
     for (let i = 0; i < nodeUtilizations.length; i++) {
       let type = nodeUtilizations[i].type;
       let utilization = nodeUtilizations[i].utilization
-      let backgroundColor = CHART_COLORS[i % 10]
       let borderWidth = 1
 
       if (i === 0) {
@@ -91,7 +94,7 @@ export class AppNodeUtilizationsComponent implements OnInit, OnChanges {
         type,
         bucketValues,
         this.calculateAvgUtilization(bucketValues),
-        backgroundColor,
+        colorMapping.get(type) ?? DEFAULT_BAR_COLOR,
         borderWidth,
         utilization.map((item) => this.getBarDescription(item.nodeNames))
       ))
@@ -121,6 +124,16 @@ export class AppNodeUtilizationsComponent implements OnInit, OnChanges {
       }
     }
     return totalNodes ? weightedSum / totalNodes / 100 : 0;
+  }
+
+  generateColorMapping(types: string[]): Map<string, string> {
+    // give each resource type a color based on its index after lexicographically sorting
+    types.sort();
+    let colorMapping = new Map<string, string>();
+    for (let i = 0; i < types.length; i++) {
+      colorMapping.set(types[i], CHART_COLORS[i % 10])
+    }
+    return colorMapping
   }
 
   getBarDescription(nodeNames: string[] | null): string {
