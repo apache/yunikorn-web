@@ -23,7 +23,7 @@ import { DashboardComponent } from './components/dashboard/dashboard.component';
 import { QueuesViewComponent } from './components/queues-view/queues-view.component';
 import { AppsViewComponent } from './components/apps-view/apps-view.component';
 import { NodesViewComponent } from './components/nodes-view/nodes-view.component';
-import { VisualizerComponent }from './components/queue-visualizer/queue-visualizer.component';
+import { VisualizerComponent }from './components/yaml-visualizer/yaml-visualizer.component';
 import { StatusViewComponent } from './components/status-view/status-view.component';
 import { ErrorViewComponent } from './components/error-view/error-view.component';
 
