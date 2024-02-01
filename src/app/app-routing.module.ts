@@ -53,6 +53,11 @@ const appRoutes: Routes = [
     data: { breadcrumb: 'Status' },
   },
   {
+    path: 'visualizer',
+    component: StatusViewComponent,
+    data: { breadcrumb: 'visualizer' },
+  },
+  {
     path: 'error',
     component: ErrorViewComponent,
     data: { breadcrumb: 'Error' },
