@@ -16,7 +16,7 @@
  * limitations under the License.
  */
 
-import { AfterViewInit, Component, Input, OnChanges, OnDestroy, OnInit, SimpleChanges } from '@angular/core';
+import { AfterViewInit, Component, Input, OnChanges, OnDestroy, OnInit, SimpleChanges, ViewEncapsulation } from '@angular/core';
 import { BarChartDataSet } from '@app/models/chart-data.model';
 import { EventBusService, EventMap } from '@app/services/event-bus/event-bus.service';
 import { CommonUtil } from '@app/utils/common.util';
@@ -28,7 +28,8 @@ Chart.register(BarElement, CategoryScale, BarController, Tooltip);
 @Component({
   selector: 'app-vertical-bar-chart',
   templateUrl: './vertical-bar-chart.component.html',
-  styleUrls: ['./vertical-bar-chart.component.scss']
+  styleUrls: ['./vertical-bar-chart.component.scss'],
+  encapsulation: ViewEncapsulation.None
 })
 export class VerticalBarChartComponent implements OnInit, AfterViewInit, OnChanges, OnDestroy {
 
@@ -152,11 +153,11 @@ export class VerticalBarChartComponent implements OnInit, AfterViewInit, OnChang
           this.hiddenDatasets.push(i === 0 ? false : true);
         });
 
-        chartLegendDiv.appendChild(document.createTextNode('Resource sorted by load:'));
+        chartLegendDiv.appendChild(document.createTextNode('Top 10 resources sorted by load:'));
         chartLegendDiv.appendChild(document.createElement('br'));
         chartLegendDiv.appendChild(document.createTextNode('(high to low)'));
         chartLegendDiv.appendChild(document.createElement('br'));
-        chartLegendDiv.appendChild(document.createElement('br')); 
+        chartLegendDiv.appendChild(document.createElement('br'));
         this.barChartDataSets.forEach((dataset, i) => {
           if (chartLegendDiv) {
             let checkbox = document.createElement('input');
@@ -165,9 +166,14 @@ export class VerticalBarChartComponent implements OnInit, AfterViewInit, OnChang
             checkbox.value = dataset.label;
             checkbox.checked = !this.hiddenDatasets[i];
             chartLegendDiv.appendChild(checkbox);
+
+            let colorBox = document.createElement('div');
+            colorBox.style.backgroundColor = dataset.backgroundColor;
+            colorBox.className = 'color-box';
+            chartLegendDiv.appendChild(colorBox);
+
             let label = document.createElement('label');
             label.htmlFor = 'checkbox' + i;
-            label.appendChild(checkbox);
             label.appendChild(document.createTextNode(dataset.label));
             chartLegendDiv.appendChild(label);
             chartLegendDiv.appendChild(document.createElement('br'));

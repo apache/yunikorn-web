@@ -17,11 +17,18 @@
  */
 
 .legend-div {
-    width: 15%;
+    width: 20%;
     font-size: 1.2em;
 }
 
 .canvas-div {
     height: 50vh;
-    width: 85%;
+    width: 80%;
+}
+
+.color-box {
+    width: 0.75em;
+    height: 0.75em;
+    margin-right: 0.2em;
+    display: inline-block;
 }
