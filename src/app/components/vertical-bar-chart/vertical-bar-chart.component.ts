@@ -165,18 +165,6 @@ export class VerticalBarChartComponent implements OnInit, AfterViewInit, OnChang
             checkbox.type = 'checkbox';
             checkbox.value = dataset.label;
             checkbox.checked = !this.hiddenDatasets[i];
-            chartLegendDiv.appendChild(checkbox);
-
-            let colorBox = document.createElement('div');
-            colorBox.style.backgroundColor = dataset.backgroundColor;
-            colorBox.className = 'color-box';
-            chartLegendDiv.appendChild(colorBox);
-
-            let label = document.createElement('label');
-            label.htmlFor = 'checkbox' + i;
-            label.appendChild(document.createTextNode(dataset.label));
-            chartLegendDiv.appendChild(label);
-            chartLegendDiv.appendChild(document.createElement('br'));
             checkbox.onchange = (e) => {
               const datasetMeta = this.barChart?.getDatasetMeta(i);
               if (datasetMeta) {
@@ -185,6 +173,16 @@ export class VerticalBarChartComponent implements OnInit, AfterViewInit, OnChang
                 this.barChart?.update();
               }
             };
+            chartLegendDiv.appendChild(checkbox);
+            let label = document.createElement('label');
+            label.htmlFor = 'checkbox' + i;
+            let colorBox = document.createElement('div');
+            colorBox.style.backgroundColor = dataset.backgroundColor;
+            colorBox.className = 'color-box';
+            label.appendChild(colorBox);
+            label.appendChild(document.createTextNode(dataset.label));
+            chartLegendDiv.appendChild(label);
+            chartLegendDiv.appendChild(document.createElement('br'));
           }
         });
       }
