@@ -23,7 +23,7 @@ import { DashboardComponent } from './components/dashboard/dashboard.component';
 import { QueuesViewComponent } from './components/queues-view/queues-view.component';
 import { AppsViewComponent } from './components/apps-view/apps-view.component';
 import { NodesViewComponent } from './components/nodes-view/nodes-view.component';
-import { VisualizerComponent }from './components/yaml-visualizer/yaml-visualizer.component';
+import { QueueVisualizerComponent }from './components/queue-visualizer/queue-visualizer.component';
 import { StatusViewComponent } from './components/status-view/status-view.component';
 import { ErrorViewComponent } from './components/error-view/error-view.component';
 
@@ -44,6 +44,11 @@ const appRoutes: Routes = [
     data: { breadcrumb: 'Queues' },
   },
   {
+    path: 'queues-v2',
+    component: QueuesViewComponent,   // still using the v1 component for now (will be replaced with v2 component in near PRs)
+    data: { breadcrumb: 'Queues V2' },
+  },
+  {
     path: 'nodes',
     component: NodesViewComponent,
     data: { breadcrumb: 'Nodes' },
@@ -55,8 +60,8 @@ const appRoutes: Routes = [
   },
   {
     path: 'visualizer',
-    component: VisualizerComponent,
-    data: { breadcrumb: 'YAML Visualizer' },
+    component: QueueVisualizerComponent,
+    data: { breadcrumb: 'Queue Visualizer' },
   },
   {
     path: 'error',

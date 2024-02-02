@@ -1,0 +1,79 @@
+/**
+ * Licensed to the Apache Software Foundation (ASF) under one
+ * or more contributor license agreements.  See the NOTICE file
+ * distributed with this work for additional information
+ * regarding copyright ownership.  The ASF licenses this file
+ * to you under the Apache License, Version 2.0 (the
+ * "License"); you may not use this file except in compliance
+ * with the License.  You may obtain a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+  
+.queue-content-box {
+  width: calc(100% - 2rem); /* Subtract padding from the total width */
+  height: calc(100vh - 2rem); /* Subtract padding from the total height to ensure it's nearly as tall as the container */
+  border-radius: 0.5rem;
+  background-color: white;
+  padding: 20px; /* Adjust padding to your preference */
+  box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+  overflow: auto; /* Add scroll for overflow content */
+}
+
+.header .title-group {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding-bottom: 1rem;
+}
+
+.title-group .icon {
+  height: 2rem;
+  width: 2rem;
+  margin-right: 10px;
+}
+
+.title-group div {
+  font-size: 1.25rem; 
+  font-weight: 600; 
+  color: #010407; 
+} 
+
+.upload-area {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 600px; /* Adjust based on content */
+  max-height: 80%; /* Ensure there's space around the area within the content box */
+  width: 100%;
+  border-radius: 0.5rem;
+  border: 2px dashed #d1d5db; /* border-gray-300 */
+  background-color: #f9fafb; /* bg-gray-50 */
+  gap: 0.2rem;
+  padding: 20px; /* Provide some padding around the content */
+}
+
+.upload-area .icon {
+  height: 2rem; /* h-8 */
+  width: 2rem; /* w-8 */
+  color: #9ca3af; /* text-gray-400 */
+}
+
+.upload-area div {
+  padding-top: 0.1rem;
+  font-size: 1rem; /* text-sm */
+  color: #6b7280; /* text-gray-500 */
+}
+
+.upload-area .yunikorn-yamll{
+  color: rgb(10, 61, 149);
+  margin-top: 10px;
+}
+  

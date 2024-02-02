@@ -20,12 +20,12 @@ import { Component, OnInit } from '@angular/core';
 
 
 @Component({
-  selector: 'yaml-visualizer-view',
-  templateUrl: './yaml-visualizer.component.html',
-  styleUrls: ['./yaml-visualizer.component.scss']
+  selector: 'queue-visualizer-view',
+  templateUrl: './queue-visualizer.component.html',
+  styleUrls: ['./queue-visualizer.component.scss']
 })
 
-export class VisualizerComponent implements OnInit {
+export class QueueVisualizerComponent implements OnInit {
   constructor() {}
 
   ngOnInit() {}
