@@ -98,7 +98,7 @@ export class VerticalBarChartComponent implements OnInit, AfterViewInit, OnChang
             data: item.data,
             backgroundColor: item.backgroundColor,
             borderWidth: item.borderWidth,
-            hidden: this.hiddenDatasets[index],
+            hidden: this.hiddenDatasets[index]
           }
         })
       },
@@ -118,6 +118,12 @@ export class VerticalBarChartComponent implements OnInit, AfterViewInit, OnChang
               label: function (context) {
                 return barChartDataSets[context.datasetIndex].label;
               },
+              labelColor: function (context) {
+                return {
+                  borderColor: barChartDataSets[context.datasetIndex].backgroundColor,
+                  backgroundColor: barChartDataSets[context.datasetIndex].backgroundColor,
+                };
+              },
               footer: function (context) {
                 // show bar description on tooltip footer
                 let datasetIndex = context[0].datasetIndex;
@@ -136,10 +142,41 @@ export class VerticalBarChartComponent implements OnInit, AfterViewInit, OnChang
               precision: 0
             }
           }
-        }
+        },
+        onHover: (event, chartElement) => {
+          if (this.barChartDataSets.length > 0) {
+            if (this.barChart != undefined) {
+              if (chartElement.length > 0) {
+                // Reset datasets background color
+                this.barChart?.data.datasets?.forEach((dataset, i) => {
+                  this.barChartDataSets.forEach((item, index) => {
+                    if (this.barChart != undefined) {
+                      this.barChart.data.datasets[index].backgroundColor = this.barChartDataSets[index].backgroundColor;
+                    }
+                  });
+                });
+
+                //Update the target dataset's background color
+                const datasetIndex = chartElement[0].datasetIndex;
+                if (this.barChart != undefined) {
+                  this.barChart.data.datasets[datasetIndex].backgroundColor = this.adjustOpacity(this.barChartDataSets[datasetIndex].backgroundColor, 0.5);
+                }
+              } else {
+                // Reset datasets background color
+                this.barChart?.data.datasets?.forEach((dataset, i) => {
+                  this.barChartDataSets.forEach((item, datasetIndex) => {
+                    if (this.barChart != undefined) {
+                      this.barChart.data.datasets[datasetIndex].backgroundColor = this.barChartDataSets[datasetIndex].backgroundColor;
+                    }
+                  });
+                });
+              }
+              this.barChart?.update("resize");
+            }
+          }
+        },
       },
     });
-
     this.barChart.update();
   }
 
@@ -150,14 +187,8 @@ export class VerticalBarChartComponent implements OnInit, AfterViewInit, OnChang
       if (chartLegendDiv.children.length === 0 && this.barChartDataSets.length > 0) {
         // Record the hidden state of each dataset, by default, the first dataset is visible
         this.barChartDataSets.forEach((dataset, i) => {
-          this.hiddenDatasets.push(i === 0 ? false : true);
+          this.hiddenDatasets.push(i < 5 ? false : true);
         });
-
-        chartLegendDiv.appendChild(document.createTextNode('Top 10 resources sorted by load:'));
-        chartLegendDiv.appendChild(document.createElement('br'));
-        chartLegendDiv.appendChild(document.createTextNode('(high to low)'));
-        chartLegendDiv.appendChild(document.createElement('br'));
-        chartLegendDiv.appendChild(document.createElement('br'));
         this.barChartDataSets.forEach((dataset, i) => {
           if (chartLegendDiv) {
             let checkbox = document.createElement('input');
@@ -199,4 +230,12 @@ export class VerticalBarChartComponent implements OnInit, AfterViewInit, OnChang
     }
   }
 
+  adjustOpacity(rgba: string, opacity: number) {
+    const rgbaValues = rgba.match(/[\d.]+/g);
+    if (!rgbaValues || rgbaValues.length < 4) {
+      return rgba;
+    }
+    rgbaValues[3] = String(opacity);
+    return `rgba(${rgbaValues.join(',')})`;
+  }
 }
