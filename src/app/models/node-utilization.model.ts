@@ -27,10 +27,10 @@ export class NodeUtilization {
       numOfNodes: number;
       nodeNames: null | string[];
     }[],
-  ) {}
+  ) { }
 
   // transform NodeUtilization to NodeUtilizationChartData for NodeUtilization bar chart
-  toNodeUtilizationChartData(){
+  toNodeUtilizationChartData() {
     const MAX_NODES_IN_DESCRIPTION = 15;
     const backgroundColor = DEFAULT_BAR_COLOR;
     let type = this.type;
@@ -42,9 +42,9 @@ export class NodeUtilization {
       let description: string | undefined;
       if (nodeNames && nodeNames.length > MAX_NODES_IN_DESCRIPTION) {
         // only put MAX_NODES_IN_DESCRIPTION nodes in description, others will be replaced by '...N more'
-        description = nodeNames.slice(0, MAX_NODES_IN_DESCRIPTION).sort().join("\n") + "\n..."+ (nodeNames.length-MAX_NODES_IN_DESCRIPTION) +" more";
+        description = nodeNames.slice(0, MAX_NODES_IN_DESCRIPTION).sort().join("\n") + "\n..." + (nodeNames.length - MAX_NODES_IN_DESCRIPTION) + " more";
       } else {
-        description = nodeNames?nodeNames.sort().join("\n"): undefined;
+        description = nodeNames ? nodeNames.sort().join("\n") : undefined;
       }
       chartDataItems.push(new ChartDataItem(
         bucketName,
@@ -55,6 +55,14 @@ export class NodeUtilization {
     });
     return new NodeUtilizationChartData(type, chartDataItems)
   }
+}
+
+export class NodeUtilizationsInfo {
+  constructor(
+    public clusterId: string,
+    public partition: string,
+    public utilizations: NodeUtilization[],
+  ) { }
 }
 
 export class NodeUtilizationChartData {

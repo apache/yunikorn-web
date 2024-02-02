@@ -109,7 +109,7 @@ export class DashboardComponent implements OnInit {
       this.appHistoryData = this.getAreaChartData(data);
     });
     
-    this.scheduler.fetchClusterNodeUtilization().subscribe((data) => {
+    this.scheduler.fetchNodeUtilization().subscribe((data) => {
       let nodeUtilization = new NodeUtilization(data.type, data.utilization);
       this.nodeUtilizationChartData = nodeUtilization.toNodeUtilizationChartData();
     });

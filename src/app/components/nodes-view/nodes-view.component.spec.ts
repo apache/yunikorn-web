@@ -21,9 +21,13 @@ import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { NgxSpinnerService } from 'ngx-spinner';
 
 import { NodesViewComponent } from './nodes-view.component';
+import { AppNodeUtilizationsComponent } from '@app/components/app-node-utilizations/app-node-utilizations.component';
+import { VerticalBarChartComponent } from '@app/components/vertical-bar-chart/vertical-bar-chart.component';
+
 import { SchedulerService } from '@app/services/scheduler/scheduler.service';
 import { HAMMER_LOADER } from '@angular/platform-browser';
 import { MockSchedulerService, MockNgxSpinnerService } from '@app/testing/mocks';
+import { MatCardModule } from '@angular/material/card';
 import { MatTableModule } from '@angular/material/table';
 import { MatPaginatorModule } from '@angular/material/paginator';
 import { MatDividerModule } from '@angular/material/divider';
@@ -58,13 +62,12 @@ describe('NodesViewComponent', () => {
 
   beforeEach(() => {
     TestBed.configureTestingModule({
-      declarations: [NodesViewComponent],
-      imports: [MatFormFieldModule, MatInputModule, ReactiveFormsModule],
+      declarations: [NodesViewComponent, AppNodeUtilizationsComponent, VerticalBarChartComponent],
+      imports: [MatFormFieldModule, MatInputModule, ReactiveFormsModule, MatCardModule],
     })
     .compileComponents();
     fixture = TestBed.createComponent(NodesViewComponent);
     component = fixture.componentInstance;
-    fixture.detectChanges();
   });
 
   it('should create the component', () => {

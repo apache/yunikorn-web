@@ -23,7 +23,7 @@ import {AppInfo} from '@app/models/app-info.model';
 import {ClusterInfo} from '@app/models/cluster-info.model';
 import {HistoryInfo} from '@app/models/history-info.model';
 import {NodeInfo} from '@app/models/node-info.model';
-import {NodeUtilization, NodeUtilizationChartData} from '@app/models/node-utilization.model';
+import {NodeUtilization, NodeUtilizationsInfo} from '@app/models/node-utilization.model';
 import {Partition} from '@app/models/partition-info.model';
 
 import {QueueInfo, QueuePropertyItem} from '@app/models/queue-info.model';
@@ -255,9 +255,14 @@ export class SchedulerService {
     );
   }
 
-  fetchClusterNodeUtilization(): Observable<NodeUtilization>{
+  fetchNodeUtilization(): Observable<NodeUtilization>{
     const nodeUtilizationUrl = `${this.envConfig.getSchedulerWebAddress()}/ws/v1/scheduler/node-utilization`;
     return this.httpClient.get(nodeUtilizationUrl).pipe(map((data: any) => data as NodeUtilization));
+  }
+
+  fetchNodeUtilizationsInfo(): Observable<NodeUtilizationsInfo[]>{
+    const nodeUtilizationsUrl = `${this.envConfig.getSchedulerWebAddress()}/ws/v1/scheduler/node-utilizations`;
+    return this.httpClient.get(nodeUtilizationsUrl).pipe(map((data: any) => data as NodeUtilizationsInfo[]));
   }
 
   fecthHealthchecks(): Observable<SchedulerHealthInfo> {
@@ -329,7 +334,7 @@ export class SchedulerService {
     const formatted: string[] = [];
     if (resource) {
       // Object.keys() didn't guarantee the order of keys, sort it before iterate.
-      Object.keys(resource).sort(this.resourcesCompareFn).forEach((key) => {
+      Object.keys(resource).sort(CommonUtil.resourcesCompareFn).forEach((key) => {
         let value = resource[key];
         let formattedKey = key;
         let formattedValue : string;
@@ -363,24 +368,6 @@ export class SchedulerService {
     }
     return formatted.join(', ');
   } 
-
-  private resourcesCompareFn(a: string, b: string): number {
-    // define the order of resources
-    const resourceOrder: { [key: string]: number } = {
-      "memory": 1,
-      "vcore": 2,
-      "pods": 3,
-      "ephemeral-storage": 4
-    };
-    const orderA = a in resourceOrder ? resourceOrder[a] : Number.MAX_SAFE_INTEGER;
-    const orderB = b in resourceOrder ? resourceOrder[b] : Number.MAX_SAFE_INTEGER;
-  
-    if (orderA !== orderB) {
-      return orderA - orderB;  // Resources in the order defined above
-    } else {
-      return a.localeCompare(b);  // Other resources will be in lexicographic order
-    }
-  }
 
   private formatPercent(resource: SchedulerResourceInfo): string {
     const formatted = [];

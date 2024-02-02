@@ -29,3 +29,21 @@ export class ChartDataItem {
     this.description = description;
   }
 }
+
+export class BarChartDataSet {
+  label: string;
+  data: number[];
+  avgUtilizationRate: number;
+  backgroundColor: string;
+  borderWidth: number;
+  description: string[];
+
+  constructor(label: string, data: number[], avgUtilizationRate: number, backgroundColor: string, borderWidth: number, description: string[]) {
+    this.label = label;
+    this.data = data;
+    this.avgUtilizationRate = avgUtilizationRate;
+    this.backgroundColor = backgroundColor;
+    this.borderWidth = borderWidth;
+    this.description = description;
+  }
+}

@@ -97,4 +97,22 @@ export class CommonUtil {
     }
     return NOT_AVAILABLE;
   }
+
+  static resourcesCompareFn(a: string, b: string): number {
+    // define the order of resources
+    const resourceOrder: { [key: string]: number } = {
+      "memory": 1,
+      "vcore": 2,
+      "pods": 3,
+      "ephemeral-storage": 4
+    };
+    const orderA = a in resourceOrder ? resourceOrder[a] : Number.MAX_SAFE_INTEGER;
+    const orderB = b in resourceOrder ? resourceOrder[b] : Number.MAX_SAFE_INTEGER;
+  
+    if (orderA !== orderB) {
+      return orderA - orderB;  // Resources in the order defined above
+    } else {
+      return a.localeCompare(b);  // Other resources will be in lexicographic order
+    }
+  }
 }
