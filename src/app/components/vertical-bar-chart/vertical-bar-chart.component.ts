@@ -16,27 +16,24 @@
  * limitations under the License.
  */
 
-import { AfterViewInit, Component, Input, OnChanges, OnDestroy, OnInit, SimpleChanges, ViewEncapsulation } from '@angular/core';
+import { AfterViewInit, Component, Input, OnChanges, OnDestroy, OnInit, SimpleChanges } from '@angular/core';
 import { BarChartDataSet } from '@app/models/chart-data.model';
 import { EventBusService, EventMap } from '@app/services/event-bus/event-bus.service';
 import { CommonUtil } from '@app/utils/common.util';
-import { Chart, BarController, CategoryScale, BarElement, Tooltip } from 'chart.js';
+import { Chart, Tooltip } from 'chart.js';
 import { Subject, takeUntil } from 'rxjs';
 
-Chart.register(BarElement, CategoryScale, BarController, Tooltip);
+Chart.register(Tooltip);
 
 @Component({
   selector: 'app-vertical-bar-chart',
   templateUrl: './vertical-bar-chart.component.html',
-  styleUrls: ['./vertical-bar-chart.component.scss'],
-  encapsulation: ViewEncapsulation.None
+  styleUrls: ['./vertical-bar-chart.component.scss']
 })
 export class VerticalBarChartComponent implements OnInit, AfterViewInit, OnChanges, OnDestroy {
-
   destroy$ = new Subject<boolean>();
   chartContainerId = '';
   barChart: Chart<'bar' | 'line', number[], string> | undefined;
-  hiddenDatasets: boolean[] = [];  // Record the hidden state of each dataset
 
   @Input() bucketList: string[] = [];                                           // one bucket list for all resource types, length should be exactly 10
   @Input() barChartDataSets: BarChartDataSet[] = new Array<BarChartDataSet>();  // one dataset for each type
@@ -69,7 +66,6 @@ export class VerticalBarChartComponent implements OnInit, AfterViewInit, OnChang
       changes['barChartDataSets'] &&
       changes['barChartDataSets'].currentValue
     ) {
-      this.cleanLegendCheckBox();
       this.barChartDataSets = changes['barChartDataSets'].currentValue;
       this.renderChart(this.bucketList, this.barChartDataSets);
     }
@@ -87,7 +83,6 @@ export class VerticalBarChartComponent implements OnInit, AfterViewInit, OnChang
       this.barChart.destroy();
     }
 
-    this.handleLegendCheckBox()
     this.barChart = new Chart(ctx!, {
       type: 'bar',
       data: {
@@ -98,7 +93,6 @@ export class VerticalBarChartComponent implements OnInit, AfterViewInit, OnChang
             data: item.data,
             backgroundColor: item.backgroundColor,
             borderWidth: item.borderWidth,
-            hidden: this.hiddenDatasets[index]
           }
         })
       },
@@ -106,7 +100,24 @@ export class VerticalBarChartComponent implements OnInit, AfterViewInit, OnChang
         responsive: true,
         plugins: {
           legend: {
-            display: false,
+            display: true,
+            position: 'left',
+            align: 'start',
+            onClick: (e) => {}, // disable legend click event
+            onHover: (event, legendItem, legend) => {
+              let datasetIndex = legendItem.datasetIndex
+              if (this.barChart != undefined && datasetIndex !== undefined) {
+                this.barChart.data.datasets[datasetIndex].backgroundColor = this.adjustOpacity(this.barChartDataSets[datasetIndex].backgroundColor, 0.5);
+              }
+              this.barChart?.update("resize");
+            },
+            onLeave: (event, legendItem, legend) => {
+              let datasetIndex = legendItem.datasetIndex
+              if (this.barChart != undefined && datasetIndex !== undefined) {
+                this.barChart.data.datasets[datasetIndex].backgroundColor = this.barChartDataSets[datasetIndex].backgroundColor;
+              }
+              this.barChart?.update("resize");
+            },
           },
           title: {
             display: false,
@@ -155,7 +166,6 @@ export class VerticalBarChartComponent implements OnInit, AfterViewInit, OnChang
                     }
                   });
                 });
-
                 //Update the target dataset's background color
                 const datasetIndex = chartElement[0].datasetIndex;
                 if (this.barChart != undefined) {
@@ -178,56 +188,6 @@ export class VerticalBarChartComponent implements OnInit, AfterViewInit, OnChang
       },
     });
     this.barChart.update();
-  }
-
-  handleLegendCheckBox() {
-    // create checkbox if no HTMLElement in legend div
-    let chartLegendDiv = document.getElementById('chart-legend-div');
-    if (chartLegendDiv) {
-      if (chartLegendDiv.children.length === 0 && this.barChartDataSets.length > 0) {
-        // Record the hidden state of each dataset, by default, the first dataset is visible
-        this.barChartDataSets.forEach((dataset, i) => {
-          this.hiddenDatasets.push(i < 5 ? false : true);
-        });
-        this.barChartDataSets.forEach((dataset, i) => {
-          if (chartLegendDiv) {
-            let checkbox = document.createElement('input');
-            checkbox.id = 'checkbox' + i;
-            checkbox.type = 'checkbox';
-            checkbox.value = dataset.label;
-            checkbox.checked = !this.hiddenDatasets[i];
-            checkbox.onchange = (e) => {
-              const datasetMeta = this.barChart?.getDatasetMeta(i);
-              if (datasetMeta) {
-                this.hiddenDatasets[i] = !checkbox.checked;
-                datasetMeta.hidden = !checkbox.checked
-                this.barChart?.update();
-              }
-            };
-            chartLegendDiv.appendChild(checkbox);
-            let label = document.createElement('label');
-            label.htmlFor = 'checkbox' + i;
-            let colorBox = document.createElement('div');
-            colorBox.style.backgroundColor = dataset.backgroundColor;
-            colorBox.className = 'color-box';
-            label.appendChild(colorBox);
-            label.appendChild(document.createTextNode(dataset.label));
-            chartLegendDiv.appendChild(label);
-            chartLegendDiv.appendChild(document.createElement('br'));
-          }
-        });
-      }
-    }
-  }
-
-  cleanLegendCheckBox() {
-    this.hiddenDatasets = [];
-    let chartLegendDiv = document.getElementById('chart-legend-div');
-    if (chartLegendDiv) {
-      while (chartLegendDiv.firstChild) {
-        chartLegendDiv.removeChild(chartLegendDiv.firstChild);
-      }
-    }
   }
 
   adjustOpacity(rgba: string, opacity: number) {
