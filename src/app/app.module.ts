@@ -59,8 +59,6 @@ import { HighlightSearchPipe } from '@app/components/nodes-view/highlighttable-s
 import { ErrorViewComponent } from '@app/components/error-view/error-view.component';
 import { StatusViewComponent } from '@app/components/status-view/status-view.component';
 import { HealthchecksComponent } from '@app/components/healthchecks/healthchecks.component';
-import { AppNodeUtilizationComponent } from '@app/components/app-node-utilization/app-node-utilization.component';
-import { BarChartComponent } from '@app/components/bar-chart/bar-chart.component';
 import { AppNodeUtilizationsComponent } from '@app/components/app-node-utilizations/app-node-utilizations.component';
 import { VerticalBarChartComponent } from '@app/components/vertical-bar-chart/vertical-bar-chart.component';
 
@@ -82,8 +80,6 @@ import { VerticalBarChartComponent } from '@app/components/vertical-bar-chart/ve
     ErrorViewComponent,
     StatusViewComponent,
     HealthchecksComponent,
-    AppNodeUtilizationComponent,
-    BarChartComponent,
     AppNodeUtilizationsComponent,
     VerticalBarChartComponent,
   ],

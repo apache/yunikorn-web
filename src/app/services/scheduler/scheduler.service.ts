@@ -23,7 +23,7 @@ import {AppInfo} from '@app/models/app-info.model';
 import {ClusterInfo} from '@app/models/cluster-info.model';
 import {HistoryInfo} from '@app/models/history-info.model';
 import {NodeInfo} from '@app/models/node-info.model';
-import {NodeUtilization, NodeUtilizationsInfo} from '@app/models/node-utilization.model';
+import {NodeUtilizationsInfo} from '@app/models/node-utilization.model';
 import {Partition} from '@app/models/partition-info.model';
 
 import {QueueInfo, QueuePropertyItem} from '@app/models/queue-info.model';
@@ -253,11 +253,6 @@ export class SchedulerService {
         return result;
       })
     );
-  }
-
-  fetchNodeUtilization(): Observable<NodeUtilization>{
-    const nodeUtilizationUrl = `${this.envConfig.getSchedulerWebAddress()}/ws/v1/scheduler/node-utilization`;
-    return this.httpClient.get(nodeUtilizationUrl).pipe(map((data: any) => data as NodeUtilization));
   }
 
   fetchNodeUtilizationsInfo(): Observable<NodeUtilizationsInfo[]>{

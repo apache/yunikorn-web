@@ -27,7 +27,6 @@ import { HistoryInfo } from '@app/models/history-info.model';
 import { Applications, Partition } from '@app/models/partition-info.model';
 import { EventBusService, EventMap } from '@app/services/event-bus/event-bus.service';
 import { NOT_AVAILABLE } from '@app/utils/constants';
-import { NodeUtilization, NodeUtilizationChartData } from '@app/models/node-utilization.model';
 
 @Component({
   selector: 'app-dashboard',
@@ -50,7 +49,6 @@ export class DashboardComponent implements OnInit {
   buildInfo: BuildInfo = this.getEmptyBuildInfo();
   initialAppHistory: HistoryInfo[] = [];
   initialContainerHistory: HistoryInfo[] = [];
-  nodeUtilizationChartData: NodeUtilizationChartData = new NodeUtilizationChartData("NA", []);
 
   constructor(
     private scheduler: SchedulerService,
@@ -107,11 +105,6 @@ export class DashboardComponent implements OnInit {
     this.scheduler.fetchAppHistory().subscribe((data) => {
       this.initialAppHistory = data;
       this.appHistoryData = this.getAreaChartData(data);
-    });
-    
-    this.scheduler.fetchNodeUtilization().subscribe((data) => {
-      let nodeUtilization = new NodeUtilization(data.type, data.utilization);
-      this.nodeUtilizationChartData = nodeUtilization.toNodeUtilizationChartData();
     });
 
     this.scheduler.fetchContainerHistory().subscribe((data) => {
