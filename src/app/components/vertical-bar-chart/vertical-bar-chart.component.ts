@@ -20,10 +20,10 @@ import { AfterViewInit, Component, Input, OnChanges, OnDestroy, OnInit, SimpleCh
 import { BarChartDataSet } from '@app/models/chart-data.model';
 import { EventBusService, EventMap } from '@app/services/event-bus/event-bus.service';
 import { CommonUtil } from '@app/utils/common.util';
-import { Chart, Tooltip } from 'chart.js';
+import { Chart, BarElement, BarController, CategoryScale, Tooltip } from 'chart.js';
 import { Subject, takeUntil } from 'rxjs';
 
-Chart.register(Tooltip);
+Chart.register(BarElement, BarController, CategoryScale, Tooltip);
 
 @Component({
   selector: 'app-vertical-bar-chart',
@@ -103,7 +103,7 @@ export class VerticalBarChartComponent implements OnInit, AfterViewInit, OnChang
             display: true,
             position: 'left',
             align: 'start',
-            onClick: (e) => {}, // disable legend click event
+            onClick: (e) => { }, // disable legend click event
             onHover: (event, legendItem, legend) => {
               let datasetIndex = legendItem.datasetIndex
               if (this.barChart != undefined && datasetIndex !== undefined) {
