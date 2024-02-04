@@ -127,7 +127,7 @@
     margin-left: 10px;
   }
   .node-allocations {
-    margin-top: 40px;
+    margin-top: 20px;
     .mat-mdc-table {
       margin-top: 20px;
     }
@@ -139,4 +139,8 @@
     width: 100%;
     text-align: center;
   }
+}
+
+.node-utilizations-view {
+  margin-top: 20px
 }
