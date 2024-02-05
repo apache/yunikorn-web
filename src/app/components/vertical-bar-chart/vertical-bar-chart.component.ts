@@ -106,17 +106,26 @@ export class VerticalBarChartComponent implements OnInit, AfterViewInit, OnChang
             onClick: (e) => { }, // disable legend click event
             onHover: (event, legendItem, legend) => {
               let datasetIndex = legendItem.datasetIndex
-              if (this.barChart != undefined && datasetIndex !== undefined) {
-                this.barChart.data.datasets[datasetIndex].backgroundColor = this.adjustOpacity(this.barChartDataSets[datasetIndex].backgroundColor, 0.5);
+              //Update the other datasets background color
+              if (this.barChart != undefined) {
+                this.barChart.data.datasets.forEach((dataset, i) => {
+                  if (i != datasetIndex && this.barChart != undefined) {
+                    this.barChart.data.datasets[i].backgroundColor = this.adjustOpacity(this.barChartDataSets[i].backgroundColor, 0.2);
+                  }
+                })
               }
-              this.barChart?.update("resize");
+              this.barChart?.update("active");
             },
             onLeave: (event, legendItem, legend) => {
-              let datasetIndex = legendItem.datasetIndex
-              if (this.barChart != undefined && datasetIndex !== undefined) {
-                this.barChart.data.datasets[datasetIndex].backgroundColor = this.barChartDataSets[datasetIndex].backgroundColor;
+              // Reset datasets background color
+              if (this.barChart != undefined) {
+                this.barChart.data.datasets.forEach((dataset, i) => {
+                  if (this.barChart != undefined) {
+                    this.barChart.data.datasets[i].backgroundColor = this.barChartDataSets[i].backgroundColor;
+                  }
+                })
               }
-              this.barChart?.update("resize");
+              this.barChart?.update("active");
             },
           },
           title: {
@@ -128,12 +137,6 @@ export class VerticalBarChartComponent implements OnInit, AfterViewInit, OnChang
             callbacks: {
               label: function (context) {
                 return barChartDataSets[context.datasetIndex].label;
-              },
-              labelColor: function (context) {
-                return {
-                  borderColor: barChartDataSets[context.datasetIndex].backgroundColor,
-                  backgroundColor: barChartDataSets[context.datasetIndex].backgroundColor,
-                };
               },
               footer: function (context) {
                 // show bar description on tooltip footer
@@ -166,11 +169,13 @@ export class VerticalBarChartComponent implements OnInit, AfterViewInit, OnChang
                     }
                   });
                 });
-                //Update the target dataset's background color
+                //Update the other datasets background color
                 const datasetIndex = chartElement[0].datasetIndex;
-                if (this.barChart != undefined) {
-                  this.barChart.data.datasets[datasetIndex].backgroundColor = this.adjustOpacity(this.barChartDataSets[datasetIndex].backgroundColor, 0.5);
-                }
+                this.barChart?.data.datasets?.forEach((dataset, i) => {
+                  if (i != datasetIndex && this.barChart != undefined) {
+                    this.barChart.data.datasets[i].backgroundColor = this.adjustOpacity(this.barChartDataSets[i].backgroundColor, 0.2);
+                  }
+                })
               } else {
                 // Reset datasets background color
                 this.barChart?.data.datasets?.forEach((dataset, i) => {
@@ -181,7 +186,7 @@ export class VerticalBarChartComponent implements OnInit, AfterViewInit, OnChang
                   });
                 });
               }
-              this.barChart?.update("resize");
+              this.barChart?.update("active");
             }
           }
         },
