@@ -106,7 +106,7 @@ export class VerticalBarChartComponent implements OnInit, AfterViewInit, OnChang
             onClick: (e) => { }, // disable legend click event
             onHover: (event, legendItem, legend) => {
               let datasetIndex = legendItem.datasetIndex
-              //Update the other datasets background color
+              // Update the other datasets background color
               if (this.barChart != undefined) {
                 this.barChart.data.datasets.forEach((dataset, i) => {
                   if (i != datasetIndex && this.barChart != undefined) {
@@ -169,7 +169,7 @@ export class VerticalBarChartComponent implements OnInit, AfterViewInit, OnChang
                     }
                   });
                 });
-                //Update the other datasets background color
+                // Update the other datasets background color
                 const datasetIndex = chartElement[0].datasetIndex;
                 this.barChart?.data.datasets?.forEach((dataset, i) => {
                   if (i != datasetIndex && this.barChart != undefined) {
