@@ -24,3 +24,11 @@ go 1.21
 require gotest.tools/v3 v3.5.1
 
 require github.com/google/go-cmp v0.5.9 // indirect
+
+replace (
+	golang.org/x/crypto => golang.org/x/crypto v0.18.0
+	golang.org/x/net => golang.org/x/net v0.20.0
+	golang.org/x/sys => golang.org/x/sys v0.16.0
+	golang.org/x/text => golang.org/x/text v0.14.0
+	golang.org/x/tools => golang.org/x/tools v0.17.0
+)
