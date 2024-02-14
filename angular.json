@@ -31,7 +31,11 @@
             "tsConfig": "tsconfig.app.json",
             "inlineStyleLanguage": "scss",
             "assets": ["src/favicon.ico", "src/assets"],
-            "styles": ["src/styles.scss"],
+            "styles": [
+              "src/styles.scss",
+              "node_modules/typeface-roboto/index.css",
+              "node_modules/@fortawesome/fontawesome-free/css/all.css"
+            ],
             "scripts": []
           },
           "configurations": {
