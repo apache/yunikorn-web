@@ -8,6 +8,7 @@
 /out-tsc
 /bazel-out
 /tools
+/build.date
 
 # Node
 /node_modules
