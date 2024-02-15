@@ -50,8 +50,18 @@ RELEASE_BIN_DIR=${OUTPUT}/prod
 SERVER_BINARY=yunikorn-web
 REPO=github.com/apache/yunikorn-web/pkg
 
+# Build date - Use git commit, then cached build.date, finally current date
+# This allows for reproducible builds as long as release tarball contains the build.date file.
+DATE := $(shell TZ=UTC0 git --no-pager log -1 --date=iso8601-strict-local --format=%cd 2>/dev/null || true)
+ifeq ($(DATE),)
+DATE := $(shell cat "$(BASE_DIR)/build.date" 2>/dev/null || true)
+endif
+ifeq ($(DATE),)
+DATE := $(shell date +%FT%T%z)
+endif
+DATE := $(shell echo "$(DATE)" > "$(BASE_DIR)/build.date" ; cat "$(BASE_DIR)/build.date")
+
 # Version parameters
-DATE=$(shell date +%FT%T%z)
 ifeq ($(VERSION),)
 VERSION := latest
 endif
@@ -214,7 +224,7 @@ $(DEV_BIN_DIR)/$(SERVER_BINARY): go.mod go.sum $(shell find pkg)
 	@echo "building local web server binary"
 	@mkdir -p "${DEV_BIN_DIR}"
 	"$(GO)" build -o=${DEV_BIN_DIR}/${SERVER_BINARY} -race -ldflags \
-	'-X main.version=${VERSION} -X main.date=${DATE}' \
+	'-buildid= -X main.version=${VERSION} -X main.date=${DATE}' \
 	./pkg/cmd/web/
 
 .PHONY: build_server_prod
@@ -225,7 +235,7 @@ $(RELEASE_BIN_DIR)/$(SERVER_BINARY): go.mod go.sum $(shell find pkg)
 	@mkdir -p ${RELEASE_BIN_DIR}
 	CGO_ENABLED=0 GOOS=linux GOARCH="${EXEC_ARCH}" \
 	"$(GO)" build -a -o=${RELEASE_BIN_DIR}/${SERVER_BINARY} -trimpath -ldflags \
-	'-extldflags "-static" -X main.version=${VERSION} -X main.date=${DATE}' \
+	'-buildid= -extldflags "-static" -X main.version=${VERSION} -X main.date=${DATE}' \
 	-tags netgo -installsuffix netgo \
 	./pkg/cmd/web/
 
