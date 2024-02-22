@@ -42,12 +42,12 @@
     "chart.js": "^4.4.0",
     "chartjs-adapter-date-fns": "^3.0.0",
     "date-fns": "^2.30.0",
+    "fontsource-roboto": "^4.0.0",
     "material-design-icons": "^3.0.1",
     "moment": "^2.29.4",
     "ngx-spinner": "^16.0.2",
     "rxjs": "~7.8.1",
     "tslib": "^2.6.2",
-    "typeface-roboto": "^1.1.13",
     "zone.js": "~0.13.0"
   },
   "devDependencies": {
