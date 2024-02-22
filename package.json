@@ -70,7 +70,7 @@
     "lint-staged": "^15.0.2",
     "ng-mocks": "^14.11.0",
     "prettier": "^3.0.3",
-    "puppeteer": "^21.3.8",
+    "puppeteer": "^22.2.0",
     "typescript": "5.1.6"
   }
 }
