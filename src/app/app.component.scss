@@ -219,6 +219,13 @@ ul.navigation-primary {
   padding-top: 61px;
 }
 
+//  remove the beta tag when the feature is ready for production
+.beta-tag {
+  color: #eaa31f;
+  font-size: 12px;
+  padding-top: 4px;
+}
+
 .header {
   height: 61px;
   background: #fff;

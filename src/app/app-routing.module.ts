@@ -43,6 +43,11 @@ const appRoutes: Routes = [
     data: { breadcrumb: 'Queues' },
   },
   {
+    path: 'queues-v2',
+    component: QueuesViewComponent,   // still using the v1 component for now (will be replaced with v2 component in near PRs)
+    data: { breadcrumb: 'Queues V2' },
+  },
+  {
     path: 'nodes',
     component: NodesViewComponent,
     data: { breadcrumb: 'Nodes' },
