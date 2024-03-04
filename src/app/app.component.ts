@@ -22,6 +22,8 @@ import { debounceTime, filter } from 'rxjs/operators';
 import { fromEvent } from 'rxjs';
 
 import { EventBusService, EventMap } from '@app/services/event-bus/event-bus.service';
+import { LicensesModalComponent } from '@app/components/licenses-modal/licenses-modal.component';
+import { MatDialog } from '@angular/material/dialog';
 
 @Component({
   selector: 'app-root',
@@ -35,7 +37,8 @@ export class AppComponent implements OnInit {
   constructor(
     private route: ActivatedRoute,
     private router: Router,
-    private eventBus: EventBusService
+    private eventBus: EventBusService,
+    private dialog: MatDialog
   ) {}
 
   ngOnInit() {
@@ -100,5 +103,12 @@ export class AppComponent implements OnInit {
   openYuniKornHelp(url: string) {
     const fullUrl = `http://yunikorn.apache.org${url}`;
     window.open(fullUrl, '_blank');
+  }
+
+  openYuniKornLicense() {
+    this.dialog.open(LicensesModalComponent, {
+      maxWidth: '800px',
+      disableClose: true,
+    });
   }
 }
