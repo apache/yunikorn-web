@@ -19,15 +19,19 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { LicensesModalComponent } from './licenses-modal.component';
+import { MatDialogRef } from '@angular/material/dialog';
+import { HttpClientTestingModule } from '@angular/common/http/testing';
 
 describe('LicensesModalComponent', () => {
   let component: LicensesModalComponent;
   let fixture: ComponentFixture<LicensesModalComponent>;
 
-  beforeEach(() => {
-    TestBed.configureTestingModule({
+  beforeEach(async () => {
+    await TestBed.configureTestingModule({
       declarations: [LicensesModalComponent],
-    });
+      providers: [{ provide: MatDialogRef, useValue: {} }],
+      imports: [HttpClientTestingModule],
+    }).compileComponents();
     fixture = TestBed.createComponent(LicensesModalComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
