@@ -50,12 +50,12 @@
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    height: 600px; /* Adjust based on content */
+    height: 600px; 
     max-height: 80%; /* Ensure there's space around the area within the content box */
     width: 100%;
     border-radius: 0.5rem;
-    border: 2px dashed #d1d5db; /* border-gray-300 */
-    background-color: #f9fafb; /* bg-gray-50 */
+    border: 2px dashed #d1d5db;
+    background-color: #f9fafb; 
     gap: 0.2rem;
-    padding: 20px; /* Provide some padding around the content */
+    padding: 20px;
   }

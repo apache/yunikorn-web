@@ -36,8 +36,7 @@ export class QueueV2Component implements OnInit {
     const svg = select('.visualize-area').append('svg')
                .attr('width', '100%')
                .attr('height', '100%')
-              //  .style('background-color', '#f0f0f0'); 
-
+              
     const svgWidth = 1150;
     const svgHeight = 600;
 
@@ -47,7 +46,7 @@ export class QueueV2Component implements OnInit {
     interface TreeNode {
       name: string;
       children?: TreeNode[];
-      _children?: TreeNode[]; // To store collapsed children
+      _children?: TreeNode[];
     }
     
     const rawData: TreeNode = {
@@ -61,6 +60,14 @@ export class QueueV2Component implements OnInit {
                       children: []
                   },
                   {
+                    name: "left-middle-1",
+                    children: []
+                  }, 
+                  {
+                    name: "left-middle-2",
+                    children: []
+                  },
+                  {
                       name: "left-right",
                       children: []
                   }
@@ -69,6 +76,10 @@ export class QueueV2Component implements OnInit {
             {
                 name: "right",
                 children: [
+                  {
+                    name: "right-right",
+                    children: []
+                }
                 ]
             }
         ]
@@ -80,33 +91,32 @@ export class QueueV2Component implements OnInit {
           return [300, 300];
         }
       )
-      .spacing(() => 400);
+      .spacing(() => 300);
     
     const zoom = d3zoom
     .zoom<SVGSVGElement, unknown>()
     .scaleExtent([0.1, 5]) 
     .on("zoom", (event) => {
-    const initialTransform = d3zoom.zoomIdentity.translate(svgWidth / 3, svgHeight / 10);
-    svgGroup.attr("transform", event.transform.toString() + initialTransform.toString());
+      const initialTransform = d3zoom.zoomIdentity.translate(svgWidth / 3, svgHeight / 10);
+      svgGroup.attr("transform", event.transform.toString() + initialTransform.toString());
     });
     svg.call(zoom);
 
+    let numberOfNode = 0;
     const duration = 750;
-    let i = 0;
     const root = d3hierarchy.hierarchy(rawData);
 
-    function diagonal(s :any, d : any) {
+    function diagonal(s : any , d : any) {
       const sourceX = s.x + 150; // Middle of the rectangle's width
       const sourceY = s.y + 120; // Bottom of the rectangle
       const targetX = d.x + 150; // Middle of the rectangle's width
-      const targetY = d.y; // Top of the rectangle (assuming it starts from the top)
-  
-      return `M ${sourceX} ${sourceY}
-              C ${(sourceX + targetX) / 2} ${sourceY},
-                ${(sourceX + targetX) / 2} ${targetY},
-                ${targetX} ${targetY}`;
+      const targetY = d.y; // Top of the rectangle
+    
+      return `M ${sourceX} ${sourceY} 
+              V ${(sourceY + targetY) / 2} 
+              H ${targetX} 
+              V ${targetY}`;
     }
-
     update(root);
 
     function update(source: any){
@@ -114,7 +124,7 @@ export class QueueV2Component implements OnInit {
       var nodes = treeData.descendants()
       var node = svgGroup
               .selectAll<SVGGElement, d3hierarchy.HierarchyNode<TreeNode>>('g.card')
-              .data(nodes, (d : any) => d.id || (d.id = ++i));
+              .data(nodes, (d : any) => d.id || (d.id = ++numberOfNode));
       
       var nodeEnter = node
         .enter().append('g')
@@ -259,7 +269,6 @@ export class QueueV2Component implements OnInit {
         update(d);
       }
     }
-
 
   }
 }
