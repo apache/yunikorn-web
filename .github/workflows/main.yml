@@ -32,7 +32,7 @@ jobs:
           npm install -g @angular/cli > /dev/null
           npm install -g yarn > /dev/null
       - name: Install Dependencies
-        run: yarn install
+        run: PUPPETEER_SKIP_CHROMIUM_DOWNLOAD=1 yarn install
       - name: Build Prod
         run: yarn build:prod
       - name: Test Coverage
