@@ -40,15 +40,10 @@ export class QueueV2Component implements OnInit {
     const svgWidth = 1150;
     const svgHeight = 600;
 
+    // Center the group
     const svgGroup = svg.append("g")
-      .attr("transform", `translate(${svgWidth / 3}, ${svgHeight / 10})`); // Center the group
+      .attr("transform", `translate(${svgWidth / 3}, ${svgHeight / 10})`); 
 
-    interface TreeNode {
-      name: string;
-      children?: TreeNode[];
-      _children?: TreeNode[];
-    }
-    
     const rawData: TreeNode = {
         name: "root",
         children: [
@@ -106,17 +101,6 @@ export class QueueV2Component implements OnInit {
     const duration = 750;
     const root = d3hierarchy.hierarchy(rawData);
 
-    function diagonal(s : any , d : any) {
-      const sourceX = s.x + 150; // Middle of the rectangle's width
-      const sourceY = s.y + 120; // Bottom of the rectangle
-      const targetX = d.x + 150; // Middle of the rectangle's width
-      const targetY = d.y; // Top of the rectangle
-    
-      return `M ${sourceX} ${sourceY} 
-              V ${(sourceY + targetY) / 2} 
-              H ${targetX} 
-              V ${targetY}`;
-    }
     update(root);
 
     function update(source: any){
@@ -137,62 +121,56 @@ export class QueueV2Component implements OnInit {
       
       nodeEnter.each(function(d) {
         const group = select(this);
-  
-        // Adjusted outer frame size and position
+
         group.append("rect")
-          .attr("width", 300) // Significantly smaller width
-          .attr("height", 120) // Smaller height
+          .attr("width", 300) 
+          .attr("height", 120) 
           .attr("fill", "none")
           .attr("stroke", "white")
-          .attr("stroke-width", 2) // Thinner stroke
-          .attr("rx", 10) // Adjusted corner radius
+          .attr("stroke-width", 2) 
+          .attr("rx", 10)
           .attr("ry", 10);
   
-        // Adjusted background sections
         group.append("rect")
           .attr("width", 300)
-          .attr("height", 30) // Smaller height for the section
+          .attr("height", 30)
           .attr("fill", "#d4eaf7");
   
         group.append("rect")
           .attr("y", 30)
           .attr("width", 300)
-          .attr("height", 60) // Adjusted for proportional size
+          .attr("height", 60)
           .attr("fill", "white");
   
         group.append("rect")
           .attr("y", 90)
           .attr("width", 300)
-          .attr("height", 30) // Adjusted section size
+          .attr("height", 30)
           .attr("fill", "#e6f4ea")
-          .attr("class", "cardBottom"); // #8cc29b
+          .attr("class", "cardBottom");
   
         // group.append("image")
-        // .attr("href", "hierarchy.svg") // Ensure the path to your SVG is correct
-        // .attr("x", 5) // Positioning the icon beside the text, adjust as needed
-        // .attr("y", 5) // Adjust the vertical position as needed
+        // .attr("href", "hierarchy.svg") 
+        // .attr("x", 5) 
+        // .attr("y", 5)
         // .attr("width", 20)
         // .attr("height", 20);
         
-        // Example text, scaled down
         group.append("text")
-          .attr("x", 30) // Adjusted position
-          .attr("y", 20) // Adjusted position
-          .attr("font-size", "14px") // Smaller font size
+          .attr("x", 30) 
+          .attr("y", 20)
+          .attr("font-size", "14px")
           .attr("fill", "black")
           .text(d.data.name);
       });
   
-      
-      const nodeUpdate: any = nodeEnter.merge(node as any)
+      const nodeUpdate = nodeEnter.merge(node)
       .attr("fill", "#fff")
       .attr("stroke", "black")
       .attr("stroke-width", "1px;")
       .style('font', '12px sans-serif');
       
-  
-  
-      (nodeUpdate as any).transition()
+      nodeUpdate.transition()
         .duration(duration)
         .attr("transform", function(this: SVGGElement , event : any , i : any, arr : any) {
             const d : any = select(this).datum();
@@ -204,30 +182,20 @@ export class QueueV2Component implements OnInit {
           return d._children ? "#9fc6aa" : "#e6f4ea";
       })
   
-  
       // Remove any exiting nodes
-      var nodeExit : any = (node as any).exit().transition()
+      var nodeExit= node.exit().transition()
         .duration(duration)
         .attr("transform", function(this: SVGGElement , event : any , i : any, arr : any) {
             const d = select(this).datum();
             return "translate(" + source.x + "," + source.y + ")";
         })
         .remove();
-  
-      nodeExit.select('circle')
-            .attr('r', 1e-6);
-  
-      // On exit reduce the opacity of text labels
-      nodeExit.select('text')
-          .style('fill-opacity', 0)
-      
-  
-      // Now handle the links between nodes
-      const links = treeData.links(); // This creates the links based on the hierarchy
+    
+      // Link sections
+      const links = treeData.links();
       let link = svgGroup.selectAll('path.link')
           .data(links, function(d : any) { return d.target.id; });
   
-      // Enter any new links at the parent's previous position
       const linkEnter = link.enter().insert('path', "g")
           .attr("class", "link")
           .attr('d', d => {
@@ -238,16 +206,14 @@ export class QueueV2Component implements OnInit {
           .attr("stroke", "black")
           .attr("stroke-width", "2px");
   
-      // UPDATE existing links
-      const linkUpdate : any = linkEnter.merge(link as any);
+      const linkUpdate = linkEnter.merge(link as any);
       linkUpdate.transition()
           .duration(duration)
-          .attr('d', (d : any)=> diagonal(d.source, d.target));
+          .attr('d', d => diagonal(d.source, d.target));
   
-      // Remove any exiting links
-      const linkExit : any = link.exit().transition()
+      const linkExit = link.exit().transition()
           .duration(duration)
-          .attr('d', (d : any) => {
+          .attr('d', d => {
               const o = {x: source.x, y: source.y};
               return diagonal(o, o);
           })
@@ -266,9 +232,27 @@ export class QueueV2Component implements OnInit {
             d.children = d._children;
             d._children = null;
         }
+        
         update(d);
       }
     }
 
   }
+}
+export interface TreeNode {
+  name: string;
+  children?: TreeNode[];
+  _children?: TreeNode[];
+}
+
+function diagonal(s : any , d : any) {
+  const sourceX = s.x + 150;  // Middle of the rectangle's width
+  const sourceY = s.y + 120;  // Bottom of the rectangle
+  const targetX = d.x + 150;  // Middle of the rectangle's width
+  const targetY = d.y;        // Top of the rectangle
+
+  return `M ${sourceX} ${sourceY} 
+          V ${(sourceY + targetY) / 2} 
+          H ${targetX} 
+          V ${targetY}`;
 }
