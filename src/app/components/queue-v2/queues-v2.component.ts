@@ -158,8 +158,8 @@ export class QueueV2Component implements OnInit {
   
         group.append("text")
           .attr("x", 30) 
-          .attr("y", 20)
-          .attr("font-size", "14px")
+          .attr("y", 22.5)
+          .attr("font-size", "25px")
           .attr("fill", "black")
           .text(d.data.name);
         
