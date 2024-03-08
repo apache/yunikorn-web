@@ -27,7 +27,7 @@ import { select } from "d3-selection";
 import * as d3hierarchy from "d3-hierarchy";
 import * as d3flextree from "d3-flextree";
 import * as d3zoom from "d3-zoom";
-import { transition } from 'd3-transition';
+import { transition } from 'd3-transition'; // we need to import transition even if we don't use it explicitly
 
 export interface TreeNode {
   name: string;
@@ -52,11 +52,10 @@ export class QueueV2Component implements OnInit {
 
   ngOnInit() {
     this.fetchSchedulerQueuesForPartition()
-    queueVisualization()
   }
 
   fetchSchedulerQueuesForPartition() {
-    let partitionName = 'default';
+    let partitionName = 'defau';
     this.spinner.show();
   
     this.scheduler
@@ -69,13 +68,13 @@ export class QueueV2Component implements OnInit {
       .subscribe((data) => {
         if (data && data.rootQueue) {
           this.rootQueue = data.rootQueue;
-          console.log('v2 this rootQueue is', this.rootQueue);
+          queueVisualization(this.rootQueue as QueueInfo)
         }
       });
   }
 }
 
-function queueVisualization(){
+function queueVisualization(rawData : QueueInfo){
   const svg = select('.visualize-area').append('svg')
                .attr('width', '100%')
                .attr('height', '100%')
@@ -86,38 +85,9 @@ function queueVisualization(){
     // Center the group
     const svgGroup = svg.append("g")
       .attr("transform", `translate(${svgWidth / 3}, ${svgHeight / 10})`); 
-
-    const rawData: TreeNode = {
-        name: "root",
-        children: [
-            {
-                name: "left",
-                children: [
-                  {
-                      name: "left-left",
-                      children: []
-                  },
-
-                  {
-                      name: "left-right",
-                      children: []
-                  }
-                ]
-            },
-            {
-                name: "right",
-                children: [
-                  {
-                    name: "right-right",
-                    children: []
-                }
-                ]
-            }
-        ]
-    };
   
     const treelayout = d3flextree
-      .flextree<TreeNode>({})
+      .flextree<QueueInfo>({})
       .nodeSize((d) => {
           return [300, 300];
         }
@@ -143,7 +113,7 @@ function queueVisualization(){
       var treeData = treelayout(root)
       var nodes = treeData.descendants()
       var node = svgGroup
-          .selectAll<SVGGElement, d3hierarchy.HierarchyNode<TreeNode>>('g.card')
+          .selectAll<SVGGElement, d3hierarchy.HierarchyNode<QueueInfo>>('g.card')
           .data(nodes, function(d : any) { 
             return d.id || (d.id = ++numberOfNode); 
           });
@@ -195,7 +165,7 @@ function queueVisualization(){
           .attr("y", 22.5)
           .attr("font-size", "25px")
           .attr("fill", "black")
-          .text(d.data.name);
+          .text(d.data.queueName);
         
         const plusCircle = group.append("circle")
           .attr("cx", 150)
@@ -266,7 +236,7 @@ function queueVisualization(){
     
       // Link sections
       const links = treeData.links();
-      let link = svgGroup.selectAll<SVGPathElement, d3hierarchy.HierarchyPointLink<TreeNode>>('path.link')
+      let link = svgGroup.selectAll<SVGPathElement, d3hierarchy.HierarchyPointLink<QueueInfo>>('path.link')
           .data(links, function(d : any) { return d.target.id; });
   
       const linkEnter = link.enter().insert('path', "g")
