@@ -125,7 +125,6 @@ export class QueueV2Component implements OnInit {
                   return "translate(" + source.x + "," + source.y + ")";
               }
           })
-          .on('click', click);
 
       nodeEnter.each(function(d) {
         const group = select(this);
@@ -170,6 +169,48 @@ export class QueueV2Component implements OnInit {
           .attr("font-size", "14px")
           .attr("fill", "black")
           .text(d.data.name);
+        
+        const plusCircle = group.append("circle")
+          .attr("cx", 150)
+          .attr("cy", 120) 
+          .attr("r", 20)   
+          .attr("fill", "white") 
+          .attr("stroke", "black") 
+          .attr("stroke-width", 1)
+          .style("visibility", "hidden")
+          .on('click', click);
+        
+        const plusText = group.append("text")
+          .attr("x", 150) 
+          .attr("y", 127) 
+          .attr("text-anchor", "middle") 
+          .attr("font-size", "20px") 
+          .attr("fill", "black") 
+          .text("+")
+          .attr("pointer-events", "none") // Prevents the text from interfering with the click event
+          .style("visibility", "hidden");
+        
+        group.on("mouseover", function() {
+          plusCircle.style("visibility", "visible");
+          plusText.style("visibility", "visible");
+        });
+      
+        // Hide the circle and '+' text when the mouse leaves the node
+        group.on("mouseout", function() {
+          plusCircle.style("visibility", "hidden");
+          plusText.style("visibility", "hidden");
+        });
+
+        // Add hover effect to the circle to change its color to grey
+        plusCircle.on("mouseover", function() {
+          select(this).attr("fill", "grey");
+        });
+
+        // Reset circle color when mouse leaves
+        plusCircle.on("mouseout", function() {
+          select(this).attr("fill", "white");
+        });
+
       });
   
       const nodeUpdate = nodeEnter.merge(node)
