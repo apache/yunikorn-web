@@ -17,13 +17,23 @@
  */
 
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
+import { NgxSpinnerService } from 'ngx-spinner';
+import { QueueInfo } from '@app/models/queue-info.model';
+import { finalize } from 'rxjs/operators';
+import { SchedulerService } from '@app/services/scheduler/scheduler.service';
+
 import { select } from "d3-selection";
 import * as d3hierarchy from "d3-hierarchy";
 import * as d3flextree from "d3-flextree";
 import * as d3zoom from "d3-zoom";
 import { transition } from 'd3-transition';
-import { link } from 'd3-shape';
 
+export interface TreeNode {
+  name: string;
+  children?: TreeNode[];
+  _children?: TreeNode[];
+}
 
 @Component({
   selector: 'queues-v2-view',
@@ -32,10 +42,41 @@ import { link } from 'd3-shape';
 })
 
 export class QueueV2Component implements OnInit {
-  constructor() {}
+  rootQueue: QueueInfo | null = null;
+
+  constructor(
+    private scheduler: SchedulerService,
+    private spinner: NgxSpinnerService,
+    private router: Router
+  ) {}
 
   ngOnInit() {
-    const svg = select('.visualize-area').append('svg')
+    this.fetchSchedulerQueuesForPartition()
+    queueVisualization()
+  }
+
+  fetchSchedulerQueuesForPartition() {
+    let partitionName = 'default';
+    this.spinner.show();
+  
+    this.scheduler
+      .fetchSchedulerQueues(partitionName)
+      .pipe(
+        finalize(() => {
+          this.spinner.hide();
+        })
+      )
+      .subscribe((data) => {
+        if (data && data.rootQueue) {
+          this.rootQueue = data.rootQueue;
+          console.log('v2 this rootQueue is', this.rootQueue);
+        }
+      });
+  }
+}
+
+function queueVisualization(){
+  const svg = select('.visualize-area').append('svg')
                .attr('width', '100%')
                .attr('height', '100%')
               
@@ -56,14 +97,7 @@ export class QueueV2Component implements OnInit {
                       name: "left-left",
                       children: []
                   },
-                  {
-                    name: "left-middle-1",
-                    children: []
-                  }, 
-                  {
-                    name: "left-middle-2",
-                    children: []
-                  },
+
                   {
                       name: "left-right",
                       children: []
@@ -281,13 +315,6 @@ export class QueueV2Component implements OnInit {
         update(d);
       }
     }
-
-  }
-}
-export interface TreeNode {
-  name: string;
-  children?: TreeNode[];
-  _children?: TreeNode[];
 }
 
 function diagonal(s : any , d : any) {
