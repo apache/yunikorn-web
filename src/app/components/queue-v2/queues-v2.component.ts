@@ -22,6 +22,8 @@ import * as d3hierarchy from "d3-hierarchy";
 import * as d3flextree from "d3-flextree";
 import * as d3zoom from "d3-zoom";
 import { transition } from 'd3-transition';
+import { link } from 'd3-shape';
+
 
 @Component({
   selector: 'queues-v2-view',
@@ -107,18 +109,24 @@ export class QueueV2Component implements OnInit {
       var treeData = treelayout(root)
       var nodes = treeData.descendants()
       var node = svgGroup
-              .selectAll<SVGGElement, d3hierarchy.HierarchyNode<TreeNode>>('g.card')
-              .data(nodes, (d : any) => d.id || (d.id = ++numberOfNode));
-      
+          .selectAll<SVGGElement, d3hierarchy.HierarchyNode<TreeNode>>('g.card')
+          .data(nodes, function(d : any) { 
+            return d.id || (d.id = ++numberOfNode); 
+          });
+
       var nodeEnter = node
-        .enter().append('g')
-        .attr('class', 'card')
-        .attr("transform", function(d) {
-            return "translate(" + source.x0 + "," + source.y0 + ")";
-        })
-        .on('click', click);
-  
-      
+          .enter().append('g')
+          .attr('class', 'card')
+          .attr("transform", function() {
+              if (source.x0 && source.y0) {
+                  return "translate(" + source.x0 + "," + source.y0 + ")";
+              }
+              else {
+                  return "translate(" + source.x + "," + source.y + ")";
+              }
+          })
+          .on('click', click);
+
       nodeEnter.each(function(d) {
         const group = select(this);
 
@@ -165,10 +173,7 @@ export class QueueV2Component implements OnInit {
       });
   
       const nodeUpdate = nodeEnter.merge(node)
-      .attr("fill", "#fff")
       .attr("stroke", "black")
-      .attr("stroke-width", "1px;")
-      .style('font', '12px sans-serif');
       
       nodeUpdate.transition()
         .duration(duration)
@@ -193,20 +198,26 @@ export class QueueV2Component implements OnInit {
     
       // Link sections
       const links = treeData.links();
-      let link = svgGroup.selectAll('path.link')
+      let link = svgGroup.selectAll<SVGPathElement, d3hierarchy.HierarchyPointLink<TreeNode>>('path.link')
           .data(links, function(d : any) { return d.target.id; });
   
       const linkEnter = link.enter().insert('path', "g")
           .attr("class", "link")
           .attr('d', d => {
-              const o = {x: source.x0, y: source.y0};
-              return diagonal(o, o);
+              if (source.x0 && source.y0) {
+                  const o = {x: source.x0, y: source.y0};
+                  return diagonal(o, o);
+              }
+              else {
+                  const o = {x: source.x, y: source.y};
+                  return diagonal(o, o);
+              }
           })
           .attr("fill", "none")
           .attr("stroke", "black")
           .attr("stroke-width", "2px");
   
-      const linkUpdate = linkEnter.merge(link as any);
+      const linkUpdate = linkEnter.merge(link);
       linkUpdate.transition()
           .duration(duration)
           .attr('d', d => diagonal(d.source, d.target));
