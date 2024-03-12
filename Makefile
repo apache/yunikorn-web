@@ -128,6 +128,11 @@ endif
 all:
 	$(MAKE) -C $(dir $(BASE_DIR)) build
 
+# Install pnpm
+.PHONY: install-pnpm
+install-pnpm:
+	@pnpm version >/dev/null 2>/dev/null || npm install -g pnpm
+
 # Install tools
 .PHONY: tools
 tools: $(GOLANGCI_LINT_BIN)
@@ -158,9 +163,9 @@ OS := $(shell uname -s | tr '[:upper:]' '[:lower:]')
 license-check:
 	@echo "checking license headers:"
 ifeq (darwin,$(OS))
-	$(shell mkdir -p "$(OUTPUT)" && find -E . -not \( -path './.git*' -prune \) -not \( -path ./coverage -prune \) -not \( -path ./node_modules -prune \) -not \( -path ./build -prune \) -not \( -path ./tools -prune \) -regex ".*\.(go|sh|md|conf|yaml|yml|html|mod)" -exec grep -L "Licensed to the Apache Software Foundation" {} \; > "$(OUTPUT)/license-check.txt")
+	$(shell mkdir -p "$(OUTPUT)" && find -E . -not \( -path './.git*' -prune \) -not \( -path ./coverage -prune \) -not \( -path ./node_modules -prune \) -not \( -path ./build -prune \) -not \( -path ./tools -prune \) -not -path ./pnpm-lock.yaml -regex ".*\.(go|sh|md|conf|yaml|yml|html|mod)" -exec grep -L "Licensed to the Apache Software Foundation" {} \; > "$(OUTPUT)/license-check.txt")
 else
-	$(shell mkdir -p "$(OUTPUT)" && find . -not \( -path './.git*' -prune \) -not \( -path ./coverage -prune \) -not \( -path ./node_modules -prune \) -not \( -path ./build -prune \) -not \( -path ./tools -prune \) -regex ".*\.\(go\|sh\|md\|conf\|yaml\|yml\|html\|mod\)" -exec grep -L "Licensed to the Apache Software Foundation" {} \; > "$(OUTPUT)/license-check.txt")
+	$(shell mkdir -p "$(OUTPUT)" && find . -not \( -path './.git*' -prune \) -not \( -path ./coverage -prune \) -not \( -path ./node_modules -prune \) -not \( -path ./build -prune \) -not \( -path ./tools -prune \) -not -path ./pnpm-lock.yaml -regex ".*\.\(go\|sh\|md\|conf\|yaml\|yml\|html\|mod\)" -exec grep -L "Licensed to the Apache Software Foundation" {} \; > "$(OUTPUT)/license-check.txt")
 endif
 	@if [ -s "$(OUTPUT)/license-check.txt" ]; then \
 		echo "following files are missing license header:" ; \
@@ -171,18 +176,18 @@ endif
 
 # Start web interface in a local dev setup
 .PHONY: start-dev
-start-dev:
-	yarn start:srv & yarn start
+start-dev: install-pnpm
+	pnpm start:srv & pnpm start
 
 # Build the web interface for dev and test
 .PHONY: build
-build:
-	PUPPETEER_SKIP_CHROMIUM_DOWNLOAD=1 && yarn install && ng build
+build: install-pnpm
+	PUPPETEER_SKIP_CHROMIUM_DOWNLOAD=1 && pnpm i && ng build
 
 # Run JS unit tests
 .PHONY: test_js
-test_js: build
-	PUPPETEER_SKIP_CHROMIUM_DOWNLOAD=1 && yarn test:singleRun
+test_js: build install-pnpm
+	PUPPETEER_SKIP_CHROMIUM_DOWNLOAD=1 && pnpm test:singleRun
 
 # Run Go unit tests
 .PHONY: test_go
@@ -198,8 +203,8 @@ test: test_js test_go
 
 # Build the web interface in a production ready version
 .PHONY: build-prod
-build-prod:
-	PUPPETEER_SKIP_CHROMIUM_DOWNLOAD=1 && yarn install && yarn build:prod
+build-prod: install-pnpm
+	PUPPETEER_SKIP_CHROMIUM_DOWNLOAD=1 && pnpm i && pnpm build:prod
 
 # Simple clean of generated files only (no local cleanup).
 .PHONY: clean
