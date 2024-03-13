@@ -72,6 +72,16 @@ ifeq ($(REGISTRY),)
 REGISTRY := apache
 endif
 
+# Reproducible builds mode
+GO_REPRO_VERSION := $(shell cat .go_repro_version)
+GO_REPRO_MAJOR := $(word 1,$(subst ., ,$(GO_REPRO_VERSION)))
+GO_REPRO_MINOR := $(word 2,$(subst ., ,$(GO_REPRO_VERSION)))
+ifeq ($(REPRODUCIBLE_BUILDS),1)
+  REPRO := 1
+else
+  REPRO :=
+endif
+
 # Set the default web port
 PORT=9889
 
@@ -233,11 +243,20 @@ build_server_prod: $(RELEASE_BIN_DIR)/$(SERVER_BINARY)
 $(RELEASE_BIN_DIR)/$(SERVER_BINARY): go.mod go.sum $(shell find pkg)
 	@echo "building web server binary"
 	@mkdir -p ${RELEASE_BIN_DIR}
+ifeq ($(REPRO),1)
+	docker run -t --rm=true --volume "$(BASE_DIR):/buildroot" "golang:$(GO_REPRO_VERSION)" sh -c "cd /buildroot && \
+	CGO_ENABLED=0 GOOS=linux GOARCH=\"${EXEC_ARCH}\" \
+	go build -a -o=${RELEASE_BIN_DIR}/${SERVER_BINARY} -trimpath -ldflags \
+	'-buildid= -extldflags \"-static\" -X main.version=${VERSION} -X main.date=${DATE}' \
+	-tags netgo -installsuffix netgo \
+	./pkg/cmd/web/"
+else
 	CGO_ENABLED=0 GOOS=linux GOARCH="${EXEC_ARCH}" \
 	"$(GO)" build -a -o=${RELEASE_BIN_DIR}/${SERVER_BINARY} -trimpath -ldflags \
 	'-buildid= -extldflags "-static" -X main.version=${VERSION} -X main.date=${DATE}' \
 	-tags netgo -installsuffix netgo \
 	./pkg/cmd/web/
+endif
 
 # Run the web interface from the production image
 .PHONY: run
