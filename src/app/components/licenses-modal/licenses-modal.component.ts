@@ -35,7 +35,7 @@ export class LicensesModalComponent {
   ) {
     // Licenses file is generated during build time and is available at /3rdpartylicenses.txt
     // Dev mode uses the file from assets folder assets/example-licenses.txt
-    const licensePath = isDevMode() ? 'assets/example-licenses.txt' : '3rdpartylicenses.txt';
+    const licensePath = isDevMode() ? 'LICENSE' : '3rdpartylicenses.txt';
 
     this.httpClient.get(licensePath, { responseType: 'text' }).subscribe((data) => {
       if (data) this.licenses = data.replace(/\n/g, '<br/>');
