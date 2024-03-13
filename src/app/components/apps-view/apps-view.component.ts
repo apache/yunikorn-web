@@ -62,7 +62,7 @@ export class AppsViewComponent implements OnInit {
   partitionSelected = '';
   leafQueueList: DropdownItem[] = [];
   leafQueueSelected = '';
-  
+
   detailToggle: boolean = false;
 
   constructor(
@@ -161,12 +161,25 @@ export class AppsViewComponent implements OnInit {
         if (data && data.rootQueue) {
           const leafQueueList = this.generateLeafQueueList(data.rootQueue);
           this.leafQueueList = [new DropdownItem('-- Select --', ''), ...leafQueueList];
-          this.leafQueueSelected = '';
+          this.setDefaultQueue(leafQueueList);
           this.fetchApplicationsUsingQueryParams();
         } else {
           this.leafQueueList = [new DropdownItem('-- Select --', '')];
         }
       });
+  }
+
+  setDefaultQueue(queueList: DropdownItem[]): string {
+    const defaultQueue = queueList.find((queue) => queue.value.endsWith('.default'));
+    if (defaultQueue) {
+      this.leafQueueSelected = defaultQueue.value;
+      this.fetchAppListForPartitionAndQueue(this.partitionSelected, this.leafQueueSelected);
+      return defaultQueue.value;
+    } else {
+      this.leafQueueSelected = '';
+      this.appDataSource.data = [];
+      return '';
+    }
   }
 
   generateLeafQueueList(rootQueue: QueueInfo, list: DropdownItem[] = []): DropdownItem[] {
@@ -309,27 +322,31 @@ export class AppsViewComponent implements OnInit {
     }
   }
 
-  formatResources(colValue:string):string[]{
-    const arr:string[]=colValue.split("<br/>")
+  formatResources(colValue: string): string[] {
+    const arr: string[] = colValue.split('<br/>');
     // Check if there are "cpu" or "Memory" elements in the array
-    const hasCpu = arr.some((item) => item.toLowerCase().includes("cpu"));
-    const hasMemory = arr.some((item) => item.toLowerCase().includes("memory"));
+    const hasCpu = arr.some((item) => item.toLowerCase().includes('cpu'));
+    const hasMemory = arr.some((item) => item.toLowerCase().includes('memory'));
     if (!hasCpu) {
-      arr.unshift("CPU: n/a");
+      arr.unshift('CPU: n/a');
     }
     if (!hasMemory) {
-      arr.unshift("Memory: n/a");
+      arr.unshift('Memory: n/a');
     }
 
     // Concatenate the two arrays, with "cpu" and "Memory" elements first
-    const cpuAndMemoryElements = arr.filter((item) => item.toLowerCase().includes("CPU") || item.toLowerCase().includes("Memory"));
-    const otherElements = arr.filter((item) => !item.toLowerCase().includes("CPU") && !item.toLowerCase().includes("Memory"));
+    const cpuAndMemoryElements = arr.filter(
+      (item) => item.toLowerCase().includes('CPU') || item.toLowerCase().includes('Memory')
+    );
+    const otherElements = arr.filter(
+      (item) => !item.toLowerCase().includes('CPU') && !item.toLowerCase().includes('Memory')
+    );
     const result = cpuAndMemoryElements.concat(otherElements);
 
     return result;
   }
 
-  toggle(){
+  toggle() {
     this.detailToggle = !this.detailToggle;
   }
 }
