@@ -2,6 +2,7 @@
   "name": "yunikorn-web",
   "version": "0.0.0",
   "scripts": {
+    "preinstall": "npx only-allow pnpm",
     "ng": "ng",
     "start": "ng serve",
     "build": "ng build",

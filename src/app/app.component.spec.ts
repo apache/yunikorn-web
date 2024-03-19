@@ -26,6 +26,7 @@ import { HAMMER_LOADER } from '@angular/platform-browser';
 import { AppComponent } from './app.component';
 import { EventBusService } from './services/event-bus/event-bus.service';
 import { MockEventBusService } from './testing/mocks';
+import { MatDialog } from '@angular/material/dialog';
 
 describe('AppComponent', () => {
   let component: AppComponent;
@@ -38,6 +39,7 @@ describe('AppComponent', () => {
       providers: [
         { provide: EventBusService, useValue: MockEventBusService },
         { provide: HAMMER_LOADER, useValue: () => new Promise(() => {}) },
+        { provide: MatDialog, useValue: {} },
       ],
     }).compileComponents();
   });

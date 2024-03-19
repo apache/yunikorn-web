@@ -14,6 +14,7 @@
 /node_modules
 npm-debug.log
 yarn-error.log
+yarn.lock
 
 # IDEs and editors
 .idea/
@@ -21,6 +22,7 @@ yarn-error.log
 .classpath
 .c9/
 *.launch
+*.swp
 .settings/
 *.sublime-workspace
 

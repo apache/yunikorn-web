@@ -38,7 +38,8 @@ import { MatTooltipModule } from '@angular/material/tooltip';
 import { MatMenuModule } from '@angular/material/menu';
 import { MatButtonModule } from '@angular/material/button';
 import { MatExpansionModule } from '@angular/material/expansion';
-import {MatIconModule} from '@angular/material/icon';
+import { MatIconModule } from '@angular/material/icon';
+import { MatDialogModule } from '@angular/material/dialog';
 
 import { AppRoutingModule } from '@app/app-routing.module';
 import { envConfigFactory, EnvconfigService } from '@app/services/envconfig/envconfig.service';
@@ -61,6 +62,7 @@ import { StatusViewComponent } from '@app/components/status-view/status-view.com
 import { HealthchecksComponent } from '@app/components/healthchecks/healthchecks.component';
 import { AppNodeUtilizationsComponent } from '@app/components/app-node-utilizations/app-node-utilizations.component';
 import { VerticalBarChartComponent } from '@app/components/vertical-bar-chart/vertical-bar-chart.component';
+import { LicensesModalComponent } from '@app/components/licenses-modal/licenses-modal.component';
 
 @NgModule({
   declarations: [
@@ -82,6 +84,7 @@ import { VerticalBarChartComponent } from '@app/components/vertical-bar-chart/ve
     HealthchecksComponent,
     AppNodeUtilizationsComponent,
     VerticalBarChartComponent,
+    LicensesModalComponent,
   ],
   imports: [
     BrowserModule,
@@ -107,6 +110,7 @@ import { VerticalBarChartComponent } from '@app/components/vertical-bar-chart/ve
     AppRoutingModule,
     MatExpansionModule,
     MatIconModule,
+    MatDialogModule,
   ],
   providers: [
     {
