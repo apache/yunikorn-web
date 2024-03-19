@@ -4,140 +4,138 @@ settings:
   autoInstallPeers: true
   excludeLinksFromLockfile: false
 
-importers:
+dependencies:
+  '@angular/animations':
+    specifier: ^16.2.10
+    version: 16.2.10(@angular/core@16.2.10)
+  '@angular/cdk':
+    specifier: ^16.2.9
+    version: 16.2.9(@angular/common@16.2.10)(@angular/core@16.2.10)(rxjs@7.8.1)
+  '@angular/common':
+    specifier: ^16.2.10
+    version: 16.2.10(@angular/core@16.2.10)(rxjs@7.8.1)
+  '@angular/compiler':
+    specifier: ^16.2.10
+    version: 16.2.10(@angular/core@16.2.10)
+  '@angular/core':
+    specifier: ^16.2.10
+    version: 16.2.10(rxjs@7.8.1)(zone.js@0.13.0)
+  '@angular/forms':
+    specifier: ^16.2.10
+    version: 16.2.10(@angular/common@16.2.10)(@angular/core@16.2.10)(@angular/platform-browser@16.2.10)(rxjs@7.8.1)
+  '@angular/material':
+    specifier: ^16.2.9
+    version: 16.2.9(@angular/animations@16.2.10)(@angular/cdk@16.2.9)(@angular/common@16.2.10)(@angular/core@16.2.10)(@angular/forms@16.2.10)(@angular/platform-browser@16.2.10)(rxjs@7.8.1)
+  '@angular/platform-browser':
+    specifier: ^16.2.10
+    version: 16.2.10(@angular/animations@16.2.10)(@angular/common@16.2.10)(@angular/core@16.2.10)
+  '@angular/platform-browser-dynamic':
+    specifier: ^16.2.10
+    version: 16.2.10(@angular/common@16.2.10)(@angular/compiler@16.2.10)(@angular/core@16.2.10)(@angular/platform-browser@16.2.10)
+  '@angular/router':
+    specifier: ^16.2.10
+    version: 16.2.10(@angular/common@16.2.10)(@angular/core@16.2.10)(@angular/platform-browser@16.2.10)(rxjs@7.8.1)
+  '@fortawesome/fontawesome-free':
+    specifier: ^6.5.1
+    version: 6.5.1
+  angular-material-expansion-panel:
+    specifier: ^0.7.2
+    version: 0.7.2
+  chart.js:
+    specifier: ^4.4.0
+    version: 4.4.0
+  chartjs-adapter-date-fns:
+    specifier: ^3.0.0
+    version: 3.0.0(chart.js@4.4.0)(date-fns@2.30.0)
+  date-fns:
+    specifier: ^2.30.0
+    version: 2.30.0
+  fontsource-roboto:
+    specifier: ^4.0.0
+    version: 4.0.0
+  material-design-icons:
+    specifier: ^3.0.1
+    version: 3.0.1
+  moment:
+    specifier: ^2.29.4
+    version: 2.29.4
+  ngx-spinner:
+    specifier: ^16.0.2
+    version: 16.0.2(@angular/animations@16.2.10)(@angular/common@16.2.10)(@angular/core@16.2.10)
+  rxjs:
+    specifier: ~7.8.1
+    version: 7.8.1
+  tslib:
+    specifier: ^2.6.2
+    version: 2.6.2
+  zone.js:
+    specifier: ~0.13.0
+    version: 0.13.0
 
-  .:
-    dependencies:
-      '@angular/animations':
-        specifier: ^16.2.10
-        version: 16.2.10(@angular/core@16.2.10)
-      '@angular/cdk':
-        specifier: ^16.2.9
-        version: 16.2.9(@angular/common@16.2.10)(@angular/core@16.2.10)(rxjs@7.8.1)
-      '@angular/common':
-        specifier: ^16.2.10
-        version: 16.2.10(@angular/core@16.2.10)(rxjs@7.8.1)
-      '@angular/compiler':
-        specifier: ^16.2.10
-        version: 16.2.10(@angular/core@16.2.10)
-      '@angular/core':
-        specifier: ^16.2.10
-        version: 16.2.10(rxjs@7.8.1)(zone.js@0.13.0)
-      '@angular/forms':
-        specifier: ^16.2.10
-        version: 16.2.10(@angular/common@16.2.10)(@angular/core@16.2.10)(@angular/platform-browser@16.2.10)(rxjs@7.8.1)
-      '@angular/material':
-        specifier: ^16.2.9
-        version: 16.2.9(@angular/animations@16.2.10)(@angular/cdk@16.2.9)(@angular/common@16.2.10)(@angular/core@16.2.10)(@angular/forms@16.2.10)(@angular/platform-browser@16.2.10)(rxjs@7.8.1)
-      '@angular/platform-browser':
-        specifier: ^16.2.10
-        version: 16.2.10(@angular/animations@16.2.10)(@angular/common@16.2.10)(@angular/core@16.2.10)
-      '@angular/platform-browser-dynamic':
-        specifier: ^16.2.10
-        version: 16.2.10(@angular/common@16.2.10)(@angular/compiler@16.2.10)(@angular/core@16.2.10)(@angular/platform-browser@16.2.10)
-      '@angular/router':
-        specifier: ^16.2.10
-        version: 16.2.10(@angular/common@16.2.10)(@angular/core@16.2.10)(@angular/platform-browser@16.2.10)(rxjs@7.8.1)
-      '@fortawesome/fontawesome-free':
-        specifier: ^6.5.1
-        version: 6.5.1
-      angular-material-expansion-panel:
-        specifier: ^0.7.2
-        version: 0.7.2
-      chart.js:
-        specifier: ^4.4.0
-        version: 4.4.0
-      chartjs-adapter-date-fns:
-        specifier: ^3.0.0
-        version: 3.0.0(chart.js@4.4.0)(date-fns@2.30.0)
-      date-fns:
-        specifier: ^2.30.0
-        version: 2.30.0
-      fontsource-roboto:
-        specifier: ^4.0.0
-        version: 4.0.0
-      material-design-icons:
-        specifier: ^3.0.1
-        version: 3.0.1
-      moment:
-        specifier: ^2.29.4
-        version: 2.29.4
-      ngx-spinner:
-        specifier: ^16.0.2
-        version: 16.0.2(@angular/animations@16.2.10)(@angular/common@16.2.10)(@angular/core@16.2.10)
-      rxjs:
-        specifier: ~7.8.1
-        version: 7.8.1
-      tslib:
-        specifier: ^2.6.2
-        version: 2.6.2
-      zone.js:
-        specifier: ~0.13.0
-        version: 0.13.0
-    devDependencies:
-      '@angular-devkit/build-angular':
-        specifier: ^16.2.7
-        version: 16.2.7(@angular/compiler-cli@16.2.10)(@types/node@20.8.7)(karma@6.4.2)(typescript@5.1.6)
-      '@angular/cli':
-        specifier: ^16.2.7
-        version: 16.2.7
-      '@angular/compiler-cli':
-        specifier: ^16.2.10
-        version: 16.2.10(@angular/compiler@16.2.10)(typescript@5.1.6)
-      '@types/jasmine':
-        specifier: ~5.1.1
-        version: 5.1.1
-      '@types/node':
-        specifier: ^20.8.7
-        version: 20.8.7
-      husky:
-        specifier: ^8.0.3
-        version: 8.0.3
-      jasmine-core:
-        specifier: ~5.1.1
-        version: 5.1.1
-      json-server:
-        specifier: ^0.17.4
-        version: 0.17.4
-      karma:
-        specifier: ~6.4.2
-        version: 6.4.2
-      karma-chrome-launcher:
-        specifier: ~3.2.0
-        version: 3.2.0
-      karma-coverage:
-        specifier: ~2.2.1
-        version: 2.2.1
-      karma-coverage-istanbul-reporter:
-        specifier: ^3.0.3
-        version: 3.0.3
-      karma-jasmine:
-        specifier: ~5.1.0
-        version: 5.1.0(karma@6.4.2)
-      karma-jasmine-html-reporter:
-        specifier: ~2.1.0
-        version: 2.1.0(jasmine-core@5.1.1)(karma-jasmine@5.1.0)(karma@6.4.2)
-      karma-spec-reporter:
-        specifier: ^0.0.36
-        version: 0.0.36(karma@6.4.2)
-      karma-super-dots-reporter:
-        specifier: ^0.2.0
-        version: 0.2.0(karma@6.4.2)
-      lint-staged:
-        specifier: ^15.0.2
-        version: 15.0.2
-      ng-mocks:
-        specifier: ^14.11.0
-        version: 14.11.0(@angular/common@16.2.10)(@angular/core@16.2.10)(@angular/forms@16.2.10)(@angular/platform-browser@16.2.10)
-      prettier:
-        specifier: ^3.0.3
-        version: 3.0.3
-      puppeteer:
-        specifier: ^22.2.0
-        version: 22.2.0(typescript@5.1.6)
-      typescript:
-        specifier: 5.1.6
-        version: 5.1.6
+devDependencies:
+  '@angular-devkit/build-angular':
+    specifier: ^16.2.7
+    version: 16.2.7(@angular/compiler-cli@16.2.10)(@types/node@20.8.7)(karma@6.4.2)(typescript@5.1.6)
+  '@angular/cli':
+    specifier: ^16.2.7
+    version: 16.2.7
+  '@angular/compiler-cli':
+    specifier: ^16.2.10
+    version: 16.2.10(@angular/compiler@16.2.10)(typescript@5.1.6)
+  '@types/jasmine':
+    specifier: ~5.1.1
+    version: 5.1.1
+  '@types/node':
+    specifier: ^20.8.7
+    version: 20.8.7
+  husky:
+    specifier: ^8.0.3
+    version: 8.0.3
+  jasmine-core:
+    specifier: ~5.1.1
+    version: 5.1.1
+  json-server:
+    specifier: ^0.17.4
+    version: 0.17.4
+  karma:
+    specifier: ~6.4.2
+    version: 6.4.2
+  karma-chrome-launcher:
+    specifier: ~3.2.0
+    version: 3.2.0
+  karma-coverage:
+    specifier: ~2.2.1
+    version: 2.2.1
+  karma-coverage-istanbul-reporter:
+    specifier: ^3.0.3
+    version: 3.0.3
+  karma-jasmine:
+    specifier: ~5.1.0
+    version: 5.1.0(karma@6.4.2)
+  karma-jasmine-html-reporter:
+    specifier: ~2.1.0
+    version: 2.1.0(jasmine-core@5.1.1)(karma-jasmine@5.1.0)(karma@6.4.2)
+  karma-spec-reporter:
+    specifier: ^0.0.36
+    version: 0.0.36(karma@6.4.2)
+  karma-super-dots-reporter:
+    specifier: ^0.2.0
+    version: 0.2.0(karma@6.4.2)
+  lint-staged:
+    specifier: ^15.0.2
+    version: 15.0.2
+  ng-mocks:
+    specifier: ^14.11.0
+    version: 14.11.0(@angular/common@16.2.10)(@angular/core@16.2.10)(@angular/forms@16.2.10)(@angular/platform-browser@16.2.10)
+  prettier:
+    specifier: ^3.0.3
+    version: 3.0.3
+  puppeteer:
+    specifier: ^22.2.0
+    version: 22.2.0(typescript@5.1.6)
+  typescript:
+    specifier: 5.1.6
+    version: 5.1.6
 
 packages:
 
@@ -5214,8 +5212,8 @@ packages:
     resolution: {integrity: sha512-WIWGi2L3DyTUvUrwRKgGi9TwxQMUEqPOPQBVi71R96jZXJdFskXEmf54BoZaS1kknGODoIGASGEzBUYdyMCBJg==}
     dev: true
 
-  /follow-redirects@1.15.4:
-    resolution: {integrity: sha512-Cr4D/5wlrb0z9dgERpUL3LrmPKVDsETIJhaCMeDfuFYcqa5bldGV6wBsAN6X/vxlXQtFBMrXdXxdL8CbDTGniw==}
+  /follow-redirects@1.15.6:
+    resolution: {integrity: sha512-wWN62YITEaOpSK584EZXJafH1AGpO8RVgElfkuXbTOrPX4fIfOyEpW/CsiNd8JdYrAoOvafRTOEnvsO++qCqFA==}
     engines: {node: '>=4.0'}
     peerDependencies:
       debug: '*'
@@ -5656,7 +5654,7 @@ packages:
     engines: {node: '>=8.0.0'}
     dependencies:
       eventemitter3: 4.0.7
-      follow-redirects: 1.15.4
+      follow-redirects: 1.15.6
       requires-port: 1.0.0
     transitivePeerDependencies:
       - debug
