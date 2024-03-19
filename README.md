@@ -30,10 +30,10 @@ The project requires a number of external tools to be installed before the build
 - [Node.js](https://nodejs.org/en/)
 - [Angular CLI](https://github.com/angular/angular-cli)
 - [Karma](https://karma-runner.github.io)
-- [yarn](https://www.npmjs.com/package/yarn)
+- [pnpm](https://www.npmjs.com/package/pnpm)
 - [json-server](https://www.npmjs.com/package/json-server)
 
-To manage our node packages, we've chosen Yarn. Simply execute the command `yarn install` to set up all necessary dependencies. This single step ensures that your environment is fully prepared with all the required packages.
+To manage our node packages, we've chosen pnpm. Simply execute the command `pnpm install` to set up all necessary dependencies. This single step ensures that your environment is fully prepared with all the required packages.
 
 ### Development server
 
@@ -61,13 +61,13 @@ The Makefile is smart enough to detect your host architecture but it will tag th
 ### Running tests
 
 All tests can be executed via `make test`. It will first build the project and then execute the unit tests followed by the end to end tests.  
-If you want to run the unit tests separately, run `yarn test` to execute them via [Karma](https://karma-runner.github.io). If you want to run the unit tests with code coverage, run `yarn test:coverage`.
+If you want to run the unit tests separately, run `pnpm test` to execute them via [Karma](https://karma-runner.github.io). If you want to run the unit tests with code coverage, run `pnpm test:coverage`.
 
 ## Local development
 Beside the simple all in way to start the development server via make you can also start a development environment manually. 
 
-The application depends on [json-server](https://www.npmjs.com/package/json-server) for data. Install json-server locally. Run `yarn start:srv` to start json-server for local development.
-Run `yarn start` to start the angular development server and navigate to `http://localhost:4200/`.
+The application depends on [json-server](https://www.npmjs.com/package/json-server) for data. Install json-server locally. Run `pnpm start:srv` to start json-server for local development.
+Run `pnpm start` to start the angular development server and navigate to `http://localhost:4200/`.
 
 After updating the context in the `json-db.json` or `json-route.json`, checking the json server is available  by running `make json-server`.
 
