@@ -2,7 +2,7 @@
   "$schema": "./node_modules/@angular/cli/lib/config/schema.json",
   "version": 1,
   "cli": {
-    "packageManager": "yarn",
+    "packageManager": "pnpm",
     "analytics": false
   },
   "newProjectRoot": "projects",
@@ -30,7 +30,7 @@
             "polyfills": "src/polyfills.ts",
             "tsConfig": "tsconfig.app.json",
             "inlineStyleLanguage": "scss",
-            "assets": ["src/favicon.ico", "src/assets"],
+            "assets": ["src/favicon.ico", "src/assets", {"glob": "LICENSE", "input": "./", "output": "./"}],
             "styles": [
               "src/styles.scss",
               "node_modules/fontsource-roboto/index.css",
@@ -64,7 +64,7 @@
               "buildOptimizer": false,
               "optimization": false,
               "vendorChunk": true,
-              "extractLicenses": false,
+              "extractLicenses": true,
               "sourceMap": true,
               "namedChunks": true
             }

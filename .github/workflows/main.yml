@@ -30,13 +30,13 @@ jobs:
           node-version-file: '.nvmrc'
       - run: |
           npm install -g @angular/cli > /dev/null
-          npm install -g yarn > /dev/null
+          npm install -g pnpm > /dev/null
       - name: Install Dependencies
-        run: yarn install
+        run: PUPPETEER_SKIP_CHROMIUM_DOWNLOAD=1 pnpm install
       - name: Build Prod
-        run: yarn build:prod
+        run: pnpm build:prod
       - name: Test Coverage
-        run: yarn test:coverage
+        run: pnpm test:coverage
       - name: Go lint
         run: make lint
       - name: Go unit tests

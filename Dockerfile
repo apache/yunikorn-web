@@ -21,11 +21,12 @@ FROM --platform=$BUILDPLATFORM node:${NODE_VERSION}-alpine as buildstage
 
 WORKDIR /work
 # Only copy what is needed for the build
-COPY *.json *.js yarn.lock .browserslistrc /work/
+COPY *.json *.js *.yaml .browserslistrc /work/
 COPY src /work/src/
 
-RUN PUPPETEER_SKIP_CHROMIUM_DOWNLOAD=1 yarn install
-RUN yarn build:prod
+RUN npm install -g pnpm
+RUN PUPPETEER_SKIP_CHROMIUM_DOWNLOAD=1 pnpm i
+RUN pnpm build:prod
 
 # Imagestage: use scratch base image
 FROM --platform=$TARGETPLATFORM scratch
