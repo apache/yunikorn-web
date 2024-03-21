@@ -21,6 +21,7 @@ import { Routes, RouterModule } from '@angular/router';
 
 import { DashboardComponent } from './components/dashboard/dashboard.component';
 import { QueuesViewComponent } from './components/queues-view/queues-view.component';
+import { QueueV2Component } from './components/queue-v2/queues-v2.component';
 import { AppsViewComponent } from './components/apps-view/apps-view.component';
 import { NodesViewComponent } from './components/nodes-view/nodes-view.component';
 import { StatusViewComponent } from './components/status-view/status-view.component';
@@ -41,6 +42,11 @@ const appRoutes: Routes = [
     path: 'queues',
     component: QueuesViewComponent,
     data: { breadcrumb: 'Queues' },
+  },
+  {
+    path: 'queues-v2',
+    component: QueueV2Component,
+    data: { breadcrumb: 'Queues V2' },
   },
   {
     path: 'nodes',
