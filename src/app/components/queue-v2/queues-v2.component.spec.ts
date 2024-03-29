@@ -75,7 +75,7 @@ describe('QueueV2Component', () => {
 
       component.fetchSchedulerQueuesForPartition();
 
-      expect(schedulerSpy).toHaveBeenCalledWith('defau');
+      expect(schedulerSpy).toHaveBeenCalledWith('default');
       expect(spinnerShowSpy).toHaveBeenCalledBefore(schedulerSpy);
       expect(spinnerHideSpy).toHaveBeenCalled();
       expect(component.rootQueue).toBeTruthy();
