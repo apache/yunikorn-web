@@ -55,7 +55,7 @@ export class QueueV2Component implements OnInit {
   }
 
   fetchSchedulerQueuesForPartition() {
-    let partitionName = 'defau';
+    let partitionName = 'default';
     this.spinner.show();
   
     this.scheduler
