@@ -33,7 +33,7 @@
             "assets": ["src/favicon.ico", "src/assets", {"glob": "LICENSE", "input": "./", "output": "./"}],
             "styles": [
               "src/styles.scss",
-              "node_modules/fontsource-roboto/index.css",
+              "node_modules/@fontsource/roboto/index.css",
               "node_modules/@fortawesome/fontawesome-free/css/all.css"
             ],
             "scripts": []
