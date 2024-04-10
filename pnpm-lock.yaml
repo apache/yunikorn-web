@@ -35,6 +35,9 @@ dependencies:
   '@angular/router':
     specifier: ^16.2.10
     version: 16.2.10(@angular/common@16.2.10)(@angular/core@16.2.10)(@angular/platform-browser@16.2.10)(rxjs@7.8.1)
+  '@fontsource/roboto':
+    specifier: ^5.0.12
+    version: 5.0.12
   '@fortawesome/fontawesome-free':
     specifier: ^6.5.1
     version: 6.5.1
@@ -83,9 +86,6 @@ dependencies:
   date-fns:
     specifier: ^2.30.0
     version: 2.30.0
-  fontsource-roboto:
-    specifier: ^4.0.0
-    version: 4.0.0
   material-design-icons:
     specifier: ^3.0.1
     version: 3.0.1
@@ -2269,6 +2269,10 @@ packages:
     requiresBuild: true
     dev: true
     optional: true
+
+  /@fontsource/roboto@5.0.12:
+    resolution: {integrity: sha512-x0o17jvgoSSbS9OZnUX2+xJmVRvVCfeaYJjkS7w62iN7CuJWtMf5vJj8LqgC7ibqIkitOHVW+XssRjgrcHn62g==}
+    dev: false
 
   /@fortawesome/fontawesome-free@6.5.1:
     resolution: {integrity: sha512-CNy5vSwN3fsUStPRLX7fUYojyuzoEMSXPl7zSLJ8TgtRfjv24LOnOWKT2zYwaHZCJGkdyRnTmstR0P+Ah503Gw==}
@@ -5381,11 +5385,6 @@ packages:
       debug:
         optional: true
     dev: true
-
-  /fontsource-roboto@4.0.0:
-    resolution: {integrity: sha512-zD6L8nvdWRcwSgp4ojxFchG+MPj8kXXQKDEAH9bfhbxy+lkpvpC1WgAK0lCa4dwobv+hvAe0uyHaawcgH7WH/g==}
-    deprecated: Package relocated. Please install and migrate to @fontsource/roboto.
-    dev: false
 
   /foreground-child@3.1.1:
     resolution: {integrity: sha512-TMKDUnIte6bfb5nWv7V/caI169OHgvwjb7V4WkeUvbQQdjr5rWKqHFiKWb/fcOwB+CzBT+qbWjvj+DVwRskpIg==}
