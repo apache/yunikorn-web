@@ -110,6 +110,16 @@ function queueVisualization(rawData : QueueInfo){
     .on("click", function() {
         centerGraph();    
         fitGraphScale();
+    })
+    .on('mouseenter', function() {
+      select(this).select('.tooltip')
+            .style('visibility', 'visible')
+            .style('opacity', 1);
+    })
+    .on('mouseleave', function() {
+      select(this).select('.tooltip')
+            .style('visibility', 'hidden')
+            .style('opacity', 0);
     });
     
     const treelayout = d3flextree
