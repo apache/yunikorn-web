@@ -29,22 +29,31 @@
   .header .title-group {
     display: flex;
     align-items: center;
-    justify-content: center;
+    justify-content: space-between;
     padding-bottom: 1rem;
   }
-  
-  .title-group .icon {
-    height: 2rem;
-    width: 2rem;
-    margin-right: 10px;
-  }
-  
+   
   .title-group div {
+    flex-grow: 1; 
+    text-align: center;
     font-size: 1.25rem; 
     font-weight: 600; 
-    color: #010407; 
+    color: #010407;
   } 
   
+  .fit-to-screen-button {
+    padding: 8px 16px;
+    background-color: #007BFF; /* Primary blue */
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+  }
+
+  .fit-to-screen-button:hover {
+      background-color: #0056b3;
+  }
+
   .visualize-area {
     display: flex;
     flex-direction: column;

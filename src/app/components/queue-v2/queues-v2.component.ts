@@ -78,14 +78,40 @@ function queueVisualization(rawData : QueueInfo){
   const svg = select('.visualize-area').append('svg')
                .attr('width', '100%')
                .attr('height', '100%')
-              
-    const svgWidth = 1150;
-    const svgHeight = 600;
+                  
+    function fitGraphScale(){
+      const baseSvgElem = svg.node() as SVGGElement;
+      const bounds = baseSvgElem.getBBox();
+      const parent = baseSvgElem.parentElement as HTMLElement;
+      const fullWidth = parent.clientWidth;
+      const fullHeight = parent.clientHeight;
+      
+      const xfactor: number = fullWidth / bounds.width;
+      const yfactor: number = fullHeight / bounds.height;
+      let scaleFactor: number = Math.min(xfactor, yfactor);
 
-    // Center the group
+       // Add some padding so that the graph is not touching the edges
+       const paddingPercent = 0.9;
+       scaleFactor = scaleFactor * paddingPercent;
+       zoom.scaleBy(svg, scaleFactor);
+    }
+
+    function centerGraph() {
+        const bbox = (svgGroup.node() as SVGGElement).getBBox();
+        const cx = bbox.x + bbox.width / 2;
+        const cy = bbox.y + bbox.height / 2;
+        zoom.translateTo(svg, cx, cy);
+    }
+
+    // Append a svg group which holds all nodes and which is for the d3 zoom
     const svgGroup = svg.append("g")
-      .attr("transform", `translate(${svgWidth / 3}, ${svgHeight / 10})`); 
-  
+
+    const fitButton = select(".fit-to-screen-button")
+    .on("click", function() {
+        centerGraph();    
+        fitGraphScale();
+    });
+    
     const treelayout = d3flextree
       .flextree<QueueInfo>({})
       .nodeSize((d) => {
@@ -98,8 +124,7 @@ function queueVisualization(rawData : QueueInfo){
     .zoom<SVGSVGElement, unknown>()
     .scaleExtent([0.1, 5]) 
     .on("zoom", (event) => {
-      const initialTransform = d3zoom.zoomIdentity.translate(svgWidth / 3, svgHeight / 10);
-      svgGroup.attr("transform", event.transform.toString() + initialTransform.toString());
+      svgGroup.attr("transform", event.transform)
     });
     svg.call(zoom);
 
