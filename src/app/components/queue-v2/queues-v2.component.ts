@@ -16,7 +16,7 @@
  * limitations under the License.
  */
 
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, AfterViewInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { NgxSpinnerService } from 'ngx-spinner';
 import { QueueInfo } from '@app/models/queue-info.model';
@@ -69,8 +69,14 @@ export class QueueV2Component implements OnInit {
         if (data && data.rootQueue) {
           this.rootQueue = data.rootQueue;
           queueVisualization(this.rootQueue as QueueInfo)
+          setTimeout(() => this.adjustToScreen(),1000) // since the ngAfterViewInit hook is not working, we used setTimeout instead
         }
       });
+  }
+
+  adjustToScreen() {
+    const fitButton = document.getElementById('fitButton');
+    fitButton?.click(); 
   }
 }
 
