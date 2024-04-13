@@ -75,6 +75,9 @@ export class QueueV2Component implements OnInit {
 }
 
 function queueVisualization(rawData : QueueInfo){
+  let numberOfNode = 0;
+  const duration = 750;
+
   const svg = select('.visualize-area').append('svg')
                .attr('width', '100%')
                .attr('height', '100%')
@@ -93,23 +96,31 @@ function queueVisualization(rawData : QueueInfo){
        // Add some padding so that the graph is not touching the edges
        const paddingPercent = 0.9;
        scaleFactor = scaleFactor * paddingPercent;
-       zoom.scaleBy(svg, scaleFactor);
+       return scaleFactor
     }
 
     function centerGraph() {
         const bbox = (svgGroup.node() as SVGGElement).getBBox();
         const cx = bbox.x + bbox.width / 2;
         const cy = bbox.y + bbox.height / 2;
-        zoom.translateTo(svg, cx, cy);
+        return {cx, cy};
     }
+
+    function adjustVisulizeArea(duration : number = 0){
+      const scaleFactor = fitGraphScale();
+      const {cx, cy} = centerGraph();
+      svg.transition().duration(duration).call(zoom.translateTo, cx, cy)
+      .on("end", function() {
+        svg.transition().duration(duration).call(zoom.scaleBy, scaleFactor)
+      })
+    } 
 
     // Append a svg group which holds all nodes and which is for the d3 zoom
     const svgGroup = svg.append("g")
 
     const fitButton = select(".fit-to-screen-button")
     .on("click", function() {
-        centerGraph();    
-        fitGraphScale();
+      adjustVisulizeArea(duration)
     })
     .on('mouseenter', function() {
       select(this).select('.tooltip')
@@ -138,10 +149,7 @@ function queueVisualization(rawData : QueueInfo){
     });
     svg.call(zoom);
 
-    let numberOfNode = 0;
-    const duration = 750;
     const root = d3hierarchy.hierarchy(rawData);
-
     update(root);
 
     function update(source: any){
