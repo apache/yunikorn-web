@@ -16,7 +16,7 @@
  * limitations under the License.
  */
 
-import { Component, OnInit, AfterViewInit } from '@angular/core';
+import { Component, OnInit} from '@angular/core';
 import { Router } from '@angular/router';
 import { NgxSpinnerService } from 'ngx-spinner';
 import { QueueInfo } from '@app/models/queue-info.model';
@@ -115,9 +115,10 @@ function queueVisualization(rawData : QueueInfo){
     function adjustVisulizeArea(duration : number = 0){
       const scaleFactor = fitGraphScale();
       const {cx, cy} = centerGraph();
-      svg.transition().duration(duration).call(zoom.translateTo, cx, cy)
+      // make the total duration to be 500ms
+      svg.transition().duration(duration/1.5).call(zoom.translateTo, cx, cy)
       .on("end", function() {
-        svg.transition().duration(duration).call(zoom.scaleBy, scaleFactor)
+        svg.transition().duration(duration/1.5).call(zoom.scaleBy, scaleFactor)
       })
     } 
 
