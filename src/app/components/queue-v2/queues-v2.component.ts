@@ -115,7 +115,7 @@ function queueVisualization(rawData : QueueInfo){
     function adjustVisulizeArea(duration : number = 0){
       const scaleFactor = fitGraphScale();
       const {cx, cy} = centerGraph();
-      // make the total duration to be 500ms
+      // make the total duration to be 1 second
       svg.transition().duration(duration/1.5).call(zoom.translateTo, cx, cy)
       .on("end", function() {
         svg.transition().duration(duration/1.5).call(zoom.scaleBy, scaleFactor)
