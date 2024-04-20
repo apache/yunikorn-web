@@ -23,28 +23,64 @@
     background-color: white;
     padding: 20px; /* Adjust padding to your preference */
     box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
-    overflow: auto; /* Add scroll for overflow content */
+    overflow: show; /* Add scroll for overflow content */
   }
   
   .header .title-group {
     display: flex;
     align-items: center;
-    justify-content: center;
+    justify-content: space-between;
     padding-bottom: 1rem;
   }
-  
-  .title-group .icon {
-    height: 2rem;
-    width: 2rem;
-    margin-right: 10px;
-  }
-  
+   
   .title-group div {
+    flex-grow: 1; 
+    text-align: center;
     font-size: 1.25rem; 
     font-weight: 600; 
-    color: #010407; 
+    color: #010407;
   } 
   
+  .fit-to-screen-button {
+    position: relative;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    padding: 6px 6px;
+    background-color: #e5ecf6;
+    border: 1px solid #132030;
+    border-radius: 5px;
+    cursor: pointer;
+    overflow: show;
+  }
+
+  .tooltip {
+      width: 100px;
+      position: absolute;
+      bottom: 90%;
+      left: 50%;
+      transform: translateX(-50%);
+      background-color: rgb(225, 228, 241);
+      color: rgb(6, 7, 6);
+      text-align: center;
+      padding: 5px 5px;
+      border-radius: 6px;
+      visibility: hidden;
+      opacity: 1;
+      transition: opacity 0.3s, visibility 0.3s;
+  }
+
+  .fit-to-screen-button:hover .tooltip {
+      margin-bottom: 10px;
+      visibility: visible;
+      opacity: 1;
+  }
+
+
+  .fit-to-screen-button:hover {
+      background-color: #8090a5;
+  }
+
   .visualize-area {
     display: flex;
     flex-direction: column;

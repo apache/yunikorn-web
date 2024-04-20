@@ -16,7 +16,7 @@
  * limitations under the License.
  */
 
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit} from '@angular/core';
 import { Router } from '@angular/router';
 import { NgxSpinnerService } from 'ngx-spinner';
 import { QueueInfo } from '@app/models/queue-info.model';
@@ -69,23 +69,77 @@ export class QueueV2Component implements OnInit {
         if (data && data.rootQueue) {
           this.rootQueue = data.rootQueue;
           queueVisualization(this.rootQueue as QueueInfo)
+          setTimeout(() => this.adjustToScreen(),1000) // since the ngAfterViewInit hook is not working, we used setTimeout instead
         }
       });
+  }
+
+  adjustToScreen() {
+    const fitButton = document.getElementById('fitButton');
+    fitButton?.click(); 
   }
 }
 
 function queueVisualization(rawData : QueueInfo){
+  let numberOfNode = 0;
+  const duration = 750;
+
   const svg = select('.visualize-area').append('svg')
                .attr('width', '100%')
                .attr('height', '100%')
-              
-    const svgWidth = 1150;
-    const svgHeight = 600;
+                  
+    function fitGraphScale(){
+      const baseSvgElem = svg.node() as SVGGElement;
+      const bounds = baseSvgElem.getBBox();
+      const parent = baseSvgElem.parentElement as HTMLElement;
+      const fullWidth = parent.clientWidth;
+      const fullHeight = parent.clientHeight;
+      
+      const xfactor: number = fullWidth / bounds.width;
+      const yfactor: number = fullHeight / bounds.height;
+      let scaleFactor: number = Math.min(xfactor, yfactor);
 
-    // Center the group
+       // Add some padding so that the graph is not touching the edges
+       const paddingPercent = 0.9;
+       scaleFactor = scaleFactor * paddingPercent;
+       return scaleFactor
+    }
+
+    function centerGraph() {
+        const bbox = (svgGroup.node() as SVGGElement).getBBox();
+        const cx = bbox.x + bbox.width / 2;
+        const cy = bbox.y + bbox.height / 2;
+        return {cx, cy};
+    }
+
+    function adjustVisulizeArea(duration : number = 0){
+      const scaleFactor = fitGraphScale();
+      const {cx, cy} = centerGraph();
+      // make the total duration to be 1 second
+      svg.transition().duration(duration/1.5).call(zoom.translateTo, cx, cy)
+      .on("end", function() {
+        svg.transition().duration(duration/1.5).call(zoom.scaleBy, scaleFactor)
+      })
+    } 
+
+    // Append a svg group which holds all nodes and which is for the d3 zoom
     const svgGroup = svg.append("g")
-      .attr("transform", `translate(${svgWidth / 3}, ${svgHeight / 10})`); 
-  
+
+    const fitButton = select(".fit-to-screen-button")
+    .on("click", function() {
+      adjustVisulizeArea(duration)
+    })
+    .on('mouseenter', function() {
+      select(this).select('.tooltip')
+            .style('visibility', 'visible')
+            .style('opacity', 1);
+    })
+    .on('mouseleave', function() {
+      select(this).select('.tooltip')
+            .style('visibility', 'hidden')
+            .style('opacity', 0);
+    });
+    
     const treelayout = d3flextree
       .flextree<QueueInfo>({})
       .nodeSize((d) => {
@@ -98,15 +152,11 @@ function queueVisualization(rawData : QueueInfo){
     .zoom<SVGSVGElement, unknown>()
     .scaleExtent([0.1, 5]) 
     .on("zoom", (event) => {
-      const initialTransform = d3zoom.zoomIdentity.translate(svgWidth / 3, svgHeight / 10);
-      svgGroup.attr("transform", event.transform.toString() + initialTransform.toString());
+      svgGroup.attr("transform", event.transform)
     });
     svg.call(zoom);
 
-    let numberOfNode = 0;
-    const duration = 750;
     const root = d3hierarchy.hierarchy(rawData);
-
     update(root);
 
     function update(source: any){
