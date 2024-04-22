@@ -92,12 +92,14 @@ export class QueuesViewComponent implements OnInit {
             this.partitionList.push(new PartitionInfo(part.name, part.name));
           });
 
-          this.partitionSelected = list[0].name;
+          this.partitionSelected = this.loadStoredPartition(list[0].name);
+
           this.fetchSchedulerQueuesForPartition(this.partitionSelected);
         } else {
           this.partitionList = [new PartitionInfo('-- Select --', '')];
           this.partitionSelected = '';
           this.queueList = {};
+          this.storeSelectedPartition();
         }
       });
   }
@@ -208,9 +210,11 @@ export class QueuesViewComponent implements OnInit {
       this.partitionSelected = selected.value;
       this.closeQueueDrawer();
       this.fetchSchedulerQueuesForPartition(this.partitionSelected);
+      this.storeSelectedPartition();
     } else {
       this.partitionSelected = '';
       this.queueList = {};
+      this.storeSelectedPartition();
     }
   }
 
@@ -225,5 +229,15 @@ export class QueuesViewComponent implements OnInit {
         },
       });
     }
+  }
+
+  loadStoredPartition(defaultValue = ''): string {
+    const storedPartition = localStorage.getItem('selectedPartitionAndQueue');
+    if (storedPartition && storedPartition.indexOf(':') > 0) return storedPartition.split(':')[0];
+    return defaultValue;
+  }
+
+  storeSelectedPartition() {
+    localStorage.setItem('selectedPartitionAndQueue', this.partitionSelected + ':');
   }
 }

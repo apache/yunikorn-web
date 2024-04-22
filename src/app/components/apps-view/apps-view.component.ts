@@ -21,7 +21,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatTableDataSource } from '@angular/material/table';
 import { MatSort } from '@angular/material/sort';
-import { MatSelectChange } from '@angular/material/select';
+import { MatSelectChange, MatSelect } from '@angular/material/select';
 import { finalize, debounceTime, distinctUntilChanged } from 'rxjs/operators';
 import { NgxSpinnerService } from 'ngx-spinner';
 import { fromEvent } from 'rxjs';
@@ -46,6 +46,7 @@ export class AppsViewComponent implements OnInit {
   @ViewChild('appSort', { static: true }) appSort!: MatSort;
   @ViewChild('allocSort', { static: true }) allocSort!: MatSort;
   @ViewChild('searchInput', { static: true }) searchInput!: ElementRef;
+  @ViewChild('queueSelect', { static: false }) queueSelect!: MatSelect;
 
   appDataSource = new MatTableDataSource<AppInfo>([]);
   appColumnDef: ColumnDef[] = [];
@@ -62,7 +63,7 @@ export class AppsViewComponent implements OnInit {
   partitionSelected = '';
   leafQueueList: DropdownItem[] = [];
   leafQueueSelected = '';
-  
+
   detailToggle: boolean = false;
 
   constructor(
@@ -135,7 +136,7 @@ export class AppsViewComponent implements OnInit {
             this.partitionList.push(new PartitionInfo(part.name, part.name));
           });
 
-          this.partitionSelected = list[0].name;
+          this.partitionSelected = this.loadStoredPartition(list[0].name);
           this.fetchQueuesForPartition(this.partitionSelected);
         } else {
           this.partitionList = [new PartitionInfo('-- Select --', '')];
@@ -143,6 +144,7 @@ export class AppsViewComponent implements OnInit {
           this.leafQueueList = [new DropdownItem('-- Select --', '')];
           this.leafQueueSelected = '';
           this.appDataSource.data = [];
+          this.clearQueueSelection();
         }
       });
   }
@@ -161,12 +163,31 @@ export class AppsViewComponent implements OnInit {
         if (data && data.rootQueue) {
           const leafQueueList = this.generateLeafQueueList(data.rootQueue);
           this.leafQueueList = [new DropdownItem('-- Select --', ''), ...leafQueueList];
-          this.leafQueueSelected = '';
           this.fetchApplicationsUsingQueryParams();
+          this.setDefaultQueue(leafQueueList);
         } else {
           this.leafQueueList = [new DropdownItem('-- Select --', '')];
         }
       });
+  }
+
+  setDefaultQueue(queueList: DropdownItem[]): void {
+    const storedPartitionAndQueue = localStorage.getItem('selectedPartitionAndQueue');
+    if (!storedPartitionAndQueue || storedPartitionAndQueue.indexOf(':') < 0) return;
+
+    const [storedPartition, storedQueue] = storedPartitionAndQueue.split(':');
+    if (this.partitionSelected !== storedPartition) return;
+
+    const storedQueueDropdownItem = queueList.find((queue) => queue.value === storedQueue);
+    if (storedQueueDropdownItem) {
+      this.leafQueueSelected = storedQueueDropdownItem.value;
+      this.fetchAppListForPartitionAndQueue(this.partitionSelected, this.leafQueueSelected);
+      return;
+    } else {
+      this.leafQueueSelected = '';
+      this.appDataSource.data = [];
+      setTimeout(() => this.openQueueSelection(), 0); // Allows render to finish and then opens the queue select dropdown
+    }
   }
 
   generateLeafQueueList(rootQueue: QueueInfo, list: DropdownItem[] = []): DropdownItem[] {
@@ -205,6 +226,7 @@ export class AppsViewComponent implements OnInit {
       this.partitionSelected = partitionName;
       this.leafQueueSelected = queueName;
       this.fetchAppListForPartitionAndQueue(partitionName, queueName);
+      this.storeQueueSelection();
     }
 
     this.router.navigate([], {
@@ -284,6 +306,7 @@ export class AppsViewComponent implements OnInit {
       this.partitionSelected = selected.value;
       this.appDataSource.data = [];
       this.removeRowSelection();
+      this.clearQueueSelection();
       this.fetchQueuesForPartition(this.partitionSelected);
     } else {
       this.searchText = '';
@@ -291,6 +314,7 @@ export class AppsViewComponent implements OnInit {
       this.leafQueueSelected = '';
       this.appDataSource.data = [];
       this.removeRowSelection();
+      this.clearQueueSelection();
     }
   }
 
@@ -301,35 +325,65 @@ export class AppsViewComponent implements OnInit {
       this.appDataSource.data = [];
       this.removeRowSelection();
       this.fetchAppListForPartitionAndQueue(this.partitionSelected, this.leafQueueSelected);
+      this.storeQueueSelection();
     } else {
       this.searchText = '';
       this.leafQueueSelected = '';
       this.appDataSource.data = [];
       this.removeRowSelection();
+      this.clearQueueSelection();
     }
   }
 
-  formatResources(colValue:string):string[]{
-    const arr:string[]=colValue.split("<br/>")
+  formatResources(colValue: string): string[] {
+    const arr: string[] = colValue.split('<br/>');
     // Check if there are "cpu" or "Memory" elements in the array
-    const hasCpu = arr.some((item) => item.toLowerCase().includes("cpu"));
-    const hasMemory = arr.some((item) => item.toLowerCase().includes("memory"));
+    const hasCpu = arr.some((item) => item.toLowerCase().includes('cpu'));
+    const hasMemory = arr.some((item) => item.toLowerCase().includes('memory'));
     if (!hasCpu) {
-      arr.unshift("CPU: n/a");
+      arr.unshift('CPU: n/a');
     }
     if (!hasMemory) {
-      arr.unshift("Memory: n/a");
+      arr.unshift('Memory: n/a');
     }
 
     // Concatenate the two arrays, with "cpu" and "Memory" elements first
-    const cpuAndMemoryElements = arr.filter((item) => item.toLowerCase().includes("CPU") || item.toLowerCase().includes("Memory"));
-    const otherElements = arr.filter((item) => !item.toLowerCase().includes("CPU") && !item.toLowerCase().includes("Memory"));
+    const cpuAndMemoryElements = arr.filter(
+      (item) => item.toLowerCase().includes('CPU') || item.toLowerCase().includes('Memory')
+    );
+    const otherElements = arr.filter(
+      (item) => !item.toLowerCase().includes('CPU') && !item.toLowerCase().includes('Memory')
+    );
     const result = cpuAndMemoryElements.concat(otherElements);
 
     return result;
   }
 
-  toggle(){
+  clearQueueSelection() {
+    localStorage.removeItem('selectedPartitionAndQueue');
+    this.leafQueueSelected = '';
+    this.openQueueSelection();
+  }
+
+  storeQueueSelection() {
+    localStorage.setItem(
+      'selectedPartitionAndQueue',
+      this.partitionSelected + ':' + this.leafQueueSelected
+    );
+  }
+
+  loadStoredPartition(defaultValue = ''): string {
+    const storedPartition = localStorage.getItem('selectedPartitionAndQueue');
+    if (storedPartition && storedPartition.indexOf(':') > 0) return storedPartition.split(':')[0];
+    return defaultValue;
+  }
+
+  openQueueSelection() {
+    // setTimeout(() => this.queueSelect.open(), 100);
+    this.queueSelect.open();
+  }
+
+  toggle() {
     this.detailToggle = !this.detailToggle;
   }
 }
