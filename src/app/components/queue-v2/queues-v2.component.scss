@@ -81,6 +81,10 @@
       background-color: #8090a5;
   }
 
+  .content-wrapper {
+    display: flex;
+  }
+
   .visualize-area {
     display: flex;
     flex-direction: column;
@@ -94,4 +98,13 @@
     background-color: #f9fafb; 
     gap: 0.2rem;
     padding: 20px;
+  }
+
+  .additional-element {
+    width: 420px; 
+    align-items: stretch;
+    background-color: #f3f6f8; 
+    border-radius: 0.5rem;
+    border: 1px groove #1a1a1b;
+    // display: none;
   }
