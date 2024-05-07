@@ -120,13 +120,13 @@ export class NodesViewComponent implements OnInit {
             this.partitionList.push(new PartitionInfo(part.name, part.name));
           });
 
-          this.partitionSelected = this.loadStoredPartition(list[0].name);
+          this.partitionSelected = CommonUtil.getStoredPartition(list[0].name);
           this.fetchNodeListForPartition(this.partitionSelected);
         } else {
           this.partitionList = [new PartitionInfo('-- Select --', '')];
           this.partitionSelected = '';
           this.nodeDataSource.data = [];
-          this.storeSelectedPartition();
+          CommonUtil.setStoredQueueAndPartition('');
         }
       });
   }
@@ -226,7 +226,7 @@ export class NodesViewComponent implements OnInit {
     this.partitionSelected = selected.value;
     this.clearRowSelection();
     this.fetchNodeListForPartition(this.partitionSelected);
-    this.storeSelectedPartition();
+    CommonUtil.setStoredQueueAndPartition(this.partitionSelected);
   }
 
   formatResources(colValue: string): string[] {
@@ -300,15 +300,5 @@ export class NodesViewComponent implements OnInit {
     this.filterValue = (event.target as HTMLInputElement).value.trim().toLowerCase();
     this.nodeDataSource.filter = this.filterValue;
     this.nodeDataSource.filterPredicate = this.filterPredicate;
-  }
-
-  loadStoredPartition(defaultValue = ''): string {
-    const storedPartition = localStorage.getItem('selectedPartitionAndQueue');
-    if (storedPartition && storedPartition.indexOf(':') > 0) return storedPartition.split(':')[0];
-    return defaultValue;
-  }
-
-  storeSelectedPartition() {
-    localStorage.setItem('selectedPartitionAndQueue', this.partitionSelected + ':');
   }
 }

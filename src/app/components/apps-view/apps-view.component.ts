@@ -136,7 +136,7 @@ export class AppsViewComponent implements OnInit {
             this.partitionList.push(new PartitionInfo(part.name, part.name));
           });
 
-          this.partitionSelected = this.loadStoredPartition(list[0].name);
+          this.partitionSelected = CommonUtil.getStoredPartition(list[0].name);
           this.fetchQueuesForPartition(this.partitionSelected);
         } else {
           this.partitionList = [new PartitionInfo('-- Select --', '')];
@@ -173,7 +173,11 @@ export class AppsViewComponent implements OnInit {
 
   setDefaultQueue(queueList: DropdownItem[]): void {
     const storedPartitionAndQueue = localStorage.getItem('selectedPartitionAndQueue');
-    if (!storedPartitionAndQueue || storedPartitionAndQueue.indexOf(':') < 0) return;
+
+    if (!storedPartitionAndQueue || storedPartitionAndQueue.indexOf(':') < 0) {
+      setTimeout(() => this.openQueueSelection(), 0);
+      return;
+    }
 
     const [storedPartition, storedQueue] = storedPartitionAndQueue.split(':');
     if (this.partitionSelected !== storedPartition) return;
@@ -226,7 +230,7 @@ export class AppsViewComponent implements OnInit {
       this.partitionSelected = partitionName;
       this.leafQueueSelected = queueName;
       this.fetchAppListForPartitionAndQueue(partitionName, queueName);
-      this.storeQueueSelection();
+      CommonUtil.setStoredQueueAndPartition(partitionName, queueName);
     }
 
     this.router.navigate([], {
@@ -325,7 +329,7 @@ export class AppsViewComponent implements OnInit {
       this.appDataSource.data = [];
       this.removeRowSelection();
       this.fetchAppListForPartitionAndQueue(this.partitionSelected, this.leafQueueSelected);
-      this.storeQueueSelection();
+      CommonUtil.setStoredQueueAndPartition(this.partitionSelected, this.leafQueueSelected);
     } else {
       this.searchText = '';
       this.leafQueueSelected = '';
@@ -360,26 +364,12 @@ export class AppsViewComponent implements OnInit {
   }
 
   clearQueueSelection() {
-    localStorage.removeItem('selectedPartitionAndQueue');
+    CommonUtil.setStoredQueueAndPartition('');
     this.leafQueueSelected = '';
     this.openQueueSelection();
   }
 
-  storeQueueSelection() {
-    localStorage.setItem(
-      'selectedPartitionAndQueue',
-      this.partitionSelected + ':' + this.leafQueueSelected
-    );
-  }
-
-  loadStoredPartition(defaultValue = ''): string {
-    const storedPartition = localStorage.getItem('selectedPartitionAndQueue');
-    if (storedPartition && storedPartition.indexOf(':') > 0) return storedPartition.split(':')[0];
-    return defaultValue;
-  }
-
   openQueueSelection() {
-    // setTimeout(() => this.queueSelect.open(), 100);
     this.queueSelect.open();
   }
 
