@@ -92,12 +92,14 @@ export class QueuesViewComponent implements OnInit {
             this.partitionList.push(new PartitionInfo(part.name, part.name));
           });
 
-          this.partitionSelected = list[0].name;
+          this.partitionSelected = CommonUtil.getStoredPartition(list[0].name);
+
           this.fetchSchedulerQueuesForPartition(this.partitionSelected);
         } else {
           this.partitionList = [new PartitionInfo('-- Select --', '')];
           this.partitionSelected = '';
           this.queueList = {};
+          CommonUtil.setStoredQueueAndPartition('');
         }
       });
   }
@@ -208,9 +210,11 @@ export class QueuesViewComponent implements OnInit {
       this.partitionSelected = selected.value;
       this.closeQueueDrawer();
       this.fetchSchedulerQueuesForPartition(this.partitionSelected);
+      CommonUtil.setStoredQueueAndPartition(this.partitionSelected);
     } else {
       this.partitionSelected = '';
       this.queueList = {};
+      CommonUtil.setStoredQueueAndPartition('');
     }
   }
 

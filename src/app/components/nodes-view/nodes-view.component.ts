@@ -39,9 +39,8 @@ import { PartitionInfo } from '@app/models/partition-info.model';
 export class NodesViewComponent implements OnInit {
   @ViewChild('nodesViewMatPaginator', { static: true }) nodePaginator!: MatPaginator;
   @ViewChild('allocationMatPaginator', { static: true }) allocPaginator!: MatPaginator;
-  @ViewChild('nodeSort', {static: true }) nodeSort!: MatSort;
-  @ViewChild('allocSort', {static: true }) allocSort!: MatSort;
-
+  @ViewChild('nodeSort', { static: true }) nodeSort!: MatSort;
+  @ViewChild('allocSort', { static: true }) allocSort!: MatSort;
 
   nodeDataSource = new MatTableDataSource<NodeInfo>([]);
   nodeColumnDef: ColumnDef[] = [];
@@ -58,7 +57,10 @@ export class NodesViewComponent implements OnInit {
   detailToggle: boolean = false;
   filterValue: string = '';
 
-  constructor(private scheduler: SchedulerService, private spinner: NgxSpinnerService) {}
+  constructor(
+    private scheduler: SchedulerService,
+    private spinner: NgxSpinnerService
+  ) {}
 
   ngOnInit() {
     this.nodeDataSource.paginator = this.nodePaginator;
@@ -118,12 +120,13 @@ export class NodesViewComponent implements OnInit {
             this.partitionList.push(new PartitionInfo(part.name, part.name));
           });
 
-          this.partitionSelected = list[0].name;
+          this.partitionSelected = CommonUtil.getStoredPartition(list[0].name);
           this.fetchNodeListForPartition(this.partitionSelected);
         } else {
           this.partitionList = [new PartitionInfo('-- Select --', '')];
           this.partitionSelected = '';
           this.nodeDataSource.data = [];
+          CommonUtil.setStoredQueueAndPartition('');
         }
       });
   }
@@ -192,95 +195,103 @@ export class NodesViewComponent implements OnInit {
     return this.allocDataSource.data && this.allocDataSource.data.length === 0;
   }
 
-  formatColumn(){
-    if(this.nodeDataSource.data.length===0){
+  formatColumn() {
+    if (this.nodeDataSource.data.length === 0) {
       return;
     }
-    this.nodeColumnIds.forEach((colId)=>{
-      if (colId==='indicatorIcon'){
+    this.nodeColumnIds.forEach((colId) => {
+      if (colId === 'indicatorIcon') {
         return;
       }
 
       // Verify whether all cells in the column are empty.
-      let isEmpty:boolean = true;
+      let isEmpty: boolean = true;
       Object.values(this.nodeDataSource.data).forEach((node) => {
-        Object.entries(node).forEach(entry => {
+        Object.entries(node).forEach((entry) => {
           const [key, value] = entry;
-          if (key===colId && !(value==='' || value==='n/a')){
-            isEmpty=false;
+          if (key === colId && !(value === '' || value === 'n/a')) {
+            isEmpty = false;
           }
         });
       });
-      
-      if (isEmpty){
-        this.nodeColumnIds = this.nodeColumnIds.filter(el => el!==colId);
-        this.nodeColumnIds = this.nodeColumnIds.filter(colId => colId!=="attributes");
+
+      if (isEmpty) {
+        this.nodeColumnIds = this.nodeColumnIds.filter((el) => el !== colId);
+        this.nodeColumnIds = this.nodeColumnIds.filter((colId) => colId !== 'attributes');
       }
-    })
+    });
   }
 
   onPartitionSelectionChanged(selected: MatSelectChange) {
     this.partitionSelected = selected.value;
     this.clearRowSelection();
     this.fetchNodeListForPartition(this.partitionSelected);
+    CommonUtil.setStoredQueueAndPartition(this.partitionSelected);
   }
 
-  formatResources(colValue:string):string[]{
-    const arr:string[]=colValue.split("<br/>");
+  formatResources(colValue: string): string[] {
+    const arr: string[] = colValue.split('<br/>');
     // Check if there are "cpu" or "Memory" elements in the array
-    const hasCpu = arr.some((item) => item.toLowerCase().includes("cpu"));
-    const hasMemory = arr.some((item) => item.toLowerCase().includes("memory"));
+    const hasCpu = arr.some((item) => item.toLowerCase().includes('cpu'));
+    const hasMemory = arr.some((item) => item.toLowerCase().includes('memory'));
     if (!hasCpu) {
-      arr.unshift("CPU: n/a");
+      arr.unshift('CPU: n/a');
     }
     if (!hasMemory) {
-      arr.unshift("Memory: n/a");
+      arr.unshift('Memory: n/a');
     }
 
     // Concatenate the two arrays, with "cpu" and "Memory" elements first
-    const cpuAndMemoryElements = arr.filter((item) => item.toLowerCase().includes("CPU") || item.toLowerCase().includes("Memory"));
-    const otherElements = arr.filter((item) => !item.toLowerCase().includes("CPU") && !item.toLowerCase().includes("Memory"));
+    const cpuAndMemoryElements = arr.filter(
+      (item) => item.toLowerCase().includes('CPU') || item.toLowerCase().includes('Memory')
+    );
+    const otherElements = arr.filter(
+      (item) => !item.toLowerCase().includes('CPU') && !item.toLowerCase().includes('Memory')
+    );
     const result = cpuAndMemoryElements.concat(otherElements);
 
     return result;
   }
 
-  formatAttribute(attributes:any):string[]{
-    let result:string[]=[];
-    Object.entries(attributes).forEach(entry=>{
+  formatAttribute(attributes: any): string[] {
+    let result: string[] = [];
+    Object.entries(attributes).forEach((entry) => {
       const [key, value] = entry;
-      if (value==="" || key.includes("si")){
-        return
+      if (value === '' || key.includes('si')) {
+        return;
       }
-      result.push(key+':'+value);
-    })
+      result.push(key + ':' + value);
+    });
     return result;
   }
 
-  toggle(){
+  toggle() {
     this.detailToggle = !this.detailToggle;
     this.displayAttribute(this.detailToggle);
   }
 
-  displayAttribute(toggle:boolean) {
-    if (toggle){
+  displayAttribute(toggle: boolean) {
+    if (toggle) {
       this.nodeColumnIds = [
         ...this.nodeColumnIds.slice(0, 1),
-        "attributes",
-        ...this.nodeColumnIds.slice(1)
-    ];
-    }else{
-      this.nodeColumnIds=this.nodeColumnIds.filter(colId => colId!=="attributes");
+        'attributes',
+        ...this.nodeColumnIds.slice(1),
+      ];
+    } else {
+      this.nodeColumnIds = this.nodeColumnIds.filter((colId) => colId !== 'attributes');
     }
   }
 
-  filterPredicate: ((data: NodeInfo, filter: string) => boolean) = (data: NodeInfo, filter: string): boolean => {
+  filterPredicate: (data: NodeInfo, filter: string) => boolean = (
+    data: NodeInfo,
+    filter: string
+  ): boolean => {
     // a deep copy of the NodeInfo with formatted attributes for filtering
     const deepCopy = JSON.parse(JSON.stringify(data));
-    Object.entries(deepCopy.attributes).forEach(entry=>{
+    Object.entries(deepCopy.attributes).forEach((entry) => {
       const [key, value] = entry;
-      deepCopy.attributes[key]= `${key}:${value}`
-    })
+      deepCopy.attributes[key] = `${key}:${value}`;
+    });
     const objectString = JSON.stringify(deepCopy).toLowerCase();
     return objectString.includes(filter);
   };

@@ -31,7 +31,7 @@
     <div class="dropdown-wrapper">
       <label class="dropdown-label">Queue: </label>
       <mat-form-field>
-        <mat-select [(value)]="leafQueueSelected" (selectionChange)="onQueueSelectionChanged($event)">
+        <mat-select [(value)]="leafQueueSelected" (selectionChange)="onQueueSelectionChanged($event)" #queueSelect>
           <mat-option *ngFor="let queue of leafQueueList" [value]="queue.value">
             {{ queue.name }}
           </mat-option>

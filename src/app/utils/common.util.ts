@@ -115,4 +115,17 @@ export class CommonUtil {
       return a.localeCompare(b);  // Other resources will be in lexicographic order
     }
   }
+
+  static getStoredPartition(defaultValue = ''): string {
+    const storedPartition = localStorage.getItem('selectedPartitionAndQueue');
+
+    if (storedPartition && storedPartition.indexOf(':') > 0) return storedPartition.split(':')[0];
+
+    return defaultValue;
+  }
+
+  static setStoredQueueAndPartition(partition: string, queue = '') {
+    if (partition) localStorage.setItem('selectedPartitionAndQueue', `${partition}:${queue}`);
+    else localStorage.removeItem('selectedPartitionAndQueue');
+  }
 }
