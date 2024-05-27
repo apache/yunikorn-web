@@ -34,7 +34,7 @@ export class CommonUtil {
     const units: readonly string[] = ['KiB', 'MiB', 'GiB', 'TiB', 'PiB', 'EiB'];
     let unit: string = 'B';
     let toValue = +value;
-    for (let i = 0, unitslen = units.length; toValue / 1024 >= 1 && i < unitslen;i = i + 1) {
+    for (let i = 0, unitslen = units.length; toValue / 1024 >= 1 && i < unitslen; i = i + 1) {
       toValue = toValue / 1024;
       unit = units[i];
     }
@@ -45,7 +45,7 @@ export class CommonUtil {
     const units: readonly string[] = ['kB', 'MB', 'GB', 'TB', 'PB', 'EB'];
     let unit: string = 'B';
     let toValue = +value;
-    for (let i = 0, unitslen = units.length; toValue / 1000 >= 1 && i < unitslen;i = i + 1) {
+    for (let i = 0, unitslen = units.length; toValue / 1000 >= 1 && i < unitslen; i = i + 1) {
       toValue = toValue / 1000;
       unit = units[i];
     }
@@ -63,7 +63,7 @@ export class CommonUtil {
     if (toValue > 0) {
       unit = units[0];
     }
-    for (let i = 1, unitslen = units.length; toValue / 1000 >= 1 && i < unitslen;i = i + 1) {
+    for (let i = 1, unitslen = units.length; toValue / 1000 >= 1 && i < unitslen; i = i + 1) {
       toValue = toValue / 1000;
       unit = units[i];
     }
@@ -74,7 +74,7 @@ export class CommonUtil {
     const units: readonly string[] = ['k', 'M', 'G', 'T', 'P', 'E'];
     let unit: string = '';
     let toValue = +value;
-    for (let i = 0, unitslen = units.length; toValue / 1000 >= 1 && i < unitslen;i = i + 1) {
+    for (let i = 0, unitslen = units.length; toValue / 1000 >= 1 && i < unitslen; i = i + 1) {
       toValue = toValue / 1000;
       unit = units[i];
     }
@@ -98,21 +98,27 @@ export class CommonUtil {
     return NOT_AVAILABLE;
   }
 
+  static objFormatter(value: object | null): string {
+    console.log('>>>', value);
+    if (!value) return NOT_AVAILABLE;
+    return JSON.stringify(value, null, 2);
+  }
+
   static resourcesCompareFn(a: string, b: string): number {
     // define the order of resources
     const resourceOrder: { [key: string]: number } = {
-      "memory": 1,
-      "vcore": 2,
-      "pods": 3,
-      "ephemeral-storage": 4
+      memory: 1,
+      vcore: 2,
+      pods: 3,
+      'ephemeral-storage': 4,
     };
     const orderA = a in resourceOrder ? resourceOrder[a] : Number.MAX_SAFE_INTEGER;
     const orderB = b in resourceOrder ? resourceOrder[b] : Number.MAX_SAFE_INTEGER;
-  
+
     if (orderA !== orderB) {
-      return orderA - orderB;  // Resources in the order defined above
+      return orderA - orderB; // Resources in the order defined above
     } else {
-      return a.localeCompare(b);  // Other resources will be in lexicographic order
+      return a.localeCompare(b); // Other resources will be in lexicographic order
     }
   }
 
