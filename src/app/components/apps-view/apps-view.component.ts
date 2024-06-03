@@ -163,8 +163,7 @@ export class AppsViewComponent implements OnInit {
         if (data && data.rootQueue) {
           const leafQueueList = this.generateLeafQueueList(data.rootQueue);
           this.leafQueueList = [new DropdownItem('-- Select --', ''), ...leafQueueList];
-          this.fetchApplicationsUsingQueryParams();
-          this.setDefaultQueue(leafQueueList);
+          if (!this.fetchApplicationsUsingQueryParams()) this.setDefaultQueue(leafQueueList);
         } else {
           this.leafQueueList = [new DropdownItem('-- Select --', '')];
         }
@@ -206,7 +205,11 @@ export class AppsViewComponent implements OnInit {
     return list;
   }
 
-  fetchAppListForPartitionAndQueue(partitionName: string, queueName: string) {
+  fetchAppListForPartitionAndQueue(
+    partitionName: string,
+    queueName: string,
+    applicationId?: string
+  ) {
     this.spinner.show();
 
     this.scheduler
@@ -219,27 +222,37 @@ export class AppsViewComponent implements OnInit {
       .subscribe((data) => {
         this.initialAppData = data;
         this.appDataSource.data = data;
+
+        const row = this.initialAppData.find((app) => app.applicationId === applicationId);
+        if (row) {
+          this.toggleRowSelection(row);
+        }
       });
   }
 
-  fetchApplicationsUsingQueryParams() {
+  fetchApplicationsUsingQueryParams(): boolean {
     const partitionName = this.activatedRoute.snapshot.queryParams['partition'];
     const queueName = this.activatedRoute.snapshot.queryParams['queue'];
+    const applicationId = this.activatedRoute.snapshot.queryParams['applicationId'];
 
     if (partitionName && queueName) {
       this.partitionSelected = partitionName;
       this.leafQueueSelected = queueName;
-      this.fetchAppListForPartitionAndQueue(partitionName, queueName);
+      this.fetchAppListForPartitionAndQueue(partitionName, queueName, applicationId);
       CommonUtil.setStoredQueueAndPartition(partitionName, queueName);
-    }
 
-    this.router.navigate([], {
-      queryParams: {
-        partition: null,
-        queue: null,
-      },
-      queryParamsHandling: 'merge',
-    });
+      this.router.navigate([], {
+        queryParams: {
+          partition: null,
+          queue: null,
+          applicationId: null,
+        },
+        queryParamsHandling: 'merge',
+      });
+
+      return true;
+    }
+    return false;
   }
 
   unselectAllRowsButOne(row: AppInfo) {
@@ -253,9 +266,7 @@ export class AppsViewComponent implements OnInit {
   toggleRowSelection(row: AppInfo) {
     this.unselectAllRowsButOne(row);
     if (row.isSelected) {
-      this.selectedRow = null;
-      row.isSelected = false;
-      this.allocDataSource.data = [];
+      this.removeRowSelection();
     } else {
       this.selectedRow = row;
       row.isSelected = true;
