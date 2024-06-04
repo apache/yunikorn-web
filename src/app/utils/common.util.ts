@@ -98,12 +98,6 @@ export class CommonUtil {
     return NOT_AVAILABLE;
   }
 
-  static objFormatter(value: object | null): string {
-    console.log('>>>', value);
-    if (!value) return NOT_AVAILABLE;
-    return JSON.stringify(value, null, 2);
-  }
-
   static resourcesCompareFn(a: string, b: string): number {
     // define the order of resources
     const resourceOrder: { [key: string]: number } = {
