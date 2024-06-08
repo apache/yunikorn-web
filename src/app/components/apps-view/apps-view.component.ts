@@ -34,6 +34,7 @@ import { CommonUtil } from '@app/utils/common.util';
 import { PartitionInfo } from '@app/models/partition-info.model';
 import { DropdownItem } from '@app/models/dropdown-item.model';
 import { QueueInfo } from '@app/models/queue-info.model';
+import { MatDrawer } from '@angular/material/sidenav';
 
 @Component({
   selector: 'app-applications-view',
@@ -47,6 +48,7 @@ export class AppsViewComponent implements OnInit {
   @ViewChild('allocSort', { static: true }) allocSort!: MatSort;
   @ViewChild('searchInput', { static: true }) searchInput!: ElementRef;
   @ViewChild('queueSelect', { static: false }) queueSelect!: MatSelect;
+  @ViewChild('matDrawer', { static: false }) matDrawer!: MatDrawer;
 
   appDataSource = new MatTableDataSource<AppInfo>([]);
   appColumnDef: ColumnDef[] = [];
@@ -65,6 +67,7 @@ export class AppsViewComponent implements OnInit {
   leafQueueSelected = '';
 
   detailToggle: boolean = false;
+  allocationsToggle: boolean = false;
 
   constructor(
     private scheduler: SchedulerService,
@@ -105,14 +108,19 @@ export class AppsViewComponent implements OnInit {
       },
     ];
 
-    this.appColumnIds = this.appColumnDef.map((col) => col.colId).concat('indicatorIcon');
+    this.appColumnIds = this.appColumnDef.map((col) => col.colId);
 
     this.allocColumnDef = [
-      { colId: 'displayName', colName: 'Display Name' },
-      { colId: 'allocationKey', colName: 'Allocation Key' },
-      { colId: 'nodeId', colName: 'Node ID' },
-      { colId: 'resource', colName: 'Resource', colFormatter: CommonUtil.resourceColumnFormatter },
-      { colId: 'priority', colName: 'Priority' },
+      { colId: 'displayName', colName: 'Display Name', colWidth: 1 },
+      { colId: 'allocationKey', colName: 'Allocation Key', colWidth: 1 },
+      { colId: 'nodeId', colName: 'Node ID', colWidth: 1 },
+      {
+        colId: 'resource',
+        colName: 'Resource',
+        colFormatter: CommonUtil.resourceColumnFormatter,
+        colWidth: 1,
+      },
+      { colId: 'priority', colName: 'Priority', colWidth: 0.5 },
     ];
 
     this.allocColumnIds = this.allocColumnDef.map((col) => col.colId);
@@ -135,7 +143,6 @@ export class AppsViewComponent implements OnInit {
           list.forEach((part) => {
             this.partitionList.push(new PartitionInfo(part.name, part.name));
           });
-
           this.partitionSelected = CommonUtil.getStoredPartition(list[0].name);
           this.fetchQueuesForPartition(this.partitionSelected);
         } else {
@@ -270,6 +277,7 @@ export class AppsViewComponent implements OnInit {
     } else {
       this.selectedRow = row;
       row.isSelected = true;
+      this.matDrawer.open();
       if (row.allocations) {
         this.allocDataSource.data = row.allocations;
       }
@@ -386,5 +394,14 @@ export class AppsViewComponent implements OnInit {
 
   toggle() {
     this.detailToggle = !this.detailToggle;
+  }
+
+  allocationsDetailToggle() {
+    this.allocationsToggle = !this.allocationsToggle;
+  }
+
+  closeDrawer() {
+    this.matDrawer.close();
+    this.removeRowSelection();
   }
 }
