@@ -16,26 +16,27 @@
  * limitations under the License.
  */
 
-import {DebugElement} from '@angular/core';
-import {ComponentFixture, TestBed} from '@angular/core/testing';
-import {FormsModule} from '@angular/forms';
-import {MatDividerModule} from '@angular/material/divider';
-import {MatInputModule} from '@angular/material/input';
-import {MatPaginatorModule} from '@angular/material/paginator';
-import {MatSelectModule} from '@angular/material/select';
-import {MatSortModule} from '@angular/material/sort';
-import {MatTableModule} from '@angular/material/table';
-import {MatTooltipModule} from '@angular/material/tooltip';
-import {By, HAMMER_LOADER} from '@angular/platform-browser';
-import {NoopAnimationsModule} from '@angular/platform-browser/animations';
-import {RouterTestingModule} from '@angular/router/testing';
-import {AppInfo} from '@app/models/app-info.model';
-import {SchedulerService} from '@app/services/scheduler/scheduler.service';
-import {MockNgxSpinnerService, MockSchedulerService} from '@app/testing/mocks';
-import {NgxSpinnerService} from 'ngx-spinner';
-import {of} from 'rxjs';
+import { DebugElement } from '@angular/core';
+import { ComponentFixture, TestBed } from '@angular/core/testing';
+import { FormsModule } from '@angular/forms';
+import { MatDividerModule } from '@angular/material/divider';
+import { MatInputModule } from '@angular/material/input';
+import { MatPaginatorModule } from '@angular/material/paginator';
+import { MatSelectModule } from '@angular/material/select';
+import { MatSidenavModule } from '@angular/material/sidenav';
+import { MatSortModule } from '@angular/material/sort';
+import { MatTableModule } from '@angular/material/table';
+import { MatTooltipModule } from '@angular/material/tooltip';
+import { By, HAMMER_LOADER } from '@angular/platform-browser';
+import { NoopAnimationsModule } from '@angular/platform-browser/animations';
+import { RouterTestingModule } from '@angular/router/testing';
+import { AppInfo } from '@app/models/app-info.model';
+import { SchedulerService } from '@app/services/scheduler/scheduler.service';
+import { MockNgxSpinnerService, MockSchedulerService } from '@app/testing/mocks';
+import { NgxSpinnerService } from 'ngx-spinner';
+import { of } from 'rxjs';
 
-import {AppsViewComponent} from './apps-view.component';
+import { AppsViewComponent } from './apps-view.component';
 
 describe('AppsViewComponent', () => {
   let component: AppsViewComponent;
@@ -55,6 +56,7 @@ describe('AppsViewComponent', () => {
         MatInputModule,
         MatTooltipModule,
         MatSelectModule,
+        MatSidenavModule,
       ],
       providers: [
         { provide: SchedulerService, useValue: MockSchedulerService },
@@ -75,23 +77,35 @@ describe('AppsViewComponent', () => {
     let service: SchedulerService;
     service = TestBed.inject(SchedulerService);
     let appInfo = new AppInfo(
-        'app1',
-        "Memory: 500.0 KB, CPU: 10, pods: 1",
-        "Memory: 0.0 bytes, CPU: 0, pods: n/a",
-        '',
-        1,
-        2,
-        [],
-        2,
-        'RUNNING',
-        []
+      'app1',
+      'Memory: 500.0 KB, CPU: 10, pods: 1',
+      'Memory: 0.0 bytes, CPU: 0, pods: n/a',
+      '',
+      1,
+      2,
+      [],
+      2,
+      'RUNNING',
+      []
     );
     spyOn(service, 'fetchAppList').and.returnValue(of([appInfo]));
-    component.fetchAppListForPartitionAndQueue("default", "root");
+    component.fetchAppListForPartitionAndQueue('default', 'root');
     component.toggle();
     fixture.detectChanges();
     const debugEl: DebugElement = fixture.debugElement;
-    expect(debugEl.query(By.css('mat-cell.mat-column-usedResource')).nativeElement.innerText).toContain('Memory: 500.0 KB\nCPU: 10\npods: 1');
-    expect(debugEl.query(By.css('mat-cell.mat-column-pendingResource')).nativeElement.innerText).toContain('Memory: 0.0 bytes\nCPU: 0\npods: n/a');
+    expect(
+      debugEl.query(By.css('mat-cell.mat-column-usedResource')).nativeElement.innerText
+    ).toContain('Memory: 500.0 KB\nCPU: 10\npods: 1');
+    expect(
+      debugEl.query(By.css('mat-cell.mat-column-pendingResource')).nativeElement.innerText
+    ).toContain('Memory: 0.0 bytes\nCPU: 0\npods: n/a');
+  });
+
+  it('should copy the allocations URL to clipboard', () => {
+    const debugEl: DebugElement = fixture.debugElement;
+    const copyButton = debugEl.query(By.css('.copy-btn'));
+    const copyButtonSpy = spyOn(component, 'copyLinkToClipboard').and.callThrough();
+    copyButton.triggerEventHandler('click', null);
+    expect(copyButtonSpy).toHaveBeenCalled();
   });
 });
