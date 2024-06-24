@@ -104,7 +104,7 @@ describe('AppsViewComponent', () => {
   it('should copy the allocations URL to clipboard', () => {
     const debugEl: DebugElement = fixture.debugElement;
     const copyButton = debugEl.query(By.css('.copy-btn'));
-    const copyButtonSpy = spyOn(component, 'copyLinkToClipboard').and.callThrough();
+    const copyButtonSpy = spyOn(component, 'copyLinkToClipboard');
     copyButton.triggerEventHandler('click', null);
     expect(copyButtonSpy).toHaveBeenCalled();
   });
