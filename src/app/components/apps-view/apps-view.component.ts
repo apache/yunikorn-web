@@ -407,11 +407,9 @@ export class AppsViewComponent implements OnInit {
 
   copyLinkToClipboard() {
     const url = window.location.href.split('?')[0];
-    const el = document.createElement('textarea');
-    el.value = `${url}?partition=${this.partitionSelected}&queue=${this.leafQueueSelected}&applicationId=${this?.selectedRow?.applicationId}`;
-    document.body.appendChild(el);
-    el.select();
-    document.execCommand('copy');
-    document.body.removeChild(el);
+    const copyString = `${url}?partition=${this.partitionSelected}&queue=${this.leafQueueSelected}&applicationId=${this?.selectedRow?.applicationId}`;
+    navigator.clipboard
+      .writeText(copyString)
+      .catch((error) => console.error('Writing to the clipboard is not allowed. ', error));
   }
 }
