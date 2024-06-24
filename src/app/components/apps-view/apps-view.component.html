@@ -145,6 +145,7 @@
       <mat-drawer-content>
         <div class="header">
           <span>{{ selectedRow?.applicationId }} ({{ selectedRow?.allocations?.length }} allocations)</span>
+          <span class="far fa-clipboard copy-btn" (click)="copyLinkToClipboard()" matTooltip="Click to copy the URL to this view" matTooltipShowDelay="500"></span>
           <span class="far fa-solid fa-xmark close-btn" (click)="closeDrawer()"></span>
         </div>
         <div class="content">
@@ -162,7 +163,8 @@
               </ng-container>
 
               <ng-container *ngIf="columnDef.colId === 'resource'; else renderNext_3">
-                <mat-cell *matCellDef="let element" class="allocations-data" [style.flex]="columnDef?.colWidth || 1" >
+                <mat-cell *matCellDef="let element" class="allocations-data" [style.flex]="columnDef?.colWidth || 1" matTooltip="
+                          {{element[columnDef.colId]}}" matTooltipShowDelay="500" >
                   <ng-container *ngIf="columnDef.colFormatter; else showAllocRowData;">
                     <ng-container *ngIf="columnDef.colFormatter(element[columnDef.colId]) as colValue">
                       <ul class="mat-res-ul">
@@ -188,7 +190,7 @@
                           [class]="allocationsToggle ? '' : 'ellipsis'"
                           [style.flex]="columnDef?.colWidth || 1"
                           [style.min-height]="allocationsToggle ? '96px' : 'unset'"
-                          [title]="element[columnDef.colId]"
+                          matTooltip="{{element[columnDef.colId]}}" matTooltipShowDelay="500"
                 >{{ element[columnDef.colId] || 'n/a' }}</mat-cell>
               </ng-template>
             </ng-container>

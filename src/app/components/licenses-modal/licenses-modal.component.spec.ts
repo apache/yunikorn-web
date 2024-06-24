@@ -19,7 +19,7 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { LicensesModalComponent } from './licenses-modal.component';
-import { MatDialogRef } from '@angular/material/dialog';
+import { MatDialogRef, MatDialogModule } from '@angular/material/dialog';
 import { HttpClientTestingModule } from '@angular/common/http/testing';
 
 describe('LicensesModalComponent', () => {
@@ -30,7 +30,7 @@ describe('LicensesModalComponent', () => {
     await TestBed.configureTestingModule({
       declarations: [LicensesModalComponent],
       providers: [{ provide: MatDialogRef, useValue: {} }],
-      imports: [HttpClientTestingModule],
+      imports: [HttpClientTestingModule, MatDialogModule],
     }).compileComponents();
     fixture = TestBed.createComponent(LicensesModalComponent);
     component = fixture.componentInstance;

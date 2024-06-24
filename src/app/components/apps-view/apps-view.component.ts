@@ -404,4 +404,12 @@ export class AppsViewComponent implements OnInit {
     this.matDrawer.close();
     this.removeRowSelection();
   }
+
+  copyLinkToClipboard() {
+    const url = window.location.href.split('?')[0];
+    const copyString = `${url}?partition=${this.partitionSelected}&queue=${this.leafQueueSelected}&applicationId=${this?.selectedRow?.applicationId}`;
+    navigator.clipboard
+      .writeText(copyString)
+      .catch((error) => console.error('Writing to the clipboard is not allowed. ', error));
+  }
 }
