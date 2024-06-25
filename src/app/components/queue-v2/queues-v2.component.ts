@@ -209,6 +209,13 @@ function queueVisualization(rawData : QueueInfo){
           .attr("height", 30)
           .attr("fill", "#e6f4ea")
           .attr("class", "cardBottom");
+        
+        group.append("image")
+          .attr("href", "./assets/images/hierarchy.svg") 
+          .attr("x", 5) 
+          .attr("y", 5) 
+          .attr("width", 20)
+          .attr("height", 20);
   
         group.append("text")
           .attr("x", 30) 
