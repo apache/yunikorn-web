@@ -50,6 +50,9 @@ RELEASE_BIN_DIR=${OUTPUT}/prod
 SERVER_BINARY=yunikorn-web
 REPO=github.com/apache/yunikorn-web/pkg
 
+# PATH
+export PATH := $(BASE_DIR)/$(TOOLS_DIR):$(BASE_DIR)/$(TOOLS_DIR)/bin:$(PATH)
+
 # Build date - Use git commit, then cached build.date, finally current date
 # This allows for reproducible builds as long as release tarball contains the build.date file.
 DATE := $(shell if [ -d "$(BASE_DIR)/.git" ]; then TZ=UTC0 git --no-pager log -1 --date=iso8601-strict-local --format=%cd 2>/dev/null ; fi || true)
@@ -119,6 +122,14 @@ GOLANGCI_LINT_BIN=$(TOOLS_DIR)/golangci-lint
 GOLANGCI_LINT_ARCHIVE=golangci-lint-$(GOLANGCI_LINT_VERSION)-$(OS)-$(EXEC_ARCH).tar.gz
 GOLANGCI_LINT_ARCHIVEBASE=golangci-lint-$(GOLANGCI_LINT_VERSION)-$(OS)-$(EXEC_ARCH)
 
+# pnpm
+PNPM_VERSION=9.5.0
+PNPM_BIN=$(TOOLS_DIR)/bin/pnpm
+
+# @angular/cli
+ANGULAR_CLI_VERSION=16.2.10
+NG_BIN=$(TOOLS_DIR)/bin/ng
+
 WEB_SHA=$(shell git rev-parse --short=12 HEAD)
 
 ifeq ($(WEB_TAG),)
@@ -128,14 +139,30 @@ endif
 all:
 	$(MAKE) -C $(dir $(BASE_DIR)) build
 
-# Install pnpm
-.PHONY: install-pnpm
-install-pnpm:
-	@pnpm version >/dev/null 2>/dev/null || npm install -g pnpm
-
 # Install tools
 .PHONY: tools
-tools: $(GOLANGCI_LINT_BIN)
+tools: $(PNPM_BIN) $(NG_BIN) $(GOLANGCI_LINT_BIN)
+
+# Install deps
+.PHONY: deps
+deps: tools
+	PUPPETEER_SKIP_CHROMIUM_DOWNLOAD=1 && $(PNPM_BIN) i
+
+# Install pnpm
+$(PNPM_BIN):
+	@echo "install pnpm v$(PNPM_VERSION)"
+	@mkdir -p "$(TOOLS_DIR)"
+	@cd "$(TOOLS_DIR)"
+	@npm install --prefix "$(TOOLS_DIR)" -g pnpm@$(PNPM_VERSION)
+	@cd $(BASE_DIR)
+
+# Install @angular/cli
+$(NG_BIN):
+	@echo "install @angular/cli v$(ANGULAR_CLI_VERSION)"
+	@mkdir -p "$(TOOLS_DIR)"
+	@cd "$(TOOLS_DIR)"
+	@npm install --prefix "$(TOOLS_DIR)" -g @angular/cli@$(ANGULAR_CLI_VERSION)
+	@cd $(BASE_DIR)
 
 # Install golangci-lint
 $(GOLANGCI_LINT_BIN):
@@ -152,7 +179,7 @@ lint: $(GOLANGCI_LINT_BIN)
 	@git symbolic-ref -q HEAD && REV="origin/HEAD" || REV="HEAD^" ; \
 	headSHA=$$(git rev-parse --short=12 $${REV}) ; \
 	echo "checking against commit sha $${headSHA}" ; \
-	"$(GOLANGCI_LINT_BIN)" run --new-from-rev=$${headSHA}
+	"$(GOLANGCI_LINT_BIN)" run
 
 .PHONY: license-check
 # This is a bit convoluted but using a recursive grep on linux fails to write anything when run
@@ -176,18 +203,22 @@ endif
 
 # Start web interface in a local dev setup
 .PHONY: start-dev
-start-dev: install-pnpm
-	pnpm start:srv & pnpm start
+start-dev: deps
+	$(PNPM_BIN) start:srv & $(PNPM_BIN) start
 
 # Build the web interface for dev and test
 .PHONY: build
-build: install-pnpm
-	PUPPETEER_SKIP_CHROMIUM_DOWNLOAD=1 && pnpm i && ng build
+build: deps
+	$(PNPM_BIN) ng build
 
 # Run JS unit tests
 .PHONY: test_js
-test_js: build install-pnpm
-	PUPPETEER_SKIP_CHROMIUM_DOWNLOAD=1 && pnpm test:singleRun
+test_js: deps
+	$(PNPM_BIN) test:singleRun
+
+.PHONY: test_js_coverage
+test_js_coverage: deps
+	$(PNPM_BIN) test:coverage
 
 # Run Go unit tests
 .PHONY: test_go
@@ -203,8 +234,8 @@ test: test_js test_go
 
 # Build the web interface in a production ready version
 .PHONY: build-prod
-build-prod: install-pnpm
-	PUPPETEER_SKIP_CHROMIUM_DOWNLOAD=1 && pnpm i && pnpm build:prod
+build-prod: deps
+	$(PNPM_BIN) build:prod
 
 # Simple clean of generated files only (no local cleanup).
 .PHONY: clean
@@ -268,5 +299,5 @@ run: image
 
 # Start the json-server based on the json-db and route.
 .PHONY: json-server
-json-server:
-	json-server ./json-db.json
+json-server: deps
+	$(PNPM_BIN) json-server ./json-db.json

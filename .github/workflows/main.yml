@@ -28,15 +28,10 @@ jobs:
         uses: actions/setup-node@v4
         with:
           node-version-file: '.nvmrc'
-      - run: |
-          npm install -g @angular/cli > /dev/null
-          npm install -g pnpm > /dev/null
-      - name: Install Dependencies
-        run: PUPPETEER_SKIP_CHROMIUM_DOWNLOAD=1 pnpm install
       - name: Build Prod
-        run: pnpm build:prod
+        run: make build-prod
       - name: Test Coverage
-        run: pnpm test:coverage
+        run: make test_js_coverage
       - name: Go lint
         run: make lint
       - name: Go unit tests
