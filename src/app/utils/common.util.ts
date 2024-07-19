@@ -85,7 +85,9 @@ export class CommonUtil {
     if (!value) {
       return '';
     }
-
+    if (value === 'n/a') {
+      return '<strong>Memory:</strong> n/a';
+    }
     let memory = value.split('%')[0] + '%';
     console.log('mem', memory); 
     return CommonUtil.resourceColumnFormatter(memory);
@@ -95,7 +97,9 @@ export class CommonUtil {
     if (!value) {
       return '';
     }
-
+    if (value === 'n/a') {
+      return '<strong>CPU:</strong> n/a';
+    }
     let cpu = value.split('%')[1] + '%';
     cpu = cpu.replace(',', '');
     
