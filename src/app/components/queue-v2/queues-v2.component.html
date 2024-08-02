@@ -78,6 +78,14 @@
                 </div>
 
                 <div class="info-block">
+                  <div class="info-block-header">Guaranteed:</div>
+                  <div 
+                    class="guaranteed-block"
+                    [innerHTML]="resourceValueFormatter(seletedInfo?.guaranteedResource)">
+                  </div>
+                </div>
+
+                <div class="info-block">
                   <div class="info-block-header">Absolute Used Capacity:</div>
                   <div class="capacity-block">
                       <div class="capacity-icon">
