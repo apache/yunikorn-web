@@ -89,7 +89,6 @@ export class CommonUtil {
       return '<strong>Memory:</strong> n/a';
     }
     let memory = value.split('%')[0] + '%';
-    console.log('mem', memory); 
     return CommonUtil.resourceColumnFormatter(memory);
   }
 
