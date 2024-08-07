@@ -15,108 +15,26 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-@import '~material-design-icons/iconfont/material-icons.css';
-
- .top-section {
-  width: 100%;
-  height: 100%;
-  display: flex;
-  flex-direction: row;
-  justify-content: space-between;
-  align-items: center;
-  .left-side{
-    display: flex;
-    flex-direction: row;
-    align-items: center;
-    .dropdown-wrapper {
-      padding-right: 40px;
-      .dropdown-label {
-        color: #333;
-        font-size: 1.2em;
-        margin-right: 10px;
-      }
-    }
-  }
-  .right-side{
-    display: flex;
-    flex-direction: row;
-    align-items: center;
-    .btn-wrapper {
-      filter: drop-shadow(0px 2px 1px rgba(90, 90, 90, 0.5));
-      &:hover{
-        filter: drop-shadow(0px 3px 3px rgba(90, 90, 90, 0.5));
-      }
-      :hover{
-        cursor: pointer;
-      }
-      .btn{
-        display: block;
-        border: none;
-        padding: 13px 24px;
-        border-radius: 5px;
-        font-size: 24px;
-        transform: translateY(-13px);
-      }
-      .material-icons{
-        transform: translateY(2px);
-      }
-    }
-    .search-wrapper {
-      width: 300px;
-      right: 20px;
-      padding-right: 20px;
-      input {
-        width: calc(100% - 22px);
-        color: #333;
-      }
-      .clear-btn {
-        outline: none;
-        border: none;
-        padding: 0 0 0 4px;
-        cursor: pointer;
-        background: transparent;
-        i {
-          font-size: 18px;
-          &:hover {
-            color: #f44336;
-          }
-        }
-      }
-      .search-icon {
-        margin-left: 4px;
-        font-size: 17px;
-      }
-    }
-  }
-}
-
-.mdc-button .mdc-button__label{
-  display: flex;
-  align-items: center;
-}
-
-.apps-view {
-  width: 100%;
-  height: 100%;
-
-  mat-chip {
-    height: 20px;
-    line-height: 14px;
-    font-size: 12px;
-    margin: 1px;
-    // border-radius: 5px;
-    // background-color: #313D54;
-    background-color: transparent;
-
-    span {
-        font-size: 12px;
+ 
+.mat-drawer-container {
+  min-width: 430px;
+  width: 55%;
+  height: calc(100vh - 60px);
+  background: transparent;
+  pointer-events: none;
+  position: absolute;
+  right: 0;
+  bottom: 0;
+  .mat-drawer {
+    pointer-events: auto;
+    width: 100%;
+    .content {
+      padding: 0 10px;
     }
   }
 
-  .mat-mdc-standard-chip {
-    --mdc-chip-label-text-color: #333;
-    --mdc-chip-label-text-size: 12px;
-    --mdc-chip-label-text-weight: 400;
+  .full-row-height {
+    border: 1px solid red;
   }
 
   .mat-mdc-header-cell {
@@ -145,12 +63,7 @@
       }
     }
   }
-  .even-row {
-    background: #eee;
-  }
   .mat-mdc-row {
-    min-height: unset;
-    font-size: 12px;
     &:hover {
       background: #cccccc;
       cursor: pointer;
@@ -174,38 +87,7 @@
     font-size: 18px;
     margin-left: 10px;
   }
-  .app-allocations {
-    margin-top: 40px;
-    .mat-mdc-table {
-      margin-top: 20px;
-    }
-  }
-  .no-record {
-    font-size: 14px;
-    font-weight: bold;
-    color: #666;
-    width: 100%;
-    text-align: center;
-  }
-}
 
-
-.mat-drawer-container {
-  min-width: 430px;
-  width: 55%;
-  height: calc(100vh - 60px);
-  background: transparent;
-  pointer-events: none;
-  position: absolute;
-  right: 0;
-  bottom: 0;
-  .mat-drawer {
-    pointer-events: auto;
-    width: 100%;
-    .content {
-      padding: 0 10px;
-    }
-  }
   .close-btn {
     float: right;
     font-size: 1.2em;

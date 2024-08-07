@@ -1,0 +1,94 @@
+<!--
+ * Licensed to the Apache Software Foundation (ASF) under one
+ * or more contributor license agreements.  See the NOTICE file
+ * distributed with this work for additional information
+ * regarding copyright ownership.  The ASF licenses this file
+ * to you under the Apache License, Version 2.0 (the
+ * "License"); you may not use this file except in compliance
+ * with the License.  You may obtain a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ -->
+
+<mat-drawer-container class="flex-primary" [hasBackdrop]="false">
+  <mat-drawer #matDrawer mode="over" position="end">
+    <mat-drawer-content>
+      <div class="header">
+        <span>{{ selectedRow?.applicationId }} ({{ selectedRow?.allocations?.length }} allocations)</span>
+        <span class="far fa-clipboard copy-btn" (click)="copyLinkToClipboard()"
+          matTooltip="Click to copy the URL to this view" matTooltipShowDelay="500"></span>
+        <span class="far fa-solid fa-xmark close-btn" (click)="closeDrawer()"></span>
+      </div>
+      <div class="content">
+
+        <mat-table [dataSource]="allocDataSource" matSort #allocSort="matSort">
+          <ng-container [matColumnDef]="columnDef.colId" *ngFor="let columnDef of allocColumnDef">
+            <mat-header-cell *matHeaderCellDef mat-sort-header [style.flex]="columnDef?.colWidth || 1">{{
+              columnDef.colName }}</mat-header-cell>
+
+            <ng-container *ngIf="columnDef.colId === 'priority'; else renderNext_3">
+              <mat-cell class="small" *matCellDef="let element" [style.flex]="columnDef?.colWidth || 1"
+                [title]="element[columnDef.colId]">{{
+                element['priority'] }} </mat-cell>
+            </ng-container>
+
+            <ng-container *ngIf="columnDef.colId === 'resource'; else renderNext_3">
+              <mat-cell *matCellDef="let element" class="allocations-data" [style.flex]="columnDef?.colWidth || 1"
+                matTooltip="
+                          {{element[columnDef.colId]}}" matTooltipShowDelay="500">
+                <ng-container *ngIf="columnDef.colFormatter; else showAllocRowData;">
+                  <ng-container *ngIf="columnDef.colFormatter(element[columnDef.colId]) as colValue">
+                    <ul class="mat-res-ul">
+                      <ng-container *ngFor="let resource of formatResources(colValue); let i = index">
+                        <li class="mat-res-li" *ngIf="i<1">
+                          {{ resource }}
+                        </li>
+                        <li class="mat-res-li" *ngIf="i>=1 && element['expanded']">
+                          {{ resource }}
+                        </li>
+                      </ng-container>
+                    </ul>
+                  </ng-container>
+                </ng-container>
+                <ng-template #showAllocRowData>
+                  <span>{{ element[columnDef.colId] }}</span>
+                </ng-template>
+              </mat-cell>
+            </ng-container>
+
+            <ng-template #renderNext_3>
+              <mat-cell *matCellDef="let element" [class]="element['expanded'] ? '' : 'ellipsis'"
+                [style.flex]="columnDef?.colWidth || 1" matTooltip="{{element[columnDef.colId]}}"
+                matTooltipShowDelay="500">{{ element[columnDef.colId] || 'n/a'
+                }}</mat-cell>
+            </ng-template>
+          </ng-container>
+
+          <ng-container matColumnDef="noRecord">
+            <mat-footer-cell *matFooterCellDef>
+              <div class="no-record">No records found</div>
+            </mat-footer-cell>
+          </ng-container>
+
+          <mat-header-row *matHeaderRowDef="allocColumnIds"></mat-header-row>
+
+          <mat-row *matRowDef="let row; columns: allocColumnIds; let i = index" (click)="allocationsDetailToggle(i)"
+            [ngClass]="{'even-row': i % 2 === 0, 'row': true}"></mat-row>
+
+          <mat-footer-row *matFooterRowDef="['noRecord']"
+            [ngStyle]="{ display: isAllocDataSourceEmpty() ? '' : 'none' }"></mat-footer-row>
+        </mat-table>
+
+        <mat-paginator #allocationMatPaginator [pageSizeOptions]="[10, 20, 50, 100]" [pageSize]="50"
+          [ngStyle]="{ display: isAllocDataSourceEmpty() ? 'none' : '' }" showFirstLastButtons></mat-paginator>
+
+      </div>
+    </mat-drawer-content>
+  </mat-drawer>
+</mat-drawer-container>

@@ -21,6 +21,7 @@ import { AppInfo } from '@app/models/app-info.model';
 import { CommonUtil } from '@app/utils/common.util';
 
 export const noopFn = () => {};
+export const nullFn = () => null;
 
 export const MockSchedulerService = {
   fetchClusterByName: () => of({}),
@@ -41,6 +42,7 @@ export const MockNgxSpinnerService = {
 
 export const MockEnvconfigService = {
   getSchedulerWebAddress: noopFn,
+  getAllocationsDrawerComponentRemoteConfig: nullFn,
 };
 
 export const MockEventBusService = {
