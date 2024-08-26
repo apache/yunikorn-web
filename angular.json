@@ -90,7 +90,7 @@
               "extraWebpackConfig": "webpack.prod.config.js"
             },
             "development": {
-              "browserTarget": "yunikorn-web:build:development"
+              "buildTarget": "yunikorn-web:build:development"
             }
           },
           "defaultConfiguration": "development",
