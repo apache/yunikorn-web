@@ -45,7 +45,7 @@ export interface TreeNode {
 export class QueueV2Component implements OnInit {
   rootQueue: QueueInfo | null = null;
   seletedInfo: QueueInfo | null = null;
-  resourceValueFormatter = CommonUtil.resourceColumnFormatter;
+  resourceValueFormatter = CommonUtil.queueResourceColumnFormatter;
   memoryValueFormatter = CommonUtil.absoluteUsedMemoryColumnFormatter;
   cpuValueFormatter = CommonUtil.absoluteUsedCPUColumnFormatter;
 
