@@ -89,7 +89,7 @@ export class CommonUtil {
       return '<strong>Memory:</strong> n/a';
     }
     let memory = value.split('%')[0] + '%';
-    return CommonUtil.resourceColumnFormatter(memory);
+    return CommonUtil.queueResourceColumnFormatter(memory);
   }
 
   static absoluteUsedCPUColumnFormatter(value: string | undefined): string {
@@ -102,10 +102,14 @@ export class CommonUtil {
     let cpu = value.split('%')[1] + '%';
     cpu = cpu.replace(',', '');
     
-    return CommonUtil.resourceColumnFormatter(cpu);
+    return CommonUtil.queueResourceColumnFormatter(cpu);
   }
 
-  static resourceColumnFormatter(value: string | undefined): string {
+  static resourceColumnFormatter(value: string): string {
+    return value.split(', ').join('<br/>');
+  }
+
+  static queueResourceColumnFormatter(value: string | undefined): string {
     if (!value) {
       return '';
     }

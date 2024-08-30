@@ -87,19 +87,19 @@ describe('CommonUtil', () => {
     });  
   });
 
-  describe('resourceColumnFormatter', () => {
+  describe('queueResourceColumnFormatter', () => {
     it('should return an empty string for undefined input', () => {
-      expect(CommonUtil.resourceColumnFormatter(undefined)).toBe('');
+      expect(CommonUtil.queueResourceColumnFormatter(undefined)).toBe('');
     });
   
     it('should format multiple resources correctly', () => {
       const input = 'Memory: 50%, CPU: 75%';
       const expected = '<strong>Memory:</strong> 50%<br/><strong>CPU:</strong> 75%';
-      expect(CommonUtil.resourceColumnFormatter(input)).toBe(expected);
+      expect(CommonUtil.queueResourceColumnFormatter(input)).toBe(expected);
     });
   
     it('should handle "n/a" values correctly', () => {
-      expect(CommonUtil.resourceColumnFormatter('n/a')).toBe('n/a');
+      expect(CommonUtil.queueResourceColumnFormatter('n/a')).toBe('n/a');
     });
   });
 });
