@@ -85,314 +85,359 @@ export class QueueV2Component implements OnInit {
   }
 }
 
-function queueVisualization(rawData : QueueInfo , componentInstance: QueueV2Component){
+function queueVisualization(rawData: QueueInfo, componentInstance: QueueV2Component) {
   let numberOfNode = 0;
   let isShowingDetails = false;
   let selectedNode: any = null;
 
+  // Set this variable to 'horizontal' or 'vertical' to change orientation
+  // Define a type for the orientation
+  type Orientation = 'horizontal' | 'vertical';
+
+  // Declare orientation as the defined type
+  let orientation: Orientation = 'horizontal';
+
   const duration = 750;
 
   const svg = select('.visualize-area').append('svg')
-               .attr('width', '100%')
-               .attr('height', '100%')
-                  
-    function fitGraphScale(){
-      const baseSvgElem = svg.node() as SVGGElement;
-      const bounds = baseSvgElem.getBBox();
-      const parent = baseSvgElem.parentElement as HTMLElement;
-      const fullWidth = parent.clientWidth;
-      const fullHeight = parent.clientHeight;
-      
-      const xfactor: number = fullWidth / bounds.width;
-      const yfactor: number = fullHeight / bounds.height;
-      let scaleFactor: number = Math.min(xfactor, yfactor);
+    .attr('width', '100%')
+    .attr('height', '100%');
 
-       // Add some padding so that the graph is not touching the edges
-       const paddingPercent = 0.9;
-       scaleFactor = scaleFactor * paddingPercent;
-       return scaleFactor
-    }
-
-    function centerGraph() {
-        const bbox = (svgGroup.node() as SVGGElement).getBBox();
-        const cx = bbox.x + bbox.width / 2;
-        const cy = bbox.y + bbox.height / 2;
-        return {cx, cy};
-    }
-
-    function adjustVisulizeArea(duration : number = 0){
-      const scaleFactor = fitGraphScale();
-      const {cx, cy} = centerGraph();
-      // make the total duration to be 1 second
-      svg.transition().duration(duration/1.5).call(zoom.translateTo, cx, cy)
-      .on("end", function() {
-        svg.transition().duration(duration/1.5).call(zoom.scaleBy, scaleFactor)
-      })
-    } 
-
-    // Append a svg group which holds all nodes and which is for the d3 zoom
-    const svgGroup = svg.append("g")
-
-    const fitButton = select(".fit-to-screen-button")
-    .on("click", function() {
-      adjustVisulizeArea(duration)
-    })
-    .on('mouseenter', function() {
-      select(this).select('.tooltip')
-            .style('visibility', 'visible')
-            .style('opacity', 1);
-    })
-    .on('mouseleave', function() {
-      select(this).select('.tooltip')
-            .style('visibility', 'hidden')
-            .style('opacity', 0);
-    });
+  function fitGraphScale() {
+    const baseSvgElem = svg.node() as SVGGElement;
+    const bounds = baseSvgElem.getBBox();
+    const parent = baseSvgElem.parentElement as HTMLElement;
+    const fullWidth = parent.clientWidth;
+    const fullHeight = parent.clientHeight;
     
-    const treelayout = d3flextree
-      .flextree<QueueInfo>({})
-      .nodeSize((d) => {
-          return [300, 300];
-        }
-      )
-      .spacing(() => 300);
-    
-    const zoom = d3zoom
-    .zoom<SVGSVGElement, unknown>()
-    .scaleExtent([0.1, 5]) 
-    .on("zoom", (event) => {
-      svgGroup.attr("transform", event.transform)
-    });
-    svg.call(zoom);
+    const xfactor: number = fullWidth / bounds.width;
+    const yfactor: number = fullHeight / bounds.height;
+    let scaleFactor: number = Math.min(xfactor, yfactor);
 
+    const paddingPercent = 0.9;
+    scaleFactor = scaleFactor * paddingPercent;
+    return scaleFactor;
+  }
+
+  function centerGraph() {
+    const bbox = (svgGroup.node() as SVGGElement).getBBox();
+    const cx = bbox.x + bbox.width / 2;
+    const cy = bbox.y + bbox.height / 2;
+    return {cx, cy};
+  }
+
+  function adjustVisulizeArea(duration: number = 0) {
+    const scaleFactor = fitGraphScale();
+    const {cx, cy} = centerGraph();
+    svg.transition().duration(duration/1.5).call(zoom.translateTo, cx, cy)
+    .on("end", function() {
+      svg.transition().duration(duration/1.5).call(zoom.scaleBy, scaleFactor)
+    });
+  } 
+
+  function changeOrientation() {
+    orientation = orientation === 'horizontal' ? 'vertical' : 'horizontal';
     const root = d3hierarchy.hierarchy(rawData);
     update(root);
 
-    function update(source: any){
-      var treeData = treelayout(root)
-      var nodes = treeData.descendants()
-      var node = svgGroup
-          .selectAll<SVGGElement, d3hierarchy.HierarchyNode<QueueInfo>>('g.card')
-          .data(nodes, function(d : any) { 
-            return d.id || (d.id = ++numberOfNode); 
-          });
-
-      var nodeEnter = node
-          .enter().append('g')
-          .attr('class', 'card')
-          .attr("transform", function() {
-              if (source.x0 && source.y0) {
-                  return "translate(" + source.x0 + "," + source.y0 + ")";
-              }
-              else {
-                  return "translate(" + source.x + "," + source.y + ")";
-              }
-          })
-
-      nodeEnter.each(function(d) {
+     // Update the position of existing plus circles, plus text, and queue names
+     svgGroup.selectAll('g.card')
+      .each(function(d: any) {
         const group = select(this);
-
-        group.append("rect")
-          .attr("width", 300) 
-          .attr("height", 120) 
-          .attr("fill", "none")
-          .attr("stroke", "white")
-          .attr("stroke-width", 2) 
-          .attr("rx", 10)
-          .attr("ry", 10)
-          .attr("class", "cardMain");
-  
-        group.append("rect")
-          .attr("width", 300)
-          .attr("height", 30)
-          .attr("fill", "#d4eaf7")
-          .attr("class", "cardTop");
-  
-        group.append("rect")
-          .attr("y", 30)
-          .attr("width", 300)
-          .attr("height", 60)
-          .attr("fill", "white")
-          .attr("class", "cardMiddle");
-  
-        group.append("rect")
-          .attr("y", 90)
-          .attr("width", 300)
-          .attr("height", 30)
-          .attr("fill", "#e6f4ea")
-          .attr("class", "cardBottom");
-  
-        group.append("text")
-          .attr("x", 30) 
-          .attr("y", 22.5)
-          .attr("font-size", "25px")
-          .attr("fill", "black")
-          .text(d.data.queueName);
-        
-        const plusCircle = group.append("circle")
-          .attr("cx", 150)
-          .attr("cy", 120) 
-          .attr("r", 20)   
-          .attr("fill", "white") 
-          .attr("stroke", "black") 
-          .attr("stroke-width", 1)
-          .style("visibility", "hidden")
-          .on('click', function(event) {
-            event.stopPropagation(); // Prevents the event from bubbling up to parent elements
-            click(event, d); 
-          });
-        
-        const plusText = group.append("text")
-          .attr("x", 150) 
-          .attr("y", 127) 
-          .attr("text-anchor", "middle") 
-          .attr("font-size", "20px") 
-          .attr("fill", "black") 
-          .text("+")
-          .attr("pointer-events", "none") // Prevents the text from interfering with the click event
-          .style("visibility", "hidden");
-        
-        group.on("mouseover", function() {
-          plusCircle.style("visibility", "visible");
-          plusText.style("visibility", "visible");
-        });
-
-        group.on("click", function() {
-          if(selectedNode == this || selectedNode == null){
-            isShowingDetails = !isShowingDetails;
-          }else{
-            //set the previous selected node to its original css
-            select(selectedNode).select('.cardMain').attr("stroke", "white")
-            .attr("stroke-width", 2)
-
-            select(selectedNode).select('.cardTop').attr("fill", "#d4eaf7")
-          }
-
-          selectedNode = this;
-          componentInstance.seletedInfo = d.data;
-
-          if(isShowingDetails){
-            console.log("showing details", componentInstance.seletedInfo)
-            select(this).select('.cardMain').attr("stroke-width", 8)
-            .attr("stroke", "#50505c")
-
-            select(this).select('.cardTop').attr("fill", "#95d5f9")
-
-            select(".additional-info-element").style("display", "block");
-          } else {
-            select(this).select('.cardMain').attr("stroke-width", 2)
-            .attr("stroke", "white")
-
-            select(this).select('.cardTop').attr("fill", "#d4eaf7")
-
-            select(".additional-info-element").style("display", "none");
-          }
-
-          adjustVisulizeArea(duration)
-        });
-      
-        // Hide the circle and '+' text when the mouse leaves the node
-        group.on("mouseout", function() {
-          plusCircle.style("visibility", "hidden");
-          plusText.style("visibility", "hidden");
-        });
-
-        // Add hover effect to the circle to change its color to grey
-        plusCircle.on("mouseover", function() {
-          select(this).attr("fill", "grey");
-        });
-
-        // Reset circle color when mouse leaves
-        plusCircle.on("mouseout", function() {
-          select(this).attr("fill", "white");
-        });
-
+        group.select('circle')
+          .attr("cx", orientation === 'horizontal' ? 300 : 150)
+          .attr("cy", orientation === 'horizontal' ? 60 : 120);
+        group.select('.plus-text')
+          .attr("x", orientation === 'horizontal' ? 300 : 150)
+          .attr("y", orientation === 'horizontal' ? 67 : 127);
       });
+  }
+
+  const svgGroup = svg.append("g");
+
+  const fitButton = select(".fit-to-screen-button")
+    .on("click", function() {
+      adjustVisulizeArea(duration);
+    })
+    .on('mouseenter', function() {
+      select(this).select('.tooltip')
+        .style('visibility', 'visible')
+        .style('opacity', 1);
+    })
+    .on('mouseleave', function() {
+      select(this).select('.tooltip')
+        .style('visibility', 'hidden')
+        .style('opacity', 0);
+    });
+
+    const ortButton = select(".ort-button")
+    .on("click", function() {
+      changeOrientation();
+      setTimeout(
+        () => {
+          const fitButton = document.getElementById('fitButton');
+          if (fitButton) {
+            fitButton.click();
+          }
+        }, duration);
+    });
+
   
-      const nodeUpdate = nodeEnter.merge(node)
-      .attr("stroke", "black")
-      
-      nodeUpdate.transition()
-        .duration(duration)
-        .attr("transform", function(this: SVGGElement , event : any , i : any, arr : any) {
-            const d : any = select(this).datum();
-            return "translate(" + d.x + "," + d.y + ")";
-        });
-     
-      nodeUpdate.select('.cardBottom')
-      .style("fill", function(d : any) {
-          return d._children ? "#9fc6aa" : "#e6f4ea";
-      })
+  const treelayout = d3flextree
+    .flextree<QueueInfo>({})
+    .nodeSize((d) => {
+      return orientation === 'horizontal' ? [300, 600] : [300, 300];
+    })
+    .spacing(() => orientation === 'horizontal' ? 100 : 300);
   
-      // Remove any exiting nodes
-      var nodeExit= node.exit().transition()
-        .duration(duration)
-        .attr("transform", function(this: SVGGElement , event : any , i : any, arr : any) {
-            const d = select(this).datum();
-            return "translate(" + source.x + "," + source.y + ")";
-        })
-        .remove();
-    
-      // Link sections
-      const links = treeData.links();
-      let link = svgGroup.selectAll<SVGPathElement, d3hierarchy.HierarchyPointLink<QueueInfo>>('path.link')
-          .data(links, function(d : any) { return d.target.id; });
-  
-      const linkEnter = link.enter().insert('path', "g")
-          .attr("class", "link")
-          .attr('d', d => {
-              if (source.x0 && source.y0) {
-                  const o = {x: source.x0, y: source.y0};
-                  return diagonal(o, o);
-              }
-              else {
-                  const o = {x: source.x, y: source.y};
-                  return diagonal(o, o);
-              }
-          })
-          .attr("fill", "none")
-          .attr("stroke", "black")
-          .attr("stroke-width", "2px");
-  
-      const linkUpdate = linkEnter.merge(link);
-      linkUpdate.transition()
-          .duration(duration)
-          .attr('d', d => diagonal(d.source, d.target));
-  
-      const linkExit = link.exit().transition()
-          .duration(duration)
-          .attr('d', d => {
-              const o = {x: source.x, y: source.y};
-              return diagonal(o, o);
-          })
-          .remove();
-  
-      nodes.forEach(function(d : any) {
-          d.x0 = d.x;
-          d.y0 = d.y;
+  const zoom = d3zoom
+    .zoom<SVGSVGElement, unknown>()
+    .scaleExtent([0.1, 5]) 
+    .on("zoom", (event) => {
+      svgGroup.attr("transform", event.transform);
+    });
+  svg.call(zoom);
+
+  const root = d3hierarchy.hierarchy(rawData);
+  update(root);
+
+  function update(source: any) {
+    var treeData = treelayout(root);
+    var nodes = treeData.descendants();
+    var node = svgGroup
+      .selectAll<SVGGElement, d3hierarchy.HierarchyNode<QueueInfo>>('g.card')
+      .data(nodes, function(d: any) { 
+        return d.id || (d.id = ++numberOfNode); 
       });
-    
-      function click(event : MouseEvent, d : any) {
-        if (d.children) {
-            d._children = d.children;
-            d.children = null;
+
+    var nodeEnter = node
+      .enter().append('g')
+      .attr('class', 'card')
+      .attr("transform", function() {
+        if (source.y0 !== undefined && source.x0 !== undefined) {
+          return orientation === 'horizontal'
+            ? `translate(${source.y0},${source.x0})`
+            : `translate(${source.x0},${source.y0})`;
         } else {
-            d.children = d._children;
-            d._children = null;
+          return orientation === 'horizontal'
+            ? `translate(${source.y},${source.x})`
+            : `translate(${source.x},${source.y})`;
         }
-        
-        update(d);
+      });
+
+    nodeEnter.each(function(d) {
+      const group = select(this);
+
+      group.append("rect")
+        .attr("width", 300) 
+        .attr("height", 120) 
+        .attr("fill", "none")
+        .attr("stroke", "white")
+        .attr("stroke-width", 2) 
+        .attr("rx", 10)
+        .attr("ry", 10)
+        .attr("class", "cardMain");
+
+      group.append("rect")
+        .attr("width", 300)
+        .attr("height", 30)
+        .attr("fill", "#d4eaf7")
+        .attr("class", "cardTop");
+
+      group.append("rect")
+        .attr("y", 30)
+        .attr("width", 300)
+        .attr("height", 60)
+        .attr("fill", "white")
+        .attr("class", "cardMiddle");
+
+      group.append("rect")
+        .attr("y", 90)
+        .attr("width", 300)
+        .attr("height", 30)
+        .attr("fill", "#e6f4ea")
+        .attr("class", "cardBottom");
+
+      group.append("text")
+        .attr("x", 30) 
+        .attr("y", 22.5)
+        .attr("font-size", "25px")
+        .attr("fill", "black")
+        .text(d.data.queueName);
+      
+        const plusCircle = group.append("circle")
+        .attr("cx", () => orientation === 'horizontal' ? 300 : 150) // Right side if horizontal, center if vertical
+        .attr("cy", () => orientation === 'horizontal' ? 60 : 120)  // Center if horizontal, bottom if vertical
+        .attr("r", 20)
+        .attr("fill", "white")
+        .attr("stroke", "black")
+        .attr("stroke-width", 1)
+        .style("visibility", "hidden")
+        .on('click', function(event) {
+          event.stopPropagation();
+          click(event, d);
+        });
+      
+        const plusText = group.append("text")
+        .classed("plus-text", true)
+        .attr("x", () => orientation === 'horizontal' ? 300 : 150) 
+        .attr("y", () => orientation === 'horizontal' ? 67 : 127)  
+        .attr("text-anchor", "middle")
+        .attr("font-size", "20px")
+        .attr("fill", "black")
+        .text("+")
+        .attr("pointer-events", "none")
+        .style("visibility", "hidden");
+      
+      group.on("mouseover", function() {
+        plusCircle.style("visibility", "visible");
+        plusText.style("visibility", "visible");
+      });
+
+      group.on("click", function() {
+        if(selectedNode == this || selectedNode == null){
+          isShowingDetails = !isShowingDetails;
+        } else {
+          select(selectedNode).select('.cardMain').attr("stroke", "white")
+          .attr("stroke-width", 2);
+
+          select(selectedNode).select('.cardTop').attr("fill", "#d4eaf7");
+        }
+
+        selectedNode = this;
+        componentInstance.seletedInfo = d.data;
+
+        if(isShowingDetails){
+          console.log("showing details", componentInstance.seletedInfo);
+          select(this).select('.cardMain').attr("stroke-width", 8)
+          .attr("stroke", "#50505c");
+
+          select(this).select('.cardTop').attr("fill", "#95d5f9");
+
+          select(".additional-info-element").style("display", "block");
+        } else {
+          select(this).select('.cardMain').attr("stroke-width", 2)
+          .attr("stroke", "white");
+
+          select(this).select('.cardTop').attr("fill", "#d4eaf7");
+
+          select(".additional-info-element").style("display", "none");
+        }
+
+        adjustVisulizeArea(duration);
+      });
+    
+      group.on("mouseout", function() {
+        plusCircle.style("visibility", "hidden");
+        plusText.style("visibility", "hidden");
+      });
+
+      plusCircle.on("mouseover", function() {
+        select(this).attr("fill", "grey");
+      });
+
+      plusCircle.on("mouseout", function() {
+        select(this).attr("fill", "white");
+      });
+    });
+
+    const nodeUpdate = nodeEnter.merge(node)
+    .attr("stroke", "black");
+    
+    nodeUpdate.transition()
+      .duration(duration)
+      .attr("transform", function(this: SVGGElement, event: any, i: any, arr: any) {
+        const d: any = select(this).datum();
+        return orientation === 'horizontal'
+          ? `translate(${d.y},${d.x})`
+          : `translate(${d.x},${d.y})`;
+      });
+   
+    nodeUpdate.select('.cardBottom')
+    .style("fill", function(d: any) {
+      return d._children ? "#9fc6aa" : "#e6f4ea";
+    });
+    
+    var nodeExit = node.exit().transition()
+      .duration(duration)
+      .attr("transform", function(this: SVGGElement, event: any, i: any, arr: any) {
+        const d = select(this).datum();
+        return orientation === 'horizontal'
+          ? `translate(${source.y},${source.x})`
+          : `translate(${source.x},${source.y})`;
+      })
+      .remove();
+  
+    const links = treeData.links();
+    let link = svgGroup.selectAll<SVGPathElement, d3hierarchy.HierarchyPointLink<QueueInfo>>('path.link')
+      .data(links, function(d: any) { return d.target.id; });
+
+    const linkEnter = link.enter().insert('path', "g")
+      .attr("class", "link")
+      .attr('d', d => {
+        const o = orientation === 'horizontal'
+          ? {y: source.y0 || source.y, x: source.x0 || source.x}
+          : {x: source.x0 || source.x, y: source.y0 || source.y};
+        return diagonal(o, o, orientation);
+      })
+      .attr("fill", "none")
+      .attr("stroke", "black")
+      .attr("stroke-width", "2px");
+
+    const linkUpdate = linkEnter.merge(link);
+    linkUpdate.transition()
+      .duration(duration)
+      .attr('d', d => diagonal(d.source, d.target, orientation));
+
+    const linkExit = link.exit().transition()
+      .duration(duration)
+      .attr('d', d => {
+        const o = orientation === 'horizontal'
+          ? {y: source.y, x: source.x}
+          : {x: source.x, y: source.y};
+        return diagonal(o, o, orientation);
+      })
+      .remove();
+
+    nodes.forEach(function(d: any) {
+      d.x0 = d.x;
+      d.y0 = d.y;
+    });
+  
+    function click(event: MouseEvent, d: any) {
+      if (d.children) {
+        d._children = d.children;
+        d.children = null;
+      } else {
+        d.children = d._children;
+        d._children = null;
       }
+      
+      update(d);
     }
+  }
 }
 
-function diagonal(s : any , d : any) {
-  const sourceX = s.x + 150;  // Middle of the rectangle's width
-  const sourceY = s.y + 120;  // Bottom of the rectangle
-  const targetX = d.x + 150;  // Middle of the rectangle's width
-  const targetY = d.y;        // Top of the rectangle
+function diagonal(s: any, d: any, orientation: string) {
+  if (orientation == 'horizontal') {
+    const sourceY = s.y + 300;  // Right side of the rectangle
+    const sourceX = s.x + 60;   // Middle of the rectangle's height
+    const targetY = d.y;        // Left side of the target rectangle
+    const targetX = d.x + 60;   // Middle of the target rectangle's height
 
-  return `M ${sourceX} ${sourceY} 
-          V ${(sourceY + targetY) / 2} 
-          H ${targetX} 
-          V ${targetY}`;
+    return `M ${sourceY} ${sourceX} 
+            H ${(sourceY + targetY) / 2} 
+            V ${targetX} 
+            H ${targetY}`;
+  } else {
+    const sourceX = s.x + 150;  // Middle of the rectangle's width
+    const sourceY = s.y + 120;  // Bottom of the rectangle
+    const targetX = d.x + 150;  // Middle of the rectangle's width
+    const targetY = d.y;        // Top of the rectangle
+
+    return `M ${sourceX} ${sourceY} 
+            V ${(sourceY + targetY) / 2} 
+            H ${targetX} 
+            V ${targetY}`;
+  }
 }
