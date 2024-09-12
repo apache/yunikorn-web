@@ -83,6 +83,15 @@ export class QueueV2Component implements OnInit {
     const fitButton = document.getElementById('fitButton');
     fitButton?.click(); 
   }
+
+  showQueueStats(status: string | undefined) {
+    console.log('sssss', status)
+    if(status !== 'Active'){
+      return '[Inactive]';
+    } else{
+      return null; 
+    }
+  }
 }
 
 function queueVisualization(rawData : QueueInfo , componentInstance: QueueV2Component){
