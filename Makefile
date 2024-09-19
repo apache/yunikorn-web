@@ -50,6 +50,11 @@ RELEASE_BIN_DIR=${OUTPUT}/prod
 SERVER_BINARY=yunikorn-web
 REPO=github.com/apache/yunikorn-web/pkg
 
+IMAGE_SOURCE?=https://github.com/apache/yunikorn-k8shim
+IMAGE_URL?=https://hub.docker.com/r/apache/yunikorn
+LICENSE=Apache-2.0
+DOCS_URL=https://yunikorn.apache.org
+
 # PATH
 export PATH := $(BASE_DIR)/$(TOOLS_DIR):$(BASE_DIR)/$(TOOLS_DIR)/bin:$(PATH)
 
@@ -258,6 +263,15 @@ image: $(RELEASE_BIN_DIR)/$(SERVER_BINARY)
 	--label "yunikorn-web-revision=${WEB_SHA}" \
 	--label "Version=${VERSION}" \
 	--label "BuildTimeStamp=${DATE}" \
+	--label "org.opencontainers.image.title=${SERVER_BINARY}" \
+	--label "org.opencontainers.image.description=Apache YuniKorn Web" \
+	--label "org.opencontainers.image.version=${VERSION}" \
+	--label "org.opencontainers.image.created=$(DATE)" \
+	--label "org.opencontainers.image.source=${IMAGE_SOURCE}" \
+	--label "org.opencontainers.image.url=${IMAGE_URL}" \
+	--label "org.opencontainers.image.revision=$(WEB_SHA)" \
+	--label "org.opencontainers.image.license=${LICENSE}" \
+	--label "org.opencontainers.image.documentation=${DOCS_URL}" \
 	--build-arg NODE_VERSION=${NODE_VERSION} \
 	${QUIET}
 
