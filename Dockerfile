@@ -15,9 +15,9 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-ARG NODE_VERSION
+ARG NODE_VERSION=20
 # Buildstage: use the local architecture
-FROM --platform=$BUILDPLATFORM node:${NODE_VERSION}-alpine as buildstage
+FROM --platform=$BUILDPLATFORM node:${NODE_VERSION}-alpine AS buildstage
 
 WORKDIR /work
 # Only copy what is needed for the build
@@ -29,10 +29,10 @@ RUN PUPPETEER_SKIP_CHROMIUM_DOWNLOAD=1 pnpm i
 RUN pnpm build:prod
 
 # Imagestage: use scratch base image
-FROM --platform=$TARGETPLATFORM scratch
+FROM scratch
 COPY --chown=0:0 NOTICE LICENSE build/prod/yunikorn-web /
 COPY --chown=0:0 --from=buildstage /work/dist/yunikorn-web /html/
 EXPOSE 9889
-ENV DOCUMENT_ROOT /html
+ENV DOCUMENT_ROOT=/html
 USER 4444:4444
 ENTRYPOINT [ "/yunikorn-web" ]

@@ -80,7 +80,7 @@ Run `ng generate component component-name` to generate a new component.
 You can also use `ng generate directive|pipe|service|class|guard|interface|enum|module`.
 
 ## Port configurations
-The default port used for the web server is port 9889. If this conflicts in your dev environment, it can be changed in the Makefile.
+The default port used for the web server is port 9889.
 
 ## How do I contribute code?
 See how to contribute code from [this guide](https://yunikorn.apache.org/community/how_to_contribute).
