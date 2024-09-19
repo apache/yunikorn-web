@@ -63,28 +63,37 @@ describe('CommonUtil', () => {
     it('should return an empty string for undefined input', () => {
       expect(CommonUtil.absoluteUsedMemoryColumnFormatter(undefined)).toBe('');
     });
-
     it('should return "n/a" for "n/a" input', () => {
       expect(CommonUtil.absoluteUsedMemoryColumnFormatter('n/a')).toBe('<strong>Memory:</strong> n/a');
     });
-
     it('should format memory percentage correctly', () => {
       expect(CommonUtil.absoluteUsedMemoryColumnFormatter('Memory: 40%')).toBe('<strong>Memory:</strong> 40%');
-    });  
+    });    
+    it('should handle input without percentage sign', () => {
+      expect(CommonUtil.absoluteUsedMemoryColumnFormatter('40')).toBe('<strong>Memory:</strong> n/a (wrong memory format)');
+    });
+    it('should handle incorrect input', () => {
+      expect(CommonUtil.absoluteUsedMemoryColumnFormatter('cpumMMEORY')).toBe('<strong>Memory:</strong> n/a (wrong memory format)');
+    });
   });
 
   describe('checkin absoluteUsedCPUColumnFormatter method result', () => {
     it('should return an empty string for undefined input', () => {
-      expect(CommonUtil.absoluteUsedMemoryColumnFormatter(undefined)).toBe('');
+      expect(CommonUtil.absoluteUsedCPUColumnFormatter(undefined)).toBe('');
     });
-
     it('should return "n/a" for "n/a" input', () => {
       expect(CommonUtil.absoluteUsedCPUColumnFormatter('n/a')).toBe('<strong>CPU:</strong> n/a');
     });
 
     it('should format memory percentage correctly', () => {
-      expect(CommonUtil.absoluteUsedMemoryColumnFormatter('CPU: 60%')).toBe('<strong>CPU:</strong> 60%');
+      expect(CommonUtil.absoluteUsedCPUColumnFormatter('CPU: 60%')).toBe('<strong>CPU:</strong> 60%');
     });  
+    it('should handle input without percentage sign', () => {
+      expect(CommonUtil.absoluteUsedCPUColumnFormatter('60')).toBe('<strong>CPU:</strong> n/a (wrong cpu format)');
+    });
+    it('should handle incorrect input', () => {
+      expect(CommonUtil.absoluteUsedCPUColumnFormatter('cpumMMEORY')).toBe('<strong>CPU:</strong> n/a (wrong cpu format)');
+    });
   });
 
   describe('queueResourceColumnFormatter', () => {

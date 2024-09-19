@@ -88,8 +88,15 @@ export class CommonUtil {
     if (value === 'n/a') {
       return '<strong>Memory:</strong> n/a';
     }
-    let memory = value.split('%')[0] + '%';
-    return CommonUtil.queueResourceColumnFormatter(memory);
+    //Memory: 4%, CPU: 2%
+    const memoryRegex = /Memory: ([0-9]|[1-9][0-9]|100)%/;
+    const match = value.match(memoryRegex);
+  
+    if(match){
+      return CommonUtil.queueResourceColumnFormatter(match[0]);
+    } else {
+      return '<strong>Memory:</strong> n/a (wrong memory format)';
+    }
   }
 
   static absoluteUsedCPUColumnFormatter(value: string | undefined): string {
@@ -99,10 +106,15 @@ export class CommonUtil {
     if (value === 'n/a') {
       return '<strong>CPU:</strong> n/a';
     }
-    let cpu = value.split('%')[1] + '%';
-    cpu = cpu.replace(',', '');
-    
-    return CommonUtil.queueResourceColumnFormatter(cpu);
+    //Memory: 4%, CPU: 2%
+    const cpuRegex = /CPU: ([0-9]|[1-9][0-9]|100)%/;
+    const match = value.match(cpuRegex);
+  
+    if(match){
+      return CommonUtil.queueResourceColumnFormatter(match[0]);
+    } else {
+      return '<strong>CPU:</strong> n/a (wrong cpu format)';
+    }
   }
 
   static resourceColumnFormatter(value: string): string {
