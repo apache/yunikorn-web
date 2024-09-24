@@ -195,9 +195,9 @@ OS := $(shell uname -s | tr '[:upper:]' '[:lower:]')
 license-check:
 	@echo "checking license headers:"
 ifeq (darwin,$(OS))
-	$(shell mkdir -p "$(OUTPUT)" && find -E . -not \( -path './.git*' -prune \) -not \( -path ./coverage -prune \) -not \( -path ./node_modules -prune \) -not \( -path ./build -prune \) -not \( -path ./tools -prune \) -not -path ./pnpm-lock.yaml -regex ".*\.(go|sh|md|conf|yaml|yml|html|mod)" -exec grep -L "Licensed to the Apache Software Foundation" {} \; > "$(OUTPUT)/license-check.txt")
+	$(shell mkdir -p "$(OUTPUT)" && find -E . -not \( -path './.git*' -prune \) -not \( -path ./coverage -prune \) -not \( -path ./node_modules -prune \) -not \( -path ./build -prune \) -not \( -path ./tools -prune \) -not -path ./pnpm-lock.yaml  -not \( -path ./dist -prune \) -regex ".*\.(go|sh|md|conf|yaml|yml|html|mod|js)" -exec grep -L "Licensed to the Apache Software Foundation" {} \; > "$(OUTPUT)/license-check.txt")
 else
-	$(shell mkdir -p "$(OUTPUT)" && find . -not \( -path './.git*' -prune \) -not \( -path ./coverage -prune \) -not \( -path ./node_modules -prune \) -not \( -path ./build -prune \) -not \( -path ./tools -prune \) -not -path ./pnpm-lock.yaml -regex ".*\.\(go\|sh\|md\|conf\|yaml\|yml\|html\|mod\)" -exec grep -L "Licensed to the Apache Software Foundation" {} \; > "$(OUTPUT)/license-check.txt")
+	$(shell mkdir -p "$(OUTPUT)" && find . -not \( -path './.git*' -prune \) -not \( -path ./coverage -prune \) -not \( -path ./node_modules -prune \) -not \( -path ./build -prune \) -not \( -path ./tools -prune \) -not -path ./pnpm-lock.yaml -not \( -path ./node_modules -prune \) -regex ".*\.\(go\|sh\|md\|conf\|yaml\|yml\|html\|mod\|js\)" -exec grep -L "Licensed to the Apache Software Foundation" {} \; > "$(OUTPUT)/license-check.txt")
 endif
 	@if [ -s "$(OUTPUT)/license-check.txt" ]; then \
 		echo "following files are missing license header:" ; \

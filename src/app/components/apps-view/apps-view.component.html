@@ -43,7 +43,7 @@
     <mat-form-field class="search-wrapper white-mat-form-field">
       <input matInput type="text" [(ngModel)]="searchText" placeholder="Search By Application ID" #searchInput />
       <button class="clear-btn" *ngIf="searchText" (click)="onClearSearch()" matTooltip="Clear Search"
-              matTooltipShowDelay="500">
+        matTooltipShowDelay="500">
         <i class="far fa-times-circle"></i>
       </button>
       <i *ngIf="!searchText" class="fas fa-search search-icon"></i>
@@ -59,32 +59,35 @@
   <div class="mat-elevation-z8">
     <mat-table [dataSource]="appDataSource" matSort #appSort="matSort">
       <ng-container [matColumnDef]="columnDef.colId" *ngFor="let columnDef of appColumnDef">
-        <mat-header-cell *matHeaderCellDef mat-sort-header>{{ columnDef.colName }}</mat-header-cell>
+        <mat-header-cell *matHeaderCellDef mat-sort-header [style.flex]="columnDef.colWidth || 1">{{ columnDef.colName
+          }}</mat-header-cell>
 
         <ng-container *ngIf="columnDef.colId === 'submissionTime'; else renderNext_1">
-          <mat-cell *matCellDef="let element">{{ element['formattedSubmissionTime'] }}</mat-cell>
+          <mat-cell *matCellDef="let element" [style.flex]="columnDef.colWidth || 1">{{
+            element['formattedSubmissionTime'] }}</mat-cell>
         </ng-container>
 
         <ng-container *ngIf="columnDef.colId === 'lastStateChangeTime'; else renderNext_1">
-          <mat-cell *matCellDef="let element">{{ element['formattedlastStateChangeTime'] }}</mat-cell>
+          <mat-cell *matCellDef="let element" [style.flex]="columnDef.colWidth || 1">{{
+            element['formattedlastStateChangeTime'] }}</mat-cell>
         </ng-container>
 
         <ng-template #renderNext_1>
           <ng-container
             *ngIf="columnDef.colId === 'usedResource' || columnDef.colId === 'pendingResource'; else renderNext_1">
-            <mat-cell *matCellDef="let element">
+            <mat-cell *matCellDef="let element" [style.flex]="columnDef.colWidth || 1">
               <ng-container *ngIf="columnDef.colFormatter; else showAppRawData">
                 <ng-container *ngIf="columnDef.colFormatter(element[columnDef.colId]) as colValue">
-                  <ul class="mat-res-ul">
+                  <mat-chip-set aria-label="Resources" [attr.data-test]="formatResources(colValue)">
                     <ng-container *ngFor="let resource of formatResources(colValue); let i = index">
-                      <li class="mat-res-li" *ngIf="i<2">
+                      <mat-chip class="mat-chip" *ngIf="i<2">
                         {{ resource }}
-                      </li>
-                      <li class="mat-res-li" *ngIf="i>=2 && detailToggle">
+                      </mat-chip>
+                      <mat-chip class="mat-chip" *ngIf="i>=2 && detailToggle">
                         {{ resource }}
-                      </li>
+                      </mat-chip>
                     </ng-container>
-                  </ul>
+                  </mat-chip-set>
                 </ng-container>
               </ng-container>
               <ng-template #showAppRawData>
@@ -125,98 +128,19 @@
 
       <mat-header-row *matHeaderRowDef="appColumnIds"></mat-header-row>
 
-      <mat-row *matRowDef="let row; columns: appColumnIds" [class.selected-row]="selectedRow === row"
-               (click)="toggleRowSelection(row)"></mat-row>
+      <mat-row *matRowDef="let row; columns: appColumnIds; let i = index" [class.selected-row]="selectedRow === row"
+        (click)="toggleRowSelection(row)" [ngClass]="{'even-row': i % 2 === 0, 'row': true}"></mat-row>
 
       <mat-footer-row *matFooterRowDef="['noRecord']"
-                      [ngStyle]="{ display: isAppDataSourceEmpty() ? '' : 'none' }"></mat-footer-row>
+        [ngStyle]="{ display: isAppDataSourceEmpty() ? '' : 'none' }"></mat-footer-row>
     </mat-table>
 
-    <mat-paginator #appsViewMatPaginator [pageSizeOptions]="[10, 20, 50, 100]"
-                   [ngStyle]="{ display: isAppDataSourceEmpty() ? 'none' : '' }" (page)="onPaginatorChanged()"
-                   showFirstLastButtons></mat-paginator>
+    <mat-paginator #appsViewMatPaginator [pageSizeOptions]="[10, 20, 50, 100]" pageSize="50"
+      [ngStyle]="{ display: isAppDataSourceEmpty() ? 'none' : '' }" (page)="onPaginatorChanged()"
+      showFirstLastButtons></mat-paginator>
   </div>
+  <ng-container #drawerContainer></ng-container>
+  <ng-container #mfeContainer></ng-container>
 
-  <mat-drawer-container
-    class="flex-primary"
-    [hasBackdrop]="false"
-  >
-    <mat-drawer #matDrawer mode="over" position="end">
-      <mat-drawer-content>
-        <div class="header">
-          <span>{{ selectedRow?.applicationId }} ({{ selectedRow?.allocations?.length }} allocations)</span>
-          <span class="far fa-clipboard copy-btn" (click)="copyLinkToClipboard()" matTooltip="Click to copy the URL to this view" matTooltipShowDelay="500"></span>
-          <span class="far fa-solid fa-xmark close-btn" (click)="closeDrawer()"></span>
-        </div>
-        <div class="content">
 
-          <mat-table [dataSource]="allocDataSource" matSort #allocSort="matSort">
-            <ng-container [matColumnDef]="columnDef.colId" *ngFor="let columnDef of allocColumnDef">
-              <mat-header-cell *matHeaderCellDef mat-sort-header [style.flex]="columnDef?.colWidth || 1">{{ columnDef.colName }}</mat-header-cell>
-
-              <ng-container *ngIf="columnDef.colId === 'priority'; else renderNext_3" >
-                <mat-cell class="small" *matCellDef="let element"
-                          [style.flex]="columnDef?.colWidth || 1"
-                          [style.min-height]="allocationsToggle ? '96px' : 'unset'"
-                          [title]="element[columnDef.colId]"
-                >{{ element['priority'] }}  </mat-cell>
-              </ng-container>
-
-              <ng-container *ngIf="columnDef.colId === 'resource'; else renderNext_3">
-                <mat-cell *matCellDef="let element" class="allocations-data" [style.flex]="columnDef?.colWidth || 1" matTooltip="
-                          {{element[columnDef.colId]}}" matTooltipShowDelay="500" >
-                  <ng-container *ngIf="columnDef.colFormatter; else showAllocRowData;">
-                    <ng-container *ngIf="columnDef.colFormatter(element[columnDef.colId]) as colValue">
-                      <ul class="mat-res-ul">
-                        <ng-container *ngFor="let resource of formatResources(colValue); let i = index">
-                          <li class="mat-res-li" *ngIf="i<1">
-                            {{ resource }}
-                          </li>
-                          <li class="mat-res-li" *ngIf="i>=1 && allocationsToggle">
-                            {{ resource }}
-                          </li>
-                        </ng-container>
-                      </ul>
-                    </ng-container>
-                  </ng-container>
-                  <ng-template #showAllocRowData>
-                    <span>{{ element[columnDef.colId] }}</span>
-                  </ng-template>
-                </mat-cell>
-              </ng-container>
-
-              <ng-template #renderNext_3>
-                <mat-cell *matCellDef="let element"
-                          [class]="allocationsToggle ? '' : 'ellipsis'"
-                          [style.flex]="columnDef?.colWidth || 1"
-                          [style.min-height]="allocationsToggle ? '96px' : 'unset'"
-                          matTooltip="{{element[columnDef.colId]}}" matTooltipShowDelay="500"
-                >{{ element[columnDef.colId] || 'n/a' }}</mat-cell>
-              </ng-template>
-            </ng-container>
-
-            <ng-container matColumnDef="noRecord">
-              <mat-footer-cell *matFooterCellDef>
-                <div class="no-record">No records found</div>
-              </mat-footer-cell>
-            </ng-container>
-
-            <mat-header-row *matHeaderRowDef="allocColumnIds"></mat-header-row>
-
-            <mat-row *matRowDef="let row; columns: allocColumnIds; let i = index" (click)="allocationsDetailToggle()"
-                     [ngClass]="{'even-row': i % 2 === 0, 'row': true}"
-            ></mat-row>
-
-            <mat-footer-row *matFooterRowDef="['noRecord']"
-                            [ngStyle]="{ display: isAllocDataSourceEmpty() ? '' : 'none' }"></mat-footer-row>
-          </mat-table>
-
-          <mat-paginator #allocationMatPaginator [pageSizeOptions]="[10, 20, 50, 100]"
-                         [ngStyle]="{ display: isAllocDataSourceEmpty() ? 'none' : '' }"
-                         showFirstLastButtons></mat-paginator>
-
-        </div>
-      </mat-drawer-content>
-    </mat-drawer>
-  </mat-drawer-container>
 </div>
