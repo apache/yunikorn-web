@@ -28,6 +28,7 @@ import * as d3hierarchy from "d3-hierarchy";
 import * as d3flextree from "d3-flextree";
 import * as d3zoom from "d3-zoom";
 import { transition } from 'd3-transition'; // we need to import transition even if we don't use it explicitly
+import { CommonUtil } from '@app/utils/common.util';
 
 export interface TreeNode {
   name: string;
@@ -43,6 +44,10 @@ export interface TreeNode {
 
 export class QueueV2Component implements OnInit {
   rootQueue: QueueInfo | null = null;
+  seletedInfo: QueueInfo | null = null;
+  resourceValueFormatter = CommonUtil.queueResourceColumnFormatter;
+  memoryValueFormatter = CommonUtil.absoluteUsedMemoryColumnFormatter;
+  cpuValueFormatter = CommonUtil.absoluteUsedCPUColumnFormatter;
 
   constructor(
     private scheduler: SchedulerService,
@@ -68,7 +73,7 @@ export class QueueV2Component implements OnInit {
       .subscribe((data) => {
         if (data && data.rootQueue) {
           this.rootQueue = data.rootQueue;
-          queueVisualization(this.rootQueue as QueueInfo)
+          queueVisualization(this.rootQueue as QueueInfo, this)
           setTimeout(() => this.adjustToScreen(),1000) // since the ngAfterViewInit hook is not working, we used setTimeout instead
         }
       });
@@ -78,10 +83,22 @@ export class QueueV2Component implements OnInit {
     const fitButton = document.getElementById('fitButton');
     fitButton?.click(); 
   }
+
+  showQueueStats(status: string | undefined) {
+    console.log('sssss', status)
+    if(status !== 'Active'){
+      return '[Inactive]';
+    } else{
+      return null; 
+    }
+  }
 }
 
-function queueVisualization(rawData : QueueInfo){
+function queueVisualization(rawData : QueueInfo , componentInstance: QueueV2Component){
   let numberOfNode = 0;
+  let isShowingDetails = false;
+  let selectedNode: any = null;
+
   const duration = 750;
 
   const svg = select('.visualize-area').append('svg')
@@ -190,18 +207,21 @@ function queueVisualization(rawData : QueueInfo){
           .attr("stroke", "white")
           .attr("stroke-width", 2) 
           .attr("rx", 10)
-          .attr("ry", 10);
+          .attr("ry", 10)
+          .attr("class", "cardMain");
   
         group.append("rect")
           .attr("width", 300)
           .attr("height", 30)
-          .attr("fill", "#d4eaf7");
+          .attr("fill", "#d4eaf7")
+          .attr("class", "cardTop");
   
         group.append("rect")
           .attr("y", 30)
           .attr("width", 300)
           .attr("height", 60)
-          .attr("fill", "white");
+          .attr("fill", "white")
+          .attr("class", "cardMiddle");
   
         group.append("rect")
           .attr("y", 90)
@@ -232,7 +252,10 @@ function queueVisualization(rawData : QueueInfo){
           .attr("stroke", "black") 
           .attr("stroke-width", 1)
           .style("visibility", "hidden")
-          .on('click', click);
+          .on('click', function(event) {
+            event.stopPropagation(); // Prevents the event from bubbling up to parent elements
+            click(event, d); 
+          });
         
         const plusText = group.append("text")
           .attr("x", 150) 
@@ -247,6 +270,40 @@ function queueVisualization(rawData : QueueInfo){
         group.on("mouseover", function() {
           plusCircle.style("visibility", "visible");
           plusText.style("visibility", "visible");
+        });
+
+        group.on("click", function() {
+          if(selectedNode == this || selectedNode == null){
+            isShowingDetails = !isShowingDetails;
+          }else{
+            //set the previous selected node to its original css
+            select(selectedNode).select('.cardMain').attr("stroke", "white")
+            .attr("stroke-width", 2)
+
+            select(selectedNode).select('.cardTop').attr("fill", "#d4eaf7")
+          }
+
+          selectedNode = this;
+          componentInstance.seletedInfo = d.data;
+
+          if(isShowingDetails){
+            console.log("showing details", componentInstance.seletedInfo)
+            select(this).select('.cardMain').attr("stroke-width", 8)
+            .attr("stroke", "#50505c")
+
+            select(this).select('.cardTop').attr("fill", "#95d5f9")
+
+            select(".additional-info-element").style("display", "block");
+          } else {
+            select(this).select('.cardMain').attr("stroke-width", 2)
+            .attr("stroke", "white")
+
+            select(this).select('.cardTop').attr("fill", "#d4eaf7")
+
+            select(".additional-info-element").style("display", "none");
+          }
+
+          adjustVisulizeArea(duration)
         });
       
         // Hide the circle and '+' text when the mouse leaves the node

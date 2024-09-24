@@ -79,6 +79,10 @@
       background-color: #8090a5;
   }
 
+  .content-wrapper {
+    display: flex;
+  }
+
   .visualize-area {
     display: flex;
     flex-direction: column;
@@ -92,4 +96,91 @@
     background-color: #f9fafb; 
     gap: 0.2rem;
     padding: 20px;
+  }
+
+  .additional-info-element {
+    width: 420px; 
+    height: 600px;  // as same as visualize-area
+    align-items: stretch;
+    background-color: #f3f6f8; 
+    border-radius: 0.5rem;
+    border: 1px groove #1a1a1b;
+    display: none;
+    overflow: scroll;
+  }
+
+  .additional-info-header {
+    color: #010407;
+    font-size: 1.25rem;
+    padding-top: 10px;
+    padding-bottom: 10px;
+    padding-left: 10px;
+  }
+
+  .info-section {
+    background-color: #fff;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+    margin-left: 16px;
+    width: 90%;
+  }
+
+  .info-block {
+    width: 90%;
+    border-bottom: 1px solid #eaeaea;
+    padding: 10px;
+  }
+
+  .queue-status {
+    color: #e13020;
+    font-size: 10px;
+  } 
+
+  .info-block:last-child {
+    border-bottom: none;
+  }
+
+  .info-block-header {
+    font-size: 16px;
+    color: #4a4a4a;
+    font-weight: bold;
+  }
+
+  .info-block-text {
+    font-size: 14px;
+    display:inline;
+  }
+
+  .allocated-block, .capacity-block {
+    font-size: 13px;
+    background-color: #f9f9f9;
+    border-radius: 8px;
+    padding: 4px;
+  }
+
+  .pending-block {
+    font-size: 13px;
+    background-color: #ffffe0;
+    border-radius: 8px;
+    padding: 4px;
+  }
+
+  .max-block {
+      font-size: 13px;
+      background-color: #e0ffe0; /* Light green background */
+      border-radius: 8px;
+      padding: 4px;
+  }
+
+  .guaranteed-block {
+    font-size: 13px;
+    background-color: #d8f3fa; /* Light green background */
+    border-radius: 8px;
+    padding: 4px;
+  }
+
+  .capacity-icon{
+    display: flex;
+    align-items: center;
+    gap: 8px;
   }

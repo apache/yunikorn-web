@@ -81,8 +81,45 @@ export class CommonUtil {
     return `${toValue.toLocaleString(undefined, { maximumFractionDigits: 2 })}${unit}`;
   }
 
+  static absoluteUsedMemoryColumnFormatter(value: string | undefined): string {
+    if (!value) {
+      return '';
+    }
+    if (value === 'n/a') {
+      return '<strong>Memory:</strong> n/a';
+    }
+    let memory = value.split('%')[0] + '%';
+    return CommonUtil.queueResourceColumnFormatter(memory);
+  }
+
+  static absoluteUsedCPUColumnFormatter(value: string | undefined): string {
+    if (!value) {
+      return '';
+    }
+    if (value === 'n/a') {
+      return '<strong>CPU:</strong> n/a';
+    }
+    let cpu = value.split('%')[1] + '%';
+    cpu = cpu.replace(',', '');
+    
+    return CommonUtil.queueResourceColumnFormatter(cpu);
+  }
+
   static resourceColumnFormatter(value: string): string {
     return value.split(', ').join('<br/>');
+  }
+
+  static queueResourceColumnFormatter(value: string | undefined): string {
+    if (!value) {
+      return '';
+    }
+    return value.split(', ').map(part => {
+      const [key, val] = part.split(': ');
+      if (key === 'n/a') {
+        return key;
+      }
+      return `<strong>${key}:</strong> ${val}`;
+    }).join('<br/>');
   }
 
   static formatPercent(value: number | string): string {

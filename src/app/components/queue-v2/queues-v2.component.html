@@ -30,7 +30,100 @@
         </div>
       </div>
       <div class="body">
-        <div class="visualize-area">
+        <div class="content-wrapper">
+          <div class="visualize-area">
+          </div>
+
+          <div class="additional-info-element">
+            <!-- additional info header  -->
+            <div class="additional-info-header">
+              <strong>Queue Info</strong>
+            </div>
+            <!-- additional info content  -->
+            <div class="additional-info-content">
+              <div class="info-section">
+
+                <div class="info-block">
+                  <div class="info-block-header">Name:</div>
+                  <div class="info-block-text">
+                    {{ seletedInfo?.queueName }} 
+                  </div>
+                  <div class="info-block-text queue-status"
+                    [innerHTML]="showQueueStats(seletedInfo?.status)">
+                  </div>
+                </div>
+
+                <div class="info-block">
+                  <div class="info-block-header">Allocated:</div>
+                  <div 
+                    class="allocated-block" 
+                    [innerHTML]="resourceValueFormatter(seletedInfo?.allocatedResource)">
+                  </div>
+                </div>
+
+                <div class="info-block">
+                  <div class="info-block-header">Pending:</div>
+                  <div 
+                    class="pending-block"
+                    [innerHTML]="resourceValueFormatter(seletedInfo?.pendingResource)">
+                  </div>
+                </div>
+
+                <div class="info-block">
+                  <div class="info-block-header">Max:</div>
+                  <div 
+                    class="max-block"
+                    [innerHTML]="resourceValueFormatter(seletedInfo?.maxResource)">
+                  </div>
+                </div>
+
+                <div class="info-block">
+                  <div class="info-block-header">Guaranteed:</div>
+                  <div 
+                    class="guaranteed-block"
+                    [innerHTML]="resourceValueFormatter(seletedInfo?.guaranteedResource)">
+                  </div>
+                </div>
+
+                <div class="info-block">
+                  <div class="info-block-header">Absolute Used Capacity:</div>
+                  <div class="capacity-block">
+                      <div class="capacity-icon">
+                          <!-- SVG for CpuIcon -->
+                          <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#2196F3" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                              <rect width="16" height="16" x="4" y="4" rx="2" />
+                              <rect width="6" height="6" x="9" y="9" rx="1" />
+                              <path d="M15 2v2" />
+                              <path d="M15 20v2" />
+                              <path d="M2 15h2" />
+                              <path d="M2 9h2" />
+                              <path d="M20 15h2" />
+                              <path d="M20 9h2" />
+                              <path d="M9 2v2" />
+                              <path d="M9 20v2" />
+                          </svg>
+                          <div [innerHTML]="memoryValueFormatter(seletedInfo?.absoluteUsedCapacity)"></div>
+                      </div>
+                      <div class="capacity-icon">
+                          <!-- SVG for MemoryStickIcon -->
+                          <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#4CAF50" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                              <path d="M6 19v-3" />
+                              <path d="M10 19v-3" />
+                              <path d="M14 19v-3" />
+                              <path d="M18 19v-3" />
+                              <path d="M8 11V9" />
+                              <path d="M16 11V9" />
+                              <path d="M12 11V9" />
+                              <path d="M2 15h20" />
+                              <path d="M2 7a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2v1.1a2 2 0 0 0 0 3.837V17a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2v-5.1a2 2 0 0 0 0-3.837Z" />
+                          </svg>
+                          <div [innerHTML]="cpuValueFormatter(seletedInfo?.absoluteUsedCapacity)"></div>
+                      </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
         </div>
       </div>
     </div>
