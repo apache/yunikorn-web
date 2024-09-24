@@ -39,7 +39,7 @@
     font-weight: 600; 
     color: #010407;
   } 
-  
+
   .fit-to-screen-button {
     position: relative;
     display: inline-flex;
@@ -65,7 +65,6 @@
       border-radius: 6px;
       visibility: hidden;
       opacity: 1;
-      transition: opacity 0.3s, visibility 0.3s;
   }
 
   .fit-to-screen-button:hover .tooltip {
@@ -77,6 +76,53 @@
 
   .fit-to-screen-button:hover {
       background-color: #8090a5;
+  }
+
+  .ort-button {
+    position: relative;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    padding: 6px 6px;
+    background-color: #e5ecf6;
+    border: 1px solid #132030;
+    border-radius: 5px;
+    cursor: pointer;
+    overflow: show;
+  }
+
+  .ort-button:hover {
+      background-color: #8090a5;
+  }
+
+  .ort-button .tooltip {
+    width: 100px;
+    position: absolute;
+    bottom: 90%;
+    left: 50%;
+    transform: translateX(-50%);
+    background-color: rgb(225, 228, 241);
+    color: rgb(6, 7, 6);
+    text-align: center;
+    padding: 5px 5px;
+    border-radius: 6px;
+    visibility: hidden;
+    opacity: 1;
+  }
+
+  .ort-button:hover .tooltip {
+      margin-bottom: 10px;
+      visibility: visible;
+      opacity: 1;
+  }
+
+  .ort-button,
+  .fit-to-screen-button {
+    margin-right: 10px;
+  }
+
+  .content-wrapper {
+    display: flex;
   }
 
   .visualize-area {
@@ -92,4 +138,81 @@
     background-color: #f9fafb; 
     gap: 0.2rem;
     padding: 20px;
+  }
+
+  .additional-info-element {
+    width: 420px; 
+    height: 600px;  // as same as visualize-area
+    align-items: stretch;
+    background-color: #f3f6f8; 
+    border-radius: 0.5rem;
+    border: 1px groove #1a1a1b;
+    display: none;
+    overflow: scroll;
+  }
+
+  .additional-info-header {
+    color: #010407;
+    font-size: 1.25rem;
+    padding-top: 10px;
+    padding-bottom: 10px;
+    padding-left: 10px;
+  }
+
+  .info-section {
+    background-color: #fff;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+    margin-left: 16px;
+    width: 90%;
+  }
+
+  .info-block {
+    width: 90%;
+    border-bottom: 1px solid #eaeaea;
+    padding: 16px;
+  }
+
+  .status-active {
+    color: #4caf50;
+  } 
+
+  .info-block:last-child {
+    border-bottom: none;
+  }
+
+  .info-block-header {
+    font-size: 16px;
+    color: #4a4a4a;
+    font-weight: bold;
+  }
+
+  .allocated-block, .capacity-block {
+    background-color: #f9f9f9;
+    border-radius: 8px;
+    padding: 16px;
+  }
+
+  .pending-block {
+    background-color: #ffffe0;
+    border-radius: 8px;
+    padding: 16px;
+  }
+
+  .max-block {
+      background-color: #e0ffe0; /* Light green background */
+      border-radius: 8px;
+      padding: 16px;
+  }
+
+  .guaranteed-block {
+    background-color: #d8f3fa; /* Light green background */
+    border-radius: 8px;
+    padding: 16px;
+  }
+
+  .capacity-icon{
+    display: flex;
+    align-items: center;
+    gap: 8px;
   }

@@ -64,7 +64,7 @@ export class QueuesViewComponent implements OnInit {
     { level: 'level_07', next: 'level_08' },
     { level: 'level_08', next: 'level_09' },
   ];
-  resourceValueFormatter = CommonUtil.resourceColumnFormatter;
+  resourceValueFormatter = CommonUtil.queueResourceColumnFormatter;
 
   constructor(
     private scheduler: SchedulerService,
