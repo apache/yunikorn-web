@@ -98,6 +98,14 @@
                 [innerHTML]="resourceValueFormatter(selectedQueue.absoluteUsedCapacity)"
               ></div>
             </div>
+            <div class="flex-grid item-wrapper">
+              <div class="left-item">Max Running Apps:</div>
+              <div class="right-item">{{ selectedQueue.MaxRunningApps }}</div>
+            </div>
+            <div class="flex-grid item-wrapper">
+              <div class="left-item">Running Apps:</div>
+              <div class="right-item">{{ selectedQueue.RunningApps }}</div> 
+            </div>
             <div class="flex-grid item-wrapper" *ngFor="let prop of selectedQueue.properties">
               <div class="left-item">{{ prop.name }}:</div>
               <div class="right-item">{{ prop.value }}</div>
