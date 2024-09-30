@@ -23,7 +23,7 @@ import { QueueInfo } from '@app/models/queue-info.model';
 import { finalize } from 'rxjs/operators';
 import { SchedulerService } from '@app/services/scheduler/scheduler.service';
 
-import { select } from "d3-selection";
+import { select, Selection } from "d3-selection";
 import * as d3hierarchy from "d3-hierarchy";
 import * as d3flextree from "d3-flextree";
 import * as d3zoom from "d3-zoom";
@@ -200,9 +200,22 @@ function queueVisualization(rawData : QueueInfo , componentInstance: QueueV2Comp
       nodeEnter.each(function(d) {
         const group = select(this);
 
+        const cardTopText = group.append("text")
+          .attr("width", "300")
+          .attr("height", "auto")
+          .attr("x", 30) 
+          .attr("y", 22.5)
+          .attr("font-size", "25px")
+          .attr("fill", "black")
+          .attr("dy", "0")
+          .text(d.data.queueName);
+
+        const {count} = wrapText(cardTopText, 270);
+        const cardTopHeight = count*30;
+
         group.append("rect")
           .attr("width", 300) 
-          .attr("height", 120) 
+          .attr("height", cardTopHeight + 90) 
           .attr("fill", "none")
           .attr("stroke", "white")
           .attr("stroke-width", 2) 
@@ -212,19 +225,19 @@ function queueVisualization(rawData : QueueInfo , componentInstance: QueueV2Comp
   
         group.append("rect")
           .attr("width", 300)
-          .attr("height", 30)
+          .attr("height", cardTopHeight)
           .attr("fill", "#d4eaf7")
           .attr("class", "cardTop");
   
         group.append("rect")
-          .attr("y", 30)
+          .attr("y", cardTopHeight)
           .attr("width", 300)
           .attr("height", 60)
           .attr("fill", "white")
           .attr("class", "cardMiddle");
   
         group.append("rect")
-          .attr("y", 90)
+          .attr("y", cardTopHeight + 60)
           .attr("width", 300)
           .attr("height", 30)
           .attr("fill", "#e6f4ea")
@@ -237,16 +250,9 @@ function queueVisualization(rawData : QueueInfo , componentInstance: QueueV2Comp
           .attr("width", 20)
           .attr("height", 20);
   
-        group.append("text")
-          .attr("x", 30) 
-          .attr("y", 22.5)
-          .attr("font-size", "25px")
-          .attr("fill", "black")
-          .text(d.data.queueName);
-        
         const plusCircle = group.append("circle")
           .attr("cx", 150)
-          .attr("cy", 120) 
+          .attr("cy", cardTopHeight + 90) 
           .attr("r", 20)   
           .attr("fill", "white") 
           .attr("stroke", "black") 
@@ -259,7 +265,7 @@ function queueVisualization(rawData : QueueInfo , componentInstance: QueueV2Comp
         
         const plusText = group.append("text")
           .attr("x", 150) 
-          .attr("y", 127) 
+          .attr("y", cardTopHeight + 97) 
           .attr("text-anchor", "middle") 
           .attr("font-size", "20px") 
           .attr("fill", "black") 
@@ -322,6 +328,8 @@ function queueVisualization(rawData : QueueInfo , componentInstance: QueueV2Comp
           select(this).attr("fill", "white");
         });
 
+        // raise cardTopText order to display text above background
+        cardTopText.raise();
       });
   
       const nodeUpdate = nodeEnter.merge(node)
@@ -411,4 +419,50 @@ function diagonal(s : any , d : any) {
           V ${(sourceY + targetY) / 2} 
           H ${targetX} 
           V ${targetY}`;
+}
+
+function wrapText(text: Selection<SVGTextElement, unknown, null, undefined>, width: number): { count: number } {
+  let count = 1;
+
+  text.each(function () {
+    const textElement = select(this);
+    const words = textElement.text().split(".").reverse();
+    const line: string[] = [];
+
+    const x = textElement.attr("x");
+    const y = textElement.attr("y");
+    const dy = parseFloat(textElement.attr("dy"));
+    const lineHeight = 1.1;
+
+    let lineNumber = 0;
+    let word: string | undefined;
+    let tspan = textElement.text(null)
+      .append("tspan")
+      .attr("x", x)
+      .attr("y", y)
+      .attr("dy", `${dy}em`);
+
+    while ((word = words.pop())) {
+      line.push(word);
+      tspan.text(line.join('.'));
+
+      const tspanNode = tspan.node();
+      if (tspanNode && tspanNode.getComputedTextLength() > width) {
+        count++;
+        line.pop();  // Remove the last word
+        tspan.text(line.join('.'));
+        
+        // Start a new tspan with the word that exceeds the width
+        line.length = 0;
+        line.push(word);
+        tspan = textElement.append("tspan")
+          .attr("x", x)
+          .attr("y", y)
+          .attr("dy", `${++lineNumber * lineHeight + dy}em`)
+          .text(word);
+      }
+    }
+  });
+
+  return { count };
 }
