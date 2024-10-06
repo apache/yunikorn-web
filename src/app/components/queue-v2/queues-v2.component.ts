@@ -200,22 +200,9 @@ function queueVisualization(rawData : QueueInfo , componentInstance: QueueV2Comp
       nodeEnter.each(function(d) {
         const group = select(this);
 
-        const cardTopText = group.append("text")
-          .attr("width", "300")
-          .attr("height", "auto")
-          .attr("x", 30) 
-          .attr("y", 22.5)
-          .attr("font-size", "25px")
-          .attr("fill", "black")
-          .attr("dy", "0")
-          .text(d.data.queueName);
-
-        const {count} = wrapText(cardTopText, 270);
-        const cardTopHeight = count*30;
-
         group.append("rect")
           .attr("width", 300) 
-          .attr("height", cardTopHeight + 90) 
+          .attr("height", 120) 
           .attr("fill", "none")
           .attr("stroke", "white")
           .attr("stroke-width", 2) 
@@ -225,19 +212,19 @@ function queueVisualization(rawData : QueueInfo , componentInstance: QueueV2Comp
   
         group.append("rect")
           .attr("width", 300)
-          .attr("height", cardTopHeight)
+          .attr("height", 30)
           .attr("fill", "#d4eaf7")
           .attr("class", "cardTop");
   
         group.append("rect")
-          .attr("y", cardTopHeight)
+          .attr("y", 30)
           .attr("width", 300)
           .attr("height", 60)
           .attr("fill", "white")
           .attr("class", "cardMiddle");
   
         group.append("rect")
-          .attr("y", cardTopHeight + 60)
+          .attr("y", 90)
           .attr("width", 300)
           .attr("height", 30)
           .attr("fill", "#e6f4ea")
@@ -250,9 +237,18 @@ function queueVisualization(rawData : QueueInfo , componentInstance: QueueV2Comp
           .attr("width", 20)
           .attr("height", 20);
   
+        group.append("text")
+          .attr("x", 30) 
+          .attr("y", 22.5)
+          .attr("font-size", "25px")
+          .attr("fill", "black")
+          .text(d.data.queueName)
+          .call(ellipsis, 270)
+          .call(tooltip, group, d.data.queueName);
+
         const plusCircle = group.append("circle")
           .attr("cx", 150)
-          .attr("cy", cardTopHeight + 90) 
+          .attr("cy", 120) 
           .attr("r", 20)   
           .attr("fill", "white") 
           .attr("stroke", "black") 
@@ -265,7 +261,7 @@ function queueVisualization(rawData : QueueInfo , componentInstance: QueueV2Comp
         
         const plusText = group.append("text")
           .attr("x", 150) 
-          .attr("y", cardTopHeight + 97) 
+          .attr("y", 127) 
           .attr("text-anchor", "middle") 
           .attr("font-size", "20px") 
           .attr("fill", "black") 
@@ -328,8 +324,6 @@ function queueVisualization(rawData : QueueInfo , componentInstance: QueueV2Comp
           select(this).attr("fill", "white");
         });
 
-        // raise cardTopText order to display text above background
-        cardTopText.raise();
       });
   
       const nodeUpdate = nodeEnter.merge(node)
@@ -421,48 +415,73 @@ function diagonal(s : any , d : any) {
           V ${targetY}`;
 }
 
-function wrapText(text: Selection<SVGTextElement, unknown, null, undefined>, width: number): { count: number } {
+function ellipsis(
+  selection: Selection<SVGTextElement, unknown, null, undefined>, 
+  maxWidth: number
+) {
+  const text = selection.text();
+  selection.text(text);
+  const textNode = selection.node();
+  
   let count = 1;
+  while (textNode && maxWidth < textNode.getBBox().width) {
+    const lines = text.split(".").slice(count);
+    selection.text(`...${lines.join(".")}`);
+    count++;
+  }
+}
 
-  text.each(function () {
-    const textElement = select(this);
-    const words = textElement.text().split(".").reverse();
-    const line: string[] = [];
+function tooltip(
+  selection: Selection<SVGTextElement, unknown, null, undefined>, 
+  container: Selection<SVGGElement, unknown, null, undefined>,
+  text: string,
+): Selection<SVGGElement, unknown, null, undefined> {
+  const textNode = selection.node();
+  const bbox = textNode?.getBBox();
+  const textWidth = bbox?.width || 100;
+  const textHeight = bbox?.height || 30;
 
-    const x = textElement.attr("x");
-    const y = textElement.attr("y");
-    const dy = parseFloat(textElement.attr("dy"));
-    const lineHeight = 1.1;
+  const x = bbox?.x || 0;
+  const y = bbox?.y || 0;
+  const padding = 10;
+  const radius = 8;
 
-    let lineNumber = 0;
-    let word: string | undefined;
-    let tspan = textElement.text(null)
-      .append("tspan")
-      .attr("x", x)
-      .attr("y", y)
-      .attr("dy", `${dy}em`);
+  const tooltipGroup = container
+    .append("g")
+    .style("visibility", "hidden");
 
-    while ((word = words.pop())) {
-      line.push(word);
-      tspan.text(line.join('.'));
+  const tooltipBg = tooltipGroup.append("rect")
+    .attr("y", y - textHeight - padding) 
+    .attr("width", textWidth + padding)
+    .attr("height", textHeight + padding / 2)
+    .attr("fill", "#00000099")
+    .attr("rx", radius)
+    .attr("ry", radius)
+    .attr("stroke", "none");
 
-      const tspanNode = tspan.node();
-      if (tspanNode && tspanNode.getComputedTextLength() > width) {
-        count++;
-        line.pop();  // Remove the last word
-        tspan.text(line.join('.'));
-        
-        // Start a new tspan with the word that exceeds the width
-        line.length = 0;
-        line.push(word);
-        tspan = textElement.append("tspan")
-          .attr("x", x)
-          .attr("y", y)
-          .attr("dy", `${++lineNumber * lineHeight + dy}em`)
-          .text(word);
-      }
-    }
+  const tooltipText = tooltipGroup.append("text")
+    .attr("y", y - textHeight / 2) 
+    .attr("font-size", "25px")
+    .attr("stroke", "white")
+    .attr("fill", "white")
+    .text(text);
+    
+  const tooltipTextNode = tooltipText.node();
+  const tooltipTextWidth = tooltipTextNode?.getBBox().width || 100;
+
+  tooltipText.attr("x", x + (textWidth - tooltipTextWidth) / 2);
+  tooltipBg
+    .attr("x", x + (textWidth - tooltipTextWidth - padding) / 2)
+    .attr("width", tooltipTextWidth + padding);
+
+  selection.on("mouseover", function() {
+    tooltipGroup.style("visibility", "visible");
   });
 
-  return { count };
+  selection.on("mouseout", function() {
+    tooltipGroup.style("visibility", "hidden");
+  });
+
+  tooltipGroup.raise();
+  return tooltipGroup;
 }
