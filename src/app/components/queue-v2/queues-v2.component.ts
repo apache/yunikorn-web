@@ -199,6 +199,7 @@ function queueVisualization(rawData : QueueInfo , componentInstance: QueueV2Comp
 
       nodeEnter.each(function(d) {
         const group = select(this);
+        const queueName = d.data.queueName.split(".").at(-1) ?? d.data.queueName;
 
         group.append("rect")
           .attr("width", 300) 
@@ -242,9 +243,9 @@ function queueVisualization(rawData : QueueInfo , componentInstance: QueueV2Comp
           .attr("y", 22.5)
           .attr("font-size", "25px")
           .attr("fill", "black")
-          .text(d.data.queueName)
+          .text(queueName)
           .call(ellipsis, 270)
-          .call(tooltip, group, d.data.queueName);
+          .call(tooltip, group, queueName);
 
         const plusCircle = group.append("circle")
           .attr("cx", 150)
@@ -425,8 +426,7 @@ function ellipsis(
   
   let count = 1;
   while (textNode && maxWidth < textNode.getBBox().width) {
-    const lines = text.split(".").slice(count);
-    selection.text(`...${lines.join(".")}`);
+    selection.text(`${text.slice(0, text.length - count)}...`);
     count++;
   }
 }
@@ -435,7 +435,10 @@ function tooltip(
   selection: Selection<SVGTextElement, unknown, null, undefined>, 
   container: Selection<SVGGElement, unknown, null, undefined>,
   text: string,
-): Selection<SVGGElement, unknown, null, undefined> {
+): Selection<SVGGElement, unknown, null, undefined> | null {
+  // if current text same as tooltip text, unnecessary render tooltip
+  if(selection.text() === text) return null;
+  
   const textNode = selection.node();
   const bbox = textNode?.getBBox();
   const textWidth = bbox?.width || 100;
