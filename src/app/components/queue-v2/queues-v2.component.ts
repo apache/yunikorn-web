@@ -23,7 +23,7 @@ import { QueueInfo } from '@app/models/queue-info.model';
 import { finalize } from 'rxjs/operators';
 import { SchedulerService } from '@app/services/scheduler/scheduler.service';
 
-import { select } from "d3-selection";
+import { select, Selection } from "d3-selection";
 import * as d3hierarchy from "d3-hierarchy";
 import * as d3flextree from "d3-flextree";
 import * as d3zoom from "d3-zoom";
@@ -199,6 +199,7 @@ function queueVisualization(rawData : QueueInfo , componentInstance: QueueV2Comp
 
       nodeEnter.each(function(d) {
         const group = select(this);
+        const queueName = d.data.queueName?.split(".").at(-1) ?? d.data.queueName;
 
         group.append("rect")
           .attr("width", 300) 
@@ -242,8 +243,10 @@ function queueVisualization(rawData : QueueInfo , componentInstance: QueueV2Comp
           .attr("y", 22.5)
           .attr("font-size", "25px")
           .attr("fill", "black")
-          .text(d.data.queueName);
-        
+          .text(queueName)
+          .call(ellipsis, 270)
+          .call(tooltip, group, queueName);
+
         const plusCircle = group.append("circle")
           .attr("cx", 150)
           .attr("cy", 120) 
@@ -411,4 +414,77 @@ function diagonal(s : any , d : any) {
           V ${(sourceY + targetY) / 2} 
           H ${targetX} 
           V ${targetY}`;
+}
+
+function ellipsis(
+  selection: Selection<SVGTextElement, unknown, null, undefined>, 
+  maxWidth: number
+) {
+  const text = selection.text();
+  selection.text(text);
+  const textNode = selection.node();
+  
+  let count = 1;
+  while (textNode && maxWidth < textNode.getBBox().width) {
+    selection.text(`${text.slice(0, text.length - count)}...`);
+    count++;
+  }
+}
+
+function tooltip(
+  selection: Selection<SVGTextElement, unknown, null, undefined>, 
+  container: Selection<SVGGElement, unknown, null, undefined>,
+  text: string,
+): Selection<SVGGElement, unknown, null, undefined> | null {
+  // if current text same as tooltip text, unnecessary render tooltip
+  if(selection.text() === text) return null;
+  
+  const textNode = selection.node();
+  const bbox = textNode?.getBBox();
+  const textWidth = bbox?.width || 100;
+  const textHeight = bbox?.height || 30;
+
+  const x = bbox?.x || 0;
+  const y = bbox?.y || 0;
+  const padding = 10;
+  const radius = 8;
+
+  const tooltipGroup = container
+    .append("g")
+    .style("visibility", "hidden");
+
+  const tooltipBg = tooltipGroup.append("rect")
+    .attr("y", y - textHeight - padding) 
+    .attr("width", textWidth + padding)
+    .attr("height", textHeight + padding / 2)
+    .attr("fill", "#00000099")
+    .attr("rx", radius)
+    .attr("ry", radius)
+    .attr("stroke", "none");
+
+  const tooltipText = tooltipGroup.append("text")
+    .attr("y", y - textHeight / 2) 
+    .attr("font-size", "25px")
+    .attr("stroke", "white")
+    .attr("fill", "white")
+    .text(text);
+    
+  const tooltipTextNode = tooltipText.node();
+  const tooltipTextWidth = tooltipTextNode?.getBBox().width || 100;
+
+  tooltipText.attr("x", x + (textWidth - tooltipTextWidth) / 2);
+  tooltipBg
+    .attr("x", x + (textWidth - tooltipTextWidth - padding) / 2)
+    .attr("width", tooltipTextWidth + padding);
+
+  selection.on("mouseover", function() {
+    tooltipGroup.style("visibility", "visible");
+  });
+
+  selection.on("mouseout", function() {
+    tooltipGroup.style("visibility", "hidden");
+  });
+
+  tooltipGroup.raise();
+  return tooltipGroup;
 }
