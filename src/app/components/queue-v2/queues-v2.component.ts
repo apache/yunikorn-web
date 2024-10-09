@@ -199,7 +199,7 @@ function queueVisualization(rawData : QueueInfo , componentInstance: QueueV2Comp
 
       nodeEnter.each(function(d) {
         const group = select(this);
-        const queueName = d.data.queueName.split(".").at(-1) ?? d.data.queueName;
+        const queueName = d.data.queueName?.split(".").at(-1) ?? d.data.queueName;
 
         group.append("rect")
           .attr("width", 300) 
