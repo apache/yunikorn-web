@@ -62,6 +62,27 @@
     },
     "children": [
       {
+        "queuename": "root.inactive",
+        "status": "Stopped",
+        "partition": "",
+        "pendingResource": {},
+        "maxResource": {},
+        "guaranteedResource": {},
+        "allocatedResource": {},
+        "preemptingResource": {},
+        "isLeaf": true,
+        "isManaged": true,
+        "properties": {},
+        "parent": "root",
+        "template": null,
+        "children": [],
+        "absUsedCapacity": {},
+        "maxRunningApps": 0,
+        "runningApps": 0,
+        "currentPriority": -2147483648,
+        "allocatingAcceptedApps": []
+      },
+      {
         "queuename": "root.b",
         "status": "Active",
         "partition": "",

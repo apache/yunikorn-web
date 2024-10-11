@@ -51,12 +51,12 @@
 
                 <div class="info-block">
                   <div class="info-block-header">Name:</div>
-                  <p>{{ seletedInfo?.queueName }}</p>
-                </div>
-
-                <div class="info-block">
-                  <div class="info-block-header">Status:</div>
-                  <p class="status-active">{{ seletedInfo?.status }}</p>
+                  <div class="info-block-text">
+                    {{ seletedInfo?.queueName }} 
+                  </div>
+                  <div class="info-block-text queue-status"
+                    [innerHTML]="showQueueStats(seletedInfo?.status)">
+                  </div>
                 </div>
 
                 <div class="info-block">

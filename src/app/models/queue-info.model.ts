@@ -34,6 +34,8 @@ export class QueueInfo {
   isManaged: boolean = false;
   isExpanded: boolean = false;
   isSelected: boolean = false;
+  MaxRunningApps: number = 0;
+  RunningApps: number = 0;
 }
 
 export interface QueuePropertyItem {

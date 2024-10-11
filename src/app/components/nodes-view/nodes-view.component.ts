@@ -98,7 +98,6 @@ export class NodesViewComponent implements OnInit {
       { colId: 'displayName', colName: 'Display Name' },
       { colId: 'allocationKey', colName: 'Allocation Key' },
       { colId: 'resource', colName: 'Resource', colFormatter: CommonUtil.resourceColumnFormatter },
-      { colId: 'queueName', colName: 'Queue Name' },
       { colId: 'priority', colName: 'Priority' },
       { colId: 'applicationId', colName: 'Application ID' },
     ];
