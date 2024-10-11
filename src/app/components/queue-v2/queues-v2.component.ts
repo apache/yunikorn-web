@@ -106,7 +106,7 @@ function queueVisualization(rawData : QueueInfo , componentInstance: QueueV2Comp
   // Declare orientation as the defined type
   let orientation: Orientation = 'horizontal';
 
-  const duration = 750;
+  const duration = 500;
 
   const svg = select('.visualize-area').append('svg')
     .attr('width', '100%')
