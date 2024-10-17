@@ -39,7 +39,7 @@
     font-weight: 600; 
     color: #010407;
   } 
-  
+
   .fit-to-screen-button {
     position: relative;
     display: inline-flex;
@@ -50,6 +50,48 @@
     border: 1px solid #132030;
     border-radius: 5px;
     cursor: pointer;
+  }
+  .ort-button {
+    position: relative;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    padding: 6px 6px;
+    background-color: #e5ecf6;
+    border: 1px solid #132030;
+    border-radius: 5px;
+    cursor: pointer;
+    overflow: show;
+  }
+
+  .ort-button:hover {
+      background-color: #8090a5;
+  }
+
+  .ort-button .tooltip {
+    width: 100px;
+    position: absolute;
+    bottom: 90%;
+    left: 50%;
+    transform: translateX(-50%);
+    background-color: rgb(225, 228, 241);
+    color: rgb(6, 7, 6);
+    text-align: center;
+    padding: 5px 5px;
+    border-radius: 6px;
+    visibility: hidden;
+    opacity: 1;
+  }
+
+  .ort-button:hover .tooltip {
+      margin-bottom: 10px;
+      visibility: visible;
+      opacity: 1;
+  }
+
+  .ort-button,
+  .fit-to-screen-button {
+    margin-right: 10px;
   }
 
   .tooltip {
@@ -65,7 +107,6 @@
       border-radius: 6px;
       visibility: hidden;
       opacity: 1;
-      transition: opacity 0.3s, visibility 0.3s;
   }
 
   .fit-to-screen-button:hover .tooltip {
