@@ -82,7 +82,7 @@
       <div class="breadcrumb-wrapper">
         <ul class="breadcrumb">
           <li *ngFor="let crumb of breadcrumbs">
-            <a href="#" routerLink="crumb.url">{{ crumb.label }}</a>
+            <a href="#" [routerLink]="[crumb.url]">{{ crumb.label }}</a>
           </li>
         </ul>
         <div class="help-menu">
