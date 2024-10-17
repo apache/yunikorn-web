@@ -119,6 +119,10 @@
     --mdc-chip-label-text-weight: 400;
   }
 
+  .selected-row .mat-mdc-standard-chip {
+    --mdc-chip-label-text-color: #fff;
+  }
+
   .mat-mdc-header-cell {
     font-size: 15px;
     font-weight: bold;
