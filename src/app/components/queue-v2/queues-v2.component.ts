@@ -309,10 +309,13 @@ function queueVisualization(rawData : QueueInfo , componentInstance: QueueV2Comp
         .attr("pointer-events", "none")
         .style("visibility", "hidden");
       
-      group.on("mouseover", function() {
-        plusCircle.style("visibility", "visible");
-        plusText.style("visibility", "visible");
-      });
+      if (d.children) {
+        group.on("mouseover", function() {
+          plusCircle.style("visibility", "visible");
+          plusText.style("visibility", "visible");
+        });
+      }
+      
 
       group.on("click", function() {
         if(selectedNode == this || selectedNode == null){
