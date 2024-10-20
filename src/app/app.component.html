@@ -26,24 +26,21 @@
   <ul class="navigation-primary">
     <li routerLinkActive="active">
       <a routerLink="/dashboard">
-        <i class="fa fa-caret-right fa-2x"></i>
-        <i class="fa fa-th-large"></i>
-        <span>Dashboard</span>
+        <i class="fa fa-th-large text-center"></i>
+        <span *ngIf="isNavOpen">Dashboard</span>
       </a>
     </li>
     <li routerLinkActive="active">
       <a routerLink="/queues">
-        <i class="fa fa-caret-right"></i>
-        <i class="fa fa-sitemap" style="width: 16px"></i>
-        <span>Queues</span>
+        <i class="fa fa-sitemap text-center" style="width: 16px"></i>
+        <span *ngIf="isNavOpen">Queues</span>
       </a>
     </li>
     <li routerLinkActive="active">
       <a routerLink="/queues-v2">
-        <i class="fa fa-caret-right"></i>
         <i class="fa fa-sitemap" style="width: 16px"></i>
-        <span>Queues V2</span>
-        <div class="beta-tag">
+        <span *ngIf="isNavOpen">Queues V2</span>
+        <div class="beta-tag text-center" *ngIf="isNavOpen">
           <i class="fa fa-flask"></i>
           Beta
         </div> 
@@ -51,23 +48,20 @@
     </li>
     <li routerLinkActive="active">
       <a routerLink="/applications">
-        <i class="fa fa-caret-right"></i>
-        <i class="fa fa-indent"></i>
-        <span>Applications</span>
+        <i class="fa fa-indent text-center"></i>
+        <span *ngIf="isNavOpen">Applications</span>
       </a>
     </li>
     <li routerLinkActive="active">
       <a routerLink="/nodes">
-        <i class="fa fa-caret-right"></i>
-        <i class="fa fa-server"></i>
-        <span>Nodes</span>
+        <i class="fa fa-server text-center"></i>
+        <span *ngIf="isNavOpen">Nodes</span>
       </a>
     </li>
     <li routerLinkActive="active">
       <a routerLink="/status">
-        <i class="fa fa-caret-right"></i>
-        <i class="fa fa-thermometer-full"></i>
-        <span>Status</span>
+        <i class="fa fa-thermometer-full text-center"></i>
+        <span *ngIf="isNavOpen">Status</span>
       </a>
     </li>
   </ul>
@@ -93,7 +87,7 @@
             matTooltipShowDelay="500"
             [matMenuTriggerFor]="helpMenu"
           >
-            <i class="fa fa-question"></i>
+            <img src="../assets/images/config.svg">
           </button>
           <mat-menu #helpMenu="matMenu" xPosition="before">
             <button mat-menu-item (click)="openYuniKornHelp('/')">Apache YuniKorn</button>
