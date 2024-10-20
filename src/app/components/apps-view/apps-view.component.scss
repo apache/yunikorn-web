@@ -32,7 +32,7 @@
       padding-right: 40px;
       .dropdown-label {
         color: #333;
-        font-size: 1.2em;
+        font-size: 14px;
         margin-right: 10px;
       }
     }
@@ -52,7 +52,7 @@
       .btn{
         display: block;
         border: none;
-        padding: 13px 24px;
+        padding: 5px 16px;
         border-radius: 5px;
         font-size: 24px;
         transform: translateY(-13px);
@@ -125,7 +125,7 @@
 
   .mat-mdc-header-cell {
     font-size: 15px;
-    font-weight: bold;
+    font-weight: 500;
     color: #666;
   }
   .mat-mdc-cell {
@@ -186,7 +186,7 @@
   }
   .no-record {
     font-size: 14px;
-    font-weight: bold;
+    font-weight: 500;
     color: #666;
     width: 100%;
     text-align: center;

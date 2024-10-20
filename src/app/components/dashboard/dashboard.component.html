@@ -17,33 +17,33 @@
  -->
 
 <mat-card appearance="outlined" *ngIf="clusterInfo">
-  <div class="flex-grid">
+  <div class="flex-grid align-center">
     <div class="flex-primary">
-      <div class="text-uppercase light-text">Name</div>
+      <div class="info-label text-uppercase light-text">Name</div>
       <div class="info-value strong-text">{{ clusterInfo.clusterName }}</div>
     </div>
     <div class="flex-primary">
-      <div class="text-uppercase light-text">Status</div>
+      <div class="info-label text-uppercase light-text">Status</div>
       <div class="info-value strong-text">{{ clusterInfo.clusterStatus }}</div>
     </div>
     <div class="flex-primary">
-      <div class="text-uppercase light-text">Nodes</div>
+      <div class="info-label text-uppercase light-text">Nodes</div>
       <div class="info-value strong-text">{{ totalNodes | titlecase }}</div>
     </div>
     <div class="flex-primary">
-      <div class="text-uppercase light-text">NodeSort Policy</div>
+      <div class="info-label text-uppercase light-text">NodeSort Policy</div>
       <div class="info-value strong-text">{{ nodeSortPolicy | titlecase }}</div>
     </div>
     <div class="flex-primary">
-      <div class="text-uppercase light-text">Applications</div>
+      <div class="info-label text-uppercase light-text">Applications</div>
       <div class="info-value strong-text">{{ totalApplications | titlecase }}</div>
     </div>
     <div class="flex-primary">
-      <div class="text-uppercase light-text">Containers</div>
+      <div class="info-label text-uppercase light-text">Containers</div>
       <div class="info-value strong-text">{{ totalContainers | titlecase }}</div>
     </div>
     <div class="flex-primary">
-      <div class="text-uppercase light-text">Partition</div>
+      <div class="info-label text-uppercase light-text">Partition</div>
       <div class="info-value strong-text">{{ partitionName | titlecase }}</div>
     </div>
     <div class="info-card">

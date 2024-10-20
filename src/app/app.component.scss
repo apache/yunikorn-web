@@ -25,20 +25,20 @@
   color: #b8bec4;
   font-size: 16px;
   z-index: 1;
-  -webkit-transition: width 0.8s ease;
-  -moz-transition: width 0.8s ease;
-  -o-transition: width 0.8s ease;
-  transition: width 0.8s ease;
+  -webkit-transition: width 0.4s ease;
+  -moz-transition: width 0.4s ease;
+  -o-transition: width 0.4s ease;
+  transition: width 0.4s ease;
   -webkit-font-smoothing: antialiased;
 }
 
 .navigation.open {
   width: 250px;
   font-size: 16px;
-  -webkit-transition: width 0.8s ease;
-  -moz-transition: width 0.8s ease;
-  -o-transition: width 0.8s ease;
-  transition: width 0.8s ease;
+  -webkit-transition: width 0.4s ease;
+  -moz-transition: width 0.4s ease;
+  -o-transition: width 0.4s ease;
+  transition: width 0.4s ease;
 }
 
 .navigation.open a > .fa {
@@ -47,19 +47,19 @@
 
 .navigation + .wrapper {
   margin-left: 50px;
-  -webkit-transition: margin-left 0.8s ease;
-  -moz-transition: margin-left 0.8s ease;
-  -o-transition: margin-left 0.8s ease;
-  transition: margin-left 0.8s ease;
+  -webkit-transition: margin-left 0.4s ease;
+  -moz-transition: margin-left 0.4s ease;
+  -o-transition: margin-left 0.4s ease;
+  transition: margin-left 0.4s ease;
   -webkit-font-smoothing: antialiased;
 }
 
 .navigation.open + .wrapper {
   margin-left: 250px;
-  -webkit-transition: margin-left 0.8s ease;
-  -moz-transition: margin-left 0.8s ease;
-  -o-transition: margin-left 0.8s ease;
-  transition: margin-left 0.8s ease;
+  -webkit-transition: margin-left 0.4s ease;
+  -moz-transition: margin-left 0.4s ease;
+  -o-transition: margin-left 0.4s ease;
+  transition: margin-left 0.4s ease;
   -webkit-font-smoothing: antialiased;
 }
 
@@ -70,10 +70,10 @@
   background: #313d54;
   height: 60px;
   overflow: hidden;
-  -webkit-transition: padding-left 0.8s ease, padding-top 0.8s ease;
-  -moz-transition: padding-left 0.8s ease, padding-top 0.8s ease;
-  -o-transition: padding-left 0.8s ease, padding-top 0.8s ease;
-  transition: padding-left 0.8s ease, padding-top 0.8s ease;
+  -webkit-transition: padding-left 0.4s ease, padding-top 0.4s ease;
+  -moz-transition: padding-left 0.4s ease, padding-top 0.4s ease;
+  -o-transition: padding-left 0.4s ease, padding-top 0.4s ease;
+  transition: padding-left 0.4s ease, padding-top 0.4s ease;
   -webkit-font-smoothing: antialiased;
 }
 
@@ -89,10 +89,10 @@
 .logo img {
   float: left;
   width: 38px;
-  -webkit-transition: width 0.8s ease;
-  -moz-transition: width 0.8s ease;
-  -o-transition: width 0.8s ease;
-  transition: width 0.8s ease;
+  -webkit-transition: width 0.4s ease;
+  -moz-transition: width 0.4s ease;
+  -o-transition: width 0.4s ease;
+  transition: width 0.4s ease;
   -webkit-font-smoothing: antialiased;
 }
 
@@ -131,7 +131,7 @@
 }
 
 .navigation .fa + span {
-  margin-left: 20px;
+  margin-left: 16px;
   flex: 1;
 }
 
@@ -148,10 +148,20 @@ ul.navigation-primary {
 }
 
 .navigation > ul {
+  padding: 12px 5px;
   margin-top: 10px;
+  
   &:first-of-type {
     margin-top: 0;
   }
+}
+
+.navigation.open > ul {
+  padding: 12px;
+}
+
+.navigation li {
+  margin-bottom: 8px;
 }
 
 .navigation li:hover > a {
@@ -161,26 +171,29 @@ ul.navigation-primary {
 
 .navigation li a {
   display: flex;
-  padding: 15px;
+  padding: 12px;
   white-space: nowrap;
   color: inherit;
   text-decoration: none;
   color: #fff;
-  -webkit-transition: padding 0.8s ease;
-  -moz-transition: padding 0.8s ease;
-  -o-transition: padding 0.8s ease;
-  transition: padding 0.8s ease;
+  -webkit-transition: 0.4s ease;
+  -moz-transition: 0.4s ease;
+  -o-transition: 0.4s ease;
+  transition: 0.4s ease;
   -webkit-font-smoothing: antialiased;
+  border-radius: 50%;
+  justify-content: center;
 }
 
 .navigation.open li a {
   padding-left: 25px;
+  border-radius: 24px;
 }
 
 .navigation li.active > a,
 .navigation li.active:hover > a {
   color: #fff;
-  background: #4d5258;
+  background: #4E5258;
 }
 
 .navigation li.active > a > .fa-caret-right {
@@ -216,7 +229,7 @@ ul.navigation-primary {
 }
 
 .container-fluid {
-  padding-top: 61px;
+  padding-top: 58px;
 }
 
 //  remove the beta tag when the feature is ready for production
@@ -227,7 +240,7 @@ ul.navigation-primary {
 }
 
 .header {
-  height: 61px;
+  height: 58px;
   background: #fff;
   padding: 0 20px;
   border-bottom: 1px solid #e3e3e3;
@@ -236,10 +249,10 @@ ul.navigation-primary {
   right: 0;
   top: 0;
   z-index: 100;
-  -webkit-transition: left 0.8s ease;
-  -moz-transition: left 0.8s ease;
-  -o-transition: left 0.8s ease;
-  transition: left 0.8s ease;
+  -webkit-transition: left 0.4s ease;
+  -moz-transition: left 0.4s ease;
+  -o-transition: left 0.4s ease;
+  transition: left 0.4s ease;
 }
 
 .navigation.open + * .header {
@@ -255,19 +268,18 @@ ul.navigation-primary {
 .help-menu > .menu-trigger {
   background: transparent;
   font-size: 14px;
-  color: #666;
-  border: 1px solid #666;
+  background: #ddd;
   outline: none;
   cursor: pointer;
 
   &:hover {
-    background: #666;
-    color: #fff;
+    background: #ccc;
   }
 }
 
 ul.breadcrumb {
   font-size: 20px;
+  line-height: 26px;
   display: flex;
   list-style: none;
   margin: 0;
@@ -276,8 +288,8 @@ ul.breadcrumb {
 
 ul.breadcrumb > li {
   margin-right: 5px;
-  margin-top: 18px;
-  margin-bottom: 20px;
+  margin-top: 16px;
+  margin-bottom: 16px;
 }
 
 ul.breadcrumb a {
