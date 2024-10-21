@@ -62,15 +62,19 @@
         <mat-header-cell *matHeaderCellDef mat-sort-header [style.flex]="columnDef.colWidth || 1">{{ columnDef.colName
           }}</mat-header-cell>
 
-        <ng-container *ngIf="columnDef.colId === 'submissionTime'; else renderNext_1">
-          <mat-cell *matCellDef="let element" [style.flex]="columnDef.colWidth || 1">{{
-            element['formattedSubmissionTime'] }}</mat-cell>
-        </ng-container>
-
-        <ng-container *ngIf="columnDef.colId === 'lastStateChangeTime'; else renderNext_1">
-          <mat-cell *matCellDef="let element" [style.flex]="columnDef.colWidth || 1">{{
-            element['formattedlastStateChangeTime'] }}</mat-cell>
-        </ng-container>
+          <ng-container *ngIf="columnDef.colId === 'submissionTime'; else renderNext_1">
+            <mat-cell *matCellDef="let element" [style.flex]="columnDef.colWidth || 1">
+              <div>{{ element['formattedSubmissionDate'] }}</div>
+              <div>{{ element['formattedSubmissionTime'] }}</div>
+            </mat-cell>
+          </ng-container>
+          
+          <ng-container *ngIf="columnDef.colId === 'lastStateChangeTime'; else renderNext_1">
+            <mat-cell *matCellDef="let element" [style.flex]="columnDef.colWidth || 1">
+              <div>{{ element['formattedLastStateChangeDate'] }}</div>
+              <div>{{ element['formattedLastStateChangeTime'] }}</div>
+            </mat-cell>
+          </ng-container>
 
         <ng-template #renderNext_1>
           <ng-container
@@ -98,7 +102,7 @@
 
           <ng-template #renderNext_1>
             <ng-container *ngIf="columnDef.colFormatter; else renderNext_2">
-              <mat-cell *matCellDef="let element">
+              <mat-cell *matCellDef="let element" [style.flex]="columnDef.colWidth || 1">
                 <span [innerText]="columnDef.colFormatter(element[columnDef.colId])"></span>
               </mat-cell>
             </ng-container>
@@ -106,7 +110,7 @@
         </ng-template>
 
         <ng-template #renderNext_2>
-          <mat-cell *matCellDef="let element">{{ element[columnDef.colId] || 'n/a' }}</mat-cell>
+          <mat-cell *matCellDef="let element" [style.flex]="columnDef.colWidth || 1">{{ element[columnDef.colId] || 'n/a' }}</mat-cell>
         </ng-template>
       </ng-container>
 

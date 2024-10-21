@@ -101,30 +101,28 @@ export class AppsViewComponent implements OnInit {
     this.appSort.sort({ id: 'submissionTime', start: 'desc', disableClear: false });
 
     this.appColumnDef = [
-      { colId: 'applicationId', colName: 'Application ID', colWidth: 1 },
-      { colId: 'applicationState', colName: 'Application State', colWidth: 1 },
+      { colId: 'applicationId', colName: 'Application ID', colWidth: 2 },
+      { colId: 'applicationState', colName: 'Application State', colWidth: 0.5 },
       {
         colId: 'lastStateChangeTime',
         colName: 'Last State Change Time',
-        colFormatter: CommonUtil.timeColumnFormatter,
         colWidth: 1,
       },
       {
         colId: 'usedResource',
         colName: 'Used Resource',
         colFormatter: CommonUtil.resourceColumnFormatter,
-        colWidth: 2,
+        colWidth: 1.5,
       },
       {
         colId: 'pendingResource',
         colName: 'Pending Resource',
         colFormatter: CommonUtil.resourceColumnFormatter,
-        colWidth: 2,
+        colWidth: 1.5,
       },
       {
         colId: 'submissionTime',
         colName: 'Submission Time',
-        colFormatter: CommonUtil.timeColumnFormatter,
         colWidth: 1,
       },
     ];
