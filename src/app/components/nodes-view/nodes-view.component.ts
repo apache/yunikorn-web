@@ -70,8 +70,6 @@ export class NodesViewComponent implements OnInit {
 
     this.nodeColumnDef = [
       { colId: 'nodeId', colName: 'Node ID' },
-      { colId: 'rackName', colName: 'Rack Name' },
-      { colId: 'hostName', colName: 'Host Name' },
       { colId: 'attributes', colName: 'Attributes' },
       { colId: 'capacity', colName: 'Capacity', colFormatter: CommonUtil.resourceColumnFormatter },
       { colId: 'occupied', colName: 'Used', colFormatter: CommonUtil.resourceColumnFormatter },
