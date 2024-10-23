@@ -36,17 +36,30 @@ export class AppInfo {
     public allocations: AllocationInfo[] | null
   ) {}
 
+  get formattedSubmissionDate() {
+    const millisecs = Math.round(this.submissionTime / (1000 * 1000));
+    return moment(millisecs).format('YYYY/MM/DD');
+  }
+  
   get formattedSubmissionTime() {
     const millisecs = Math.round(this.submissionTime / (1000 * 1000));
-    return moment(millisecs).format('YYYY/MM/DD HH:mm:ss');
+    return moment(millisecs).format('HH:mm:ss');
   }
-
-  get formattedlastStateChangeTime() {
+  
+  get formattedLastStateChangeDate() {
     if(this.lastStateChangeTime==null){
       return 'n/a'
     }
     const millisecs = Math.round(this.lastStateChangeTime! / (1000 * 1000));
-    return moment(millisecs).format('YYYY/MM/DD HH:mm:ss');
+    return moment(millisecs).format('YYYY/MM/DD');
+  }
+  
+  get formattedLastStateChangeTime() {
+    if(this.lastStateChangeTime==null){
+      return 'n/a'
+    }
+    const millisecs = Math.round(this.lastStateChangeTime! / (1000 * 1000));
+    return moment(millisecs).format('HH:mm:ss');
   }
 
   get formattedFinishedTime() {
