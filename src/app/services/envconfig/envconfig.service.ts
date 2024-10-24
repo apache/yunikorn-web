@@ -76,4 +76,16 @@ export class EnvconfigService {
       };
     return null;
   }
+
+  getSchedulerServiceRemoteConfig(): LoadRemoteModuleEsmOptions | null {
+    if (this.envConfig.schedulerServiceRemote && this.envConfig.moduleFederationRemoteEntry) {
+      return {
+        type: 'module',
+        remoteEntry: this.envConfig.moduleFederationRemoteEntry,
+        exposedModule: this.envConfig.schedulerServiceRemote,
+      };
+    }
+    return null;
+  }
+  
 }

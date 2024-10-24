@@ -16,9 +16,14 @@
  * limitations under the License.
  */
 
-export interface EnvConfig {
-  localSchedulerWebAddress: string;
-  moduleFederationRemoteEntry?: string;
-  allocationsDrawerRemoteComponent?: string;
-  schedulerServiceRemote?: string;
-}
+import { loadRemoteModule, LoadRemoteModuleOptions } from '@angular-architects/module-federation';
+
+/**
+ * ModuleFederationWrapper is a utility class that wraps the loadRemoteModule function from the @angular-architects/module-federation package.
+ * This allows Jasmine to spy on the loadRemoteModule function
+ */
+export const ModuleFederationWrapper = {
+  loadRemoteModule<T = any>(options: LoadRemoteModuleOptions): Promise<T> {
+    return loadRemoteModule<T>(options);
+  },
+};
