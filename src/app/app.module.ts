@@ -47,6 +47,7 @@ import { ApiErrorInterceptor } from '@app/interceptors/api-error/api-error.inter
 import { AppComponent } from '@app/app.component';
 import { DashboardComponent } from '@app/components/dashboard/dashboard.component';
 import { QueuesViewComponent } from '@app/components/queues-view/queues-view.component';
+import { QueueV2Component } from '@app/components/queue-v2/queues-v2.component';
 import { DonutChartComponent } from '@app/components/donut-chart/donut-chart.component';
 import { AreaChartComponent } from '@app/components/area-chart/area-chart.component';
 import { AppStatusComponent } from '@app/components/app-status/app-status.component';
@@ -71,6 +72,7 @@ import { MatChipsModule } from '@angular/material/chips';
     AppComponent,
     DashboardComponent,
     QueuesViewComponent,
+    QueueV2Component,
     DonutChartComponent,
     AreaChartComponent,
     AppStatusComponent,
