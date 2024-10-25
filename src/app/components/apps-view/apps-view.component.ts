@@ -46,6 +46,7 @@ import {
   loadRemoteModule,
   LoadRemoteModuleEsmOptions,
 } from '@angular-architects/module-federation';
+import { SchedulerServiceLoader } from '@app/services/scheduler/scheduler-loader.service';
 
 @Component({
   selector: 'app-applications-view',
@@ -86,6 +87,7 @@ export class AppsViewComponent implements OnInit {
   allocationsDrawerComponent: ComponentRef<AllocationsDrawerComponent> | undefined = undefined;
 
   constructor(
+    private schedulerServiceLoader: SchedulerServiceLoader,
     private scheduler: SchedulerService,
     private spinner: NgxSpinnerService,
     private activatedRoute: ActivatedRoute,
@@ -93,7 +95,7 @@ export class AppsViewComponent implements OnInit {
     private envConfig: EnvconfigService
   ) {}
 
-  ngOnInit() {
+  async ngOnInit() {
     this.appDataSource.paginator = this.appPaginator;
     this.allocDataSource.paginator = this.allocPaginator;
     this.appDataSource.sort = this.appSort;
@@ -145,6 +147,13 @@ export class AppsViewComponent implements OnInit {
     ];
 
     this.allocColumnIds = this.allocColumnDef.map((col) => col.colId);
+
+    const remoteConfig = this.envConfig.getSchedulerServiceRemoteConfig();
+    if (remoteConfig !== null) {
+      const remoteScheduler =
+        await this.schedulerServiceLoader.initializeSchedulerService(remoteConfig);
+      this.scheduler = remoteScheduler ? remoteScheduler : this.scheduler;
+    }
 
     fromEvent(this.searchInput.nativeElement, 'keyup')
       .pipe(debounceTime(500), distinctUntilChanged())
@@ -265,6 +274,7 @@ export class AppsViewComponent implements OnInit {
   ) {
     this.spinner.show();
 
+    console.log(this.scheduler);
     this.scheduler
       .fetchAppList(partitionName, queueName)
       .pipe(

@@ -17,11 +17,15 @@
  */
 
 import { of } from 'rxjs';
-import { AppInfo } from '@app/models/app-info.model';
-import { CommonUtil } from '@app/utils/common.util';
+import { LoadRemoteModuleEsmOptions } from '@angular-architects/module-federation';
+import { SchedulerServiceLoader } from '@app/services/scheduler/scheduler-loader.service';
 
 export const noopFn = () => {};
 export const nullFn = () => null;
+
+export const MockModuleFederationService = {
+  loadRemoteModule: (config: LoadRemoteModuleEsmOptions) => of({}),
+};
 
 export const MockSchedulerService = {
   fetchClusterByName: () => of({}),
@@ -43,9 +47,22 @@ export const MockNgxSpinnerService = {
 export const MockEnvconfigService = {
   getSchedulerWebAddress: noopFn,
   getAllocationsDrawerComponentRemoteConfig: nullFn,
+  getSchedulerServiceRemoteConfig: nullFn,
 };
 
 export const MockEventBusService = {
   getEvent: () => of<any>(),
   publish: noopFn,
+};
+
+export const MockSchedulerServiceLoader = {
+  loadScheduler: () => of(MockSchedulerService),
+  initializeSchedulerService: () => of(MockSchedulerService),
+  fetchClusterByName: () => of({}),
+  fetchClusterList: () => of([]),
+  fetchPartitionList: () => of([]),
+  fetchSchedulerQueues: () => of({}),
+  fetchAppList: () => of([]),
+  fetchAppHistory: () => of([]),
+  fetchContainerHistory: () => of([]),
 };
