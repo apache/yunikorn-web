@@ -15,16 +15,17 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  -->
-
-<mat-card appearance="outlined" class="box-card">
-  <mat-card-header>
-    <mat-card-title>Node Resource Utilization</mat-card-title>
-  </mat-card-header>
-  <mat-card-content>
-    <div class="status-wrapper flex-grid">
-      <div class="chart-wrapper flex-primary">
-        <app-vertical-bar-chart [bucketList]="bucketList" [barChartDataSets]="barChartDataSets" />
-      </div>
-    </div>
-  </mat-card-content>
-</mat-card>
+<div class="app-node-utilizations">
+  <mat-card-title class="title">Node Resource Utilization</mat-card-title>
+  <div class="mat-elevation-z8">
+    <mat-card appearance="outlined" class="box-card">
+      <mat-card-content>
+        <div class="status-wrapper flex-grid">
+          <div class="chart-wrapper flex-primary">
+            <app-vertical-bar-chart [bucketList]="bucketList" [barChartDataSets]="barChartDataSets" />
+          </div>
+        </div>
+      </mat-card-content>
+    </mat-card>
+  </div>
+</div>
