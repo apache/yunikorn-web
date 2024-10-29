@@ -1,5 +1,3 @@
 {
-  "localSchedulerWebAddress": "http://localhost:9889",
-  "moduleFederationRemoteEntry": "",
-  "allocationsDrawerRemoteComponent": ""
+  "localSchedulerWebAddress": "http://localhost:9889"
 }
