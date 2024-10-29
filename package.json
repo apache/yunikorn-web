@@ -13,8 +13,7 @@
     "build:prod": "ng build --configuration production",
     "start:srv": "json-server --watch json-db.json",
     "test:coverage": "ng test --code-coverage --karma-config=./karma.conf.ci.js",
-    "prettify": "prettier --config ./.prettierrc --write 'src/**/*.{js,ts,json,css,scss,md,html}'",
-    "run:all": "node node_modules/@angular-architects/module-federation/src/server/mf-dev-server.js"
+    "prettify": "prettier --config ./.prettierrc --write 'src/**/*.{js,ts,json,css,scss,md,html}'"
   },
   "private": true,
   "husky": {
@@ -29,7 +28,6 @@
     ]
   },
   "dependencies": {
-    "@angular-architects/module-federation": "^18.0.6",
     "@angular/animations": "^18.2.6",
     "@angular/cdk": "^18.2.6",
     "@angular/common": "^18.2.6",
@@ -83,7 +81,6 @@
     "karma-super-dots-reporter": "^0.2.0",
     "lint-staged": "^15.2.10",
     "ng-mocks": "^14.13.1",
-    "ngx-build-plus": "^18.0.0",
     "prettier": "^3.3.3",
     "puppeteer": "^23.4.1",
     "typescript": "5.5.4"
