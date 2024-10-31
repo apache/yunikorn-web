@@ -16,6 +16,8 @@
  * limitations under the License.
  */
 
+$header-height: 60px;
+
 .navigation {
   position: fixed;
   width: 50px;
@@ -68,7 +70,7 @@
   white-space: nowrap;
   color: #fff;
   background: #313d54;
-  height: 60px;
+  height: $header-height;
   overflow: hidden;
   -webkit-transition: padding-left 0.4s ease, padding-top 0.4s ease;
   -moz-transition: padding-left 0.4s ease, padding-top 0.4s ease;
@@ -229,7 +231,7 @@ ul.navigation-primary {
 }
 
 .container-fluid {
-  padding-top: 58px;
+  padding-top: $header-height;
 }
 
 //  remove the beta tag when the feature is ready for production
@@ -240,7 +242,7 @@ ul.navigation-primary {
 }
 
 .header {
-  height: 58px;
+  height: $header-height;
   background: #fff;
   padding: 0 20px;
   border-bottom: 1px solid #e3e3e3;
@@ -316,4 +318,5 @@ ul.breadcrumb a.back:after {
 
 .content-wrapper {
   padding: 20px;
+  height: calc(100vh - $header-height);
 }
