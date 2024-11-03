@@ -318,5 +318,8 @@ ul.breadcrumb a.back:after {
 
 .content-wrapper {
   padding: 20px;
-  height: calc(100vh - $header-height);
+
+  &:has(.container-fluid) {
+    height: calc(100vh - $header-height);
+  }
 }

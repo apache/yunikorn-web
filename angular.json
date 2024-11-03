@@ -34,6 +34,7 @@
             "styles": [
               "src/styles.scss",
               "node_modules/@fontsource/roboto/index.css",
+              "node_modules/@fontsource/roboto/300.css",
               "node_modules/@fontsource/roboto/500.css",
               "node_modules/@fortawesome/fontawesome-free/css/all.css"
             ],

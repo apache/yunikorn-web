@@ -18,13 +18,14 @@
 
 .status-wrapper {
   align-items: center;
-  gap: 8px;
+  gap: 12px;
   height: 220px;
 }
 .chart-wrapper {
   max-width: 220px;
 }
 .chart-legend {
+  min-width: 140px;
   max-width: 200px;
   margin: 0 auto;
   font-size: 0.8em;

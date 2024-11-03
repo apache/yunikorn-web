@@ -16,32 +16,22 @@
  * limitations under the License.
  */
 
-.status-wrapper {
+.card-wrapper {
+  border: 2px solid #d5d9e4;
+  border-radius: 8px;
+  background-color: #eee;
+  padding: 16px;
+}
+
+.header {
+  color: #172940;
+  font-weight: 600;
+  font-size: 20px;
+  display: flex;
   align-items: center;
-  gap: 12px;
-  height: 220px;
+  gap: 8px;
 }
-.chart-wrapper {
-  max-width: 220px;
-  z-index: 1;
-}
-.chart-legend {
-  min-width: 140px;
-  max-width: 200px;
-  max-height: 220px;
-  overflow: auto;
-  margin: 0 auto;
-  font-size: 0.8em;
-  font-weight: 500;
-  color: #666;
-  > div {
-    margin: 12px 0;
-  }
-  .legend-label {
-    padding-left: 10px;
-  }
-  .legend-value {
-    float: right;
-    padding-right: 20px;
-  }
+
+.body {
+  padding-top: 12px;
 }

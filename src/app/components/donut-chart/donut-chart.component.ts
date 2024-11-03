@@ -49,6 +49,10 @@ export class DonutChartComponent implements OnInit, AfterViewInit, OnChanges, On
 
   constructor(private eventBus: EventBusService) {}
 
+  get totalCount(): number {
+    return this.data.reduce((acc, item) => acc + item.value, 0);
+  }
+
   ngOnInit() {
     this.chartContainerId = CommonUtil.createUniqId('donut_chart_');
 
@@ -104,6 +108,7 @@ export class DonutChartComponent implements OnInit, AfterViewInit, OnChanges, On
           {
             data: dataValues,
             backgroundColor: colors,
+            borderWidth: 0,
           },
         ],
       },
@@ -125,6 +130,7 @@ export class DonutChartComponent implements OnInit, AfterViewInit, OnChanges, On
             position: 'nearest',
           },
         },
+        cutout: '70%',
       },
     });
 
