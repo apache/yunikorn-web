@@ -30,7 +30,7 @@ import {QueueInfo, QueuePropertyItem} from '@app/models/queue-info.model';
 import {SchedulerResourceInfo} from '@app/models/resource-info.model';
 import {SchedulerHealthInfo} from "@app/models/scheduler-health-info.model";
 import {CommonUtil} from '@app/utils/common.util';
-import {NOT_AVAILABLE} from '@app/utils/constants';
+import {NOT_AVAILABLE, ALLOCTYPE_FOREIGN, ALLOCTYPE_YUNIKORN} from '@app/utils/constants';
 import {Observable} from 'rxjs';
 import {map} from 'rxjs/operators';
 import {EnvconfigService} from '../envconfig/envconfig.service';
@@ -122,6 +122,7 @@ export class SchedulerService {
 
                 appAllocations.push(
                   new AllocationInfo(
+                    ALLOCTYPE_YUNIKORN,
                     alloc['displayName'],
                     alloc['allocationKey'],
                     alloc['allocationTags'],
@@ -208,12 +209,11 @@ export class SchedulerService {
               node['attributes'],
             );
 
-            const allocations = node['allocations'];
+            const ykAllocations = node['allocations'];
+            const allocations: AllocationInfo[] = [];
 
-            if (allocations && allocations.length > 0) {
-              const appAllocations: AllocationInfo[] = [];
-
-              allocations.forEach((alloc: any) => {
+            if (ykAllocations && ykAllocations.length > 0) {
+              ykAllocations.forEach((alloc: any) => {
                 if (
                   alloc.allocationTags &&
                   alloc.allocationTags['kubernetes.io/meta/namespace'] &&
@@ -226,8 +226,9 @@ export class SchedulerService {
                   alloc['displayName'] = '<nil>';
                 }
 
-                appAllocations.push(
+                allocations.push(
                   new AllocationInfo(
+                    ALLOCTYPE_YUNIKORN,
                     alloc['displayName'],
                     alloc['allocationKey'],
                     alloc['allocationTags'],
@@ -240,10 +241,43 @@ export class SchedulerService {
                   )
                 );
               });
-
-              nodeInfo.setAllocations(appAllocations);
             }
 
+            const foreignAllocations = node['foreignAllocations'];
+            if (foreignAllocations && foreignAllocations.length > 0) {
+	      foreignAllocations.forEach((alloc: any) => {
+                if (
+                  alloc.allocationTags &&
+                  alloc.allocationTags['kubernetes.io/meta/namespace'] &&
+                  alloc.allocationTags['kubernetes.io/meta/podName']
+                ) {
+                  alloc[
+                    'displayName'
+                  ] = `${alloc.allocationTags['kubernetes.io/meta/namespace']}/${alloc.allocationTags['kubernetes.io/meta/podName']}`;
+                } else {
+                  alloc['displayName'] = '<nil>';
+                }
+
+                allocations.push(
+                  new AllocationInfo(
+                    ALLOCTYPE_FOREIGN,
+                    alloc['displayName'],
+                    alloc['allocationKey'],
+                    alloc['allocationTags'],
+                    this.formatResource(alloc['resource'] as SchedulerResourceInfo),
+                    alloc['priority'],
+                    "n/a",
+                    alloc['nodeId'],
+                    "n/a",
+                    alloc['partition']
+                  )
+                );
+              });
+            }
+
+            if (allocations.length > 0) {
+              nodeInfo.setAllocations(allocations);
+            }
             result.push(nodeInfo);
           });
         }

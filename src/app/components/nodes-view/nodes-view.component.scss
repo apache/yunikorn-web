@@ -131,6 +131,10 @@
     margin-top: 20px;
     .mat-mdc-table {
       margin-top: 20px;
+      .mat-column-type {
+         flex: none;
+         width: 60px;
+      }
     }
   }
   .no-record {

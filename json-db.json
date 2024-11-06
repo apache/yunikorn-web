@@ -772,7 +772,7 @@
           "taskGroupName": "",
           "preempted": false
         }
-      ],
+      ], 
       "schedulable": true,
       "isReserved": false,
       "reservations": []
@@ -795,36 +795,165 @@
       },
       "hostName": "",
       "rackName": "",
-      "capacity": {
-        "ephemeral-storage": 99833802265,
+      "capacity":{
+        "ephemeral-storage":130978910208,
         "hugepages-1Gi": 0,
         "hugepages-2Mi": 0,
         "hugepages-32Mi": 0,
         "hugepages-64Ki": 0,
-        "memory": 4110970880,
-        "pods": 110,
-        "vcore": 2000
+        "memory":16767844352,
+        "pods":110,
+        "vcore":12000
       },
+      "occupied":{
+        "memory":178257920,
+        "pods":7,
+        "vcore":750
+      },
+      "available":{
+        "ephemeral-storage":130978910208,
+        "memory":16589586432,
+        "pods":103,
+        "vcore":11250
+      },      
       "allocated": {
         "memory": 0,
         "pods": 0,
         "vcore": 0
       },
-      "occupied": {
-        "memory": 0,
-        "pods": 0,
-        "vcore": 0
+      "foreignAllocations":[
+      {
+        "allocationKey":"1d867d76-3811-4142-a648-7d2d7ccc4c0a",
+        "allocationTags":{
+          "creationTime":"1726520417",
+          "foreign":"static",
+          "kubernetes.io/label/component":"kube-controller-manager",
+          "kubernetes.io/label/tier":"control-plane",
+          "kubernetes.io/meta/namespace":"kube-system",
+          "kubernetes.io/meta/podName":"kube-controller-manager-minikube"
+        },
+        "allocationTime":1726520417000000000,
+        "resource":{
+          "pods":1,
+          "vcore":200
+        },
+        "priority":"2000001000",
+        "nodeId":"minikube"
       },
-      "available": {
-        "ephemeral-storage": 99833802265,
-        "hugepages-1Gi": 0,
-        "hugepages-2Mi": 0,
-        "hugepages-32Mi": 0,
-        "hugepages-64Ki": 0,
-        "memory": 4110970880,
-        "pods": 110,
-        "vcore": 2000
+      {
+        "allocationKey":"c8d066e8-9775-4776-81ad-c13fc812ad12",
+        "allocationTags":{
+          "creationTime":"1726520418",
+          "foreign":"default",
+          "kubernetes.io/label/addonmanager.kubernetes.io/mode":"Reconcile",
+          "kubernetes.io/label/integration-test":"storage-provisioner",
+          "kubernetes.io/meta/namespace":"kube-system",
+          "kubernetes.io/meta/podName":"storage-provisioner"
+        },
+        "allocationTime":1726520418000000000,
+        "resource":{
+          "pods":1
+        },
+        "priority":"0",
+        "nodeId":"minikube",
+        "preemptable":true
       },
+      {
+        "allocationKey":"6b0721bc-547f-4859-927a-e2f911992630",
+        "allocationTags":{
+          "creationTime":"1726520429",
+          "foreign":"default",
+          "kubernetes.io/label/k8s-app":"kube-dns",
+          "kubernetes.io/label/pod-template-hash":"5dd5756b68",
+          "kubernetes.io/meta/namespace":"kube-system",
+          "kubernetes.io/meta/podName":"coredns-5dd5756b68-r82gf"
+        },
+        "allocationTime":1726520429000000000,
+        "resource":{
+          "memory":73400320,
+          "pods":1,
+          "vcore":100
+        },
+        "priority":"2000000000",
+        "nodeId":"minikube",
+        "preemptable":true
+      },
+      {
+        "allocationKey":"ef70737e-2ddc-461c-863f-9830b31951bd",
+        "allocationTags":{
+          "creationTime":"1726520429",
+          "foreign":"default",
+          "kubernetes.io/label/controller-revision-hash":"dffc744c9",
+          "kubernetes.io/label/k8s-app":"kube-proxy",
+          "kubernetes.io/label/pod-template-generation":"1",
+          "kubernetes.io/meta/namespace":"kube-system",
+          "kubernetes.io/meta/podName":"kube-proxy-rrkkt",
+          "yunikorn.apache.org/requiredNode":"minikube"
+        },
+        "allocationTime":1726520429000000000,
+        "resource":{
+          "pods":1
+        },
+        "priority":"2000001000",
+        "nodeId":"minikube",
+        "preemptable":true
+      },
+      {
+        "allocationKey":"4a6cb95d-a1f2-4623-a7a8-f13c057749e9",
+        "allocationTags":{
+          "creationTime":"1726520417",
+          "foreign":"static",
+          "kubernetes.io/label/component":"kube-scheduler",
+          "kubernetes.io/label/tier":"control-plane",
+          "kubernetes.io/meta/namespace":"kube-system",
+          "kubernetes.io/meta/podName":"kube-scheduler-minikube"
+        },
+        "allocationTime":1726520417000000000,
+        "resource":{
+          "pods":1,
+          "vcore":100
+        },
+        "priority":"2000001000",
+        "nodeId":"minikube"
+      },
+      {
+        "allocationKey":"9ed6ee55-f737-4aa0-b8be-2c0eb27285ee",
+        "allocationTags":{
+          "creationTime":"1726520417",
+          "foreign":"static",
+          "kubernetes.io/label/component":"etcd",
+          "kubernetes.io/label/tier":"control-plane",
+          "kubernetes.io/meta/namespace":"kube-system",
+          "kubernetes.io/meta/podName":"etcd-minikube"
+        },
+        "allocationTime":1726520417000000000,
+        "resource":{
+          "memory":104857600,
+          "pods":1,
+          "vcore":100
+        },
+        "priority":"2000001000",
+        "nodeId":"minikube"
+      },
+      {
+        "allocationKey":"f8e483e8-0435-4d6f-bd66-36fb13595ec4",
+        "allocationTags":{
+          "creationTime":"1726520417",
+          "foreign":"static",
+          "kubernetes.io/label/component":"kube-apiserver",
+          "kubernetes.io/label/tier":"control-plane",
+          "kubernetes.io/meta/namespace":"kube-system",
+          "kubernetes.io/meta/podName":"kube-apiserver-minikube"
+        },
+        "allocationTime":1726520417000000000,
+        "resource":{
+          "pods":1,
+          "vcore":250
+        },
+        "priority":"2000001000",
+        "nodeId":"minikube"
+      }
+    ],
       "utilized": {
         "memory": 0,
         "pods": 0,
