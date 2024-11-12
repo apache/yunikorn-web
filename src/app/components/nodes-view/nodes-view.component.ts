@@ -90,7 +90,10 @@ export class NodesViewComponent implements OnInit {
       },
     ];
 
-    this.nodeColumnIds = this.nodeColumnDef.map((col) => col.colId).concat('indicatorIcon');
+    this.nodeColumnIds = this.nodeColumnDef
+      .filter(col=> !['attributes'].includes(col.colId))
+      .map((col) => col.colId)
+      .concat('indicatorIcon');
 
     this.allocColumnDef = [
       { colId: 'displayName', colName: 'Display Name' },
