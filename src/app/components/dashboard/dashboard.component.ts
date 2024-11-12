@@ -26,7 +26,7 @@ import { AreaDataItem } from '@app/models/area-data.model';
 import { HistoryInfo } from '@app/models/history-info.model';
 import { Applications, Partition } from '@app/models/partition-info.model';
 import { EventBusService, EventMap } from '@app/services/event-bus/event-bus.service';
-import { NOT_AVAILABLE } from '@app/utils/constants';
+import { APP_STATUS_COLOR_MAP, APP_STATUSES, NOT_AVAILABLE } from '@app/utils/constants';
 
 @Component({
   selector: 'app-dashboard',
@@ -121,23 +121,21 @@ export class DashboardComponent implements OnInit {
   }
 
   updateAppStatusData(applications: Applications) {
-    this.appStatusData = []
-    if (applications.New) this.appStatusData.push(new ChartDataItem('New', applications.New, '#facc54'))
-    if (applications.Accepted) this.appStatusData.push(new ChartDataItem('Accepted', applications.Accepted, '#f4b400'))
-    if (applications.Starting) this.appStatusData.push(new ChartDataItem('Starting', applications.Starting, '#26bbf0'))
-    if (applications.Running) this.appStatusData.push(new ChartDataItem('Running', applications.Running, '#4285f4'))
-    if (applications.Completing) this.appStatusData.push(new ChartDataItem('Completing', applications.Completing, '#60cea5'))
-    if (applications.Completed) this.appStatusData.push(new ChartDataItem('Completed', applications.Completed, '#0f9d58'))
-    if (applications.Rejected) this.appStatusData.push(new ChartDataItem('Rejected', applications.Rejected, '#ff6d00'))
-    if (applications.Failing) this.appStatusData.push(new ChartDataItem('Failing', applications.Failing, '#cc6164'))
-    if (applications.Failed) this.appStatusData.push(new ChartDataItem('Failed', applications.Failed, '#db4437'))
-    if (applications.Expired) this.appStatusData.push(new ChartDataItem('Expired', applications.Expired, '#3949ab'))
-    if (applications.Resuming) this.appStatusData.push(new ChartDataItem('Resuming', applications.Resuming, '#694cb5'))
+    this.appStatusData = [];
+    APP_STATUSES.forEach(appStatus => {
+      if (applications[appStatus]) this.appStatusData.push(
+        new ChartDataItem(
+          appStatus,
+          applications[appStatus],
+          APP_STATUS_COLOR_MAP[appStatus]
+        )
+      );
+    })
   }
 
   updateContainerStatusData(info: Partition) {
     this.containerStatusData = [
-      new ChartDataItem('Running', +info.totalContainers, '#26bbf0'),
+      new ChartDataItem('Running', +info.totalContainers, APP_STATUS_COLOR_MAP['Running']),
     ];
   }
 
