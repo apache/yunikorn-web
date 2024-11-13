@@ -16,6 +16,8 @@
  * limitations under the License.
  */
 
+import { AppStatus, AppStatusColors } from "@app/models/app-status.model";
+
 export const DEFAULT_PARTITION_VALUE = '';
 export const DEFAULT_PROTOCOL = 'http:';
 export const NOT_AVAILABLE = 'n/a';
@@ -24,3 +26,19 @@ export const DEFAULT_BAR_COLOR = 'rgba(66, 133, 244, 1)';
 export const CHART_COLORS = ['rgba(66, 133, 244, 1)', 'rgb(219, 68, 55, 1)', 'rgb(244, 180, 0, 1)', 'rgb(15, 157, 88, 1)', 'rgb(255, 109, 0, 1)', 'rgb(57, 73, 171, 1)', 'rgb(250, 204, 84, 1)', 'rgb(38, 187, 240, 1)', 'rgb(204, 97, 100, 1)', 'rgb(96, 206, 165, 1)']
 export const ALLOCTYPE_FOREIGN = "foreign"
 export const ALLOCTYPE_YUNIKORN = "yunikorn"
+
+export const APP_STATUSES: AppStatus[] = ['New', 'Accepted', 'Starting', 'Running', 'Rejected', 'Completing', 'Completed', 'Failing', 'Failed', 'Expired', 'Resuming'];
+
+export const APP_STATUS_COLOR_MAP: AppStatusColors = {
+    New: "#facc54",
+    Accepted: "#f4b400",
+    Starting: "#26bbf0",
+    Running: "#234378",
+    Completing: "#60cea5",
+    Completed: "#0f9d58",
+    Rejected: "#ff6d00",
+    Failing: "#cc6164",
+    Failed: "#db4437",
+    Expired: "#3949ab",
+    Resuming: "#694cb5"
+}

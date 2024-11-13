@@ -15,6 +15,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
+import { AppStatus } from './app-status.model'
 
 export class PartitionInfo {
   name: string;
@@ -43,18 +44,7 @@ export interface Capacity {
   usedCapacity: string;
 }
 
-export interface Applications {
-	New: number;
-	Accepted: number;
-	Starting: number;
-	Running: number;
-	Rejected: number;
-	Completing: number;
-	Completed: number;
-	Failing: number;
-	Failed: number;
-	Expired: number;
-	Resuming: number;
+export interface Applications extends Record<AppStatus, number> {
   total: number;
 }
 

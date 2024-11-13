@@ -16,13 +16,12 @@
  * limitations under the License.
  -->
 
-<mat-card appearance="outlined" class="box-card">
-  <mat-card-header>
-    <mat-card-title>Container History</mat-card-title>
-  </mat-card-header>
-  <mat-card-content>
-    <div class="history-wrapper">
-      <app-area-chart [data]="chartData" tooltipLabel="Running Containers"></app-area-chart>
-    </div>
-  </mat-card-content>
-</mat-card>
+<app-card>
+  <ng-container header>
+    <i class="fa fa-area-chart" aria-hidden="true"></i>
+    Container History
+  </ng-container>
+  <div class="history-wrapper">
+    <app-area-chart [data]="chartData" tooltipLabel="Running Containers"></app-area-chart>
+  </div>
+</app-card>

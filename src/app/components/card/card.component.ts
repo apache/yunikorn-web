@@ -16,32 +16,15 @@
  * limitations under the License.
  */
 
-.status-wrapper {
-  align-items: center;
-  gap: 12px;
-  height: 220px;
-}
-.chart-wrapper {
-  max-width: 220px;
-  z-index: 1;
-}
-.chart-legend {
-  min-width: 140px;
-  max-width: 200px;
-  max-height: 220px;
-  overflow: auto;
-  margin: 0 auto;
-  font-size: 0.8em;
-  font-weight: 500;
-  color: #666;
-  > div {
-    margin: 12px 0;
-  }
-  .legend-label {
-    padding-left: 10px;
-  }
-  .legend-value {
-    float: right;
-    padding-right: 20px;
-  }
+import { Component, OnInit, Input } from '@angular/core';
+
+@Component({
+  selector: 'app-card',
+  templateUrl: './card.component.html',
+  styleUrls: ['./card.component.scss'],
+})
+export class CardComponent implements OnInit {
+  constructor() {}
+
+  ngOnInit() {}
 }
