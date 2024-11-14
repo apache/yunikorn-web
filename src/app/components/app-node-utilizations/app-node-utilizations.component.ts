@@ -16,12 +16,14 @@
  * limitations under the License.
  */
 
-import { Component, Input, OnChanges, OnInit, SimpleChanges } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import { BarChartDataSet } from '@app/models/chart-data.model';
 import { CHART_COLORS, DEFAULT_BAR_COLOR } from '@app/utils/constants';
 import { CommonUtil } from '@app/utils/common.util';
 import { NodeUtilization, NodeUtilizationsInfo } from '@app/models/node-utilization.model';
 import { SchedulerService } from '@app/services/scheduler/scheduler.service';
+import { PartitionInfo } from '@app/models/partition-info.model';
+import { MatSelectChange } from '@angular/material/select';
 
 
 @Component({
@@ -29,14 +31,24 @@ import { SchedulerService } from '@app/services/scheduler/scheduler.service';
   templateUrl: './app-node-utilizations.component.html',
   styleUrls: ['./app-node-utilizations.component.scss']
 })
-export class AppNodeUtilizationsComponent implements OnInit, OnChanges {
+export class AppNodeUtilizationsComponent implements OnInit {
+  private _partitionSelected: string = "";
   nodeUtilizations: NodeUtilization[] = [];
 
   // input data for vertical bar chart, key is resource type
   bucketList: string[] = [];                                          // one bucket list for all resource types, length should be exactly 10
   barChartDataSets: BarChartDataSet[] = new Array<BarChartDataSet>(); // one dataset for each type
+  partitionList: PartitionInfo[] = [];
 
-  @Input() partitionSelected: string = "";
+  @Input()
+  set partitionSelected(value: string) {
+    this._partitionSelected = value;
+    this.reloadBarChartData();
+  }
+
+  get partitionSelected(): string {
+    return this._partitionSelected;
+  }
 
   constructor(
     private scheduler: SchedulerService
@@ -44,14 +56,26 @@ export class AppNodeUtilizationsComponent implements OnInit, OnChanges {
 
   ngOnInit() {
     this.reloadBarChartData()
+
+    this.scheduler
+      .fetchPartitionList()
+      .subscribe((list) => {
+        if (list && list.length > 0) {
+          list.forEach((part) => {
+            this.partitionList.push(new PartitionInfo(part.name, part.name));
+          });
+
+          this.partitionSelected = CommonUtil.getStoredPartition(list[0].name);
+        } else {
+          this.partitionList = [];
+          this.partitionSelected = '';
+          CommonUtil.setStoredQueueAndPartition('');
+        }
+      });
   }
 
-  ngOnChanges(changes: SimpleChanges) {
-    if (
-      changes['partitionSelected']
-    ) {
-      this.reloadBarChartData()
-    }
+  onPartitionSelectionChanged(selected: MatSelectChange) {
+    this.partitionSelected = selected.value;
   }
 
   reloadBarChartData() {

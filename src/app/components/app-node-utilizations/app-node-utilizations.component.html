@@ -15,17 +15,30 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  -->
-<div class="app-node-utilizations">
-  <mat-card-title class="title">Node Resource Utilization</mat-card-title>
-  <div class="mat-elevation-z8">
-    <mat-card appearance="outlined" class="box-card">
-      <mat-card-content>
-        <div class="status-wrapper flex-grid">
-          <div class="chart-wrapper flex-primary">
-            <app-vertical-bar-chart [bucketList]="bucketList" [barChartDataSets]="barChartDataSets" />
-          </div>
-        </div>
-      </mat-card-content>
-    </mat-card>
+
+ <app-card class="app-node-utilizations">
+  <ng-container header>
+    <div>
+      <i class="fa fa-chart-column" aria-hidden="true"></i>
+      Node Resource Utilization
+    </div>
+    <div>
+      <mat-form-field appearance="outline" class="partition-selector">
+        <mat-label>Partition</mat-label>
+        <mat-select 
+          [(value)]="partitionSelected"
+          (selectionChange)="onPartitionSelectionChanged($event)"
+        >
+          <mat-option *ngFor="let part of partitionList" [value]="part.value">
+            {{ part.name }}
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
+    </div>
+  </ng-container>
+  <div class="status-wrapper flex-grid">
+    <div class="chart-wrapper flex-primary">
+      <app-vertical-bar-chart [bucketList]="bucketList" [barChartDataSets]="barChartDataSets" />
+    </div>
   </div>
-</div>
+</app-card>

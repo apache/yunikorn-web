@@ -101,7 +101,7 @@ export class VerticalBarChartComponent implements OnInit, AfterViewInit, OnChang
         plugins: {
           legend: {
             display: true,
-            position: 'left',
+            position: 'right',
             align: 'start',
             onClick: (e) => { }, // disable legend click event
             onHover: (event, legendItem, legend) => {
@@ -150,10 +150,29 @@ export class VerticalBarChartComponent implements OnInit, AfterViewInit, OnChang
           },
         },
         scales: {
+          x: {
+            grid: {
+              display: false,
+            },
+            ticks: {
+              color: '#666'
+            },
+            border: {
+              display: false,
+            }
+          },
           y: {
             ticks: {
               stepSize: 1,
               precision: 0
+            },
+            grid: {
+              color: '#ccc',
+              tickWidth: 0
+            },
+            border: {
+              display: false,
+              dash: [6, 6]
             }
           }
         },
