@@ -98,6 +98,7 @@ export class VerticalBarChartComponent implements OnInit, AfterViewInit, OnChang
       },
       options: {
         responsive: true,
+        maintainAspectRatio: false,
         plugins: {
           legend: {
             display: true,
