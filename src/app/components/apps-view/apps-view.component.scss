@@ -17,71 +17,85 @@
  */
 @import '~material-design-icons/iconfont/material-icons.css';
 
- .top-section {
+.top-section {
   width: 100%;
-  height: 100%;
   display: flex;
   flex-direction: row;
   justify-content: space-between;
   align-items: center;
-  .left-side{
+
+  .left-side {
     display: flex;
     flex-direction: row;
     align-items: center;
+
     .dropdown-wrapper {
       padding-right: 40px;
+
       .dropdown-label {
         color: #333;
-        font-size: 1.2em;
+        font-size: 14px;
         margin-right: 10px;
       }
     }
   }
-  .right-side{
+
+  .right-side {
     display: flex;
     flex-direction: row;
     align-items: center;
+
     .btn-wrapper {
       filter: drop-shadow(0px 2px 1px rgba(90, 90, 90, 0.5));
-      &:hover{
+
+      &:hover {
         filter: drop-shadow(0px 3px 3px rgba(90, 90, 90, 0.5));
       }
-      :hover{
+
+      :hover {
         cursor: pointer;
       }
-      .btn{
+
+      .btn {
         display: block;
         border: none;
-        padding: 13px 24px;
+        padding: 5px 16px;
         border-radius: 5px;
         font-size: 24px;
         transform: translateY(-13px);
       }
-      .material-icons{
+
+      .material-icons {
         transform: translateY(2px);
       }
     }
+
     .search-wrapper {
       width: 300px;
       right: 20px;
       padding-right: 20px;
+
       input {
         width: calc(100% - 22px);
         color: #333;
       }
+
       .clear-btn {
         outline: none;
         border: none;
         padding: 0 0 0 4px;
         cursor: pointer;
         background: transparent;
+
         i {
           font-size: 18px;
+
           &:hover {
             color: #f44336;
           }
         }
       }
+
       .search-icon {
         margin-left: 4px;
         font-size: 17px;
@@ -90,7 +104,7 @@
   }
 }
 
-.mdc-button .mdc-button__label{
+.mdc-button .mdc-button__label {
   display: flex;
   align-items: center;
 }
@@ -99,72 +113,53 @@
   width: 100%;
   height: 100%;
 
-  mat-chip {
-    height: 20px;
-    line-height: 14px;
-    font-size: 12px;
-    margin: 1px;
-    // border-radius: 5px;
-    // background-color: #313D54;
-    background-color: transparent;
-
-    span {
-        font-size: 12px;
-    }
-  }
-
-  .mat-mdc-standard-chip {
-    --mdc-chip-label-text-color: #333;
-    --mdc-chip-label-text-size: 12px;
-    --mdc-chip-label-text-weight: 400;
-  }
-
-  .selected-row .mat-mdc-standard-chip {
-    --mdc-chip-label-text-color: #fff;
-  }
-
   .mat-mdc-header-cell {
     font-size: 15px;
-    font-weight: bold;
+    font-weight: 500;
     color: #666;
   }
+
   .mat-mdc-cell {
     color: #333;
     display: flex;
     flex-direction: column;
     align-items: flex-start;
-    .mat-res-ul{
+
+    .mat-res-ul {
       padding: 0;
       margin: 0;
-      .mat-res-li{
+
+      .mat-res-li {
         list-style-type: none;
       }
     }
+
     .mat-toggle-more {
       display: block;
       color: #a1a3b7;
       padding: 5px 45px 0 0;
+
       &:hover {
         color: #8d00d4;
       }
     }
   }
-  .even-row {
-    background: #eee;
-  }
+
   .mat-mdc-row {
-    min-height: unset;
-    font-size: 12px;
     &:hover {
       background: #cccccc;
       cursor: pointer;
     }
+
     &.selected-row {
       background: #303d54;
+
       .mat-mdc-cell {
         color: #fff;
+
         .mat-toggle-more {
           color: #b8bbff;
+
           &:hover {
             color: #b871dc;
           }
@@ -172,21 +167,25 @@
       }
     }
   }
+
   .mat-mdc-header-cell.indicator-icon,
   .mat-mdc-cell.indicator-icon {
     max-width: 40px;
     font-size: 18px;
     margin-left: 10px;
   }
+
   .app-allocations {
     margin-top: 40px;
+
     .mat-mdc-table {
       margin-top: 20px;
     }
   }
+
   .no-record {
     font-size: 14px;
-    font-weight: bold;
+    font-weight: 500;
     color: #666;
     width: 100%;
     text-align: center;
@@ -203,39 +202,48 @@
   position: absolute;
   right: 0;
   bottom: 0;
+
   .mat-drawer {
     pointer-events: auto;
     width: 100%;
+
     .content {
       padding: 0 10px;
     }
   }
+
   .close-btn {
     float: right;
     font-size: 1.2em;
     cursor: pointer;
     padding-right: 5px;
+
     &:hover {
       color: #f44336;
     }
   }
+
   .copy-btn {
     font-size: 1em;
     cursor: pointer;
     padding-left: 5px;
   }
+
   .header {
     margin: 20px;
     font-weight: 100;
     font-size: 1em;
   }
+
   .content {
     border-top: 1px solid #e1e1e1;
   }
+
   .item-wrapper {
     .left-item {
       text-align: right;
     }
+
     .left-item,
     .right-item {
       width: 50%;
@@ -243,13 +251,16 @@
       padding-right: 0;
       color: #666;
     }
+
     .right-item {
       font-weight: 600;
     }
   }
+
   .app-link {
     text-decoration: none;
     color: #666;
+
     &:hover {
       text-decoration: underline;
     }

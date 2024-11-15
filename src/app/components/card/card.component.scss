@@ -16,6 +16,22 @@
  * limitations under the License.
  */
 
-export interface EnvConfig {
-  localSchedulerWebAddress: string;
+.card-wrapper {
+  border: 2px solid #d5d9e4;
+  border-radius: 8px;
+  background-color: #eee;
+  padding: 16px;
+}
+
+.header {
+  color: #172940;
+  font-weight: 600;
+  font-size: 20px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.body {
+  padding-top: 12px;
 }

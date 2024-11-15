@@ -44,6 +44,8 @@ import 'chartjs-adapter-date-fns';
 import { CommonUtil } from '@app/utils/common.util';
 import { AreaDataItem } from '@app/models/area-data.model';
 import { EventBusService, EventMap } from '@app/services/event-bus/event-bus.service';
+import { APP_STATUS_COLOR_MAP } from '@app/utils/constants';
+import * as Color from 'color';
 
 Chart.register(
   LineElement,
@@ -128,12 +130,21 @@ export class AreaChartComponent implements OnInit, AfterViewInit, OnChanges, OnD
         datasets: [
           {
             data: chartData,
-            backgroundColor: 'rgba(114, 189, 215, 0.5)',
-            borderColor: 'rgb(114, 189, 215)',
+            backgroundColor: (context) => {
+              const { ctx, chartArea } = context.chart;
+              if (!ctx || !chartArea) return;
+              const gradient = ctx.createLinearGradient(0, chartArea.top, 0, chartArea.bottom * 1.2);
+
+              gradient.addColorStop(0, Color(APP_STATUS_COLOR_MAP['Running']).alpha(0.4).string());
+              gradient.addColorStop(1, 'rgba(255, 255, 255, 0)');
+
+              return gradient;
+            },
+            borderColor: APP_STATUS_COLOR_MAP['Running'],
             label: this.tooltipLabel,
             fill: 'start',
-            pointBackgroundColor: 'rgb(114, 189, 215)',
-            pointHoverRadius: 5,
+            pointBackgroundColor: APP_STATUS_COLOR_MAP['Running'],
+            pointHoverRadius: 10,
           },
         ],
       },
@@ -152,6 +163,12 @@ export class AreaChartComponent implements OnInit, AfterViewInit, OnChanges, OnD
           },
           legend: {
             display: true,
+            labels: {
+              color: '#666',
+              font: {
+                weight: 500
+              }
+            }
           },
           title: {
             display: false,
@@ -167,11 +184,29 @@ export class AreaChartComponent implements OnInit, AfterViewInit, OnChanges, OnD
             time: {
               unit: 'minute',
             },
+            grid: {
+              display: false,
+            },
+            ticks: {
+              color: '#666'
+            },
+            border: {
+              display: false,
+            }
           },
           y: {
             ticks: {
               stepSize: 1,
+              color: '#666',
             },
+            grid: {
+              color: '#ccc',
+              tickWidth: 0
+            },
+            border: {
+              display: false,
+              dash: [6, 6]
+            }
           },
         },
       },

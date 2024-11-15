@@ -13,8 +13,7 @@
     "build:prod": "ng build --configuration production",
     "start:srv": "json-server --watch json-db.json",
     "test:coverage": "ng test --code-coverage --karma-config=./karma.conf.ci.js",
-    "prettify": "prettier --config ./.prettierrc --write 'src/**/*.{js,ts,json,css,scss,md,html}'",
-    "run:all": "node node_modules/@angular-architects/module-federation/src/server/mf-dev-server.js"
+    "prettify": "prettier --config ./.prettierrc --write 'src/**/*.{js,ts,json,css,scss,md,html}'"
   },
   "private": true,
   "husky": {
@@ -29,7 +28,6 @@
     ]
   },
   "dependencies": {
-    "@angular-architects/module-federation": "^18.0.6",
     "@angular/animations": "^18.2.6",
     "@angular/cdk": "^18.2.6",
     "@angular/common": "^18.2.6",
@@ -51,6 +49,7 @@
     "angular-material-expansion-panel": "^0.7.2",
     "chart.js": "^4.4.4",
     "chartjs-adapter-date-fns": "^3.0.0",
+    "color": "^4.2.3",
     "d3-flextree": "^2.1.2",
     "d3-hierarchy": "^3.1.2",
     "d3-selection": "^3.0.0",
@@ -68,6 +67,7 @@
     "@angular-devkit/build-angular": "^18.2.6",
     "@angular/cli": "^18.2.6",
     "@angular/compiler-cli": "^18.2.6",
+    "@types/color": "^4.2.0",
     "@types/jasmine": "~5.1.4",
     "@types/node": "^20.16.9",
     "husky": "^8.0.3",
@@ -83,7 +83,6 @@
     "karma-super-dots-reporter": "^0.2.0",
     "lint-staged": "^15.2.10",
     "ng-mocks": "^14.13.1",
-    "ngx-build-plus": "^18.0.0",
     "prettier": "^3.3.3",
     "puppeteer": "^23.4.1",
     "typescript": "5.5.4"

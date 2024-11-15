@@ -63,8 +63,7 @@ import { HealthchecksComponent } from '@app/components/healthchecks/healthchecks
 import { AppNodeUtilizationsComponent } from '@app/components/app-node-utilizations/app-node-utilizations.component';
 import { VerticalBarChartComponent } from '@app/components/vertical-bar-chart/vertical-bar-chart.component';
 import { LicensesModalComponent } from '@app/components/licenses-modal/licenses-modal.component';
-import { AllocationsDrawerComponent } from '@app/components/allocations-drawer/allocations-drawer.component';
-import { MatChipsModule } from '@angular/material/chips';
+import { CardComponent } from './components/card/card.component';
 
 @NgModule({
   declarations: [
@@ -87,7 +86,7 @@ import { MatChipsModule } from '@angular/material/chips';
     AppNodeUtilizationsComponent,
     VerticalBarChartComponent,
     LicensesModalComponent,
-    AllocationsDrawerComponent,
+    CardComponent,
   ],
   imports: [
     BrowserModule,
@@ -114,7 +113,6 @@ import { MatChipsModule } from '@angular/material/chips';
     MatExpansionModule,
     MatIconModule,
     MatDialogModule,
-    MatChipsModule,
   ],
   providers: [
     {

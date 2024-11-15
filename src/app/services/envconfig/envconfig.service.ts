@@ -21,7 +21,7 @@ import { HttpClient } from '@angular/common/http';
 import { environment } from '../../../environments/environment';
 
 import { EnvConfig } from '@app/models/envconfig.model';
-import { LoadRemoteModuleEsmOptions } from '@angular-architects/module-federation';
+import { DEFAULT_PROTOCOL } from '@app/utils/constants';
 
 const ENV_CONFIG_JSON_URL = './assets/config/envconfig.json';
 
@@ -62,18 +62,5 @@ export class EnvconfigService {
     }
 
     return `${this.uiProtocol}//${this.uiHostname}:${this.uiPort}`;
-  }
-
-  getAllocationsDrawerComponentRemoteConfig(): LoadRemoteModuleEsmOptions | null {
-    if (
-      this.envConfig.allocationsDrawerRemoteComponent &&
-      this.envConfig.moduleFederationRemoteEntry
-    )
-      return {
-        type: 'module',
-        remoteEntry: this.envConfig.moduleFederationRemoteEntry,
-        exposedModule: this.envConfig.allocationsDrawerRemoteComponent,
-      };
-    return null;
   }
 }

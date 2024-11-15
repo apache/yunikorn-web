@@ -16,22 +16,21 @@
  * limitations under the License.
  -->
 
-<mat-card appearance="outlined" class="box-card">
-  <mat-card-header>
-    <mat-card-title>Container Status</mat-card-title>
-  </mat-card-header>
-  <mat-card-content>
-    <div class="status-wrapper flex-grid">
-      <div class="chart-wrapper flex-primary">
-        <app-donut-chart [data]="chartData"></app-donut-chart>
-      </div>
-      <div class="chart-legend flex-primary">
-        <div *ngFor="let data of chartData">
-          <span class="fa fa-circle" [style.color]="data.color"></span>
-          <span class="legend-label">{{ data.name }}</span>
-          <span class="legend-value">{{ data.value }}</span>
-        </div>
+<app-card>
+  <ng-container header>
+    <i class="fa fa-pie-chart" aria-hidden="true"></i>
+    Container Status
+  </ng-container>
+  <div class="status-wrapper flex-grid">
+    <div class="chart-wrapper flex-primary">
+      <app-donut-chart [data]="chartData"></app-donut-chart>
+    </div>
+    <div class="chart-legend flex-primary">
+      <div *ngFor="let data of chartData">
+        <span class="fa fa-circle" [style.color]="data.color"></span>
+        <span class="legend-label">{{ data.name }}</span>
+        <span class="legend-value">{{ data.value }}</span>
       </div>
     </div>
-  </mat-card-content>
-</mat-card>
+  </div>
+</app-card>

@@ -21,9 +21,19 @@
   margin-bottom: 20px;
 }
 
+.top-info {
+  border-radius: 8px;
+  box-shadow: rgba(100, 100, 111, 0.1) 0px 2px 12px 0px;
+}
+
+.info-label {
+  font-size: 14px;
+  line-height: 19px;
+}
+
 .info-value {
-  margin-top: 6px;
-  font-size: 1.4em;
+  font-size: 18px;
+  line-height: 24px;
 }
 
 .cluster-info {
@@ -34,6 +44,7 @@
     width: 35%;
     max-width: 35%;
     margin-right: 30px;
+    min-width: 320px;
   }
   .right-col {
     width: 65%;

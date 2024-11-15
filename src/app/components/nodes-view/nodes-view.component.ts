@@ -70,8 +70,6 @@ export class NodesViewComponent implements OnInit {
 
     this.nodeColumnDef = [
       { colId: 'nodeId', colName: 'Node ID' },
-      { colId: 'rackName', colName: 'Rack Name' },
-      { colId: 'hostName', colName: 'Host Name' },
       { colId: 'attributes', colName: 'Attributes' },
       { colId: 'capacity', colName: 'Capacity', colFormatter: CommonUtil.resourceColumnFormatter },
       { colId: 'occupied', colName: 'Used', colFormatter: CommonUtil.resourceColumnFormatter },
@@ -92,7 +90,10 @@ export class NodesViewComponent implements OnInit {
       },
     ];
 
-    this.nodeColumnIds = this.nodeColumnDef.map((col) => col.colId).concat('indicatorIcon');
+    this.nodeColumnIds = this.nodeColumnDef
+      .filter(col=> !['attributes'].includes(col.colId))
+      .map((col) => col.colId)
+      .concat('indicatorIcon');
 
     this.allocColumnDef = [
       { colId: 'displayName', colName: 'Display Name' },

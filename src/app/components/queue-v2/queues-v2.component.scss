@@ -16,13 +16,20 @@
  * limitations under the License.
  */
 
+ .queue-container {
+    height: 100%;
+ }
+
  .queue-content-box {
     width: calc(100% - 2rem); /* Subtract padding from the total width */
-    height: calc(100vh - 2rem); /* Subtract padding from the total height to ensure it's nearly as tall as the container */
+    height: 100%;
     border-radius: 0.5rem;
     background-color: white;
     padding: 20px; /* Adjust padding to your preference */
     box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+
+    display: flex;
+    flex-direction: column;
   }
   
   .header .title-group {
@@ -120,8 +127,13 @@
       background-color: #8090a5;
   }
 
+  .body {
+    height: 100%;
+  }
+
   .content-wrapper {
     display: flex;
+    height: 100%;
   }
 
   .visualize-area {
@@ -129,8 +141,7 @@
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    height: 600px; 
-    max-height: 80%; /* Ensure there's space around the area within the content box */
+    height: 100%; 
     width: 100%;
     border-radius: 0.5rem;
     border: 2px dashed #d1d5db;
