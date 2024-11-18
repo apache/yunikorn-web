@@ -16,13 +16,18 @@
  * limitations under the License.
  */
 
- .app-node-utilizations {
+::ng-deep .app-node-utilizations {
+    .header {
+        justify-content: space-between;
+    }
     
-    .title {
-        margin-bottom: 28px;
+    .partition-selector {
+        .mat-mdc-form-field-subscript-wrapper {
+            display: none;
+        }
     }
 
-    .mat-mdc-card-content {
-        padding: 30px 30px;
+    .chart-wrapper {
+        max-height: 400px;
     }
- }
+}
