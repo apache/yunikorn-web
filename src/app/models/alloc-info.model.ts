@@ -18,7 +18,6 @@
 
 export class AllocationInfo {
   constructor(
-    public type: string,
     public displayName: string,
     public allocationKey: string,
     public allocationTags: null | string,

@@ -96,7 +96,6 @@ export class NodesViewComponent implements OnInit {
       .concat('indicatorIcon');
 
     this.allocColumnDef = [
-      { colId: 'type', colName: 'Type' },
       { colId: 'displayName', colName: 'Display Name' },
       { colId: 'allocationKey', colName: 'Allocation Key' },
       { colId: 'resource', colName: 'Resource', colFormatter: CommonUtil.resourceColumnFormatter },

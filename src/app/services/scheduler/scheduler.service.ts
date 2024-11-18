@@ -30,7 +30,7 @@ import {QueueInfo, QueuePropertyItem} from '@app/models/queue-info.model';
 import {SchedulerResourceInfo} from '@app/models/resource-info.model';
 import {SchedulerHealthInfo} from "@app/models/scheduler-health-info.model";
 import {CommonUtil} from '@app/utils/common.util';
-import {NOT_AVAILABLE, ALLOCTYPE_FOREIGN, ALLOCTYPE_YUNIKORN} from '@app/utils/constants';
+import {NOT_AVAILABLE} from '@app/utils/constants';
 import {Observable} from 'rxjs';
 import {map} from 'rxjs/operators';
 import {EnvconfigService} from '../envconfig/envconfig.service';
@@ -122,7 +122,6 @@ export class SchedulerService {
 
                 appAllocations.push(
                   new AllocationInfo(
-                    ALLOCTYPE_YUNIKORN,
                     alloc['displayName'],
                     alloc['allocationKey'],
                     alloc['allocationTags'],
@@ -228,7 +227,6 @@ export class SchedulerService {
 
                 allocations.push(
                   new AllocationInfo(
-                    ALLOCTYPE_YUNIKORN,
                     alloc['displayName'],
                     alloc['allocationKey'],
                     alloc['allocationTags'],
@@ -260,7 +258,6 @@ export class SchedulerService {
 
                 allocations.push(
                   new AllocationInfo(
-                    ALLOCTYPE_FOREIGN,
                     alloc['displayName'],
                     alloc['allocationKey'],
                     alloc['allocationTags'],
