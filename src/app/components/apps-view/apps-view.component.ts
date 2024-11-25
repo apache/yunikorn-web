@@ -16,15 +16,14 @@
  * limitations under the License.
  */
 
-import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatTableDataSource } from '@angular/material/table';
 import { MatSort } from '@angular/material/sort';
-import { MatSelectChange, MatSelect } from '@angular/material/select';
-import { finalize, debounceTime, distinctUntilChanged } from 'rxjs/operators';
+import { MatSelectChange } from '@angular/material/select';
+import { finalize } from 'rxjs/operators';
 import { NgxSpinnerService } from 'ngx-spinner';
-import { fromEvent } from 'rxjs';
 
 import { SchedulerService } from '@app/services/scheduler/scheduler.service';
 import { AppInfo } from '@app/models/app-info.model';
@@ -32,9 +31,10 @@ import { AllocationInfo } from '@app/models/alloc-info.model';
 import { ColumnDef } from '@app/models/column-def.model';
 import { CommonUtil } from '@app/utils/common.util';
 import { PartitionInfo } from '@app/models/partition-info.model';
-import { DropdownItem } from '@app/models/dropdown-item.model';
 import { QueueInfo } from '@app/models/queue-info.model';
 import { MatDrawer } from '@angular/material/sidenav';
+import { QueueNode } from '../queue-menu-tree/queue-menu-tree.component';
+import { FormControl } from '@angular/forms';
 
 @Component({
   selector: 'app-applications-view',
@@ -46,9 +46,8 @@ export class AppsViewComponent implements OnInit {
   @ViewChild('allocationMatPaginator', { static: true }) allocPaginator!: MatPaginator;
   @ViewChild('appSort', { static: true }) appSort!: MatSort;
   @ViewChild('allocSort', { static: true }) allocSort!: MatSort;
-  @ViewChild('searchInput', { static: true }) searchInput!: ElementRef;
-  @ViewChild('queueSelect', { static: false }) queueSelect!: MatSelect;
   @ViewChild('matDrawer', { static: false }) matDrawer!: MatDrawer;
+  searchControl = new FormControl('',{ nonNullable: true });
 
   appDataSource = new MatTableDataSource<AppInfo>([]);
   appColumnDef: ColumnDef[] = [];
@@ -60,10 +59,9 @@ export class AppsViewComponent implements OnInit {
 
   selectedRow: AppInfo | null = null;
   initialAppData: AppInfo[] = [];
-  searchText = '';
   partitionList: PartitionInfo[] = [];
   partitionSelected = '';
-  leafQueueList: DropdownItem[] = [];
+  leafQueueList: QueueNode[] = [];
   leafQueueSelected = '';
 
   detailToggle: boolean = false;
@@ -125,12 +123,6 @@ export class AppsViewComponent implements OnInit {
 
     this.allocColumnIds = this.allocColumnDef.map((col) => col.colId);
 
-    fromEvent(this.searchInput.nativeElement, 'keyup')
-      .pipe(debounceTime(500), distinctUntilChanged())
-      .subscribe(() => {
-        this.onSearchAppData();
-      });
-
     this.scheduler
       .fetchPartitionList()
       .pipe(
@@ -148,7 +140,7 @@ export class AppsViewComponent implements OnInit {
         } else {
           this.partitionList = [new PartitionInfo('-- Select --', '')];
           this.partitionSelected = '';
-          this.leafQueueList = [new DropdownItem('-- Select --', '')];
+          this.leafQueueList = [];
           this.leafQueueSelected = '';
           this.appDataSource.data = [];
           this.clearQueueSelection();
@@ -169,44 +161,54 @@ export class AppsViewComponent implements OnInit {
       .subscribe((data) => {
         if (data && data.rootQueue) {
           const leafQueueList = this.generateLeafQueueList(data.rootQueue);
-          this.leafQueueList = [new DropdownItem('-- Select --', ''), ...leafQueueList];
+          this.leafQueueList = leafQueueList;
           if (!this.fetchApplicationsUsingQueryParams()) this.setDefaultQueue(leafQueueList);
         } else {
-          this.leafQueueList = [new DropdownItem('-- Select --', '')];
+          this.leafQueueList = [];
         }
       });
   }
 
-  setDefaultQueue(queueList: DropdownItem[]): void {
+  setDefaultQueue(queueList: QueueNode[]): void {
     const storedPartitionAndQueue = localStorage.getItem('selectedPartitionAndQueue');
 
     if (!storedPartitionAndQueue || storedPartitionAndQueue.indexOf(':') < 0) {
-      setTimeout(() => this.openQueueSelection(), 0);
       return;
     }
-
     const [storedPartition, storedQueue] = storedPartitionAndQueue.split(':');
     if (this.partitionSelected !== storedPartition) return;
 
-    const storedQueueDropdownItem = queueList.find((queue) => queue.value === storedQueue);
-    if (storedQueueDropdownItem) {
-      this.leafQueueSelected = storedQueueDropdownItem.value;
+    const storedQueueNode = this.findQueueNodeByValue(queueList, storedQueue);
+    if (storedQueueNode) {
+      this.leafQueueSelected = storedQueueNode.value;
       this.fetchAppListForPartitionAndQueue(this.partitionSelected, this.leafQueueSelected);
       return;
     } else {
       this.leafQueueSelected = '';
       this.appDataSource.data = [];
-      setTimeout(() => this.openQueueSelection(), 0); // Allows render to finish and then opens the queue select dropdown
     }
   }
 
-  generateLeafQueueList(rootQueue: QueueInfo, list: DropdownItem[] = []): DropdownItem[] {
-    if (rootQueue && rootQueue.isLeaf) {
-      list.push(new DropdownItem(rootQueue.queueName, rootQueue.queueName));
+  findQueueNodeByValue(queueList: QueueNode[] = [], value:string): QueueNode | null {
+    for (const node of queueList) {
+      if (node.value === value) return node;
+  
+      const result = this.findQueueNodeByValue(node.children, value);
+      if (result) return result;
     }
+  
+    return null;
+  }
 
-    if (rootQueue && rootQueue.children) {
-      rootQueue.children.forEach((child) => this.generateLeafQueueList(child, list));
+  generateLeafQueueList(rootQueue: QueueInfo, list: QueueNode[] = []): QueueNode[] {
+    if (rootQueue) {
+      list.push({
+        name: rootQueue.queueName.split(".").at(-1) || rootQueue.queueName,
+        value: rootQueue.queueName,
+        children: rootQueue.children 
+        ? rootQueue.children.flatMap(node=> this.generateLeafQueueList(node, []))
+        : []
+      })
     }
 
     return list;
@@ -305,13 +307,13 @@ export class AppsViewComponent implements OnInit {
   }
 
   onClearSearch() {
-    this.searchText = '';
+    this.searchControl.setValue('');
     this.removeRowSelection();
     this.appDataSource.data = this.initialAppData;
   }
 
   onSearchAppData() {
-    const searchTerm = this.searchText.trim().toLowerCase();
+    const searchTerm = this.searchControl.value?.trim().toLowerCase();
 
     if (searchTerm) {
       this.removeRowSelection();
@@ -325,14 +327,14 @@ export class AppsViewComponent implements OnInit {
 
   onPartitionSelectionChanged(selected: MatSelectChange) {
     if (selected.value !== '') {
-      this.searchText = '';
+      this.searchControl.setValue('');
       this.partitionSelected = selected.value;
       this.appDataSource.data = [];
       this.removeRowSelection();
       this.clearQueueSelection();
       this.fetchQueuesForPartition(this.partitionSelected);
     } else {
-      this.searchText = '';
+      this.searchControl.setValue('');
       this.partitionSelected = '';
       this.leafQueueSelected = '';
       this.appDataSource.data = [];
@@ -341,16 +343,16 @@ export class AppsViewComponent implements OnInit {
     }
   }
 
-  onQueueSelectionChanged(selected: MatSelectChange) {
-    if (selected.value !== '') {
-      this.searchText = '';
-      this.leafQueueSelected = selected.value;
+  onQueueSelectionChanged(selected: string) {
+    if (selected !== '') {
+      this.searchControl.setValue('');
+      this.leafQueueSelected = selected;
       this.appDataSource.data = [];
       this.removeRowSelection();
       this.fetchAppListForPartitionAndQueue(this.partitionSelected, this.leafQueueSelected);
       CommonUtil.setStoredQueueAndPartition(this.partitionSelected, this.leafQueueSelected);
     } else {
-      this.searchText = '';
+      this.searchControl.setValue('');
       this.leafQueueSelected = '';
       this.appDataSource.data = [];
       this.removeRowSelection();
@@ -385,11 +387,6 @@ export class AppsViewComponent implements OnInit {
   clearQueueSelection() {
     CommonUtil.setStoredQueueAndPartition('');
     this.leafQueueSelected = '';
-    this.openQueueSelection();
-  }
-
-  openQueueSelection() {
-    this.queueSelect.open();
   }
 
   toggle() {
@@ -411,5 +408,10 @@ export class AppsViewComponent implements OnInit {
     navigator.clipboard
       .writeText(copyString)
       .catch((error) => console.error('Writing to the clipboard is not allowed. ', error));
+  }
+
+  onChangeSearchText(newSearchText: string) {
+    this.searchControl.setValue(newSearchText);
+    this.onSearchAppData();
   }
 }

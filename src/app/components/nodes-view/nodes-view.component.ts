@@ -30,6 +30,7 @@ import { AllocationInfo } from '@app/models/alloc-info.model';
 import { ColumnDef } from '@app/models/column-def.model';
 import { CommonUtil } from '@app/utils/common.util';
 import { PartitionInfo } from '@app/models/partition-info.model';
+import { FormControl } from '@angular/forms';
 
 @Component({
   selector: 'app-nodes-view',
@@ -41,7 +42,7 @@ export class NodesViewComponent implements OnInit {
   @ViewChild('allocationMatPaginator', { static: true }) allocPaginator!: MatPaginator;
   @ViewChild('nodeSort', { static: true }) nodeSort!: MatSort;
   @ViewChild('allocSort', { static: true }) allocSort!: MatSort;
-
+  
   nodeDataSource = new MatTableDataSource<NodeInfo>([]);
   nodeColumnDef: ColumnDef[] = [];
   nodeColumnIds: string[] = [];
@@ -55,7 +56,7 @@ export class NodesViewComponent implements OnInit {
   partitionSelected = '';
 
   detailToggle: boolean = false;
-  filterValue: string = '';
+  searchControl = new FormControl('',{ nonNullable: true });
 
   constructor(
     private scheduler: SchedulerService,
@@ -296,9 +297,9 @@ export class NodesViewComponent implements OnInit {
     return objectString.includes(filter);
   };
 
-  applyFilter(event: Event): void {
-    this.filterValue = (event.target as HTMLInputElement).value.trim().toLowerCase();
-    this.nodeDataSource.filter = this.filterValue;
+  onChangeSearchText(newSearchText: string) {
+    this.searchControl.setValue(newSearchText.trim().toLowerCase());
+    this.nodeDataSource.filter = this.searchControl.value;
     this.nodeDataSource.filterPredicate = this.filterPredicate;
   }
 }
