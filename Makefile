@@ -296,13 +296,13 @@ ifeq ($(REPRO),1)
 	CGO_ENABLED=0 GOOS=linux GOARCH=\"${EXEC_ARCH}\" \
 	go build -a -o=${RELEASE_BIN_DIR}/${SERVER_BINARY} -trimpath -ldflags \
 	'-buildid= -extldflags \"-static\" -X main.version=${VERSION} -X main.date=${DATE}' \
-	-tags netgo -installsuffix netgo \
+	-tags netgo \
 	./pkg/cmd/web/"
 else
 	CGO_ENABLED=0 GOOS=linux GOARCH="${EXEC_ARCH}" \
 	"$(GO)" build -a -o=${RELEASE_BIN_DIR}/${SERVER_BINARY} -trimpath -ldflags \
 	'-buildid= -extldflags "-static" -X main.version=${VERSION} -X main.date=${DATE}' \
-	-tags netgo -installsuffix netgo \
+	-tags netgo \
 	./pkg/cmd/web/
 endif
 
