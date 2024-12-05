@@ -35,17 +35,23 @@
   .header .title-group {
     display: flex;
     align-items: center;
-    justify-content: space-between;
+    justify-content: flex-start;
     padding-bottom: 1rem;
   }
    
   .title-group div {
-    flex-grow: 1; 
-    text-align: center;
+    flex-grow: 0;
+    text-align: left;
     font-size: 1.25rem; 
     font-weight: 600; 
     color: #010407;
+    margin-right: 1rem;
   } 
+
+  .title-group mat-form-field {
+    margin-top: 20px;
+    margin-right: auto;
+  }
 
   .fit-to-screen-button {
     position: relative;
