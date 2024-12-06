@@ -22,7 +22,7 @@ import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { NgxSpinnerModule } from 'ngx-spinner';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MatCardModule } from '@angular/material/card';
 import { MatTabsModule } from '@angular/material/tabs';
 import { MatSelectModule } from '@angular/material/select';
@@ -64,6 +64,10 @@ import { AppNodeUtilizationsComponent } from '@app/components/app-node-utilizati
 import { VerticalBarChartComponent } from '@app/components/vertical-bar-chart/vertical-bar-chart.component';
 import { LicensesModalComponent } from '@app/components/licenses-modal/licenses-modal.component';
 import { CardComponent } from './components/card/card.component';
+import { QueueMenuTreeComponent } from './components/queue-menu-tree/queue-menu-tree.component';
+import { MatTreeModule } from '@angular/material/tree';
+import { AngularSplitModule } from 'angular-split';
+import { SearchInputComponent } from './components/search-input/search-input.component';
 
 @NgModule({
   declarations: [
@@ -87,6 +91,8 @@ import { CardComponent } from './components/card/card.component';
     VerticalBarChartComponent,
     LicensesModalComponent,
     CardComponent,
+    QueueMenuTreeComponent,
+    SearchInputComponent
   ],
   imports: [
     BrowserModule,
@@ -113,6 +119,9 @@ import { CardComponent } from './components/card/card.component';
     MatExpansionModule,
     MatIconModule,
     MatDialogModule,
+    MatTreeModule,
+    AngularSplitModule,
+    ReactiveFormsModule
   ],
   providers: [
     {

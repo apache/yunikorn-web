@@ -18,6 +18,9 @@
 @use '@angular/material' as mat;
 
 @import '~@angular/material/prebuilt-themes/indigo-pink.css';
+@import '~material-design-icons/iconfont/material-icons.css';
+
+$borderRadius: 8px;
 
 * {
   box-sizing: border-box;
@@ -138,4 +141,38 @@ p {
 .white-mat-form-field .mat-mdc-form-field-flex {
   background-color: #fff;
   padding: 0 5px 0 5px;
+}
+
+.mat-mdc-table {
+  border-radius: $borderRadius;
+
+  .mat-mdc-header-row {
+    border-top-left-radius: $borderRadius;
+    border-top-right-radius: $borderRadius;
+    
+    .mat-mdc-header-cell {
+      &:first-child {
+        border-top-left-radius: $borderRadius;
+      }
+
+      &:last-child {
+        border-top-right-radius: $borderRadius;
+      }
+    }
+  }
+
+  .mat-mdc-footer-row {
+    border-bottom-left-radius: $borderRadius;
+    border-bottom-right-radius: $borderRadius;
+
+    .mat-mdc-footer-cell {
+      border-bottom-left-radius: $borderRadius;
+      border-bottom-right-radius: $borderRadius;
+    }
+  }
+
+ & + .mat-mdc-paginator {
+  border-bottom-left-radius: $borderRadius;
+  border-bottom-right-radius: $borderRadius;
+ } 
 }

@@ -65,6 +65,9 @@ importers:
       angular-material-expansion-panel:
         specifier: ^0.7.2
         version: 0.7.2
+      angular-split:
+        specifier: ^18.0.0
+        version: 18.0.0(@angular/common@18.2.6(@angular/core@18.2.6(rxjs@7.8.1)(zone.js@0.14.10))(rxjs@7.8.1))(@angular/core@18.2.6(rxjs@7.8.1)(zone.js@0.14.10))(rxjs@7.8.1)
       chart.js:
         specifier: ^4.4.4
         version: 4.4.4
@@ -1971,6 +1974,13 @@ packages:
 
   angular-material-expansion-panel@0.7.2:
     resolution: {integrity: sha512-LTmjaSLCRKb8s2QPMaYqYp/9D8pDY4l5GDuvlDG9jTeLpQYyEK4IbcDpGqMkLyNUNk28P02cIyGcMsuUZa5KjA==}
+
+  angular-split@18.0.0:
+    resolution: {integrity: sha512-vreR7dhwg6ubC3ZZn0vJG9Fb+8Xacf77FRQ/3IdChzsRFya1LxJh/Wk7uBk8q9Xi0pOKBKruZ3OWGjhqvHmETg==}
+    peerDependencies:
+      '@angular/common': '>=18.0.0'
+      '@angular/core': '>=18.0.0'
+      rxjs: '>=7.0.0'
 
   ansi-colors@4.1.3:
     resolution: {integrity: sha512-/6w/C21Pm1A7aZitlI5Ni/2J6FFQN8i1Cvz3kHABAAbw93v/NlvKdVOqz7CCWz/3iv/JplRSEEZ83XION15ovw==}
@@ -6917,6 +6927,13 @@ snapshots:
       require-from-string: 2.0.2
 
   angular-material-expansion-panel@0.7.2: {}
+
+  angular-split@18.0.0(@angular/common@18.2.6(@angular/core@18.2.6(rxjs@7.8.1)(zone.js@0.14.10))(rxjs@7.8.1))(@angular/core@18.2.6(rxjs@7.8.1)(zone.js@0.14.10))(rxjs@7.8.1):
+    dependencies:
+      '@angular/common': 18.2.6(@angular/core@18.2.6(rxjs@7.8.1)(zone.js@0.14.10))(rxjs@7.8.1)
+      '@angular/core': 18.2.6(rxjs@7.8.1)(zone.js@0.14.10)
+      rxjs: 7.8.1
+      tslib: 2.7.0
 
   ansi-colors@4.1.3: {}
 
