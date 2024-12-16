@@ -96,7 +96,7 @@ export class SchedulerService {
               this.formatResource(app['maxUsedResource'] as SchedulerResourceInfo),
               app['submissionTime'],
               app['lastStateChangeTime'],
-              app['stateLog'],
+              app['stateLog'] ?? [],
               app['finishedTime'],
               app['applicationState'],
               []
