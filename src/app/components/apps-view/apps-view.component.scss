@@ -190,8 +190,19 @@
     width: 100%;
     text-align: center;
   }
-}
 
+  .mat-column-applicationState {
+    max-width: 165px;
+  }
+  .mat-column-lastStateChangeTime,
+  .mat-column-submissionTime {
+    max-width: 150px;
+  }
+  .mat-column-usedResource,
+  .mat-column-pendingResource {
+    max-width: 180px;
+  }
+}
 
 .mat-drawer-container {
   min-width: 430px;
