@@ -18,7 +18,6 @@
 # options for analysis running
 run:
   issues-exit-code: 1
-  skip-dirs-use-default: true
   modules-download-mode: readonly
   timeout: 10m
 
@@ -34,7 +33,7 @@ linters-settings:
   goimports:
     local-prefixes: github.com/apache/yunikorn
   govet:
-    check-shadowing: true
+    shadow: true
   funlen:
     lines: 120
     statements: 80
