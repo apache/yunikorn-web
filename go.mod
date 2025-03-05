@@ -21,6 +21,8 @@ module github.com/apache/yunikorn-web
 
 go 1.23
 
-require gotest.tools/v3 v3.5.1
+toolchain go1.23.7
 
-require github.com/google/go-cmp v0.5.9 // indirect
+require gotest.tools/v3 v3.5.2
+
+require github.com/google/go-cmp v0.7.0 // indirect

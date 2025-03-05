@@ -24,7 +24,7 @@ WORKDIR /work
 COPY *.json *.js *.yaml .browserslistrc /work/
 COPY src /work/src/
 
-RUN npm install -g pnpm
+RUN npm install -g pnpm@9
 RUN PUPPETEER_SKIP_CHROMIUM_DOWNLOAD=1 pnpm i
 RUN pnpm build:prod
 
