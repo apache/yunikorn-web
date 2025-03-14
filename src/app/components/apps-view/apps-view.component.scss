@@ -17,14 +17,25 @@
  */
 @import '~material-design-icons/iconfont/material-icons.css';
 
+.apps-view {
+  height: 100%;
+  overflow-y: hidden;
+}
+
+as-split-area {
+  padding: 10px 0px;
+}
+
 .top-section {
   width: 100%;
   display: flex;
   flex-direction: row;
   justify-content: space-between;
   align-items: center;
+  gap: 12px;
 
   .left-side {
+    flex-grow: 1;
     display: flex;
     flex-direction: row;
     align-items: center;
@@ -69,38 +80,6 @@
         transform: translateY(2px);
       }
     }
-
-    .search-wrapper {
-      width: 300px;
-      right: 20px;
-      padding-right: 20px;
-
-      input {
-        width: calc(100% - 22px);
-        color: #333;
-      }
-
-      .clear-btn {
-        outline: none;
-        border: none;
-        padding: 0 0 0 4px;
-        cursor: pointer;
-        background: transparent;
-
-        i {
-          font-size: 18px;
-
-          &:hover {
-            color: #f44336;
-          }
-        }
-      }
-
-      .search-icon {
-        margin-left: 4px;
-        font-size: 17px;
-      }
-    }
   }
 }
 
@@ -110,9 +89,6 @@
 }
 
 .apps-view {
-  width: 100%;
-  height: 100%;
-
   .mat-mdc-header-cell {
     font-size: 15px;
     font-weight: 500;

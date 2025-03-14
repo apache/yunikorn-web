@@ -1,0 +1,135 @@
+/**
+ * Licensed to the Apache Software Foundation (ASF) under one
+ * or more contributor license agreements.  See the NOTICE file
+ * distributed with this work for additional information
+ * regarding copyright ownership.  The ASF licenses this file
+ * to you under the Apache License, Version 2.0 (the
+ * "License"); you may not use this file except in compliance
+ * with the License.  You may obtain a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+ @use '@angular/material' as mat;
+
+ .tree-menu-wrapper {
+    position: relative;
+    padding: 8px;
+
+    .mat-mdc-icon-button.mat-mdc-button-base {
+        --mdc-icon-button-state-layer-size: 24px;
+        padding: 0px;
+    }
+
+    .header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 2px;
+      margin-bottom: 10px;
+      
+      .actions {
+        display: flex;
+        justify-content: end;
+        align-items: center;
+
+        .mat-mdc-button {
+          color: #666;
+          font-size: 12px;
+          font-weight: 400;
+          padding: 2px;
+          height: auto;
+          min-width: unset;
+        }
+      }
+    }
+  }
+  
+  mat-tree {
+    background-color: transparent;
+  }
+
+  mat-tree-node {
+    min-height: 32px;
+  }
+
+  .tree-node-label {
+    flex: 1;
+    padding: 4px 8px;
+    border-radius: 6px;
+    transition: .3s;
+    cursor: pointer;
+
+    &:not(.tree-node-active):hover {
+        background-color: #ddd;
+    }
+  }
+
+  .tree-node-active {
+    background-color: #7aacff6e;
+  }
+  
+
+  .notched-outline {
+    display: flex;
+    position: absolute;
+    top: 0;
+    right: 0;
+    left: 0;
+    box-sizing: border-box;
+    width: 100%;
+    max-width: 100%;
+    height: 100%;
+    text-align: left;
+    pointer-events: none;
+
+    .notch-piece {
+      border-color: rgba(0, 0, 0, 0.38);
+      border-width: 1px;
+      box-sizing: border-box;
+      height: 100%;
+      pointer-events: none;
+      border-top: 1px solid;
+      border-bottom: 1px solid;
+    }
+
+    .notched-outline__leading {
+      width: 12px;
+      border-left: 1px solid;
+      border-right: none;
+      border-top-right-radius: 0;
+      border-bottom-right-radius: 0;
+      border-top-left-radius: 4px;
+      border-bottom-left-radius: 4px;
+    }
+
+    .notched-outline__notch {
+      border-left: none;
+      border-right: none;
+      border-top: none;
+      border-bottom: 1px solid;
+      padding: 0px 4px;
+
+      .floating-label {
+        position: relative;
+        font-size: 12px;
+        display: block;
+        transform: translateY(-50%);
+      }
+    }
+
+    .notched-outline__trailing {
+      flex-grow: 1;
+      border-right: 1px solid;
+      border-left: none;
+      border-top-left-radius: 0;
+      border-bottom-left-radius: 0;
+      border-top-right-radius: 4px;
+      border-bottom-right-radius: 4px;
+    }
+  }
