@@ -30,7 +30,7 @@ import { MatTooltipModule } from '@angular/material/tooltip';
 import { By, HAMMER_LOADER } from '@angular/platform-browser';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { RouterTestingModule } from '@angular/router/testing';
-import { AppInfo } from '@app/models/app-info.model';
+import { AppInfo, StateLog } from '@app/models/app-info.model';
 import { SchedulerService } from '@app/services/scheduler/scheduler.service';
 import { MockNgxSpinnerService, MockSchedulerService } from '@app/testing/mocks';
 import { NgxSpinnerService } from 'ngx-spinner';
@@ -107,5 +107,48 @@ describe('AppsViewComponent', () => {
     const copyButtonSpy = spyOn(component, 'copyLinkToClipboard');
     copyButton.triggerEventHandler('click', null);
     expect(copyButtonSpy).toHaveBeenCalled();
+  });
+
+  it('should set lastStateChangeTime to the latest time in stateLog', () => {
+    const stateLogs = [
+      new StateLog(100, 'SUBMITTED'),
+      new StateLog(200, 'RUNNING'),
+      new StateLog(300, 'FINISHED')
+    ];
+    const appInfo = new AppInfo(
+      'app-test',
+      'Memory: 10.0 MB, CPU: 1, pods: 1',
+      'Memory: 0.0 bytes, CPU: 0, pods: n/a',
+      '',
+      123,
+      null,
+      stateLogs,
+      null,
+      'FINISHED',
+      []
+    );
+
+    appInfo.setLastStateChangeTime();
+
+    expect(appInfo.lastStateChangeTime).toBe(300);
+  });
+
+  it('should set lastStateChangeTime to 0 if stateLog is empty', () => {
+    const appInfo = new AppInfo(
+      'app-empty',
+      'Memory: 10.0 MB, CPU: 1, pods: 1',
+      'Memory: 0.0 bytes, CPU: 0, pods: n/a',
+      '',
+      123,
+      null,
+      [],
+      null,
+      'SUBMITTED',
+      []
+    );
+
+    appInfo.setLastStateChangeTime();
+
+    expect(appInfo.lastStateChangeTime).toBe(0);
   });
 });
