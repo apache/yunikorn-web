@@ -30,11 +30,16 @@ export class AppInfo {
     public maxUsedResource: string,
     public submissionTime: number,
     public finishedTime: null | number,
-    public stateLog: Array<StateLog>,
+    public stateLog: Array<StateLog> = [], // Default to empty array
     public lastStateChangeTime: null | number,
     public applicationState: string,
     public allocations: AllocationInfo[] | null
-  ) {}
+  ) {
+    // Ensure stateLog is always an array
+    if (!Array.isArray(this.stateLog)) {
+      this.stateLog = [];
+    }
+  }
 
   get formattedSubmissionTime() {
     const millisecs = Math.round(this.submissionTime / (1000 * 1000));
