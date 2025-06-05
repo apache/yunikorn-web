@@ -27,9 +27,10 @@ import { MatSelectChange } from '@angular/material/select';
 
 
 @Component({
-  selector: 'app-node-utilizations',
-  templateUrl: './app-node-utilizations.component.html',
-  styleUrls: ['./app-node-utilizations.component.scss']
+    selector: 'app-node-utilizations',
+    templateUrl: './app-node-utilizations.component.html',
+    styleUrls: ['./app-node-utilizations.component.scss'],
+    standalone: false
 })
 export class AppNodeUtilizationsComponent implements OnInit {
   private _partitionSelected: string = "";

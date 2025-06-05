@@ -22,9 +22,10 @@ import { HttpClient } from '@angular/common/http';
 import { isDevMode } from '@angular/core';
 
 @Component({
-  selector: 'app-licenses-modal',
-  templateUrl: './licenses-modal.component.html',
-  styleUrls: ['./licenses-modal.component.scss'],
+    selector: 'app-licenses-modal',
+    templateUrl: './licenses-modal.component.html',
+    styleUrls: ['./licenses-modal.component.scss'],
+    standalone: false
 })
 export class LicensesModalComponent {
   licenses = '';

@@ -17,7 +17,7 @@
  */
 
 import { NOT_AVAILABLE } from '@app/utils/constants';
-import * as moment from 'moment';
+import moment from 'moment';
 
 export class CommonUtil {
   static createUniqId(prefix?: string): string {

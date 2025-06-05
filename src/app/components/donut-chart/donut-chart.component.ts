@@ -35,9 +35,10 @@ import { EventBusService, EventMap } from '@app/services/event-bus/event-bus.ser
 Chart.register(ArcElement, DoughnutController, Tooltip);
 
 @Component({
-  selector: 'app-donut-chart',
-  templateUrl: './donut-chart.component.html',
-  styleUrls: ['./donut-chart.component.scss'],
+    selector: 'app-donut-chart',
+    templateUrl: './donut-chart.component.html',
+    styleUrls: ['./donut-chart.component.scss'],
+    standalone: false
 })
 export class DonutChartComponent implements OnInit, AfterViewInit, OnChanges, OnDestroy {
   destroy$ = new Subject<boolean>();

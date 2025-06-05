@@ -45,7 +45,7 @@ import { CommonUtil } from '@app/utils/common.util';
 import { AreaDataItem } from '@app/models/area-data.model';
 import { EventBusService, EventMap } from '@app/services/event-bus/event-bus.service';
 import { APP_STATUS_COLOR_MAP } from '@app/utils/constants';
-import * as Color from 'color';
+import Color from 'color';
 
 Chart.register(
   LineElement,
@@ -60,9 +60,10 @@ Chart.register(
 );
 
 @Component({
-  selector: 'app-area-chart',
-  templateUrl: './area-chart.component.html',
-  styleUrls: ['./area-chart.component.scss'],
+    selector: 'app-area-chart',
+    templateUrl: './area-chart.component.html',
+    styleUrls: ['./area-chart.component.scss'],
+    standalone: false
 })
 export class AreaChartComponent implements OnInit, AfterViewInit, OnChanges, OnDestroy {
   destroy$ = new Subject<boolean>();

@@ -24,9 +24,10 @@ import { SchedulerHealthInfo } from "@app/models/scheduler-health-info.model";
 import { SchedulerService } from '@app/services/scheduler/scheduler.service';
 
 @Component({
-  selector: 'app-status-view',
-  templateUrl: './status-view.component.html',
-  styleUrls: ['./status-view.component.scss']
+    selector: 'app-status-view',
+    templateUrl: './status-view.component.html',
+    styleUrls: ['./status-view.component.scss'],
+    standalone: false
 })
 
 export class StatusViewComponent implements OnInit {

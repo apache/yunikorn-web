@@ -37,9 +37,10 @@ import { QueueInfo } from '@app/models/queue-info.model';
 import { MatDrawer } from '@angular/material/sidenav';
 
 @Component({
-  selector: 'app-applications-view',
-  templateUrl: './apps-view.component.html',
-  styleUrls: ['./apps-view.component.scss'],
+    selector: 'app-applications-view',
+    templateUrl: './apps-view.component.html',
+    styleUrls: ['./apps-view.component.scss'],
+    standalone: false
 })
 export class AppsViewComponent implements OnInit {
   @ViewChild('appsViewMatPaginator', { static: true }) appPaginator!: MatPaginator;

@@ -37,9 +37,10 @@ export interface TreeNode {
 }
 
 @Component({
-  selector: 'queues-v2-view',
-  templateUrl: './queues-v2.component.html',
-  styleUrls: ['./queues-v2.component.scss']
+    selector: 'queues-v2-view',
+    templateUrl: './queues-v2.component.html',
+    styleUrls: ['./queues-v2.component.scss'],
+    standalone: false
 })
 
 export class QueueV2Component implements OnInit {

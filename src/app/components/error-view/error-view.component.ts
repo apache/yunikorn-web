@@ -21,9 +21,10 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { ApiErrorInfo } from '@app/models/api-error-info.model';
 
 @Component({
-  selector: 'app-error-view',
-  templateUrl: './error-view.component.html',
-  styleUrls: ['./error-view.component.scss'],
+    selector: 'app-error-view',
+    templateUrl: './error-view.component.html',
+    styleUrls: ['./error-view.component.scss'],
+    standalone: false
 })
 export class ErrorViewComponent implements OnInit {
   apiError: ApiErrorInfo | null = null;

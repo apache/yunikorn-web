@@ -20,9 +20,10 @@ import { Component, OnInit, Input } from '@angular/core';
 import { ChartDataItem } from '@app/models/chart-data.model';
 
 @Component({
-  selector: 'app-application-status',
-  templateUrl: './app-status.component.html',
-  styleUrls: ['./app-status.component.scss'],
+    selector: 'app-application-status',
+    templateUrl: './app-status.component.html',
+    styleUrls: ['./app-status.component.scss'],
+    standalone: false
 })
 export class AppStatusComponent implements OnInit {
   @Input() chartData: ChartDataItem[] = [];

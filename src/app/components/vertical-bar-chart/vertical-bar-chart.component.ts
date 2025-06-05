@@ -26,9 +26,10 @@ import { Subject, takeUntil } from 'rxjs';
 Chart.register(BarElement, BarController, CategoryScale, Tooltip);
 
 @Component({
-  selector: 'app-vertical-bar-chart',
-  templateUrl: './vertical-bar-chart.component.html',
-  styleUrls: ['./vertical-bar-chart.component.scss']
+    selector: 'app-vertical-bar-chart',
+    templateUrl: './vertical-bar-chart.component.html',
+    styleUrls: ['./vertical-bar-chart.component.scss'],
+    standalone: false
 })
 export class VerticalBarChartComponent implements OnInit, AfterViewInit, OnChanges, OnDestroy {
   destroy$ = new Subject<boolean>();

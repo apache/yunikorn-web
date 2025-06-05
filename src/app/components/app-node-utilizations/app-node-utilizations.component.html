@@ -1,22 +1,22 @@
 <!--
- * Licensed to the Apache Software Foundation (ASF) under one
- * or more contributor license agreements.  See the NOTICE file
- * distributed with this work for additional information
- * regarding copyright ownership.  The ASF licenses this file
- * to you under the Apache License, Version 2.0 (the
- * "License"); you may not use this file except in compliance
- * with the License.  You may obtain a copy of the License at
- *
- *     http://www.apache.org/licenses/LICENSE-2.0
- *
- * Unless required by applicable law or agreed to in writing, software
- * distributed under the License is distributed on an "AS IS" BASIS,
- * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- * See the License for the specific language governing permissions and
- * limitations under the License.
- -->
+* Licensed to the Apache Software Foundation (ASF) under one
+* or more contributor license agreements.  See the NOTICE file
+* distributed with this work for additional information
+* regarding copyright ownership.  The ASF licenses this file
+* to you under the Apache License, Version 2.0 (the
+* "License"); you may not use this file except in compliance
+* with the License.  You may obtain a copy of the License at
+*
+*     http://www.apache.org/licenses/LICENSE-2.0
+*
+* Unless required by applicable law or agreed to in writing, software
+* distributed under the License is distributed on an "AS IS" BASIS,
+* WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+* See the License for the specific language governing permissions and
+* limitations under the License.
+-->
 
- <app-card class="app-node-utilizations">
+<app-card class="app-node-utilizations">
   <ng-container header>
     <div>
       <i class="fa fa-chart-column" aria-hidden="true"></i>
@@ -25,13 +25,15 @@
     <div>
       <mat-form-field appearance="outline" class="partition-selector">
         <mat-label>Partition</mat-label>
-        <mat-select 
+        <mat-select
           [(value)]="partitionSelected"
           (selectionChange)="onPartitionSelectionChanged($event)"
-        >
-          <mat-option *ngFor="let part of partitionList" [value]="part.value">
-            {{ part.name }}
-          </mat-option>
+          >
+          @for (part of partitionList; track part) {
+            <mat-option [value]="part.value">
+              {{ part.name }}
+            </mat-option>
+          }
         </mat-select>
       </mat-form-field>
     </div>

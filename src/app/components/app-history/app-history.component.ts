@@ -21,9 +21,10 @@ import { Component, OnInit, Input } from '@angular/core';
 import { AreaDataItem } from '@app/models/area-data.model';
 
 @Component({
-  selector: 'app-application-history',
-  templateUrl: './app-history.component.html',
-  styleUrls: ['./app-history.component.scss'],
+    selector: 'app-application-history',
+    templateUrl: './app-history.component.html',
+    styleUrls: ['./app-history.component.scss'],
+    standalone: false
 })
 export class AppHistoryComponent implements OnInit {
   @Input() chartData: AreaDataItem[] = [];

@@ -29,9 +29,10 @@ import { EventBusService, EventMap } from '@app/services/event-bus/event-bus.ser
 import { APP_STATUS_COLOR_MAP, APP_STATUSES, NOT_AVAILABLE } from '@app/utils/constants';
 
 @Component({
-  selector: 'app-dashboard',
-  templateUrl: './dashboard.component.html',
-  styleUrls: ['./dashboard.component.scss'],
+    selector: 'app-dashboard',
+    templateUrl: './dashboard.component.html',
+    styleUrls: ['./dashboard.component.scss'],
+    standalone: false
 })
 export class DashboardComponent implements OnInit {
   clusterList: ClusterInfo[] = [];

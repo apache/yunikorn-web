@@ -32,9 +32,10 @@ import { CommonUtil } from '@app/utils/common.util';
 import { PartitionInfo } from '@app/models/partition-info.model';
 
 @Component({
-  selector: 'app-nodes-view',
-  templateUrl: './nodes-view.component.html',
-  styleUrls: ['./nodes-view.component.scss'],
+    selector: 'app-nodes-view',
+    templateUrl: './nodes-view.component.html',
+    styleUrls: ['./nodes-view.component.scss'],
+    standalone: false
 })
 export class NodesViewComponent implements OnInit {
   @ViewChild('nodesViewMatPaginator', { static: true }) nodePaginator!: MatPaginator;

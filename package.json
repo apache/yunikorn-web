@@ -28,16 +28,16 @@
     ]
   },
   "dependencies": {
-    "@angular/animations": "^18.2.13",
-    "@angular/cdk": "^18.2.14",
-    "@angular/common": "^18.2.13",
-    "@angular/compiler": "^18.2.13",
-    "@angular/core": "^18.2.13",
-    "@angular/forms": "^18.2.13",
-    "@angular/material": "^18.2.14",
-    "@angular/platform-browser": "^18.2.13",
-    "@angular/platform-browser-dynamic": "^18.2.13",
-    "@angular/router": "^18.2.13",
+    "@angular/animations": "^20.0.1",
+    "@angular/cdk": "^20.0.2",
+    "@angular/common": "^20.0.1",
+    "@angular/compiler": "^20.0.1",
+    "@angular/core": "^20.0.1",
+    "@angular/forms": "^20.0.1",
+    "@angular/material": "^20.0.2",
+    "@angular/platform-browser": "^20.0.1",
+    "@angular/platform-browser-dynamic": "^20.0.1",
+    "@angular/router": "^20.0.1",
     "@fontsource/roboto": "^5.2.5",
     "@fortawesome/fontawesome-free": "^6.7.2",
     "@types/d3-flextree": "^2.1.4",
@@ -61,12 +61,12 @@
     "ngx-spinner": "^17.0.0",
     "rxjs": "~7.8.2",
     "tslib": "^2.8.1",
-    "zone.js": "~0.14.10"
+    "zone.js": "~0.15.1"
   },
   "devDependencies": {
-    "@angular-devkit/build-angular": "^18.2.19",
-    "@angular/cli": "^18.2.19",
-    "@angular/compiler-cli": "^18.2.13",
+    "@angular/build": "^20.0.1",
+    "@angular/cli": "^20.0.1",
+    "@angular/compiler-cli": "^20.0.1",
     "@types/color": "^4.2.0",
     "@types/jasmine": "~5.1.7",
     "@types/node": "^20.17.32",
@@ -85,10 +85,10 @@
     "ng-mocks": "^14.13.4",
     "prettier": "^3.5.3",
     "puppeteer": "^23.11.1",
-    "typescript": "5.5.4"
+    "typescript": "5.8.3"
   },
   "engines": {
-    "node": "18",
+    "node": "20",
     "pnpm": "9"
   },
   "packageManager": "pnpm@9"
