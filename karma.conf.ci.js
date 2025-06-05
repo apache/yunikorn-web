@@ -24,14 +24,13 @@ process.env.CHROME_BIN = require('puppeteer').executablePath();
 module.exports = function (config) {
   config.set({
     basePath: '',
-    frameworks: ['jasmine', '@angular/build'],
+    frameworks: ['jasmine'],
     plugins: [
       require('karma-jasmine'),
       require('karma-chrome-launcher'),
       require('karma-jasmine-html-reporter'),
       require('karma-coverage'),
       require('karma-coverage-istanbul-reporter'),
-      require('@angular/build/plugins/karma'),
       require('karma-super-dots-reporter'),
     ],
     client: {
