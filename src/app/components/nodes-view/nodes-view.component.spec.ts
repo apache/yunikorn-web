@@ -64,8 +64,7 @@ describe('NodesViewComponent', () => {
     TestBed.configureTestingModule({
       declarations: [NodesViewComponent, AppNodeUtilizationsComponent, VerticalBarChartComponent],
       imports: [MatFormFieldModule, MatInputModule, ReactiveFormsModule, MatCardModule],
-    })
-    .compileComponents();
+    }).compileComponents();
     fixture = TestBed.createComponent(NodesViewComponent);
     component = fixture.componentInstance;
   });

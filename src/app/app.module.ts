@@ -116,9 +116,9 @@ import { CardComponent } from './components/card/card.component';
   ],
   providers: [
     provideAppInitializer(() => {
-        const initializerFn = (envConfigFactory)(inject(EnvconfigService));
-        return initializerFn();
-      }),
+      const initializerFn = envConfigFactory(inject(EnvconfigService));
+      return initializerFn();
+    }),
     {
       provide: HTTP_INTERCEPTORS,
       useClass: ApiErrorInterceptor,

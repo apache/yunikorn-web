@@ -16,12 +16,12 @@
  * limitations under the License.
  */
 
- .chart-wrapper {
+.chart-wrapper {
+  width: 100%;
+  height: 100%;
+
+  .vertical-bar-chart {
     width: 100%;
     height: 100%;
-
-    .vertical-bar-chart {
-        width: 100%;
-        height: 100%;
-    }
- }
+  }
+}

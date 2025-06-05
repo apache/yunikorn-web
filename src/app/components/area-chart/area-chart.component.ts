@@ -37,7 +37,7 @@ import {
   Filler,
   Legend,
   Title,
-  Tooltip
+  Tooltip,
 } from 'chart.js';
 import 'chartjs-adapter-date-fns';
 
@@ -60,10 +60,10 @@ Chart.register(
 );
 
 @Component({
-    selector: 'app-area-chart',
-    templateUrl: './area-chart.component.html',
-    styleUrls: ['./area-chart.component.scss'],
-    standalone: false
+  selector: 'app-area-chart',
+  templateUrl: './area-chart.component.html',
+  styleUrls: ['./area-chart.component.scss'],
+  standalone: false,
 })
 export class AreaChartComponent implements OnInit, AfterViewInit, OnChanges, OnDestroy {
   destroy$ = new Subject<boolean>();
@@ -123,7 +123,7 @@ export class AreaChartComponent implements OnInit, AfterViewInit, OnChanges, OnD
     }
 
     // Filter out negative values from chartData
-    chartData = chartData.filter(item => item.y >= 0);
+    chartData = chartData.filter((item) => item.y >= 0);
 
     this.areaChart = new Chart(ctx!, {
       type: 'line',
@@ -134,7 +134,12 @@ export class AreaChartComponent implements OnInit, AfterViewInit, OnChanges, OnD
             backgroundColor: (context) => {
               const { ctx, chartArea } = context.chart;
               if (!ctx || !chartArea) return;
-              const gradient = ctx.createLinearGradient(0, chartArea.top, 0, chartArea.bottom * 1.2);
+              const gradient = ctx.createLinearGradient(
+                0,
+                chartArea.top,
+                0,
+                chartArea.bottom * 1.2
+              );
 
               gradient.addColorStop(0, Color(APP_STATUS_COLOR_MAP['Running']).alpha(0.4).string());
               gradient.addColorStop(1, 'rgba(255, 255, 255, 0)');
@@ -167,9 +172,9 @@ export class AreaChartComponent implements OnInit, AfterViewInit, OnChanges, OnD
             labels: {
               color: '#666',
               font: {
-                weight: 500
-              }
-            }
+                weight: 500,
+              },
+            },
           },
           title: {
             display: false,
@@ -189,11 +194,11 @@ export class AreaChartComponent implements OnInit, AfterViewInit, OnChanges, OnD
               display: false,
             },
             ticks: {
-              color: '#666'
+              color: '#666',
             },
             border: {
               display: false,
-            }
+            },
           },
           y: {
             ticks: {
@@ -202,12 +207,12 @@ export class AreaChartComponent implements OnInit, AfterViewInit, OnChanges, OnD
             },
             grid: {
               color: '#ccc',
-              tickWidth: 0
+              tickWidth: 0,
             },
             border: {
               display: false,
-              dash: [6, 6]
-            }
+              dash: [6, 6],
+            },
           },
         },
       },

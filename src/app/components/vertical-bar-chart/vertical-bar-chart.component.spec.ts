@@ -25,7 +25,7 @@ describe('VerticalBarChartComponent', () => {
 
   beforeEach(() => {
     TestBed.configureTestingModule({
-      declarations: [VerticalBarChartComponent]
+      declarations: [VerticalBarChartComponent],
     });
     fixture = TestBed.createComponent(VerticalBarChartComponent);
     component = fixture.componentInstance;

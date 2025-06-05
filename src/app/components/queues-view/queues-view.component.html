@@ -22,7 +22,7 @@
     <mat-select
       [(value)]="partitionSelected"
       (selectionChange)="onPartitionSelectionChanged($event)"
-      >
+    >
       @for (part of partitionList; track part) {
         <mat-option [value]="part.value">
           {{ part.name }}
@@ -51,7 +51,7 @@
       class="flex-primary"
       [ngStyle]="{ display: isDrawerContainerOpen ? 'block' : 'none' }"
       [hasBackdrop]="false"
-      >
+    >
       <mat-drawer #matDrawer mode="over" position="end">
         <mat-drawer-content>
           <div class="header">
@@ -124,17 +124,19 @@
                     <a
                       href="#"
                       class="app-link"
-                      (click)="gotoApplicationsForPartitionAndQueue($event, selectedQueue.queueName)"
+                      (click)="
+                        gotoApplicationsForPartitionAndQueue($event, selectedQueue.queueName)
+                      "
                       >Link</a
-                      >
-                    </div>
+                    >
                   </div>
-                }
-              </div>
-            }
-          </mat-drawer-content>
-        </mat-drawer>
-      </mat-drawer-container>
-    </div>
+                </div>
+              }
+            </div>
+          }
+        </mat-drawer-content>
+      </mat-drawer>
+    </mat-drawer-container>
   </div>
-  <mat-divider></mat-divider>
+</div>
+<mat-divider></mat-divider>

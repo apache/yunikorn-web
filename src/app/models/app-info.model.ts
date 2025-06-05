@@ -47,8 +47,8 @@ export class AppInfo {
   }
 
   get formattedlastStateChangeTime() {
-    if(this.lastStateChangeTime==null){
-      return 'n/a'
+    if (this.lastStateChangeTime == null) {
+      return 'n/a';
     }
     const millisecs = Math.round(this.lastStateChangeTime! / (1000 * 1000));
     return moment(millisecs).format('YYYY/MM/DD HH:mm:ss');
@@ -68,17 +68,17 @@ export class AppInfo {
   }
 
   setLastStateChangeTime() {
-    let time=0
-    this.stateLog.forEach(log => {
-      if (log.time>time){
-        time=log.time
+    let time = 0;
+    this.stateLog.forEach((log) => {
+      if (log.time > time) {
+        time = log.time;
       }
     });
-    this.lastStateChangeTime=time
+    this.lastStateChangeTime = time;
   }
 }
 
-export class StateLog{
+export class StateLog {
   constructor(
     public time: number,
     public applicationState: string

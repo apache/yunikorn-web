@@ -16,12 +16,12 @@
  * limitations under the License.
  */
 
-import {ComponentFixture, TestBed} from '@angular/core/testing';
-import {MatCardModule} from '@angular/material/card';
-import {DonutChartComponent} from '@app/components/donut-chart/donut-chart.component';
-import {MockComponent} from 'ng-mocks';
+import { ComponentFixture, TestBed } from '@angular/core/testing';
+import { MatCardModule } from '@angular/material/card';
+import { DonutChartComponent } from '@app/components/donut-chart/donut-chart.component';
+import { MockComponent } from 'ng-mocks';
 
-import {AppStatusComponent} from './app-status.component';
+import { AppStatusComponent } from './app-status.component';
 
 describe('AppStatusComponent', () => {
   let component: AppStatusComponent;

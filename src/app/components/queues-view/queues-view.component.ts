@@ -40,10 +40,10 @@ export interface QueueLevel {
 export const MAX_QUEUE_LEVELS = 5;
 
 @Component({
-    selector: 'app-queues-view',
-    templateUrl: './queues-view.component.html',
-    styleUrls: ['./queues-view.component.scss'],
-    standalone: false
+  selector: 'app-queues-view',
+  templateUrl: './queues-view.component.html',
+  styleUrls: ['./queues-view.component.scss'],
+  standalone: false,
 })
 export class QueuesViewComponent implements OnInit {
   @ViewChild('matDrawer', { static: false }) matDrawer!: MatDrawer;

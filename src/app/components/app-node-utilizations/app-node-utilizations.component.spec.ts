@@ -31,7 +31,7 @@ describe('AppNodeUtilizationsComponent', () => {
   beforeEach(() => {
     TestBed.configureTestingModule({
       imports: [HttpClientTestingModule, MatCardModule],
-      declarations: [AppNodeUtilizationsComponent, VerticalBarChartComponent]
+      declarations: [AppNodeUtilizationsComponent, VerticalBarChartComponent],
     });
 
     fixture = TestBed.createComponent(AppNodeUtilizationsComponent);
@@ -48,19 +48,19 @@ describe('AppNodeUtilizationsComponent', () => {
       {
         description: 'Test 2 nodes, 1 node in 0~10%, 1 node in 10~20%',
         nodeNumInBuckets: [1, 1, 0, 0, 0, 0, 0, 0, 0, 0],
-        expected: 0.1
+        expected: 0.1,
       },
       {
         description: 'Test 10 nodes, 1 node in each bucket',
         nodeNumInBuckets: [1, 1, 1, 1, 1, 1, 1, 1, 1, 1],
-        expected: 0.5
+        expected: 0.5,
       },
       {
         description: 'Test zero node in buckets',
         nodeNumInBuckets: [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-        expected: 0
+        expected: 0,
       },
-    ]
+    ];
 
     testCases.forEach((testCase: TestCase) => {
       const result = component.calculateAvgUtilization(testCase.nodeNumInBuckets);
@@ -70,8 +70,17 @@ describe('AppNodeUtilizationsComponent', () => {
 
   it('test AppNodeUtilizationsComponent.generateColorMapping()', () => {
     const types = [
-      'type03', 'type01', 'type02', 'type04', 'type05',
-      'type06', 'type07', 'type08', 'type09', 'type10', 'type11'
+      'type03',
+      'type01',
+      'type02',
+      'type04',
+      'type05',
+      'type06',
+      'type07',
+      'type08',
+      'type09',
+      'type10',
+      'type11',
     ];
     const colorMapping = component.generateColorMapping(types);
 
@@ -91,20 +100,38 @@ describe('AppNodeUtilizationsComponent', () => {
     const testCases: TestCase[] = [
       {
         description: 'Test single node',
-        nodeNames: [""],
-        expected: ""
+        nodeNames: [''],
+        expected: '',
       },
       {
         description: 'Test unordered multi-nodes',
-        nodeNames: ["node02", "node01"],
-        expected: "node01\nnode02"
+        nodeNames: ['node02', 'node01'],
+        expected: 'node01\nnode02',
       },
       {
         description: 'Test over than MAX_NODES_IN_DESCRIPTION nodes',
-        nodeNames: ["node01", "node02", "node03", "node04", "node05", "node06", "node07", "node08", "node09", "node10", "node11", "node12", "node13", "node14", "node15", "node16"],
-        expected: "node01\nnode02\nnode03\nnode04\nnode05\nnode06\nnode07\nnode08\nnode09\nnode10\nnode11\nnode12\nnode13\nnode14\nnode15\n...1 more"
+        nodeNames: [
+          'node01',
+          'node02',
+          'node03',
+          'node04',
+          'node05',
+          'node06',
+          'node07',
+          'node08',
+          'node09',
+          'node10',
+          'node11',
+          'node12',
+          'node13',
+          'node14',
+          'node15',
+          'node16',
+        ],
+        expected:
+          'node01\nnode02\nnode03\nnode04\nnode05\nnode06\nnode07\nnode08\nnode09\nnode10\nnode11\nnode12\nnode13\nnode14\nnode15\n...1 more',
       },
-    ]
+    ];
 
     testCases.forEach((testCase: TestCase) => {
       const result = component.getBarDescription(testCase.nodeNames);

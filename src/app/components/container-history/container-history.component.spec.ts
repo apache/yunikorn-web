@@ -16,12 +16,12 @@
  * limitations under the License.
  */
 
-import {ComponentFixture, TestBed} from '@angular/core/testing';
-import {MatCardModule} from '@angular/material/card';
-import {AreaChartComponent} from '@app/components/area-chart/area-chart.component';
-import {MockComponent} from 'ng-mocks';
+import { ComponentFixture, TestBed } from '@angular/core/testing';
+import { MatCardModule } from '@angular/material/card';
+import { AreaChartComponent } from '@app/components/area-chart/area-chart.component';
+import { MockComponent } from 'ng-mocks';
 
-import {ContainerHistoryComponent} from './container-history.component';
+import { ContainerHistoryComponent } from './container-history.component';
 
 describe('ContainerHistoryComponent', () => {
   let component: ContainerHistoryComponent;

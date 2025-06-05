@@ -16,19 +16,19 @@
  * limitations under the License.
  */
 
-import {ComponentFixture, TestBed} from '@angular/core/testing';
-import {MatDividerModule} from '@angular/material/divider';
-import {MatSelectModule} from '@angular/material/select';
-import {MatSidenavModule} from '@angular/material/sidenav';
-import {NoopAnimationsModule} from '@angular/platform-browser/animations';
-import {RouterTestingModule} from '@angular/router/testing';
-import {QueueRackComponent} from '@app/components/queue-rack/queue-rack.component';
-import {SchedulerService} from '@app/services/scheduler/scheduler.service';
-import {MockNgxSpinnerService, MockSchedulerService} from '@app/testing/mocks';
-import {MockComponent} from 'ng-mocks';
-import {NgxSpinnerService} from 'ngx-spinner';
+import { ComponentFixture, TestBed } from '@angular/core/testing';
+import { MatDividerModule } from '@angular/material/divider';
+import { MatSelectModule } from '@angular/material/select';
+import { MatSidenavModule } from '@angular/material/sidenav';
+import { NoopAnimationsModule } from '@angular/platform-browser/animations';
+import { RouterTestingModule } from '@angular/router/testing';
+import { QueueRackComponent } from '@app/components/queue-rack/queue-rack.component';
+import { SchedulerService } from '@app/services/scheduler/scheduler.service';
+import { MockNgxSpinnerService, MockSchedulerService } from '@app/testing/mocks';
+import { MockComponent } from 'ng-mocks';
+import { NgxSpinnerService } from 'ngx-spinner';
 
-import {QueuesViewComponent} from './queues-view.component';
+import { QueuesViewComponent } from './queues-view.component';
 
 describe('QueuesViewComponent', () => {
   let component: QueuesViewComponent;

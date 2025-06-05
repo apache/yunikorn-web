@@ -28,7 +28,7 @@
         <mat-select
           [(value)]="partitionSelected"
           (selectionChange)="onPartitionSelectionChanged($event)"
-          >
+        >
           @for (part of partitionList; track part) {
             <mat-option [value]="part.value">
               {{ part.name }}

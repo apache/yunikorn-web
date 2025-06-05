@@ -16,9 +16,9 @@
  * limitations under the License.
  */
 
-import {ComponentFixture, TestBed} from '@angular/core/testing';
+import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import {DonutChartComponent} from './donut-chart.component';
+import { DonutChartComponent } from './donut-chart.component';
 
 describe('DonutChartComponent', () => {
   let component: DonutChartComponent;

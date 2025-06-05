@@ -24,7 +24,7 @@
         [ngClass]="{ selected: item.isSelected }"
         (click)="onQueueSelected(item)"
         [ngStyle]="{ backgroundColor: getQueueCapacityColor(item) }"
-        >
+      >
         <div class="flex-primary queue-label">
           {{ item.queueName }}
         </div>

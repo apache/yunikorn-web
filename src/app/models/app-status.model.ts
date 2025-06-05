@@ -13,4 +13,4 @@ export type AppStatus =
 
 export type AppStatusColors = {
   [K in AppStatus]: string;
-}
+};

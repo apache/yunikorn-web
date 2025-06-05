@@ -34,7 +34,7 @@ body {
   background: #eee;
   margin: 0;
   padding: 0;
-  @include mat.form-field-density(-4); 
+  @include mat.form-field-density(-4);
 }
 
 .text-semibold {

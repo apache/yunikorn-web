@@ -26,10 +26,10 @@ import { LicensesModalComponent } from '@app/components/licenses-modal/licenses-
 import { MatDialog } from '@angular/material/dialog';
 
 @Component({
-    selector: 'app-root',
-    templateUrl: './app.component.html',
-    styleUrls: ['./app.component.scss'],
-    standalone: false
+  selector: 'app-root',
+  templateUrl: './app.component.html',
+  styleUrls: ['./app.component.scss'],
+  standalone: false,
 })
 export class AppComponent implements OnInit {
   isNavOpen = true;

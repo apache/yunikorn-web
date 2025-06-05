@@ -32,10 +32,10 @@ import { CommonUtil } from '@app/utils/common.util';
 import { PartitionInfo } from '@app/models/partition-info.model';
 
 @Component({
-    selector: 'app-nodes-view',
-    templateUrl: './nodes-view.component.html',
-    styleUrls: ['./nodes-view.component.scss'],
-    standalone: false
+  selector: 'app-nodes-view',
+  templateUrl: './nodes-view.component.html',
+  styleUrls: ['./nodes-view.component.scss'],
+  standalone: false,
 })
 export class NodesViewComponent implements OnInit {
   @ViewChild('nodesViewMatPaginator', { static: true }) nodePaginator!: MatPaginator;
@@ -92,7 +92,7 @@ export class NodesViewComponent implements OnInit {
     ];
 
     this.nodeColumnIds = this.nodeColumnDef
-      .filter(col=> !['attributes'].includes(col.colId))
+      .filter((col) => !['attributes'].includes(col.colId))
       .map((col) => col.colId)
       .concat('indicatorIcon');
 

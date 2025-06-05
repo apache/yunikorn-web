@@ -102,8 +102,8 @@
             matTooltip="Help"
             matTooltipShowDelay="500"
             [matMenuTriggerFor]="helpMenu"
-            >
-            <img src="../assets/images/config.svg">
+          >
+            <img src="../assets/images/config.svg" />
           </button>
           <mat-menu #helpMenu="matMenu" xPosition="before">
             <button mat-menu-item (click)="openYuniKornHelp('/')">Apache YuniKorn</button>
@@ -114,9 +114,7 @@
             <button mat-menu-item (click)="openYuniKornHelp('/community/get_involved')">
               Get Involved
             </button>
-            <button mat-menu-item (click)="openYuniKornLicense()">
-              License Information
-            </button>
+            <button mat-menu-item (click)="openYuniKornLicense()">License Information</button>
           </mat-menu>
         </div>
       </div>

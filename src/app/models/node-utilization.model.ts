@@ -23,14 +23,14 @@ export class NodeUtilization {
       bucketName: string;
       numOfNodes: number;
       nodeNames: null | string[];
-    }[],
-  ) { }
+    }[]
+  ) {}
 }
 
 export class NodeUtilizationsInfo {
   constructor(
     public clusterId: string,
     public partition: string,
-    public utilizations: NodeUtilization[],
-  ) { }
+    public utilizations: NodeUtilization[]
+  ) {}
 }

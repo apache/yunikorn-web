@@ -16,7 +16,15 @@
  * limitations under the License.
  */
 
-import { AfterViewInit, Component, Input, OnChanges, OnDestroy, OnInit, SimpleChanges } from '@angular/core';
+import {
+  AfterViewInit,
+  Component,
+  Input,
+  OnChanges,
+  OnDestroy,
+  OnInit,
+  SimpleChanges,
+} from '@angular/core';
 import { BarChartDataSet } from '@app/models/chart-data.model';
 import { EventBusService, EventMap } from '@app/services/event-bus/event-bus.service';
 import { CommonUtil } from '@app/utils/common.util';
@@ -26,20 +34,20 @@ import { Subject, takeUntil } from 'rxjs';
 Chart.register(BarElement, BarController, CategoryScale, Tooltip);
 
 @Component({
-    selector: 'app-vertical-bar-chart',
-    templateUrl: './vertical-bar-chart.component.html',
-    styleUrls: ['./vertical-bar-chart.component.scss'],
-    standalone: false
+  selector: 'app-vertical-bar-chart',
+  templateUrl: './vertical-bar-chart.component.html',
+  styleUrls: ['./vertical-bar-chart.component.scss'],
+  standalone: false,
 })
 export class VerticalBarChartComponent implements OnInit, AfterViewInit, OnChanges, OnDestroy {
   destroy$ = new Subject<boolean>();
   chartContainerId = '';
   barChart: Chart<'bar' | 'line', number[], string> | undefined;
 
-  @Input() bucketList: string[] = [];                                           // one bucket list for all resource types, length should be exactly 10
-  @Input() barChartDataSets: BarChartDataSet[] = new Array<BarChartDataSet>();  // one dataset for each type
+  @Input() bucketList: string[] = []; // one bucket list for all resource types, length should be exactly 10
+  @Input() barChartDataSets: BarChartDataSet[] = new Array<BarChartDataSet>(); // one dataset for each type
 
-  constructor(private eventBus: EventBusService) { }
+  constructor(private eventBus: EventBusService) {}
 
   ngOnInit() {
     this.chartContainerId = CommonUtil.createUniqId('vertical_bar_chart_');
@@ -63,10 +71,7 @@ export class VerticalBarChartComponent implements OnInit, AfterViewInit, OnChang
   }
 
   ngOnChanges(changes: SimpleChanges) {
-    if (
-      changes['barChartDataSets'] &&
-      changes['barChartDataSets'].currentValue
-    ) {
+    if (changes['barChartDataSets'] && changes['barChartDataSets'].currentValue) {
       this.barChartDataSets = changes['barChartDataSets'].currentValue;
       this.renderChart(this.bucketList, this.barChartDataSets);
     }
@@ -94,8 +99,8 @@ export class VerticalBarChartComponent implements OnInit, AfterViewInit, OnChang
             data: item.data,
             backgroundColor: item.backgroundColor,
             borderWidth: item.borderWidth,
-          }
-        })
+          };
+        }),
       },
       options: {
         responsive: true,
@@ -105,29 +110,33 @@ export class VerticalBarChartComponent implements OnInit, AfterViewInit, OnChang
             display: true,
             position: 'right',
             align: 'start',
-            onClick: (e) => { }, // disable legend click event
+            onClick: (e) => {}, // disable legend click event
             onHover: (event, legendItem, legend) => {
-              let datasetIndex = legendItem.datasetIndex
+              let datasetIndex = legendItem.datasetIndex;
               // Update the other datasets background color
               if (this.barChart != undefined) {
                 this.barChart.data.datasets.forEach((dataset, i) => {
                   if (i != datasetIndex && this.barChart != undefined) {
-                    this.barChart.data.datasets[i].backgroundColor = this.adjustOpacity(this.barChartDataSets[i].backgroundColor, 0.2);
+                    this.barChart.data.datasets[i].backgroundColor = this.adjustOpacity(
+                      this.barChartDataSets[i].backgroundColor,
+                      0.2
+                    );
                   }
-                })
+                });
               }
-              this.barChart?.update("active");
+              this.barChart?.update('active');
             },
             onLeave: (event, legendItem, legend) => {
               // Reset datasets background color
               if (this.barChart != undefined) {
                 this.barChart.data.datasets.forEach((dataset, i) => {
                   if (this.barChart != undefined) {
-                    this.barChart.data.datasets[i].backgroundColor = this.barChartDataSets[i].backgroundColor;
+                    this.barChart.data.datasets[i].backgroundColor =
+                      this.barChartDataSets[i].backgroundColor;
                   }
-                })
+                });
               }
-              this.barChart?.update("active");
+              this.barChart?.update('active');
             },
           },
           title: {
@@ -144,11 +153,18 @@ export class VerticalBarChartComponent implements OnInit, AfterViewInit, OnChang
                 // show bar description on tooltip footer
                 let datasetIndex = context[0].datasetIndex;
                 let dataIndex = context[0].dataIndex;
-                let nodeCount = context[0].parsed.y
+                let nodeCount = context[0].parsed.y;
                 let unit = nodeCount > 1 ? 'nodes' : 'node';
-                return "Total: " + nodeCount + " " + unit + "\n\n" + barChartDataSets[datasetIndex].description[dataIndex];
-              }
-            }
+                return (
+                  'Total: ' +
+                  nodeCount +
+                  ' ' +
+                  unit +
+                  '\n\n' +
+                  barChartDataSets[datasetIndex].description[dataIndex]
+                );
+              },
+            },
           },
         },
         scales: {
@@ -157,26 +173,26 @@ export class VerticalBarChartComponent implements OnInit, AfterViewInit, OnChang
               display: false,
             },
             ticks: {
-              color: '#666'
+              color: '#666',
             },
             border: {
               display: false,
-            }
+            },
           },
           y: {
             ticks: {
               stepSize: 1,
-              precision: 0
+              precision: 0,
             },
             grid: {
               color: '#ccc',
-              tickWidth: 0
+              tickWidth: 0,
             },
             border: {
               display: false,
-              dash: [6, 6]
-            }
-          }
+              dash: [6, 6],
+            },
+          },
         },
         onHover: (event, chartElement) => {
           if (this.barChartDataSets.length > 0) {
@@ -186,7 +202,8 @@ export class VerticalBarChartComponent implements OnInit, AfterViewInit, OnChang
                 this.barChart?.data.datasets?.forEach((dataset, i) => {
                   this.barChartDataSets.forEach((item, index) => {
                     if (this.barChart != undefined) {
-                      this.barChart.data.datasets[index].backgroundColor = this.barChartDataSets[index].backgroundColor;
+                      this.barChart.data.datasets[index].backgroundColor =
+                        this.barChartDataSets[index].backgroundColor;
                     }
                   });
                 });
@@ -194,20 +211,24 @@ export class VerticalBarChartComponent implements OnInit, AfterViewInit, OnChang
                 const datasetIndex = chartElement[0].datasetIndex;
                 this.barChart?.data.datasets?.forEach((dataset, i) => {
                   if (i != datasetIndex && this.barChart != undefined) {
-                    this.barChart.data.datasets[i].backgroundColor = this.adjustOpacity(this.barChartDataSets[i].backgroundColor, 0.2);
+                    this.barChart.data.datasets[i].backgroundColor = this.adjustOpacity(
+                      this.barChartDataSets[i].backgroundColor,
+                      0.2
+                    );
                   }
-                })
+                });
               } else {
                 // Reset datasets background color
                 this.barChart?.data.datasets?.forEach((dataset, i) => {
                   this.barChartDataSets.forEach((item, datasetIndex) => {
                     if (this.barChart != undefined) {
-                      this.barChart.data.datasets[datasetIndex].backgroundColor = this.barChartDataSets[datasetIndex].backgroundColor;
+                      this.barChart.data.datasets[datasetIndex].backgroundColor =
+                        this.barChartDataSets[datasetIndex].backgroundColor;
                     }
                   });
                 });
               }
-              this.barChart?.update("active");
+              this.barChart?.update('active');
             }
           }
         },
