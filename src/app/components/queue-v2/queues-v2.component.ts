@@ -20,8 +20,11 @@ import { Component, OnInit} from '@angular/core';
 import { Router } from '@angular/router';
 import { NgxSpinnerService } from 'ngx-spinner';
 import { QueueInfo } from '@app/models/queue-info.model';
+import { PartitionInfo } from '@app/models/partition-info.model';
 import { finalize } from 'rxjs/operators';
 import { SchedulerService } from '@app/services/scheduler/scheduler.service';
+import { MatSelectChange } from '@angular/material/select';
+
 
 import { select, Selection } from "d3-selection";
 import * as d3hierarchy from "d3-hierarchy";
@@ -45,6 +48,8 @@ export interface TreeNode {
 export class QueueV2Component implements OnInit {
   rootQueue: QueueInfo | null = null;
   seletedInfo: QueueInfo | null = null;
+  partitionSelected = '';
+  partitionList: PartitionInfo[] = [];
   resourceValueFormatter = CommonUtil.queueResourceColumnFormatter;
   memoryValueFormatter = CommonUtil.absoluteUsedMemoryColumnFormatter;
   cpuValueFormatter = CommonUtil.absoluteUsedCPUColumnFormatter;
@@ -56,13 +61,35 @@ export class QueueV2Component implements OnInit {
   ) {}
 
   ngOnInit() {
-    this.fetchSchedulerQueuesForPartition()
+    this.scheduler
+    .fetchPartitionList()
+    .pipe(
+      finalize(() => {
+        this.spinner.hide();
+      })
+    )
+    .subscribe((list) => {
+      if (list && list.length > 0) {
+        list.forEach((part) => {
+          this.partitionList.push(new PartitionInfo(part.name, part.name));
+        });
+
+        this.partitionSelected = CommonUtil.getStoredPartition(list[0].name);
+        
+        this.fetchSchedulerQueuesForPartition(this.partitionSelected);
+      } else {
+        this.partitionList = [new PartitionInfo('-- Select --', '')];
+        this.partitionSelected = '';
+        CommonUtil.setStoredQueueAndPartition('');
+      }
+    });
   }
 
-  fetchSchedulerQueuesForPartition() {
-    let partitionName = 'default';
+  fetchSchedulerQueuesForPartition(partitionName: string = '') {
     this.spinner.show();
   
+    select('.visualize-area').selectAll('*').remove();
+
     this.scheduler
       .fetchSchedulerQueues(partitionName)
       .pipe(
@@ -85,11 +112,21 @@ export class QueueV2Component implements OnInit {
   }
 
   showQueueStats(status: string | undefined) {
-    console.log('sssss', status)
     if(status !== 'Active'){
       return '[Inactive]';
     } else{
       return null; 
+    }
+  }
+
+  onPartitionSelectionChanged(selected: MatSelectChange) {
+    if (selected.value !== '') {
+      this.partitionSelected = selected.value;
+      this.fetchSchedulerQueuesForPartition(this.partitionSelected);
+      CommonUtil.setStoredQueueAndPartition(this.partitionSelected);
+    } else {
+      this.partitionSelected = '';
+      CommonUtil.setStoredQueueAndPartition('');
     }
   }
 }
