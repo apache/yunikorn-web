@@ -34,7 +34,6 @@ import { CommonUtil } from '@app/utils/common.util';
 import { PartitionInfo } from '@app/models/partition-info.model';
 import { DropdownItem } from '@app/models/dropdown-item.model';
 import { QueueInfo } from '@app/models/queue-info.model';
-import { MatDrawer } from '@angular/material/sidenav';
 
 @Component({
   selector: 'app-applications-view',
@@ -49,7 +48,6 @@ export class AppsViewComponent implements OnInit {
   @ViewChild('allocSort', { static: true }) allocSort!: MatSort;
   @ViewChild('searchInput', { static: true }) searchInput!: ElementRef;
   @ViewChild('queueSelect', { static: false }) queueSelect!: MatSelect;
-  @ViewChild('matDrawer', { static: false }) matDrawer!: MatDrawer;
 
   appDataSource = new MatTableDataSource<AppInfo>([]);
   appColumnDef: ColumnDef[] = [];
@@ -278,7 +276,6 @@ export class AppsViewComponent implements OnInit {
     } else {
       this.selectedRow = row;
       row.isSelected = true;
-      this.matDrawer.open();
       if (row.allocations) {
         this.allocDataSource.data = row.allocations;
       }
@@ -399,11 +396,6 @@ export class AppsViewComponent implements OnInit {
 
   allocationsDetailToggle() {
     this.allocationsToggle = !this.allocationsToggle;
-  }
-
-  closeDrawer() {
-    this.matDrawer.close();
-    this.removeRowSelection();
   }
 
   copyLinkToClipboard() {
