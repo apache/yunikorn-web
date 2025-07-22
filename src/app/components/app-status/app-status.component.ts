@@ -23,6 +23,7 @@ import { ChartDataItem } from '@app/models/chart-data.model';
   selector: 'app-application-status',
   templateUrl: './app-status.component.html',
   styleUrls: ['./app-status.component.scss'],
+  standalone: false,
 })
 export class AppStatusComponent implements OnInit {
   @Input() chartData: ChartDataItem[] = [];

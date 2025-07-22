@@ -38,6 +38,7 @@ Chart.register(ArcElement, DoughnutController, Tooltip);
   selector: 'app-donut-chart',
   templateUrl: './donut-chart.component.html',
   styleUrls: ['./donut-chart.component.scss'],
+  standalone: false,
 })
 export class DonutChartComponent implements OnInit, AfterViewInit, OnChanges, OnDestroy {
   destroy$ = new Subject<boolean>();

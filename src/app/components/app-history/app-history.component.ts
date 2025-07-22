@@ -24,6 +24,7 @@ import { AreaDataItem } from '@app/models/area-data.model';
   selector: 'app-application-history',
   templateUrl: './app-history.component.html',
   styleUrls: ['./app-history.component.scss'],
+  standalone: false,
 })
 export class AppHistoryComponent implements OnInit {
   @Input() chartData: AreaDataItem[] = [];

@@ -16,7 +16,7 @@
  * limitations under the License.
  */
 
-import { NgModule, APP_INITIALIZER, CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
+import { NgModule, CUSTOM_ELEMENTS_SCHEMA, inject, provideAppInitializer } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
@@ -115,12 +115,10 @@ import { CardComponent } from './components/card/card.component';
     MatDialogModule,
   ],
   providers: [
-    {
-      provide: APP_INITIALIZER,
-      useFactory: envConfigFactory,
-      deps: [EnvconfigService],
-      multi: true,
-    },
+    provideAppInitializer(() => {
+      const initializerFn = envConfigFactory(inject(EnvconfigService));
+      return initializerFn();
+    }),
     {
       provide: HTTP_INTERCEPTORS,
       useClass: ApiErrorInterceptor,

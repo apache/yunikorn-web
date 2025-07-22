@@ -17,7 +17,7 @@
  */
 @use '@angular/material' as mat;
 
-@import '~@angular/material/prebuilt-themes/indigo-pink.css';
+@import '@angular/material/prebuilt-themes/indigo-pink.css';
 
 * {
   box-sizing: border-box;
@@ -28,13 +28,13 @@
 }
 
 body {
-  @include mat.form-field-density(-4); 
   font-family: 'Roboto', sans-serif;
   font-size: 14px;
   color: #666;
   background: #eee;
   margin: 0;
   padding: 0;
+  @include mat.form-field-density(-4);
 }
 
 .text-semibold {

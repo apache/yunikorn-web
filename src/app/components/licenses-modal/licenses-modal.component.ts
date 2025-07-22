@@ -25,6 +25,7 @@ import { isDevMode } from '@angular/core';
   selector: 'app-licenses-modal',
   templateUrl: './licenses-modal.component.html',
   styleUrls: ['./licenses-modal.component.scss'],
+  standalone: false,
 })
 export class LicensesModalComponent {
   licenses = '';

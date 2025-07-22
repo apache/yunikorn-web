@@ -16,29 +16,27 @@
  * limitations under the License.
  */
 
-import {ComponentFixture, TestBed} from '@angular/core/testing';
+import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import {SchedulerService} from '@app/services/scheduler/scheduler.service';
-import {MockNgxSpinnerService, MockSchedulerService} from '@app/testing/mocks';
-import {MockComponent} from 'ng-mocks';
-import {NgxSpinnerService} from 'ngx-spinner';
+import { SchedulerService } from '@app/services/scheduler/scheduler.service';
+import { MockNgxSpinnerService, MockSchedulerService } from '@app/testing/mocks';
+import { MockComponent } from 'ng-mocks';
+import { NgxSpinnerService } from 'ngx-spinner';
 
-import {StatusViewComponent} from './status-view.component';
+import { StatusViewComponent } from './status-view.component';
 
 describe('StatusViewComponent', () => {
   let component: StatusViewComponent;
   let fixture: ComponentFixture<StatusViewComponent>;
 
-
-  beforeEach( () => {
+  beforeEach(() => {
     TestBed.configureTestingModule({
-      declarations: [ StatusViewComponent, MockComponent(StatusViewComponent) ],
+      declarations: [StatusViewComponent, MockComponent(StatusViewComponent)],
       providers: [
         { provide: SchedulerService, useValue: MockSchedulerService },
         { provide: NgxSpinnerService, useValue: MockNgxSpinnerService },
       ],
-    })
-    .compileComponents();
+    }).compileComponents();
     fixture = TestBed.createComponent(StatusViewComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();

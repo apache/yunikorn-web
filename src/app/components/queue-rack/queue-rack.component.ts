@@ -26,6 +26,7 @@ import { queueScheduler } from 'rxjs';
   selector: 'app-queue-rack',
   templateUrl: './queue-rack.component.html',
   styleUrls: ['./queue-rack.component.scss'],
+  standalone: false,
 })
 export class QueueRackComponent implements OnInit {
   @Input() queueList: QueueInfo[] | null = [];

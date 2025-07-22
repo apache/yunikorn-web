@@ -17,17 +17,17 @@
  */
 
 ::ng-deep .app-node-utilizations {
-    .header {
-        justify-content: space-between;
-    }
-    
-    .partition-selector {
-        .mat-mdc-form-field-subscript-wrapper {
-            display: none;
-        }
-    }
+  .header {
+    justify-content: space-between;
+  }
 
-    .chart-wrapper {
-        max-height: 400px;
+  .partition-selector {
+    .mat-mdc-form-field-subscript-wrapper {
+      display: none;
     }
+  }
+
+  .chart-wrapper {
+    max-height: 400px;
+  }
 }

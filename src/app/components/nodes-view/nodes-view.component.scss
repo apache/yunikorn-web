@@ -15,13 +15,13 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-@import '~material-design-icons/iconfont/material-icons.css';
+@import 'material-design-icons/iconfont/material-icons.css';
 
-.top-part{
+.top-part {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  .dropdown-wrapper{
+  .dropdown-wrapper {
     padding-right: 40px;
     .part-label {
       color: #333;
@@ -29,28 +29,28 @@
       margin-right: 10px;
     }
   }
-  .right-wrapper{
+  .right-wrapper {
     display: flex;
     flex-direction: row;
     justify-content: flex-end;
     align-items: center;
     width: 35%;
-    .filter{
+    .filter {
       width: 100%;
       margin: 0 30px;
-      .mat-mdc-form-field{
+      .mat-mdc-form-field {
         width: 100%;
       }
     }
     .btn-wrapper {
       filter: drop-shadow(0px 2px 1px rgba(90, 90, 90, 0.5));
-      &:hover{
+      &:hover {
         filter: drop-shadow(0px 3px 3px rgba(90, 90, 90, 0.5));
       }
-      :hover{
+      :hover {
         cursor: pointer;
       }
-      .btn{
+      .btn {
         display: block;
         border: none;
         padding: 5px 16px;
@@ -58,12 +58,11 @@
         font-size: 24px;
         transform: translateY(-13px);
       }
-      .material-icons{
+      .material-icons {
         transform: translateY(2px);
       }
     }
   }
-  
 }
 
 .nodes-view {
@@ -78,10 +77,10 @@
     display: flex;
     flex-direction: column;
     align-items: flex-start;
-    .mat-res-ul{
+    .mat-res-ul {
       padding: 0;
       margin: 0;
-      .mat-res-li{
+      .mat-res-li {
         list-style-type: none;
       }
     }
@@ -93,10 +92,10 @@
         color: #8d00d4;
       }
     }
-    .mat-attr-ul{
+    .mat-attr-ul {
       padding: 0;
       margin: 0;
-      .mat-attr-li{
+      .mat-attr-li {
         list-style-type: none;
       }
     }

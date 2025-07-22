@@ -16,9 +16,9 @@
  * limitations under the License.
  */
 
-import {TestBed} from '@angular/core/testing';
+import { TestBed } from '@angular/core/testing';
 
-import {EventBusService} from './event-bus.service';
+import { EventBusService } from './event-bus.service';
 
 describe('EventBusService', () => {
   let service: EventBusService;

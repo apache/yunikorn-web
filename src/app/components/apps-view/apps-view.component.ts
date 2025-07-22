@@ -40,6 +40,7 @@ import { MatDrawer } from '@angular/material/sidenav';
   selector: 'app-applications-view',
   templateUrl: './apps-view.component.html',
   styleUrls: ['./apps-view.component.scss'],
+  standalone: false,
 })
 export class AppsViewComponent implements OnInit {
   @ViewChild('appsViewMatPaginator', { static: true }) appPaginator!: MatPaginator;

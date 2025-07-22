@@ -32,6 +32,7 @@ import { APP_STATUS_COLOR_MAP, APP_STATUSES, NOT_AVAILABLE } from '@app/utils/co
   selector: 'app-dashboard',
   templateUrl: './dashboard.component.html',
   styleUrls: ['./dashboard.component.scss'],
+  standalone: false,
 })
 export class DashboardComponent implements OnInit {
   clusterList: ClusterInfo[] = [];
@@ -54,7 +55,7 @@ export class DashboardComponent implements OnInit {
     private scheduler: SchedulerService,
     private spinner: NgxSpinnerService,
     private eventBus: EventBusService
-  ) { }
+  ) {}
 
   ngOnInit() {
     this.spinner.show();
@@ -122,15 +123,12 @@ export class DashboardComponent implements OnInit {
 
   updateAppStatusData(applications: Applications) {
     this.appStatusData = [];
-    APP_STATUSES.forEach(appStatus => {
-      if (applications[appStatus]) this.appStatusData.push(
-        new ChartDataItem(
-          appStatus,
-          applications[appStatus],
-          APP_STATUS_COLOR_MAP[appStatus]
-        )
-      );
-    })
+    APP_STATUSES.forEach((appStatus) => {
+      if (applications[appStatus])
+        this.appStatusData.push(
+          new ChartDataItem(appStatus, applications[appStatus], APP_STATUS_COLOR_MAP[appStatus])
+        );
+    });
   }
 
   updateContainerStatusData(info: Partition) {

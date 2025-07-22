@@ -1,20 +1,20 @@
 <!--
- * Licensed to the Apache Software Foundation (ASF) under one
- * or more contributor license agreements.  See the NOTICE file
- * distributed with this work for additional information
- * regarding copyright ownership.  The ASF licenses this file
- * to you under the Apache License, Version 2.0 (the
- * "License"); you may not use this file except in compliance
- * with the License.  You may obtain a copy of the License at
- *
- *     http://www.apache.org/licenses/LICENSE-2.0
- *
- * Unless required by applicable law or agreed to in writing, software
- * distributed under the License is distributed on an "AS IS" BASIS,
- * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- * See the License for the specific language governing permissions and
- * limitations under the License.
- -->
+* Licensed to the Apache Software Foundation (ASF) under one
+* or more contributor license agreements.  See the NOTICE file
+* distributed with this work for additional information
+* regarding copyright ownership.  The ASF licenses this file
+* to you under the Apache License, Version 2.0 (the
+* "License"); you may not use this file except in compliance
+* with the License.  You may obtain a copy of the License at
+*
+*     http://www.apache.org/licenses/LICENSE-2.0
+*
+* Unless required by applicable law or agreed to in writing, software
+* distributed under the License is distributed on an "AS IS" BASIS,
+* WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+* See the License for the specific language governing permissions and
+* limitations under the License.
+-->
 
 <div class="top-part">
   <label class="part-label">Partition: </label>
@@ -23,25 +23,29 @@
       [(value)]="partitionSelected"
       (selectionChange)="onPartitionSelectionChanged($event)"
     >
-      <mat-option *ngFor="let part of partitionList" [value]="part.value">
-        {{ part.name }}
-      </mat-option>
+      @for (part of partitionList; track part) {
+        <mat-option [value]="part.value">
+          {{ part.name }}
+        </mat-option>
+      }
     </mat-select>
   </mat-form-field>
 </div>
 <mat-divider></mat-divider>
 <div class="queues-view">
   <div class="flex-grid">
-    <ng-container *ngFor="let obj of queueLevels">
-      <div class="flex-primary queue-level" *ngIf="queueList[obj.level]">
-        <app-queue-rack
-          [queueList]="queueList[obj.level]"
-          [nextLevel]="obj.next"
-          (toggleChildren)="toggleQueueChildrenView($event)"
-          (queueSelected)="onQueueItemSelected($event)"
-        ></app-queue-rack>
-      </div>
-    </ng-container>
+    @for (obj of queueLevels; track obj) {
+      @if (queueList[obj.level]) {
+        <div class="flex-primary queue-level">
+          <app-queue-rack
+            [queueList]="queueList[obj.level]"
+            [nextLevel]="obj.next"
+            (toggleChildren)="toggleQueueChildrenView($event)"
+            (queueSelected)="onQueueItemSelected($event)"
+          ></app-queue-rack>
+        </div>
+      }
+    }
 
     <mat-drawer-container
       class="flex-primary"
@@ -54,74 +58,82 @@
             <strong>Queue Info</strong>
             <span class="far fa-times-circle close-btn" (click)="closeQueueDrawer()"></span>
           </div>
-          <div class="content" *ngIf="selectedQueue">
-            <div class="flex-grid item-wrapper">
-              <div class="left-item">Name:</div>
-              <div class="right-item">{{ selectedQueue.queueName }}</div>
-            </div>
-            <div class="flex-grid item-wrapper">
-              <div class="left-item">Status:</div>
-              <div class="right-item">{{ selectedQueue.status }}</div>
-            </div>
-            <div class="flex-grid item-wrapper">
-              <div class="left-item">Allocated:</div>
-              <div
-                class="right-item"
-                [innerHTML]="resourceValueFormatter(selectedQueue.allocatedResource)"
-              ></div>
-            </div>
-            <div class="flex-grid item-wrapper">
-              <div class="left-item">Pending:</div>
-              <div
-                class="right-item"
-                [innerHTML]="resourceValueFormatter(selectedQueue.pendingResource)"
-              ></div>
-            </div>
-            <div class="flex-grid item-wrapper">
-              <div class="left-item">Max:</div>
-              <div
-                class="right-item"
-                [innerHTML]="resourceValueFormatter(selectedQueue.maxResource)"
-              ></div>
-            </div>
-            <div class="flex-grid item-wrapper">
-              <div class="left-item">Guaranteed:</div>
-              <div
-                class="right-item"
-                [innerHTML]="resourceValueFormatter(selectedQueue.guaranteedResource)"
-              ></div>
-            </div>
-            <div class="flex-grid item-wrapper">
-              <div class="left-item">Absolute Used Capacity:</div>
-              <div
-                class="right-item"
-                [innerHTML]="resourceValueFormatter(selectedQueue.absoluteUsedCapacity)"
-              ></div>
-            </div>
-            <div class="flex-grid item-wrapper">
-              <div class="left-item">Max Running Apps:</div>
-              <div class="right-item">{{ selectedQueue.MaxRunningApps }}</div>
-            </div>
-            <div class="flex-grid item-wrapper">
-              <div class="left-item">Running Apps:</div>
-              <div class="right-item">{{ selectedQueue.RunningApps }}</div> 
-            </div>
-            <div class="flex-grid item-wrapper" *ngFor="let prop of selectedQueue.properties">
-              <div class="left-item">{{ prop.name }}:</div>
-              <div class="right-item">{{ prop.value }}</div>
-            </div>
-            <div class="flex-grid item-wrapper" *ngIf="selectedQueue.isLeaf">
-              <div class="left-item">Applications:</div>
-              <div class="right-item">
-                <a
-                  href="#"
-                  class="app-link"
-                  (click)="gotoApplicationsForPartitionAndQueue($event, selectedQueue.queueName)"
-                  >Link</a
-                >
+          @if (selectedQueue) {
+            <div class="content">
+              <div class="flex-grid item-wrapper">
+                <div class="left-item">Name:</div>
+                <div class="right-item">{{ selectedQueue.queueName }}</div>
               </div>
+              <div class="flex-grid item-wrapper">
+                <div class="left-item">Status:</div>
+                <div class="right-item">{{ selectedQueue.status }}</div>
+              </div>
+              <div class="flex-grid item-wrapper">
+                <div class="left-item">Allocated:</div>
+                <div
+                  class="right-item"
+                  [innerHTML]="resourceValueFormatter(selectedQueue.allocatedResource)"
+                ></div>
+              </div>
+              <div class="flex-grid item-wrapper">
+                <div class="left-item">Pending:</div>
+                <div
+                  class="right-item"
+                  [innerHTML]="resourceValueFormatter(selectedQueue.pendingResource)"
+                ></div>
+              </div>
+              <div class="flex-grid item-wrapper">
+                <div class="left-item">Max:</div>
+                <div
+                  class="right-item"
+                  [innerHTML]="resourceValueFormatter(selectedQueue.maxResource)"
+                ></div>
+              </div>
+              <div class="flex-grid item-wrapper">
+                <div class="left-item">Guaranteed:</div>
+                <div
+                  class="right-item"
+                  [innerHTML]="resourceValueFormatter(selectedQueue.guaranteedResource)"
+                ></div>
+              </div>
+              <div class="flex-grid item-wrapper">
+                <div class="left-item">Absolute Used Capacity:</div>
+                <div
+                  class="right-item"
+                  [innerHTML]="resourceValueFormatter(selectedQueue.absoluteUsedCapacity)"
+                ></div>
+              </div>
+              <div class="flex-grid item-wrapper">
+                <div class="left-item">Max Running Apps:</div>
+                <div class="right-item">{{ selectedQueue.MaxRunningApps }}</div>
+              </div>
+              <div class="flex-grid item-wrapper">
+                <div class="left-item">Running Apps:</div>
+                <div class="right-item">{{ selectedQueue.RunningApps }}</div>
+              </div>
+              @for (prop of selectedQueue.properties; track prop) {
+                <div class="flex-grid item-wrapper">
+                  <div class="left-item">{{ prop.name }}:</div>
+                  <div class="right-item">{{ prop.value }}</div>
+                </div>
+              }
+              @if (selectedQueue.isLeaf) {
+                <div class="flex-grid item-wrapper">
+                  <div class="left-item">Applications:</div>
+                  <div class="right-item">
+                    <a
+                      href="#"
+                      class="app-link"
+                      (click)="
+                        gotoApplicationsForPartitionAndQueue($event, selectedQueue.queueName)
+                      "
+                      >Link</a
+                    >
+                  </div>
+                </div>
+              }
             </div>
-          </div>
+          }
         </mat-drawer-content>
       </mat-drawer>
     </mat-drawer-container>

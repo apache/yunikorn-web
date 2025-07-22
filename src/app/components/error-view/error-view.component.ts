@@ -24,12 +24,16 @@ import { ApiErrorInfo } from '@app/models/api-error-info.model';
   selector: 'app-error-view',
   templateUrl: './error-view.component.html',
   styleUrls: ['./error-view.component.scss'],
+  standalone: false,
 })
 export class ErrorViewComponent implements OnInit {
   apiError: ApiErrorInfo | null = null;
   lastActiveUrl = '';
 
-  constructor(private activatedRoute: ActivatedRoute, private router: Router) {}
+  constructor(
+    private activatedRoute: ActivatedRoute,
+    private router: Router
+  ) {}
 
   ngOnInit() {
     this.apiError = window.history.state;

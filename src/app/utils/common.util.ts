@@ -17,7 +17,7 @@
  */
 
 import { NOT_AVAILABLE } from '@app/utils/constants';
-import * as moment from 'moment';
+import moment from 'moment';
 
 export class CommonUtil {
   static createUniqId(prefix?: string): string {
@@ -91,8 +91,8 @@ export class CommonUtil {
     //Memory: 4%, CPU: 2%
     const memoryRegex = /Memory: ([0-9]|[1-9][0-9]|100)%/;
     const match = value.match(memoryRegex);
-  
-    if(match){
+
+    if (match) {
       return CommonUtil.queueResourceColumnFormatter(match[0]);
     } else {
       return '<strong>Memory:</strong> n/a (wrong memory format)';
@@ -109,8 +109,8 @@ export class CommonUtil {
     //Memory: 4%, CPU: 2%
     const cpuRegex = /CPU: ([0-9]|[1-9][0-9]|100)%/;
     const match = value.match(cpuRegex);
-  
-    if(match){
+
+    if (match) {
       return CommonUtil.queueResourceColumnFormatter(match[0]);
     } else {
       return '<strong>CPU:</strong> n/a (wrong cpu format)';
@@ -125,13 +125,16 @@ export class CommonUtil {
     if (!value) {
       return '';
     }
-    return value.split(', ').map(part => {
-      const [key, val] = part.split(': ');
-      if (key === 'n/a') {
-        return key;
-      }
-      return `<strong>${key}:</strong> ${val}`;
-    }).join('<br/>');
+    return value
+      .split(', ')
+      .map((part) => {
+        const [key, val] = part.split(': ');
+        if (key === 'n/a') {
+          return key;
+        }
+        return `<strong>${key}:</strong> ${val}`;
+      })
+      .join('<br/>');
   }
 
   static formatPercent(value: number | string): string {

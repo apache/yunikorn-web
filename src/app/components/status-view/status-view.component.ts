@@ -20,17 +20,17 @@ import { Component, OnInit } from '@angular/core';
 import { NgxSpinnerService } from 'ngx-spinner';
 import { finalize } from 'rxjs/operators';
 
-import { SchedulerHealthInfo } from "@app/models/scheduler-health-info.model";
+import { SchedulerHealthInfo } from '@app/models/scheduler-health-info.model';
 import { SchedulerService } from '@app/services/scheduler/scheduler.service';
 
 @Component({
   selector: 'app-status-view',
   templateUrl: './status-view.component.html',
-  styleUrls: ['./status-view.component.scss']
+  styleUrls: ['./status-view.component.scss'],
+  standalone: false,
 })
-
 export class StatusViewComponent implements OnInit {
-  CurrentSchedulerHealth: SchedulerHealthInfo = new SchedulerHealthInfo;
+  CurrentSchedulerHealth: SchedulerHealthInfo = new SchedulerHealthInfo();
 
   constructor(
     private scheduler: SchedulerService,
@@ -41,18 +41,18 @@ export class StatusViewComponent implements OnInit {
     this.spinner.show();
 
     this.scheduler
-    .fecthHealthchecks()
-    .pipe(
-      finalize(() => {
-        this.spinner.hide();
-      })
-    )
-    .subscribe((healthInfos) => {
-      if (healthInfos) {
-        this.CurrentSchedulerHealth = healthInfos;
-      } else {
-        this.CurrentSchedulerHealth = new SchedulerHealthInfo;
-      }
-    });
+      .fecthHealthchecks()
+      .pipe(
+        finalize(() => {
+          this.spinner.hide();
+        })
+      )
+      .subscribe((healthInfos) => {
+        if (healthInfos) {
+          this.CurrentSchedulerHealth = healthInfos;
+        } else {
+          this.CurrentSchedulerHealth = new SchedulerHealthInfo();
+        }
+      });
   }
 }

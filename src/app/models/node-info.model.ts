@@ -31,7 +31,7 @@ export class NodeInfo {
     public available: string,
     public utilized: string,
     public allocations: AllocationInfo[] | null,
-    public attributes: Attributes,
+    public attributes: Attributes
   ) {}
 
   setAllocations(allocs: AllocationInfo[]) {
@@ -39,6 +39,6 @@ export class NodeInfo {
   }
 }
 
-export interface Attributes{
+export interface Attributes {
   [key: string]: string;
 }

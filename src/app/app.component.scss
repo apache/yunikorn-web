@@ -72,10 +72,18 @@ $header-height: 60px;
   background: #313d54;
   height: $header-height;
   overflow: hidden;
-  -webkit-transition: padding-left 0.4s ease, padding-top 0.4s ease;
-  -moz-transition: padding-left 0.4s ease, padding-top 0.4s ease;
-  -o-transition: padding-left 0.4s ease, padding-top 0.4s ease;
-  transition: padding-left 0.4s ease, padding-top 0.4s ease;
+  -webkit-transition:
+    padding-left 0.4s ease,
+    padding-top 0.4s ease;
+  -moz-transition:
+    padding-left 0.4s ease,
+    padding-top 0.4s ease;
+  -o-transition:
+    padding-left 0.4s ease,
+    padding-top 0.4s ease;
+  transition:
+    padding-left 0.4s ease,
+    padding-top 0.4s ease;
   -webkit-font-smoothing: antialiased;
 }
 
@@ -152,7 +160,7 @@ ul.navigation-primary {
 .navigation > ul {
   padding: 12px 5px;
   margin-top: 10px;
-  
+
   &:first-of-type {
     margin-top: 0;
   }
@@ -195,7 +203,7 @@ ul.navigation-primary {
 .navigation li.active > a,
 .navigation li.active:hover > a {
   color: #fff;
-  background: #4E5258;
+  background: #4e5258;
 }
 
 .navigation li.active > a > .fa-caret-right {

@@ -16,13 +16,13 @@
  * limitations under the License.
  */
 
-import {ComponentFixture, TestBed} from '@angular/core/testing';
-import {MatExpansionModule} from "@angular/material/expansion";
-import {MatIconModule} from "@angular/material/icon";
-import {NoopAnimationsModule} from "@angular/platform-browser/animations";
-import {RouterTestingModule} from "@angular/router/testing";
+import { ComponentFixture, TestBed } from '@angular/core/testing';
+import { MatExpansionModule } from '@angular/material/expansion';
+import { MatIconModule } from '@angular/material/icon';
+import { NoopAnimationsModule } from '@angular/platform-browser/animations';
+import { RouterTestingModule } from '@angular/router/testing';
 
-import {HealthchecksComponent} from './healthchecks.component';
+import { HealthchecksComponent } from './healthchecks.component';
 
 describe('HealthchecksComponent', () => {
   let component: HealthchecksComponent;
@@ -30,15 +30,9 @@ describe('HealthchecksComponent', () => {
 
   beforeEach(() => {
     TestBed.configureTestingModule({
-        declarations: [ HealthchecksComponent ],
-        imports: [
-            NoopAnimationsModule,
-            RouterTestingModule,
-            MatIconModule,
-            MatExpansionModule,
-        ],
-    })
-    .compileComponents();
+      declarations: [HealthchecksComponent],
+      imports: [NoopAnimationsModule, RouterTestingModule, MatIconModule, MatExpansionModule],
+    }).compileComponents();
     fixture = TestBed.createComponent(HealthchecksComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();

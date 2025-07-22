@@ -1,35 +1,34 @@
 <!--
- * Licensed to the Apache Software Foundation (ASF) under one
- * or more contributor license agreements.  See the NOTICE file
- * distributed with this work for additional information
- * regarding copyright ownership.  The ASF licenses this file
- * to you under the Apache License, Version 2.0 (the
- * "License"); you may not use this file except in compliance
- * with the License.  You may obtain a copy of the License at
- *
- *     http://www.apache.org/licenses/LICENSE-2.0
- *
- * Unless required by applicable law or agreed to in writing, software
- * distributed under the License is distributed on an "AS IS" BASIS,
- * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- * See the License for the specific language governing permissions and
- * limitations under the License.
- -->
+* Licensed to the Apache Software Foundation (ASF) under one
+* or more contributor license agreements.  See the NOTICE file
+* distributed with this work for additional information
+* regarding copyright ownership.  The ASF licenses this file
+* to you under the Apache License, Version 2.0 (the
+* "License"); you may not use this file except in compliance
+* with the License.  You may obtain a copy of the License at
+*
+*     http://www.apache.org/licenses/LICENSE-2.0
+*
+* Unless required by applicable law or agreed to in writing, software
+* distributed under the License is distributed on an "AS IS" BASIS,
+* WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+* See the License for the specific language governing permissions and
+* limitations under the License.
+-->
 
 <mat-card appearance="outlined" class="error-view">
-  <ng-container *ngIf="apiError && apiError.statusCode; else genericErrorMessage">
+  @if (apiError && apiError.statusCode) {
     <mat-card-header class="center-header">
       <mat-card-title>{{ apiError.statusCode }}: {{ apiError.message }}</mat-card-title>
     </mat-card-header>
     <mat-card-content>
       {{ apiError.description }}
     </mat-card-content>
-  </ng-container>
-  <ng-template #genericErrorMessage>
+  } @else {
     <mat-card-header class="center-header">
       <mat-card-title>Oops, something went wrong. YuniKorn is not accessible.</mat-card-title>
     </mat-card-header>
-  </ng-template>
+  }
   <mat-card-actions>
     <button mat-button class="try-btn" (click)="retryLastActiveUrlAgain()">Try Again</button>
   </mat-card-actions>

@@ -113,7 +113,7 @@ describe('AppsViewComponent', () => {
     const stateLogs = [
       new StateLog(100, 'SUBMITTED'),
       new StateLog(200, 'RUNNING'),
-      new StateLog(300, 'FINISHED')
+      new StateLog(300, 'FINISHED'),
     ];
     const appInfo = new AppInfo(
       'app-test',

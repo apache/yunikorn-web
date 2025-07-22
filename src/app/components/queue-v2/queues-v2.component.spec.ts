@@ -27,7 +27,7 @@ import { of } from 'rxjs';
 class MockSchedulerService {
   fetchSchedulerQueues(partitionName: string) {
     return of({
-      rootQueue: { name: 'root', children: [{ name: 'child1' }] }
+      rootQueue: { name: 'root', children: [{ name: 'child1' }] },
     });
   }
 }
@@ -48,11 +48,10 @@ describe('QueueV2Component', () => {
       declarations: [QueueV2Component],
       providers: [
         { provide: SchedulerService, useClass: MockSchedulerService },
-        { provide: NgxSpinnerService, useClass: MockNgxSpinnerService }
+        { provide: NgxSpinnerService, useClass: MockNgxSpinnerService },
       ],
-      imports: [RouterTestingModule]
-    })
-    .compileComponents();
+      imports: [RouterTestingModule],
+    }).compileComponents();
   }));
 
   beforeEach(() => {

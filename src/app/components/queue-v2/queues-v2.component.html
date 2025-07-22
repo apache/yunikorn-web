@@ -16,115 +16,163 @@
  * limitations under the License.
  -->
 
- <div class="queue-container container-fluid">
-    <div class="queue-content-box">
-      <div class="header">
-        <div class="title-group">
-          <div>Partition</div>
-            <button id="ortButton" class="ort-button">
-              <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="black" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" class="w-6 h-6">
-                <path d="M21 12c0-4.97-4.03-9-9-9s-9 4.03-9 9 4.03 9 9 9c2.39 0 4.68-0.94 6.36-2.62l-1.41-1.41C15.54 18.37 13.85 19 12 19c-3.86 0-7-3.14-7-7s3.14-7 7-7 7 3.14 7 7h-3l4 4 4-4h-3z" />
-              </svg>
-              <span class="tooltip" role="tooltip">rotate </span>
-            </button>
-            <button id="fitButton" class="fit-to-screen-button">
-              <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="black" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" class="w-6 h-6">
-                <path d="m2.25 12 8.954-8.955c.44-.439 1.152-.439 1.591 0L21.75 12M4.5 9.75v10.125c0 .621.504 1.125 1.125 1.125H9.75v-4.875c0-.621.504-1.125 1.125-1.125h2.25c.621 0 1.125.504 1.125 1.125V21h4.125c.621 0 1.125-.504 1.125-1.125V9.75M8.25 21h8.25" />          
-              </svg>
-              <span id="tooltip" class="tooltip" role="tooltip">fit to screen</span>
-            </button>
-        </div>
+<div class="queue-container container-fluid">
+  <div class="queue-content-box">
+    <div class="header">
+      <div class="title-group">
+        <div>Partition</div>
+        <button id="ortButton" class="ort-button">
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            width="24"
+            height="24"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="black"
+            stroke-width="1.5"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            class="w-6 h-6"
+          >
+            <path
+              d="M21 12c0-4.97-4.03-9-9-9s-9 4.03-9 9 4.03 9 9 9c2.39 0 4.68-0.94 6.36-2.62l-1.41-1.41C15.54 18.37 13.85 19 12 19c-3.86 0-7-3.14-7-7s3.14-7 7-7 7 3.14 7 7h-3l4 4 4-4h-3z"
+            />
+          </svg>
+          <span class="tooltip" role="tooltip">rotate </span>
+        </button>
+        <button id="fitButton" class="fit-to-screen-button">
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            width="24"
+            height="24"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="black"
+            stroke-width="1.5"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            class="w-6 h-6"
+          >
+            <path
+              d="m2.25 12 8.954-8.955c.44-.439 1.152-.439 1.591 0L21.75 12M4.5 9.75v10.125c0 .621.504 1.125 1.125 1.125H9.75v-4.875c0-.621.504-1.125 1.125-1.125h2.25c.621 0 1.125.504 1.125 1.125V21h4.125c.621 0 1.125-.504 1.125-1.125V9.75M8.25 21h8.25"
+            />
+          </svg>
+          <span id="tooltip" class="tooltip" role="tooltip">fit to screen</span>
+        </button>
       </div>
-      <div class="body">
-        <div class="content-wrapper">
-          <div class="visualize-area">
+    </div>
+    <div class="body">
+      <div class="content-wrapper">
+        <div class="visualize-area"></div>
+
+        <div class="additional-info-element">
+          <!-- additional info header  -->
+          <div class="additional-info-header">
+            <strong>Queue Info</strong>
           </div>
-
-          <div class="additional-info-element">
-            <!-- additional info header  -->
-            <div class="additional-info-header">
-              <strong>Queue Info</strong>
-            </div>
-            <!-- additional info content  -->
-            <div class="additional-info-content">
-              <div class="info-section">
-
-                <div class="info-block">
-                  <div class="info-block-header">Name:</div>
-                  <div class="info-block-text">
-                    {{ seletedInfo?.queueName }} 
-                  </div>
-                  <div class="info-block-text queue-status"
-                    [innerHTML]="showQueueStats(seletedInfo?.status)">
-                  </div>
+          <!-- additional info content  -->
+          <div class="additional-info-content">
+            <div class="info-section">
+              <div class="info-block">
+                <div class="info-block-header">Name:</div>
+                <div class="info-block-text">
+                  {{ seletedInfo?.queueName }}
                 </div>
+                <div
+                  class="info-block-text queue-status"
+                  [innerHTML]="showQueueStats(seletedInfo?.status)"
+                ></div>
+              </div>
 
-                <div class="info-block">
-                  <div class="info-block-header">Allocated:</div>
-                  <div 
-                    class="allocated-block" 
-                    [innerHTML]="resourceValueFormatter(seletedInfo?.allocatedResource)">
+              <div class="info-block">
+                <div class="info-block-header">Allocated:</div>
+                <div
+                  class="allocated-block"
+                  [innerHTML]="resourceValueFormatter(seletedInfo?.allocatedResource)"
+                ></div>
+              </div>
+
+              <div class="info-block">
+                <div class="info-block-header">Pending:</div>
+                <div
+                  class="pending-block"
+                  [innerHTML]="resourceValueFormatter(seletedInfo?.pendingResource)"
+                ></div>
+              </div>
+
+              <div class="info-block">
+                <div class="info-block-header">Max:</div>
+                <div
+                  class="max-block"
+                  [innerHTML]="resourceValueFormatter(seletedInfo?.maxResource)"
+                ></div>
+              </div>
+
+              <div class="info-block">
+                <div class="info-block-header">Guaranteed:</div>
+                <div
+                  class="guaranteed-block"
+                  [innerHTML]="resourceValueFormatter(seletedInfo?.guaranteedResource)"
+                ></div>
+              </div>
+
+              <div class="info-block">
+                <div class="info-block-header">Absolute Used Capacity:</div>
+                <div class="capacity-block">
+                  <div class="capacity-icon">
+                    <!-- SVG for CpuIcon -->
+                    <svg
+                      xmlns="http://www.w3.org/2000/svg"
+                      width="24"
+                      height="24"
+                      viewBox="0 0 24 24"
+                      fill="none"
+                      stroke="#2196F3"
+                      strokeWidth="2"
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                    >
+                      <rect width="16" height="16" x="4" y="4" rx="2" />
+                      <rect width="6" height="6" x="9" y="9" rx="1" />
+                      <path d="M15 2v2" />
+                      <path d="M15 20v2" />
+                      <path d="M2 15h2" />
+                      <path d="M2 9h2" />
+                      <path d="M20 15h2" />
+                      <path d="M20 9h2" />
+                      <path d="M9 2v2" />
+                      <path d="M9 20v2" />
+                    </svg>
+                    <div
+                      [innerHTML]="memoryValueFormatter(seletedInfo?.absoluteUsedCapacity)"
+                    ></div>
                   </div>
-                </div>
-
-                <div class="info-block">
-                  <div class="info-block-header">Pending:</div>
-                  <div 
-                    class="pending-block"
-                    [innerHTML]="resourceValueFormatter(seletedInfo?.pendingResource)">
-                  </div>
-                </div>
-
-                <div class="info-block">
-                  <div class="info-block-header">Max:</div>
-                  <div 
-                    class="max-block"
-                    [innerHTML]="resourceValueFormatter(seletedInfo?.maxResource)">
-                  </div>
-                </div>
-
-                <div class="info-block">
-                  <div class="info-block-header">Guaranteed:</div>
-                  <div 
-                    class="guaranteed-block"
-                    [innerHTML]="resourceValueFormatter(seletedInfo?.guaranteedResource)">
-                  </div>
-                </div>
-
-                <div class="info-block">
-                  <div class="info-block-header">Absolute Used Capacity:</div>
-                  <div class="capacity-block">
-                      <div class="capacity-icon">
-                          <!-- SVG for CpuIcon -->
-                          <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#2196F3" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-                              <rect width="16" height="16" x="4" y="4" rx="2" />
-                              <rect width="6" height="6" x="9" y="9" rx="1" />
-                              <path d="M15 2v2" />
-                              <path d="M15 20v2" />
-                              <path d="M2 15h2" />
-                              <path d="M2 9h2" />
-                              <path d="M20 15h2" />
-                              <path d="M20 9h2" />
-                              <path d="M9 2v2" />
-                              <path d="M9 20v2" />
-                          </svg>
-                          <div [innerHTML]="memoryValueFormatter(seletedInfo?.absoluteUsedCapacity)"></div>
-                      </div>
-                      <div class="capacity-icon">
-                          <!-- SVG for MemoryStickIcon -->
-                          <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#4CAF50" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-                              <path d="M6 19v-3" />
-                              <path d="M10 19v-3" />
-                              <path d="M14 19v-3" />
-                              <path d="M18 19v-3" />
-                              <path d="M8 11V9" />
-                              <path d="M16 11V9" />
-                              <path d="M12 11V9" />
-                              <path d="M2 15h20" />
-                              <path d="M2 7a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2v1.1a2 2 0 0 0 0 3.837V17a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2v-5.1a2 2 0 0 0 0-3.837Z" />
-                          </svg>
-                          <div [innerHTML]="cpuValueFormatter(seletedInfo?.absoluteUsedCapacity)"></div>
-                      </div>
+                  <div class="capacity-icon">
+                    <!-- SVG for MemoryStickIcon -->
+                    <svg
+                      xmlns="http://www.w3.org/2000/svg"
+                      width="24"
+                      height="24"
+                      viewBox="0 0 24 24"
+                      fill="none"
+                      stroke="#4CAF50"
+                      strokeWidth="2"
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                    >
+                      <path d="M6 19v-3" />
+                      <path d="M10 19v-3" />
+                      <path d="M14 19v-3" />
+                      <path d="M18 19v-3" />
+                      <path d="M8 11V9" />
+                      <path d="M16 11V9" />
+                      <path d="M12 11V9" />
+                      <path d="M2 15h20" />
+                      <path
+                        d="M2 7a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2v1.1a2 2 0 0 0 0 3.837V17a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2v-5.1a2 2 0 0 0 0-3.837Z"
+                      />
+                    </svg>
+                    <div [innerHTML]="cpuValueFormatter(seletedInfo?.absoluteUsedCapacity)"></div>
                   </div>
                 </div>
               </div>
@@ -134,3 +182,4 @@
       </div>
     </div>
   </div>
+</div>
