@@ -132,7 +132,7 @@ PNPM_VERSION=9.15.6
 PNPM_BIN=$(TOOLS_DIR)/bin/pnpm
 
 # @angular/cli
-ANGULAR_CLI_VERSION=20.3.14
+ANGULAR_CLI_VERSION=20.3.12
 NG_BIN=$(TOOLS_DIR)/bin/ng
 
 WEB_SHA=$(shell git rev-parse --short=12 HEAD)
