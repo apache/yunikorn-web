@@ -154,6 +154,9 @@ export class VerticalBarChartComponent implements OnInit, AfterViewInit, OnChang
                 let datasetIndex = context[0].datasetIndex;
                 let dataIndex = context[0].dataIndex;
                 let nodeCount = context[0].parsed.y;
+                if (nodeCount === null || nodeCount === undefined) {
+                  return barChartDataSets[datasetIndex].description[dataIndex];
+                }
                 let unit = nodeCount > 1 ? 'nodes' : 'node';
                 return (
                   'Total: ' +
