@@ -277,8 +277,8 @@ image: $(RELEASE_BIN_DIR)/$(SERVER_BINARY)
 	--label "org.opencontainers.image.revision=$(WEB_SHA)" \
 	--label "org.opencontainers.image.license=${LICENSE}" \
 	--label "org.opencontainers.image.documentation=${DOCS_URL}" \
-	--build-arg= NODE_VERSION=${NODE_VERSION} \
-	--build-arg=PNPM_VERSION=${PNPM_VERSION} \
+	--build-arg NODE_VERSION=${NODE_VERSION} \
+	--build-arg PNPM_VERSION=${PNPM_VERSION} \
 	${QUIET}
 
 .PHONY: build_server_dev
