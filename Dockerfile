@@ -15,7 +15,7 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-ARG NODE_VERSION=20
+ARG NODE_VERSION=20.20
 # Buildstage: use the local architecture
 FROM --platform=$BUILDPLATFORM node:${NODE_VERSION}-alpine AS buildstage
 
@@ -23,8 +23,9 @@ WORKDIR /work
 # Only copy what is needed for the build
 COPY *.json *.js *.yaml .browserslistrc /work/
 COPY src /work/src/
-
-RUN npm install -g pnpm@9
+# must be deeclared here
+ARG PNPM_VERSION=10.28.0
+RUN npm install -g pnpm@$PNPM_VERSION
 RUN PUPPETEER_SKIP_CHROMIUM_DOWNLOAD=1 pnpm i
 RUN pnpm build:prod
 
