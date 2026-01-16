@@ -49,7 +49,7 @@
     "angular-material-expansion-panel": "^0.7.2",
     "chart.js": "^4.5.1",
     "chartjs-adapter-date-fns": "^3.0.0",
-    "color": "^4.2.3",
+    "color": "^5.0.3",
     "d3-flextree": "^2.1.2",
     "d3-hierarchy": "^3.1.2",
     "d3-selection": "^3.0.0",
@@ -88,8 +88,8 @@
     "typescript": "5.8.3"
   },
   "engines": {
-    "node": "20",
-    "pnpm": "9"
+    "node": ">=20.20.0",
+    "pnpm": "10.x"
   },
-  "packageManager": "pnpm@9"
+  "packageManager": "pnpm@10.28.0"
 }

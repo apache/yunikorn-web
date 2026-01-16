@@ -127,12 +127,17 @@ GOLANGCI_LINT_BIN=$(TOOLS_DIR)/golangci-lint
 GOLANGCI_LINT_ARCHIVE=golangci-lint-$(GOLANGCI_LINT_VERSION)-$(OS)-$(EXEC_ARCH).tar.gz
 GOLANGCI_LINT_ARCHIVEBASE=golangci-lint-$(GOLANGCI_LINT_VERSION)-$(OS)-$(EXEC_ARCH)
 
+# npm selection
+ifeq ($(NPM),)
+NPM := npm
+endif
+
 # pnpm
-PNPM_VERSION=9.15.6
+PNPM_VERSION=10.28.0
 PNPM_BIN=$(TOOLS_DIR)/bin/pnpm
 
 # @angular/cli
-ANGULAR_CLI_VERSION=20.3.12
+ANGULAR_CLI_VERSION=20.3.14
 NG_BIN=$(TOOLS_DIR)/bin/ng
 
 WEB_SHA=$(shell git rev-parse --short=12 HEAD)
@@ -158,7 +163,7 @@ $(PNPM_BIN):
 	@echo "install pnpm v$(PNPM_VERSION)"
 	@mkdir -p "$(TOOLS_DIR)"
 	@cd "$(TOOLS_DIR)"
-	@npm install --prefix "$(TOOLS_DIR)" -g pnpm@$(PNPM_VERSION)
+	@"$(NPM)" install --prefix "$(TOOLS_DIR)" -g pnpm@$(PNPM_VERSION)
 	@cd $(BASE_DIR)
 
 # Install @angular/cli
@@ -166,7 +171,7 @@ $(NG_BIN):
 	@echo "install @angular/cli v$(ANGULAR_CLI_VERSION)"
 	@mkdir -p "$(TOOLS_DIR)"
 	@cd "$(TOOLS_DIR)"
-	@npm install --prefix "$(TOOLS_DIR)" -g @angular/cli@$(ANGULAR_CLI_VERSION)
+	@"$(NPM)" install --prefix "$(TOOLS_DIR)" -g @angular/cli@$(ANGULAR_CLI_VERSION)
 	@cd $(BASE_DIR)
 
 # Install golangci-lint
@@ -273,6 +278,7 @@ image: $(RELEASE_BIN_DIR)/$(SERVER_BINARY)
 	--label "org.opencontainers.image.license=${LICENSE}" \
 	--label "org.opencontainers.image.documentation=${DOCS_URL}" \
 	--build-arg NODE_VERSION=${NODE_VERSION} \
+	--build-arg PNPM_VERSION=${PNPM_VERSION} \
 	${QUIET}
 
 .PHONY: build_server_dev
