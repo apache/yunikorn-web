@@ -25,7 +25,8 @@
           "builder": "@angular/build:application",
           "options": {
             "outputPath": {
-              "base": "dist/yunikorn-web"
+              "base": "dist/yunikorn-web",
+              "browser": ""
             },
             "index": "src/index.html",
             "polyfills": [
