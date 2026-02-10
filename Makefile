@@ -187,9 +187,6 @@ $(GOLANGCI_LINT_BIN):
 .PHONY: lint
 lint: $(GOLANGCI_LINT_BIN)
 	@echo "running golangci-lint"
-	@git symbolic-ref -q HEAD && REV="origin/HEAD" || REV="HEAD^" ; \
-	headSHA=$$(git rev-parse --short=12 $${REV}) ; \
-	echo "checking against commit sha $${headSHA}" ; \
 	"$(GOLANGCI_LINT_BIN)" run
 
 .PHONY: license-check
@@ -201,9 +198,9 @@ OS := $(shell uname -s | tr '[:upper:]' '[:lower:]')
 license-check:
 	@echo "checking license headers:"
 ifeq (darwin,$(OS))
-	$(shell mkdir -p "$(OUTPUT)" && find -E . -not \( -path './.git*' -prune \) -not \( -path ./coverage -prune \) -not \( -path ./node_modules -prune \) -not \( -path ./build -prune \) -not \( -path ./tools -prune \) -not -path ./pnpm-lock.yaml -regex ".*\.(go|sh|md|conf|yaml|yml|html|mod)" -exec grep -L "Licensed to the Apache Software Foundation" {} \; > "$(OUTPUT)/license-check.txt")
+	$(shell mkdir -p "$(OUTPUT)" && find -E . -not \( -path './.git*' -prune \) -not \( -path ./coverage -prune \) -not \( -path ./node_modules -prune \) -not \( -path ./build -prune \) -not \( -path ./tools -prune \) -not -path ./pnpm-*.yaml -regex ".*\.(go|sh|md|conf|yaml|yml|html|mod)" -exec grep -L "Licensed to the Apache Software Foundation" {} \; > "$(OUTPUT)/license-check.txt")
 else
-	$(shell mkdir -p "$(OUTPUT)" && find . -not \( -path './.git*' -prune \) -not \( -path ./coverage -prune \) -not \( -path ./node_modules -prune \) -not \( -path ./build -prune \) -not \( -path ./tools -prune \) -not -path ./pnpm-lock.yaml -regex ".*\.\(go\|sh\|md\|conf\|yaml\|yml\|html\|mod\)" -exec grep -L "Licensed to the Apache Software Foundation" {} \; > "$(OUTPUT)/license-check.txt")
+	$(shell mkdir -p "$(OUTPUT)" && find . -not \( -path './.git*' -prune \) -not \( -path ./coverage -prune \) -not \( -path ./node_modules -prune \) -not \( -path ./build -prune \) -not \( -path ./tools -prune \) -not -path ./pnpm-*.yaml -regex ".*\.\(go\|sh\|md\|conf\|yaml\|yml\|html\|mod\)" -exec grep -L "Licensed to the Apache Software Foundation" {} \; > "$(OUTPUT)/license-check.txt")
 endif
 	@if [ -s "$(OUTPUT)/license-check.txt" ]; then \
 		echo "following files are missing license header:" ; \
