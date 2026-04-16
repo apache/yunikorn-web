@@ -387,7 +387,7 @@ export class AppsViewComponent implements OnInit {
   }
 
   openQueueSelection() {
-    this.queueSelect.open();
+    this.queueSelect?.open();
   }
 
   toggle() {
