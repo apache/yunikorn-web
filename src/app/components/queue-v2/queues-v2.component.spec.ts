@@ -16,7 +16,7 @@
  * limitations under the License.
  */
 
-import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
+import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { QueueV2Component } from './queues-v2.component';
 import { SchedulerService } from '@app/services/scheduler/scheduler.service';
 import { NgxSpinnerService } from 'ngx-spinner';
@@ -37,14 +37,19 @@ class MockNgxSpinnerService {
   hide() {}
 }
 
+// jsdom does not implement SVGElement.getBBox; stub it for D3 rendering.
+if (typeof SVGElement !== 'undefined' && !(SVGElement.prototype as any).getBBox) {
+  (SVGElement.prototype as any).getBBox = () => ({ x: 0, y: 0, width: 0, height: 0 });
+}
+
 describe('QueueV2Component', () => {
   let component: QueueV2Component;
   let fixture: ComponentFixture<QueueV2Component>;
   let schedulerService: SchedulerService;
   let spinnerService: NgxSpinnerService;
 
-  beforeEach(waitForAsync(() => {
-    TestBed.configureTestingModule({
+  beforeEach(async () => {
+    await TestBed.configureTestingModule({
       declarations: [QueueV2Component],
       providers: [
         { provide: SchedulerService, useClass: MockSchedulerService },
@@ -52,7 +57,7 @@ describe('QueueV2Component', () => {
       ],
       imports: [RouterTestingModule],
     }).compileComponents();
-  }));
+  });
 
   beforeEach(() => {
     fixture = TestBed.createComponent(QueueV2Component);
@@ -68,9 +73,9 @@ describe('QueueV2Component', () => {
 
   describe('fetchSchedulerQueuesForPartition', () => {
     it('should call SchedulerService and NgxSpinnerService methods', () => {
-      const schedulerSpy = spyOn(schedulerService, 'fetchSchedulerQueues').and.callThrough();
-      const spinnerShowSpy = spyOn(spinnerService, 'show').and.callThrough();
-      const spinnerHideSpy = spyOn(spinnerService, 'hide').and.callThrough();
+      const schedulerSpy = vi.spyOn(schedulerService, 'fetchSchedulerQueues');
+      const spinnerShowSpy = vi.spyOn(spinnerService, 'show');
+      const spinnerHideSpy = vi.spyOn(spinnerService, 'hide');
 
       component.fetchSchedulerQueuesForPartition();
 

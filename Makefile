@@ -157,7 +157,6 @@ tools: $(PNPM_BIN) $(NG_BIN) $(GOLANGCI_LINT_BIN)
 .PHONY: deps
 deps: tools
 	$(PNPM_BIN) i
-	$(PNPM_BIN) dlx puppeteer browsers install
 
 # Install pnpm
 $(PNPM_BIN):

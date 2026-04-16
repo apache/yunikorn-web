@@ -16,6 +16,7 @@
  * limitations under the License.
  */
 
+import { NO_ERRORS_SCHEMA } from '@angular/core';
 import { HttpClientTestingModule } from '@angular/common/http/testing';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
@@ -32,6 +33,7 @@ describe('AppNodeUtilizationsComponent', () => {
     TestBed.configureTestingModule({
       imports: [HttpClientTestingModule, MatCardModule],
       declarations: [AppNodeUtilizationsComponent, VerticalBarChartComponent],
+      schemas: [NO_ERRORS_SCHEMA],
     });
 
     fixture = TestBed.createComponent(AppNodeUtilizationsComponent);

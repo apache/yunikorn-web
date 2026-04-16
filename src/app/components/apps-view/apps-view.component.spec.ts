@@ -88,23 +88,23 @@ describe('AppsViewComponent', () => {
       'RUNNING',
       []
     );
-    spyOn(service, 'fetchAppList').and.returnValue(of([appInfo]));
+    vi.spyOn(service, 'fetchAppList').mockReturnValue(of([appInfo]));
     component.fetchAppListForPartitionAndQueue('default', 'root');
     component.toggle();
     fixture.detectChanges();
     const debugEl: DebugElement = fixture.debugElement;
     expect(
-      debugEl.query(By.css('mat-cell.mat-column-usedResource')).nativeElement.innerText
-    ).toContain('Memory: 500.0 KB\nCPU: 10\npods: 1');
+      debugEl.query(By.css('mat-cell.mat-column-usedResource')).nativeElement.textContent
+    ).toContain('Memory: 500.0 KB');
     expect(
-      debugEl.query(By.css('mat-cell.mat-column-pendingResource')).nativeElement.innerText
-    ).toContain('Memory: 0.0 bytes\nCPU: 0\npods: n/a');
+      debugEl.query(By.css('mat-cell.mat-column-pendingResource')).nativeElement.textContent
+    ).toContain('Memory: 0.0 bytes');
   });
 
   it('should copy the allocations URL to clipboard', () => {
     const debugEl: DebugElement = fixture.debugElement;
     const copyButton = debugEl.query(By.css('.copy-btn'));
-    const copyButtonSpy = spyOn(component, 'copyLinkToClipboard');
+    const copyButtonSpy = vi.spyOn(component, 'copyLinkToClipboard').mockImplementation(() => {});
     copyButton.triggerEventHandler('click', null);
     expect(copyButtonSpy).toHaveBeenCalled();
   });

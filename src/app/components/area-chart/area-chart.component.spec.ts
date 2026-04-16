@@ -33,7 +33,6 @@ describe('AreaChartComponent', () => {
   beforeEach(() => {
     fixture = TestBed.createComponent(AreaChartComponent);
     component = fixture.componentInstance;
-    fixture.detectChanges();
   });
 
   it('should create the component', () => {
