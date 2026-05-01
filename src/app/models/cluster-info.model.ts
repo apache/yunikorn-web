@@ -27,6 +27,5 @@ export interface ClusterInfo {
 export interface BuildInfo {
   buildDate: string;
   buildVersion: string;
-  isPluginVersion: string;
   rmId: string;
 }

@@ -155,7 +155,6 @@ export class DashboardComponent implements OnInit {
     return {
       buildDate: NOT_AVAILABLE,
       buildVersion: NOT_AVAILABLE,
-      isPluginVersion: NOT_AVAILABLE,
       rmId: NOT_AVAILABLE,
     };
   }
