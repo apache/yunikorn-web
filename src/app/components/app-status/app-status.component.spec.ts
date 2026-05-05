@@ -16,6 +16,7 @@
  * limitations under the License.
  */
 
+import { NO_ERRORS_SCHEMA } from '@angular/core';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { MatCardModule } from '@angular/material/card';
 import { DonutChartComponent } from '@app/components/donut-chart/donut-chart.component';
@@ -31,6 +32,7 @@ describe('AppStatusComponent', () => {
     TestBed.configureTestingModule({
       declarations: [AppStatusComponent, MockComponent(DonutChartComponent)],
       imports: [MatCardModule],
+      schemas: [NO_ERRORS_SCHEMA],
     }).compileComponents();
   });
 

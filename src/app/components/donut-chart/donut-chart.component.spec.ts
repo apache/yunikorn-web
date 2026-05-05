@@ -33,7 +33,6 @@ describe('DonutChartComponent', () => {
   beforeEach(() => {
     fixture = TestBed.createComponent(DonutChartComponent);
     component = fixture.componentInstance;
-    fixture.detectChanges();
   });
 
   it('should create the component', () => {

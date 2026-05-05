@@ -16,7 +16,7 @@
  * limitations under the License.
  */
 
-import { NgModule, CUSTOM_ELEMENTS_SCHEMA, inject, provideAppInitializer } from '@angular/core';
+import { NgModule, CUSTOM_ELEMENTS_SCHEMA, inject, provideAppInitializer, provideZoneChangeDetection } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
@@ -115,6 +115,7 @@ import { CardComponent } from './components/card/card.component';
     MatDialogModule,
   ],
   providers: [
+    provideZoneChangeDetection({ eventCoalescing: true }),
     provideAppInitializer(() => {
       const initializerFn = envConfigFactory(inject(EnvconfigService));
       return initializerFn();

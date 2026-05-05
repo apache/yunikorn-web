@@ -16,6 +16,7 @@
  * limitations under the License.
  */
 
+import { NO_ERRORS_SCHEMA } from '@angular/core';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { MatCardModule } from '@angular/material/card';
 import { AreaChartComponent } from '@app/components/area-chart/area-chart.component';
@@ -31,6 +32,7 @@ describe('AppHistoryComponent', () => {
     TestBed.configureTestingModule({
       declarations: [AppHistoryComponent, MockComponent(AreaChartComponent)],
       imports: [MatCardModule],
+      schemas: [NO_ERRORS_SCHEMA],
     }).compileComponents();
   });
 

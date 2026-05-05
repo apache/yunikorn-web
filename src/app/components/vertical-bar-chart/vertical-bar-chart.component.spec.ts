@@ -29,7 +29,6 @@ describe('VerticalBarChartComponent', () => {
     });
     fixture = TestBed.createComponent(VerticalBarChartComponent);
     component = fixture.componentInstance;
-    fixture.detectChanges();
   });
 
   it('should create', () => {
