@@ -1,6 +1,18 @@
 {
   "name": "yunikorn-web",
   "version": "0.0.0",
+  "private": true,
+  "engines": {
+    "node": ">=20.20.0",
+    "pnpm": "^11.5"
+  },
+  "devEngines": {
+    "packageManager": {
+      "name": "pnpm",
+      "version": ">=11.0.0 <12.0.0",
+      "onFail": "download"
+    }
+  },
   "scripts": {
     "preinstall": "npx only-allow pnpm",
     "ng": "ng",
@@ -15,7 +27,6 @@
     "test:coverage": "ng test --coverage --watch=false",
     "prettify": "prettier --config ./.prettierrc --write 'src/**/*.{js,ts,json,css,scss,md,html}'"
   },
-  "private": true,
   "husky": {
     "hooks": {
       "pre-commit": "lint-staged"
@@ -78,21 +89,5 @@
     "prettier": "^3.7.4",
     "typescript": "~5.9.2",
     "vitest": "^4.1.4"
-  },
-  "engines": {
-    "node": ">=20.20.0",
-    "pnpm": "10.x"
-  },
-  "packageManager": "pnpm@10.28.2",
-  "pnpm": {
-    "overrides": {
-      "json-server@0.17.4>qs": "6.14.2",
-      "fast-uri@<=3.1.1": "3.1.2",
-      "lodash@>=4.0.0 <=4.18.0": "4.18.1",
-      "hono@<4.12.18": "4.12.18",
-      "postcss@<8.5.10": "8.5.10",
-      "picomatch@>=4.0.0 <4.0.4": "4.0.4",
-      "picomatch@< 2.3.2": "2.3.2"
-    }
   }
 }

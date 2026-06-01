@@ -133,11 +133,11 @@ NPM := npm
 endif
 
 # pnpm
-PNPM_VERSION=10.28.2
+PNPM_VERSION=11.5
 PNPM_BIN=$(TOOLS_DIR)/bin/pnpm
 
 # @angular/cli
-ANGULAR_CLI_VERSION=20.3.20
+ANGULAR_CLI_VERSION=21.2.0
 NG_BIN=$(TOOLS_DIR)/bin/ng
 
 WEB_SHA=$(shell git rev-parse --short=12 HEAD)
