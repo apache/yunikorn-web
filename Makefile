@@ -16,6 +16,11 @@
 # limitations under the License.
 #
 
+.PHONY: test test_go test_js_coverage test_js
+.PHONY: license-check lint
+.PHONY: build start-dev build_server_dev json-server clean distclean
+.PHONY: tools deps run build-prod build_server_prod image
+
 # Check if this GO tools version used is at least the version of go specified in
 # the go.mod file. The version in go.mod should be in sync with other repos.
 
@@ -50,7 +55,7 @@ RELEASE_BIN_DIR=${OUTPUT}/prod
 SERVER_BINARY=yunikorn-web
 REPO=github.com/apache/yunikorn-web/pkg
 
-IMAGE_SOURCE?=https://github.com/apache/yunikorn-k8shim
+IMAGE_SOURCE?=https://github.com/apache/yunikorn-web
 IMAGE_URL?=https://hub.docker.com/r/apache/yunikorn
 LICENSE=Apache-2.0
 DOCS_URL=https://yunikorn.apache.org
@@ -124,8 +129,8 @@ endif
 # golangci-lint
 GOLANGCI_LINT_VERSION=2.10.1
 GOLANGCI_LINT_BIN=$(TOOLS_DIR)/golangci-lint
-GOLANGCI_LINT_ARCHIVE=golangci-lint-$(GOLANGCI_LINT_VERSION)-$(OS)-$(EXEC_ARCH).tar.gz
 GOLANGCI_LINT_ARCHIVEBASE=golangci-lint-$(GOLANGCI_LINT_VERSION)-$(OS)-$(EXEC_ARCH)
+GOLANGCI_LINT_ARCHIVE=$(GOLANGCI_LINT_ARCHIVEBASE).tar.gz
 
 # npm selection
 ifeq ($(NPM),)
@@ -150,11 +155,9 @@ all:
 	$(MAKE) -C $(dir $(BASE_DIR)) build
 
 # Install tools
-.PHONY: tools
 tools: $(PNPM_BIN) $(NG_BIN) $(GOLANGCI_LINT_BIN)
 
 # Install deps
-.PHONY: deps
 deps: tools
 	$(PNPM_BIN) i
 
@@ -183,12 +186,10 @@ $(GOLANGCI_LINT_BIN):
 
 # Run lint against the previous commit for PR and branch build
 # In dev setup look at all changes on top of master
-.PHONY: lint
 lint: $(GOLANGCI_LINT_BIN)
 	@echo "running golangci-lint"
 	"$(GOLANGCI_LINT_BIN)" run
 
-.PHONY: license-check
 # This is a bit convoluted but using a recursive grep on linux fails to write anything when run
 # from the Makefile. That caused the pull-request license check run from the github action to
 # always pass. The syntax for find is slightly different too but that at least works in a similar
@@ -209,26 +210,21 @@ endif
 	@echo "  all OK"
 
 # Start web interface in a local dev setup
-.PHONY: start-dev
 start-dev: deps
 	$(PNPM_BIN) start:srv & $(PNPM_BIN) start
 
 # Build the web interface for dev and test
-.PHONY: build
 build: deps
 	$(PNPM_BIN) ng build
 
 # Run JS unit tests
-.PHONY: test_js
 test_js: deps
 	$(PNPM_BIN) test:singleRun
 
-.PHONY: test_js_coverage
 test_js_coverage: deps
 	$(PNPM_BIN) test:coverage
 
 # Run Go unit tests
-.PHONY: test_go
 test_go:
 	@mkdir -p "$(OUTPUT)"
 	"$(GO)" clean -testcache
@@ -236,26 +232,21 @@ test_go:
 	"$(GO)" vet $(REPO)...
 
 # Run the tests after building
-.PHONY: test
 test: test_js test_go
 
 # Build the web interface in a production ready version
-.PHONY: build-prod
 build-prod: deps
 	$(PNPM_BIN) build:prod
 
 # Simple clean of generated files only (no local cleanup).
-.PHONY: clean
 clean:
 	@rm -rf ./dist ./coverage ./node_modules ./build ./bin ./out ./out-tsc ./coverage.txt
 
 # Remove all dist files
-.PHONY: distclean
 distclean: clean
 	@rm -rf ./tools
 
 # Build an image based on the production ready version
-.PHONY: image
 NODE_VERSION := $(shell cat .nvmrc)
 image: $(RELEASE_BIN_DIR)/$(SERVER_BINARY)
 	@echo "Building web UI docker image"
@@ -278,7 +269,6 @@ image: $(RELEASE_BIN_DIR)/$(SERVER_BINARY)
 	--build-arg PNPM_VERSION=${PNPM_VERSION} \
 	${QUIET}
 
-.PHONY: build_server_dev
 build_server_dev: $(DEV_BIN_DIR)/$(SERVER_BINARY)
 
 $(DEV_BIN_DIR)/$(SERVER_BINARY): go.mod go.sum $(shell find pkg)
@@ -288,7 +278,6 @@ $(DEV_BIN_DIR)/$(SERVER_BINARY): go.mod go.sum $(shell find pkg)
 	'-buildid= -X main.version=${VERSION} -X main.date=${DATE}' \
 	./pkg/cmd/web/
 
-.PHONY: build_server_prod
 build_server_prod: $(RELEASE_BIN_DIR)/$(SERVER_BINARY)
 
 $(RELEASE_BIN_DIR)/$(SERVER_BINARY): go.mod go.sum $(shell find pkg)
@@ -310,11 +299,9 @@ else
 endif
 
 # Run the web interface from the production image
-.PHONY: run
 run: image
 	docker run -d -p ${PORT}:9889 "$(WEB_TAG)"
 
 # Start the json-server based on the json-db and route.
-.PHONY: json-server
 json-server: deps
 	$(PNPM_BIN) json-server ./json-db.json
