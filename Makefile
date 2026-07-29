@@ -138,7 +138,7 @@ NPM := npm
 endif
 
 # pnpm
-PNPM_VERSION=11.5
+PNPM_VERSION=11.17
 PNPM_BIN=$(TOOLS_DIR)/bin/pnpm
 
 # @angular/cli
