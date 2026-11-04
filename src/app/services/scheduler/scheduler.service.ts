@@ -335,6 +335,9 @@ export class SchedulerService {
     queue.pendingResource = this.formatResource(pendingResource);
     queue.absoluteUsedCapacity = this.formatPercent(absUsedCapacity);
     queue.absoluteUsedPercent = this.absUsagePercent(absUsedCapacity);
+    // the core leaves out both fields when the value is 0, a max of 0 means no limit is set
+    queue.MaxRunningApps = data['maxRunningApps'] || NOT_AVAILABLE;
+    queue.RunningApps = data['runningApps'] || 0;
   }
 
   private fillQueuePropertiesAndTemplate(data: any, queue: QueueInfo) {

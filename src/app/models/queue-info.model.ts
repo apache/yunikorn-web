@@ -34,7 +34,7 @@ export class QueueInfo {
   isManaged: boolean = false;
   isExpanded: boolean = false;
   isSelected: boolean = false;
-  MaxRunningApps: number = 0;
+  MaxRunningApps: number | string = 0;
   RunningApps: number = 0;
 }
 
