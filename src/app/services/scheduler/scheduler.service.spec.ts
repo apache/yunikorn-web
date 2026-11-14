@@ -16,12 +16,13 @@
  * limitations under the License.
  */
 
-import { HttpClientTestingModule } from '@angular/common/http/testing';
+import { HttpClientTestingModule, HttpTestingController } from '@angular/common/http/testing';
 import { TestBed } from '@angular/core/testing';
 import { EnvconfigService } from '@app/services/envconfig/envconfig.service';
 import { MockEnvconfigService } from '@app/testing/mocks';
 
 import { SchedulerService } from './scheduler.service';
+import { QueueInfo } from '@app/models/queue-info.model';
 import { SchedulerResourceInfo } from '@app/models/resource-info.model';
 import { NOT_AVAILABLE } from '@app/utils/constants';
 
@@ -144,5 +145,33 @@ describe('SchedulerService', () => {
       const result = (service as any).formatPercent(testCase.schedulerResourceInfo); // ignore type typecheck to access private method
       expect(result).toEqual(testCase.expected);
     });
+  });
+
+  it('should read the running application counts of the root and child queues', () => {
+    const httpMock = TestBed.inject(HttpTestingController);
+    let rootQueue: QueueInfo | undefined;
+
+    service.fetchSchedulerQueues('default').subscribe((result) => (rootQueue = result.rootQueue));
+
+    // the core leaves out both fields when the value is 0
+    httpMock
+      .expectOne((req) => req.url.endsWith('/ws/v1/partition/default/queues'))
+      .flush({
+        queuename: 'root',
+        maxRunningApps: 10,
+        runningApps: 5,
+        children: [
+          { queuename: 'root.limited', maxRunningApps: 3, runningApps: 2 },
+          { queuename: 'root.unset' },
+        ],
+      });
+
+    expect(rootQueue?.MaxRunningApps).toEqual(10);
+    expect(rootQueue?.RunningApps).toEqual(5);
+    expect(rootQueue?.children?.[0].MaxRunningApps).toEqual(3);
+    expect(rootQueue?.children?.[0].RunningApps).toEqual(2);
+    expect(rootQueue?.children?.[1].MaxRunningApps).toEqual(NOT_AVAILABLE);
+    expect(rootQueue?.children?.[1].RunningApps).toEqual(0);
+    httpMock.verify();
   });
 });
