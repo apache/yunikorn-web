@@ -15,7 +15,7 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-ARG NODE_VERSION=24.16
+ARG NODE_VERSION=24.22.3
 # Buildstage: use the local architecture
 FROM --platform=$BUILDPLATFORM docker.io/library/node:${NODE_VERSION}-alpine AS buildstage
 
